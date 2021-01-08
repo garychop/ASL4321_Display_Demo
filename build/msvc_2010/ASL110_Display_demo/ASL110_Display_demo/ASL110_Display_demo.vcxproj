@@ -84,14 +84,35 @@
     <ClCompile Include="..\..\..\..\ASL4321_Display_Demo_resources.c" />
     <ClCompile Include="..\..\..\..\ASL4321_Display_Demo_specifications.c" />
     <ClCompile Include="..\..\..\..\ASL4321_Simulator_Main.c" />
-    <ClCompile Include="..\..\..\..\DiagnosticScreenHandler.cpp" />
+    <ClCompile Include="..\..\..\..\custom_checkbox.c" />
+    <ClCompile Include="..\..\..\..\DiagnosticScreen.c" />
+    <ClCompile Include="..\..\..\..\FeatureSettingScreen.c" />
+    <ClCompile Include="..\..\..\..\HHP_StartScreen.c" />
     <ClCompile Include="..\..\..\..\MainUserScreen_1.c" />
     <ClCompile Include="..\..\..\..\MainUserScreen_3.c" />
+    <ClCompile Include="..\..\..\..\MinimumDriveScreen.c" />
+    <ClCompile Include="..\..\..\..\MoreSelectionScreen.c" />
+    <ClCompile Include="..\..\..\..\OutOfNeutralScreen.c" />
+    <ClCompile Include="..\..\..\..\PadCalibrationScreen.c" />
+    <ClCompile Include="..\..\..\..\PadDirectionScreen.c" />
+    <ClCompile Include="..\..\..\..\PadOptionsSettingScreen.c" />
+    <ClCompile Include="..\..\..\..\PerformanceSelectionScreen.c" />
+    <ClCompile Include="..\..\..\..\ResetScreen.c" />
+    <ClCompile Include="..\..\..\..\SetPadTypeScreen.c" />
+    <ClCompile Include="..\..\..\..\StartupScreen.c" />
+    <ClCompile Include="..\..\..\..\UserMainScreen.c" />
+    <ClCompile Include="..\..\..\..\UserSelectionScreen.c" />
+    <ClCompile Include="..\..\..\..\UserSettingsScreen.c" />
+    <ClCompile Include="..\..\..\..\VeerAdjustScreen.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\ASL4321_Display_Demo_resources.h" />
     <ClInclude Include="..\..\..\..\ASL4321_Display_Demo_specifications.h" />
     <ClInclude Include="..\..\..\..\ASL4321_Simulator_Main.h" />
+    <ClInclude Include="..\..\..\..\ASL4321_System.h" />
+    <ClInclude Include="..\..\..\..\custom_checkbox.h" />
+    <ClInclude Include="..\..\..\..\PadInfo.h" />
+    <ClInclude Include="..\..\..\..\UserMainScreen.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

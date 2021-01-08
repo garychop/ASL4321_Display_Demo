@@ -11,6 +11,8 @@ int g_FunctionIcon[][2] =
 	{GX_PIXELMAP_ID_POWERICON_30X30, GX_PIXELMAP_ID_POWERICON_LARGE}
 };
 
+typedef enum ENUM_TIMER_IDS {ARROW_PUSHED_TIMER_ID = 1, CALIBRATION_TIMER_ID, PAD_ACTIVE_TIMER_ID} ENUM_TIMER_IDS_ENUM;
+
 //-----------------------------------------------------------------------------
 //-----------------------------------------------------------------------------
 
@@ -104,6 +106,25 @@ UINT MainUserScreen_1_EventFunction (GX_WINDOW *window, GX_EVENT *event_ptr)
 	case GX_SIGNAL (RIGHT_PAD_RIGHT_ARROW_BTN_ID, GX_EVENT_CLICKED):
 		break;
 
+	case GX_EVENT_PEN_DOWN:	// We are going to determine if the PAD button is pressed and start a timer to increment the 
+							// ... long time (2 seconds) and goto Programming if so.
+		if ( (event_ptr->gx_event_target->gx_widget_name == "DownArrowButton") || (event_ptr->gx_event_target->gx_widget_name == "UpArrowButton"))
+		{
+			gx_system_timer_start(window, ARROW_PUSHED_TIMER_ID, 100, 0);
+			//myErr = gx_slider_value_set((GX_SLIDER*)&PadCalibrationScreen.PadCalibrationScreen_PadValue_Slider, &PadCalibrationScreen.PadCalibrationScreen_PadValue_Slider.gx_slider_info, g_PadValue);
+		}
+		break;
+    case GX_EVENT_TIMER:
+        if (event_ptr->gx_event_payload.gx_event_timer_id == ARROW_PUSHED_TIMER_ID)
+		{
+	        screen_toggle((GX_WINDOW *)&HHP_Start_Screen, window);
+		}
+		break;
+	case GX_EVENT_PEN_UP:
+		{
+			gx_system_timer_stop(window, ARROW_PUSHED_TIMER_ID);
+		}
+		break;
 	case GX_SIGNAL (USER_PORT_BUTTON_ID, GX_EVENT_CLICKED):
 		if (++g_ActiveFunction > 4)
 			g_ActiveFunction = 0;

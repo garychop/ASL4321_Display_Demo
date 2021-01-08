@@ -6,7 +6,7 @@
 /*  site at www.expresslogic.com.                                              */
 /*                                                                             */
 /*  GUIX Studio Revision 5.4.2.9                                               */
-/*  Date (dd.mm.yyyy):  8. 1.2021   Time (hh:mm): 09:38                        */
+/*  Date (dd.mm.yyyy):  8. 1.2021   Time (hh:mm): 12:10                        */
 /*******************************************************************************/
 
 
@@ -42550,6 +42550,110 @@ GX_CONST GX_PIXELMAP PRIMARYDISPLAY_THEME_1_PROPORTIONAL_INDICATOR_ORANGE_pixelm
     70                                       /* height in pixel                */
 };
 
+/* THEME_1_RADIOBUTTON_OFF pixelmap data                                       */
+
+static GX_CONST UINT PRIMARYDISPLAY_THEME_1_RADIOBUTTON_OFF_pixelmap_data[152] =
+{
+    0x00ffffff, 0x28000000, 0x83000000, 0xb3000000, 0xeb000000, 0xe3000000, 0xaf000000, 
+    0x7c000000, 0x28000000, 0x00ffffff, 0x00ffffff, 0x6c000000, 0xf4010101, 0xff000000, 
+    0xf8010101, 0x70000000, 0x00ffffff, 0x00ffffff, 0x00ffffff, 0xa3000000, 0xff000000, 
+    0xff000000, 0xff585858, 0xffafafaf, 0xffe3e3e3, 0xffe3e3e3, 0xffafafaf, 0xff646464, 
+    0xff000000, 0xff000000, 0xb7000000, 0x04000000, 0x00ffffff, 0x00ffffff, 0x6c000000, 
+    0xff000000, 0xff181818, 0xffbbbbbb, 0xffffffff, 0xffbfbfbf, 0xff181818, 0xff000000, 
+    0x74000000, 0x00ffffff, 0x28000000, 0xf4010101, 0xff000000, 0xffbbbbbb, 0xffffffff, 
+    0xffbfbfbf, 0xff000000, 0xf8010101, 0x28000000, 0x83000000, 0xff000000, 0xff585858, 
+    0xffffffff, 0xff686868, 0xff000000, 0x7c000000, 0xb3000000, 0xff000000, 0xffafafaf, 
+    0xffffffff, 0xffb3b3b3, 0xff000000, 0xaf000000, 0xeb000000, 0xff000000, 0xffe3e3e3, 
+    0xffffffff, 0xffebebeb, 0xff000000, 0xe3000000, 0xeb000000, 0xff000000, 0xffe3e3e3, 
+    0xffffffff, 0xffebebeb, 0xff000000, 0xe3000000, 0xb3000000, 0xff000000, 0xffafafaf, 
+    0xffffffff, 0xffb7b7b7, 0xff000000, 0xaf000000, 0x83000000, 0xff000000, 0xff646464, 
+    0xffffffff, 0xff707070, 0xff000000, 0x7c000000, 0x28000000, 0xf8010101, 0xff000000, 
+    0xffbfbfbf, 0xffffffff, 0xffc3c3c3, 0xff040404, 0xf8010101, 0x28000000, 0x00ffffff, 
+    0x70000000, 0xff000000, 0xff181818, 0xffbfbfbf, 0xffffffff, 0xffc3c3c3, 0xff181818, 
+    0xff000000, 0x74000000, 0x00ffffff, 0x00ffffff, 0x00ffffff, 0xb7000000, 0xff000000, 
+    0xff000000, 0xff6c6c6c, 0xffb3b3b3, 0xffebebeb, 0xffebebeb, 0xffb7b7b7, 0xff707070, 
+    0xff040404, 0xff000000, 0xbb000000, 0x04000000, 0x00ffffff, 0x00ffffff, 0x00ffffff, 
+    0x04000000, 0x74000000, 0xf8010101, 0xff000000, 0xf8010101, 0x74000000, 0x04000000, 
+    0x00ffffff, 0x00ffffff, 0x00ffffff, 0x28000000, 0x83000000, 0xb3000000, 0xeb000000, 
+    0xe3000000, 0xaf000000, 0x7c000000, 0x28000000, 0x00ffffff
+};
+
+/* THEME_1_RADIOBUTTON_OFF auxiliary data                                      */
+
+static GX_CONST GX_UBYTE PRIMARYDISPLAY_THEME_1_RADIOBUTTON_OFF_pixelmap_aux_data[46] =
+{
+    0x83, 0x07, 0x83, 0x82, 0x01, 0x85, 0x01, 0x82, 0x0f, 0x04, 0x85, 0x04, 0x03, 
+    0x87, 0x03, 0x02, 0x89, 0x02, 0x02, 0x89, 0x02, 0x02, 0x89, 0x02, 0x02, 0x89, 
+    0x02, 0x02, 0x89, 0x02, 0x02, 0x89, 0x02, 0x03, 0x87, 0x03, 0x04, 0x85, 0x04, 
+    0x0f, 0x04, 0x85, 0x04, 0x83, 0x07, 0x83
+};
+GX_CONST GX_PIXELMAP PRIMARYDISPLAY_THEME_1_RADIOBUTTON_OFF_pixelmap =
+{
+    0x00000001,                              /* major version                  */
+    0x00000000,                              /* minor version                  */
+    GX_PIXELMAP_COMPRESSED|GX_PIXELMAP_ALPHA,         /* flags                 */
+    GX_COLOR_FORMAT_24XRGB,                  /* Format                         */
+    (GX_UBYTE *) PRIMARYDISPLAY_THEME_1_RADIOBUTTON_OFF_pixelmap_data,
+    sizeof(PRIMARYDISPLAY_THEME_1_RADIOBUTTON_OFF_pixelmap_data),    /* the size of pixelmap_data*/
+    (GX_UBYTE *) PRIMARYDISPLAY_THEME_1_RADIOBUTTON_OFF_pixelmap_aux_data,
+    sizeof(PRIMARYDISPLAY_THEME_1_RADIOBUTTON_OFF_pixelmap_aux_data),    /* the size of pixelmap_data*/
+    0x00,                                    /* used for transparent iamges    */
+    16,                                      /* width in pixel                 */
+    16                                       /* height in pixel                */
+};
+
+/* THEME_1_RADIOBUTTON_ON pixelmap data                                        */
+
+static GX_CONST UINT PRIMARYDISPLAY_THEME_1_RADIOBUTTON_ON_pixelmap_data[152] =
+{
+    0x00ffffff, 0x28000000, 0x83000000, 0xb3000000, 0xeb000000, 0xe3000000, 0xaf000000, 
+    0x7c000000, 0x28000000, 0x00ffffff, 0x00ffffff, 0x6c000000, 0xf4000100, 0xff000000, 
+    0xf8000100, 0x70000000, 0x00ffffff, 0x00ffffff, 0x00ffffff, 0xa3000000, 0xff000000, 
+    0xff000000, 0xff1a5800, 0xff34af00, 0xff43e300, 0xff43e300, 0xff34af00, 0xff1d6400, 
+    0xff000000, 0xff000000, 0xb7000000, 0x04000000, 0x00ffffff, 0x00ffffff, 0x6c000000, 
+    0xff000000, 0xff071800, 0xff37bb00, 0xff4cff00, 0xff38bf00, 0xff071800, 0xff000000, 
+    0x74000000, 0x00ffffff, 0x28000000, 0xf4000100, 0xff000000, 0xff37bb00, 0xff4cff00, 
+    0xff38bf00, 0xff000000, 0xf8000100, 0x28000000, 0x83000000, 0xff000000, 0xff1a5800, 
+    0xff4cff00, 0xff1e6800, 0xff000000, 0x7c000000, 0xb3000000, 0xff000000, 0xff34af00, 
+    0xff4cff00, 0xff35b300, 0xff000000, 0xaf000000, 0xeb000000, 0xff000000, 0xff43e300, 
+    0xff4cff00, 0xff46eb00, 0xff000000, 0xe3000000, 0xeb000000, 0xff000000, 0xff43e300, 
+    0xff4cff00, 0xff46eb00, 0xff000000, 0xe3000000, 0xb3000000, 0xff000000, 0xff34af00, 
+    0xff4cff00, 0xff36b700, 0xff000000, 0xaf000000, 0x83000000, 0xff000000, 0xff1d6400, 
+    0xff4cff00, 0xff217000, 0xff000000, 0x7c000000, 0x28000000, 0xf8000100, 0xff000000, 
+    0xff38bf00, 0xff4cff00, 0xff3ac300, 0xff010400, 0xf8000100, 0x28000000, 0x00ffffff, 
+    0x70000000, 0xff000000, 0xff071800, 0xff38bf00, 0xff4cff00, 0xff3ac300, 0xff071800, 
+    0xff000000, 0x74000000, 0x00ffffff, 0x00ffffff, 0x00ffffff, 0xb7000000, 0xff000000, 
+    0xff000000, 0xff206c00, 0xff35b300, 0xff46eb00, 0xff46eb00, 0xff36b700, 0xff217000, 
+    0xff010400, 0xff000000, 0xbb000000, 0x04000000, 0x00ffffff, 0x00ffffff, 0x00ffffff, 
+    0x04000000, 0x74000000, 0xf8000100, 0xff000000, 0xf8000100, 0x74000000, 0x04000000, 
+    0x00ffffff, 0x00ffffff, 0x00ffffff, 0x28000000, 0x83000000, 0xb3000000, 0xeb000000, 
+    0xe3000000, 0xaf000000, 0x7c000000, 0x28000000, 0x00ffffff
+};
+
+/* THEME_1_RADIOBUTTON_ON auxiliary data                                       */
+
+static GX_CONST GX_UBYTE PRIMARYDISPLAY_THEME_1_RADIOBUTTON_ON_pixelmap_aux_data[46] =
+{
+    0x83, 0x07, 0x83, 0x82, 0x01, 0x85, 0x01, 0x82, 0x0f, 0x04, 0x85, 0x04, 0x03, 
+    0x87, 0x03, 0x02, 0x89, 0x02, 0x02, 0x89, 0x02, 0x02, 0x89, 0x02, 0x02, 0x89, 
+    0x02, 0x02, 0x89, 0x02, 0x02, 0x89, 0x02, 0x03, 0x87, 0x03, 0x04, 0x85, 0x04, 
+    0x0f, 0x04, 0x85, 0x04, 0x83, 0x07, 0x83
+};
+GX_CONST GX_PIXELMAP PRIMARYDISPLAY_THEME_1_RADIOBUTTON_ON_pixelmap =
+{
+    0x00000001,                              /* major version                  */
+    0x00000000,                              /* minor version                  */
+    GX_PIXELMAP_COMPRESSED|GX_PIXELMAP_ALPHA,         /* flags                 */
+    GX_COLOR_FORMAT_24XRGB,                  /* Format                         */
+    (GX_UBYTE *) PRIMARYDISPLAY_THEME_1_RADIOBUTTON_ON_pixelmap_data,
+    sizeof(PRIMARYDISPLAY_THEME_1_RADIOBUTTON_ON_pixelmap_data),    /* the size of pixelmap_data*/
+    (GX_UBYTE *) PRIMARYDISPLAY_THEME_1_RADIOBUTTON_ON_pixelmap_aux_data,
+    sizeof(PRIMARYDISPLAY_THEME_1_RADIOBUTTON_ON_pixelmap_aux_data),    /* the size of pixelmap_data*/
+    0x00,                                    /* used for transparent iamges    */
+    16,                                      /* width in pixel                 */
+    16                                       /* height in pixel                */
+};
+
 /* THEME_1_RIGHTWHITEARROW pixelmap data                                       */
 
 static GX_CONST UINT PRIMARYDISPLAY_THEME_1_RIGHTWHITEARROW_pixelmap_data[466] =
@@ -43326,6 +43430,116 @@ GX_CONST GX_PIXELMAP PRIMARYDISPLAY_THEME_1_RNET_SEATING_30X30_pixelmap =
     sizeof(PRIMARYDISPLAY_THEME_1_RNET_SEATING_30X30_pixelmap_data),    /* the size of pixelmap_data*/
     (GX_UBYTE *) PRIMARYDISPLAY_THEME_1_RNET_SEATING_30X30_pixelmap_aux_data,
     sizeof(PRIMARYDISPLAY_THEME_1_RNET_SEATING_30X30_pixelmap_aux_data),    /* the size of pixelmap_data*/
+    0x00,                                    /* used for transparent iamges    */
+    30,                                      /* width in pixel                 */
+    30                                       /* height in pixel                */
+};
+
+/* THEME_1_RNET_SLEEP_30X30 pixelmap data                                      */
+
+static GX_CONST UINT PRIMARYDISPLAY_THEME_1_RNET_SLEEP_30X30_pixelmap_data[484] =
+{
+    0x00000000, 0x00000000, 0x24fefefe, 0x3ffefefe, 0x3bfefefe, 0x07fefefe, 0x00000000, 
+    0x00000000, 0x3ffefefe, 0x0fffffff, 0xff808080, 0x3affffff, 0x17fefefe, 0x00000000, 
+    0x00000000, 0x3ffefefe, 0xffa7a7a7, 0xffffffff, 0xffe3e3e3, 0xff858585, 0xff808080, 
+    0x17fefefe, 0x00000000, 0x00000000, 0x3ffefefe, 0xffaaaaaa, 0xffcbcbcb, 0xffcbcbcb, 
+    0xffcdcdcd, 0xbeffffff, 0xc6ffffff, 0xf4ffffff, 0xfcffffff, 0x54ffffff, 0x41ffffff, 
+    0x38ffffff, 0x31ffffff, 0x3dffffff, 0xff808080, 0x17fefefe, 0x00000000, 0x00000000, 
+    0x16f3f3f3, 0xff808080, 0xfe808080, 0x39ffffff, 0x61ffffff, 0xffffffff, 0xffb9b9b9, 
+    0xff808080, 0x0fffffff, 0x00000000, 0x00ffffff, 0x00ffffff, 0x31ffffff, 0xff808080, 
+    0x17fefefe, 0x00000000, 0x00000000, 0x3ffefefe, 0xff808080, 0xf3808080, 0x00ffffff, 
+    0xffffffff, 0xccffffff, 0xff808080, 0x00ffffff, 0xff808080, 0x00ffffff, 0xff808080, 
+    0xff808080, 0x17fefefe, 0x00000000, 0x00000000, 0x3ffefefe, 0xff808080, 0xf8808080, 
+    0xabffffff, 0xffffffff, 0x49ffffff, 0xff808080, 0x00ffffff, 0xb3ffffff, 0xe5ffffff, 
+    0xe4ffffff, 0xfff1f1f1, 0xe4ffffff, 0xe3ffffff, 0xfff1f1f1, 0xffe0e0e0, 0x17fefefe, 
+    0x00000000, 0x00000000, 0x3ffefefe, 0xff808080, 0xfea4a4a4, 0xffffffff, 0xa1ffffff, 
+    0x00ffffff, 0xff808080, 0x31ffffff, 0xcfffffff, 0xffffffff, 0xfffbfbfb, 0x17fefefe, 
+    0x00000000, 0x00000000, 0x3ffefefe, 0xff808080, 0xffededed, 0xfffcfcfc, 0xff808080, 
+    0x00000000, 0x7dffffff, 0x8affffff, 0x8affffff, 0xa0ffffff, 0xffc4c4c4, 0xffc5c5c5, 
+    0xffc9c9c9, 0xffcdcdcd, 0xa4ffffff, 0xadffffff, 0xc7ffffff, 0xffffffff, 0xffffffff, 
+    0xfff3f3f3, 0x17fefefe, 0x00000000, 0x00000000, 0x3ffefefe, 0xff808080, 0xff808080, 
+    0xffc3c3c3, 0xffffffff, 0xffb5b5b5, 0xff808080, 0x00ffffff, 0xff808080, 0x00ffffff, 
+    0x00ffffff, 0x00000000, 0xf6ffffff, 0xffffffff, 0xffffffff, 0xffbbbbbb, 0x17fefefe, 
+    0x00000000, 0x00000000, 0x3ffefefe, 0xff808080, 0xff999999, 0xffffffff, 0xd1ffffff, 
+    0x00ffffff, 0x00ffffff, 0xff808080, 0x00ffffff, 0xff808080, 0x00ffffff, 0x00ffffff, 
+    0x92ffffff, 0xffffffff, 0xffffffff, 0xffe4e4e4, 0xff808080, 0x17fefefe, 0x00000000, 
+    0x00000000, 0x3ffefefe, 0xff808080, 0xffdcdcdc, 0xffffffff, 0x1effffff, 0x00ffffff, 
+    0x00ffffff, 0x31ffffff, 0xff808080, 0x0fffffff, 0x2affffff, 0xffffffff, 0xffa1a1a1, 
+    0xff808080, 0x17fefefe, 0x00000000, 0x00000000, 0x3ffefefe, 0xffbdbdbd, 0xffffffff, 
+    0xffdddddd, 0x61ffffff, 0x58ffffff, 0xffababab, 0xff898989, 0xff808080, 0x00ffffff, 
+    0x00ffffff, 0xdaffffff, 0xffffffff, 0xffffffff, 0x96ffffff, 0xff808080, 0xff808080, 
+    0x17fefefe, 0x00000000, 0x00000000, 0x3ffefefe, 0xffb8b8b8, 0xffffffff, 0xffafafaf, 
+    0xff808080, 0xff808080, 0x00ffffff, 0x00ffffff, 0xffffffff, 0xff808080, 0x00ffffff, 
+    0x7dffffff, 0xffffffff, 0xffffffff, 0xe8ffffff, 0x03ffffff, 0xff808080, 0xff808080, 
+    0x17fefefe, 0x00000000, 0x00000000, 0x3ffefefe, 0xff808080, 0xff838383, 0xff838383, 
+    0x07ffffff, 0xff838383, 0xff808080, 0x00ffffff, 0x00ffffff, 0x3dffffff, 0xff808080, 
+    0xff8a8a8a, 0xffffffff, 0x62ffffff, 0x00ffffff, 0xff808080, 0xff808080, 0x17fefefe, 
+    0x00000000, 0x00000000, 0x3ffefefe, 0xff808080, 0x00000000, 0x00ffffff, 0x00ffffff, 
+    0x00000000, 0xff808080, 0x00ffffff, 0x00ffffff, 0x0fffffff, 0x3dffffff, 0xff808080, 
+    0xffdedede, 0xffffffff, 0xffffffff, 0xb4ffffff, 0x00ffffff, 0x00ffffff, 0xff808080, 
+    0xff808080, 0x17fefefe, 0x00000000, 0x00000000, 0x3ffefefe, 0xff808080, 0x00000000, 
+    0x00ffffff, 0x00ffffff, 0x30ffffff, 0xff808080, 0x00ffffff, 0xff808080, 0xff808080, 
+    0xffb3b3b3, 0xffffffff, 0x1affffff, 0x00ffffff, 0x00ffffff, 0xff808080, 0xff808080, 
+    0x17fefefe, 0x00000000, 0x00000000, 0x3ffefefe, 0xff808080, 0x00000000, 0x00ffffff, 
+    0x00ffffff, 0x00000000, 0xff808080, 0x0fffffff, 0x00ffffff, 0x0fffffff, 0xff808080, 
+    0xfff9f9f9, 0xffffffff, 0xffffffff, 0xffbfbfbf, 0x0fffffff, 0x00ffffff, 0x00ffffff, 
+    0xff808080, 0xff808080, 0x17fefefe, 0x00000000, 0x00000000, 0x3ffefefe, 0xff808080, 
+    0x00000000, 0x00ffffff, 0x00ffffff, 0x00000000, 0xff808080, 0x00ffffff, 0xb4ffffff, 
+    0xffffffff, 0xffffffff, 0xffe8e8e8, 0xff808080, 0x31ffffff, 0x00ffffff, 0x00ffffff, 
+    0xff808080, 0xff808080, 0x17fefefe, 0x00000000, 0x00000000, 0x3ffefefe, 0xff808080, 
+    0x00000000, 0x00ffffff, 0x00ffffff, 0x88a7aeb7, 0xff808080, 0x00ffffff, 0x50ffffff, 
+    0xffffffff, 0xff989898, 0xff808080, 0xff808080, 0x00ffffff, 0x00ffffff, 0xff808080, 
+    0xff808080, 0x17fefefe, 0x00000000, 0x00000000, 0x3ffefefe, 0xff808080, 0x00000000, 
+    0x00ffffff, 0x00ffffff, 0xff808080, 0xff808080, 0xffacb3b7, 0xff808080, 0xff808080, 
+    0xffacb1b6, 0xffd0d4d5, 0xefa6acb2, 0x1c88919a, 0xd7ffffff, 0xffffffff, 0xffffffff, 
+    0xffcccccc, 0xff808080, 0x00ffffff, 0x00ffffff, 0xff808080, 0xff808080, 0x17fefefe, 
+    0x00000000, 0x00000000, 0x3ffefefe, 0xff808080, 0x00000000, 0x00ffffff, 0x00ffffff, 
+    0xff808080, 0xffa7aeb3, 0xffb0b5ba, 0xffb4babe, 0xff8f979c, 0x9deef0f0, 0xffffffff, 
+    0xffffffff, 0xf0ffffff, 0x0fffffff, 0xff808080, 0x00ffffff, 0x00ffffff, 0xff808080, 
+    0xff808080, 0x17fefefe, 0x00000000, 0x00000000, 0x3ffefefe, 0xff808080, 0x00000000, 
+    0x00ffffff, 0x00ffffff, 0xffaab0b5, 0xff808080, 0xffabb1b5, 0xff808080, 0xff9ca2a6, 
+    0xffabb2b5, 0xff949ba0, 0xf2a2a9ae, 0xffffffff, 0x49ffffff, 0x00000000, 0x00ffffff, 
+    0x00ffffff, 0xff808080, 0xff808080, 0x17fefefe, 0x00000000, 0x00000000, 0x3ffefefe, 
+    0xff808080, 0x31ffffff, 0x00ffffff, 0xbbffffff, 0xffffffff, 0xffffffff, 0xb2ffffff, 
+    0x00ffffff, 0xff808080, 0xff808080, 0x17fefefe, 0x00000000, 0x00000000, 0x3ffefefe, 
+    0xff808080, 0xffffffff, 0x00ffffff, 0x69ffffff, 0xffffffff, 0x00ffffff, 0xff808080, 
+    0xff808080, 0x17fefefe, 0x00000000, 0x00000000, 0x3ffefefe, 0xff808080, 0xfff1f1f1, 
+    0xffffffff, 0xffffffff, 0xffe3e3e3, 0xffcdcdcd, 0xffcacaca, 0xffc6c6c6, 0xffc3c3c3, 
+    0xffbfbfbf, 0x30fefefe, 0x00000000, 0x00000000, 0x20ffffff, 0x3affffff, 0xff808080, 
+    0xffffffff, 0x84ffffff, 0x00000000, 0x00000000, 0x00000000, 0x16fefefe, 0x17fefefe, 
+    0xd9fefefe, 0xffffffff, 0x63ffffff, 0x00000000, 0x00000000, 0x0dffffff, 0x00000000, 
+    0x00000000
+};
+
+/* THEME_1_RNET_SLEEP_30X30 auxiliary data                                     */
+
+static GX_CONST GX_UBYTE PRIMARYDISPLAY_THEME_1_RNET_SLEEP_30X30_pixelmap_aux_data[176] =
+{
+    0x9d, 0x01, 0x98, 0x02, 0x02, 0x97, 0x02, 0x03, 0x85, 0x00, 0x90, 0x01, 0x0a, 
+    0x87, 0x00, 0x83, 0x00, 0x82, 0x01, 0x01, 0x82, 0x04, 0x89, 0x04, 0x82, 0x01, 
+    0x01, 0x82, 0x03, 0x83, 0x83, 0x83, 0x84, 0x03, 0x01, 0x82, 0x03, 0x83, 0x03, 
+    0x83, 0x00, 0x83, 0x03, 0x01, 0x82, 0x03, 0x83, 0x01, 0x8b, 0x02, 0x01, 0x82, 
+    0x01, 0x85, 0x10, 0x06, 0x85, 0x83, 0x83, 0x08, 0x07, 0x84, 0x83, 0x83, 0x08, 
+    0x08, 0x8b, 0x01, 0x82, 0x03, 0x05, 0x82, 0x01, 0x88, 0x09, 0x02, 0x86, 0x05, 
+    0x83, 0x09, 0x04, 0x83, 0x00, 0x82, 0x02, 0x83, 0x00, 0x82, 0x05, 0x01, 0x82, 
+    0x03, 0x83, 0x03, 0x82, 0x09, 0x01, 0x82, 0x03, 0x83, 0x83, 0x02, 0x82, 0x06, 
+    0x01, 0x82, 0x03, 0x83, 0x00, 0x82, 0x0c, 0x01, 0x82, 0x03, 0x83, 0x84, 0x0b, 
+    0x01, 0x82, 0x03, 0x83, 0x83, 0x00, 0x82, 0x08, 0x01, 0x82, 0x0f, 0x82, 0x05, 
+    0x01, 0x82, 0x02, 0x83, 0x08, 0x82, 0x05, 0x01, 0x82, 0x0a, 0x82, 0x00, 0x83, 
+    0x05, 0x01, 0x82, 0x00, 0x88, 0x03, 0x86, 0x03, 0x01, 0x83, 0x00, 0x86, 0x00, 
+    0x82, 0x87, 0x03, 0x01, 0x8b, 0x07, 0x85, 0x01, 0x02, 0x8a, 0x8d, 0x01, 0x02, 
+    0x8a, 0x00, 0x8c, 0x01, 0x8e, 0x8c, 0x01
+};
+GX_CONST GX_PIXELMAP PRIMARYDISPLAY_THEME_1_RNET_SLEEP_30X30_pixelmap =
+{
+    0x00000001,                              /* major version                  */
+    0x00000000,                              /* minor version                  */
+    GX_PIXELMAP_COMPRESSED|GX_PIXELMAP_ALPHA,         /* flags                 */
+    GX_COLOR_FORMAT_24XRGB,                  /* Format                         */
+    (GX_UBYTE *) PRIMARYDISPLAY_THEME_1_RNET_SLEEP_30X30_pixelmap_data,
+    sizeof(PRIMARYDISPLAY_THEME_1_RNET_SLEEP_30X30_pixelmap_data),    /* the size of pixelmap_data*/
+    (GX_UBYTE *) PRIMARYDISPLAY_THEME_1_RNET_SLEEP_30X30_pixelmap_aux_data,
+    sizeof(PRIMARYDISPLAY_THEME_1_RNET_SLEEP_30X30_pixelmap_aux_data),    /* the size of pixelmap_data*/
     0x00,                                    /* used for transparent iamges    */
     30,                                      /* width in pixel                 */
     30                                       /* height in pixel                */
@@ -46848,11 +47062,14 @@ GX_CONST GX_PIXELMAP *PrimaryDisplay_theme_1_pixelmap_table[] =
     &PRIMARYDISPLAY_THEME_1_PROPCENTERPADACTIVE_pixelmap,
     &PRIMARYDISPLAY_THEME_1_PROPLEFTRIGHTPADACTIVE_pixelmap,
     &PRIMARYDISPLAY_THEME_1_PROPORTIONAL_INDICATOR_ORANGE_pixelmap,
+    &PRIMARYDISPLAY_THEME_1_RADIOBUTTON_OFF_pixelmap,
+    &PRIMARYDISPLAY_THEME_1_RADIOBUTTON_ON_pixelmap,
     &PRIMARYDISPLAY_THEME_1_RIGHTWHITEARROW_pixelmap,
     &PRIMARYDISPLAY_THEME_1_RNET_LOGO_30X30_pixelmap,
     &PRIMARYDISPLAY_THEME_1_RNET_LOGO_70X70_pixelmap,
     &PRIMARYDISPLAY_THEME_1_RNET_MENU_30X30_pixelmap,
     &PRIMARYDISPLAY_THEME_1_RNET_SEATING_30X30_pixelmap,
+    &PRIMARYDISPLAY_THEME_1_RNET_SLEEP_30X30_pixelmap,
     &PRIMARYDISPLAY_THEME_1_RNET_TOGGLEFR_30X30_pixelmap,
     &PRIMARYDISPLAY_THEME_1_SECOND_10_pixelmap,
     &PRIMARYDISPLAY_THEME_1_SECOND_15_pixelmap,
@@ -46985,15 +47202,15 @@ GX_CONST GX_UBYTE PrimaryDisplay_RNET_TOGGLE_English[11] = "TOGGLE F/R";
 GX_CONST GX_UBYTE PrimaryDisplay_STRING_12_English[9] = "checkbox";
 GX_CONST GX_UBYTE PrimaryDisplay_STRING_31_English[10] = "bluetooth";
 GX_CONST GX_UBYTE PrimaryDisplay_STRING_35_English[5] = "blue";
-GX_CONST GX_UBYTE PrimaryDisplay_STRING_36_English[27] = "TOUCH PAD TO SET DIRECTION";
+GX_CONST GX_UBYTE PrimaryDisplay_STRING_36_English[13] = "FOR EACH PAD";
 GX_CONST GX_UBYTE PrimaryDisplay_STRING_37_English[27] = "HOLD FOR ADVANCED SETTINGS";
 GX_CONST GX_UBYTE PrimaryDisplay_STRING_41_English[12] = "SHORT PRESS";
-GX_CONST GX_UBYTE PrimaryDisplay_STRING_42_English[11] = "LONG PRESS";
+GX_CONST GX_UBYTE PrimaryDisplay_STRING_42_English[24] = "SET MINIMUM DRIVE SPEED";
 GX_CONST GX_UBYTE PrimaryDisplay_STRING_48_English[5] = "NONE";
-GX_CONST GX_UBYTE PrimaryDisplay_STRING_49_English[6] = "CYCLE";
+GX_CONST GX_UBYTE PrimaryDisplay_STRING_49_English[15] = "MODE (Reverse)";
 GX_CONST GX_UBYTE PrimaryDisplay_STRING_64_English[11] = "DO FEATURE";
-GX_CONST GX_UBYTE PrimaryDisplay_STRING_66_English[20] = "SET SWITCH FEATURES";
-GX_CONST GX_UBYTE PrimaryDisplay_STRING_69_English[19] = "SET SWITCH OPTIONS";
+GX_CONST GX_UBYTE PrimaryDisplay_STRING_66_English[10] = "USER PORT";
+GX_CONST GX_UBYTE PrimaryDisplay_STRING_69_English[10] = "MODE PORT";
 GX_CONST GX_UBYTE PrimaryDisplay_STRING_70_English[5] = "LEFT";
 GX_CONST GX_UBYTE PrimaryDisplay_STRING_71_English[8] = "FORWARD";
 GX_CONST GX_UBYTE PrimaryDisplay_STRING_72_English[6] = "RIGHT";
@@ -47006,10 +47223,11 @@ GX_CONST GX_UBYTE PrimaryDisplay_STRING_104_English[5] = "MODE";
 GX_CONST GX_UBYTE PrimaryDisplay_STRING_111_English[10] = "USER PORT";
 GX_CONST GX_UBYTE PrimaryDisplay_STRING_112_English[10] = "MODE PORT";
 GX_CONST GX_UBYTE PrimaryDisplay_STRING_113_English[7] = "SCREEN";
+GX_CONST GX_UBYTE PrimaryDisplay_RNET_SLEEP_English[6] = "SLEEP";
 
 /* String Table for PrimaryDisplay language English                            */
 
-GX_CONST GX_UBYTE *PrimaryDisplay_English_string_table[126] =
+GX_CONST GX_UBYTE *PrimaryDisplay_English_string_table[127] =
 {
     GX_NULL,
     PrimaryDisplay_STRING_1_English,
@@ -47136,7 +47354,8 @@ GX_CONST GX_UBYTE *PrimaryDisplay_English_string_table[126] =
     PrimaryDisplay_STRING_104_English,
     PrimaryDisplay_STRING_111_English,
     PrimaryDisplay_STRING_112_English,
-    PrimaryDisplay_STRING_113_English
+    PrimaryDisplay_STRING_113_English,
+    PrimaryDisplay_RNET_SLEEP_English
 
 };
 
@@ -47186,7 +47405,7 @@ GX_THEME PrimaryDisplay_theme_1 =
     GX_SCROLLBAR_RELATIVE_THUMB|GX_SCROLLBAR_END_BUTTONS|GX_SCROLLBAR_HORIZONTAL,
     37,                                      /* color table size               */
     7,                                       /* font table size                */
-    96,                                      /* pixelmap table size            */
+    99,                                      /* pixelmap table size            */
     0                                        /* palette size                   */
 
 };
