@@ -6,14 +6,14 @@
 /*  www.expresslogic.com.                                                      */
 /*                                                                             */
 /*  GUIX Studio Revision 5.4.2.9                                               */
-/*  Date (dd.mm.yyyy): 31.12.2020   Time (hh:mm): 04:01                        */
+/*  Date (dd.mm.yyyy):  8. 1.2021   Time (hh:mm): 09:38                        */
 /*******************************************************************************/
 
 
 #define GUIX_STUDIO_GENERATED_FILE
 #include <stddef.h>
-#include "asl4321_display_demo_resources.h"
-#include "asl4321_display_demo_specifications.h"
+#include "ASL4321_Display_Demo_resources.h"
+#include "ASL4321_Display_Demo_specifications.h"
 
 static GX_WIDGET *gx_studio_nested_widget_create(GX_BYTE *control, GX_CONST GX_STUDIO_WIDGET *definition, GX_WIDGET *parent);
 MAINUSERSCREEN_1_CONTROL_BLOCK MainUserScreen_1;
@@ -583,7 +583,7 @@ GX_PIXELMAP_PROMPT_PROPERTIES MainUserScreen_1_prompt_1_properties =
     GX_COLOR_ID_SELECTED_TEXT,               /* normal text color              */
     GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
     GX_COLOR_ID_DISABLED_TEXT,               /* disabled text color            */
-    GX_PIXELMAP_ID_CYLCE_20X20,              /* left pixelmap id               */
+    0,                                       /* left pixelmap id               */
     0,                                       /* fill pixelmap id               */
     0,                                       /* right pixelmap id              */
     0,                                       /* selected left pixelmap id      */
@@ -610,23 +610,21 @@ GX_WINDOW_PROPERTIES MainUserScreen_1_FunctionWindow_properties =
 {
     0                                        /* wallpaper pixelmap id          */
 };
-GX_WINDOW_PROPERTIES MainUserScreen_1_UserPortWindow_properties =
+GX_ICON_BUTTON_PROPERTIES MainUserScreen_1_Function1_properties =
 {
-    0                                        /* wallpaper pixelmap id          */
+    GX_PIXELMAP_ID_BLUETOOTH_30X30           /* pixelmap id                    */
 };
-GX_PROMPT_PROPERTIES MainUserScreen_1_UserPortPrompt_properties =
+GX_ICON_BUTTON_PROPERTIES MainUserScreen_1_Function2_properties =
 {
-    GX_STRING_ID_STRING_103,                 /* string id                      */
-    GX_FONT_ID_PROMPT,                       /* font id                        */
-    GX_COLOR_ID_SELECTED_TEXT,               /* normal text color              */
-    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
-    GX_COLOR_ID_DISABLED_TEXT                /* disabled text color            */
+    GX_PIXELMAP_ID_FUNCTIONNEXT_30X30        /* pixelmap id                    */
 };
-GX_PIXELMAP_BUTTON_PROPERTIES MainUserScreen_1_UserPortFeature_properties =
+GX_ICON_BUTTON_PROPERTIES MainUserScreen_1_Function3_properties =
 {
-    GX_PIXELMAP_ID_POWERICON_LARGE,          /* normal pixelmap id             */
-    0,                                       /* selected pixelmap id           */
-    0                                        /* disabled pixelmap id           */
+    GX_PIXELMAP_ID_PROFILENEXT_30X30         /* pixelmap id                    */
+};
+GX_ICON_BUTTON_PROPERTIES MainUserScreen_1_Function4_properties =
+{
+    GX_PIXELMAP_ID_SPEAKER_30X30             /* pixelmap id                    */
 };
 GX_PIXELMAP_PROMPT_PROPERTIES MainUserScreen_1_prompt_properties =
 {
@@ -642,21 +640,10 @@ GX_PIXELMAP_PROMPT_PROPERTIES MainUserScreen_1_prompt_properties =
     0,                                       /* selected fill pixelmap id      */
     0                                        /* selected right pixelmap id     */
 };
-GX_ICON_BUTTON_PROPERTIES MainUserScreen_1_icon_button_properties =
+GX_ICON_PROPERTIES MainUserScreen_1_Function0_Icon_properties =
 {
-    GX_PIXELMAP_ID_BLUETOOTH_30X30           /* pixelmap id                    */
-};
-GX_ICON_BUTTON_PROPERTIES MainUserScreen_1_icon_button_1_properties =
-{
-    GX_PIXELMAP_ID_FUNCTIONNEXT_30X30        /* pixelmap id                    */
-};
-GX_ICON_BUTTON_PROPERTIES MainUserScreen_1_icon_button_2_properties =
-{
-    GX_PIXELMAP_ID_PROFILENEXT_30X30         /* pixelmap id                    */
-};
-GX_ICON_BUTTON_PROPERTIES MainUserScreen_1_icon_button_3_properties =
-{
-    GX_PIXELMAP_ID_SPEAKER_30X30             /* pixelmap id                    */
+    GX_PIXELMAP_ID_POWERICON_LARGE,          /* normal pixelmap id             */
+    0                                        /* selected pixelmap id           */
 };
 
 GX_CONST GX_STUDIO_WIDGET MainUserScreen_1_prompt_1_define =
@@ -667,7 +654,7 @@ GX_CONST GX_STUDIO_WIDGET MainUserScreen_1_prompt_1_define =
     #if defined(GX_WIDGET_USER_DATA)
     0,                                       /* user data                      */
     #endif
-    GX_STYLE_BORDER_THIN|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_RIGHT,   /* style flags */
+    GX_STYLE_BORDER_THIN|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
     GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
     sizeof(GX_PIXELMAP_PROMPT),              /* control block size             */
     GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
@@ -676,7 +663,7 @@ GX_CONST GX_STUDIO_WIDGET MainUserScreen_1_prompt_1_define =
     gx_studio_pixelmap_prompt_create,        /* create function                */
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
-    {40, 93, 119, 116},                      /* widget size                    */
+    {39, 142, 118, 165},                     /* widget size                    */
     GX_NULL,                                 /* no next widget                 */
     GX_NULL,                                 /* no child widgets               */ 
     offsetof(MAINUSERSCREEN_1_CONTROL_BLOCK, MainUserScreen_1_prompt_1), /* control block */
@@ -700,7 +687,7 @@ GX_CONST GX_STUDIO_WIDGET MainUserScreen_1_ModePortFeature_define =
     gx_studio_pixelmap_button_create,        /* create function                */
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
-    {37, 113, 124, 182},                     /* widget size                    */
+    {36, 162, 123, 231},                     /* widget size                    */
     &MainUserScreen_1_prompt_1_define,       /* next widget definition         */
     GX_NULL,                                 /* no child widgets               */ 
     offsetof(MAINUSERSCREEN_1_CONTROL_BLOCK, MainUserScreen_1_ModePortFeature), /* control block */
@@ -724,11 +711,35 @@ GX_CONST GX_STUDIO_WIDGET MainUserScreen_1_ModePrompt_define =
     gx_studio_prompt_create,                 /* create function                */
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
-    {168, 145, 247, 168},                    /* widget size                    */
+    {167, 194, 246, 217},                    /* widget size                    */
     &MainUserScreen_1_ModePortFeature_define, /* next widget definition        */
     GX_NULL,                                 /* no child widgets               */ 
     offsetof(MAINUSERSCREEN_1_CONTROL_BLOCK, MainUserScreen_1_ModePrompt), /* control block */
     (void *) &MainUserScreen_1_ModePrompt_properties /* extended properties    */
+};
+
+GX_CONST GX_STUDIO_WIDGET MainUserScreen_1_Function0_Icon_define =
+{
+    "Function0_Icon",
+    GX_TYPE_ICON,                            /* widget type                    */
+    FUNCTON0_ICON_ID,                        /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_HALIGN_LEFT|GX_STYLE_VALIGN_TOP,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_ICON),                         /* control block size             */
+    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_icon_create,                   /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {398, 32, 469, 103},                     /* widget size                    */
+    GX_NULL,                                 /* no next widget                 */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(MAINUSERSCREEN_1_CONTROL_BLOCK, MainUserScreen_1_Function0_Icon), /* control block */
+    (void *) &MainUserScreen_1_Function0_Icon_properties /* extended properties */
 };
 
 GX_CONST GX_STUDIO_WIDGET MainUserScreen_1_prompt_define =
@@ -748,66 +759,42 @@ GX_CONST GX_STUDIO_WIDGET MainUserScreen_1_prompt_define =
     gx_studio_pixelmap_prompt_create,        /* create function                */
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
-    {393, 16, 472, 39},                      /* widget size                    */
-    GX_NULL,                                 /* no next widget                 */
+    {392, 7, 471, 30},                       /* widget size                    */
+    &MainUserScreen_1_Function0_Icon_define, /* next widget definition         */
     GX_NULL,                                 /* no child widgets               */ 
     offsetof(MAINUSERSCREEN_1_CONTROL_BLOCK, MainUserScreen_1_prompt), /* control block */
     (void *) &MainUserScreen_1_prompt_properties /* extended properties        */
 };
 
-GX_CONST GX_STUDIO_WIDGET MainUserScreen_1_UserPortFeature_define =
+GX_CONST GX_STUDIO_WIDGET MainUserScreen_1_Function4_define =
 {
-    "UserPortFeature",
-    GX_TYPE_PIXELMAP_BUTTON,                 /* widget type                    */
-    USER_PORT_FEATURE_ID,                    /* widget id                      */
+    "Function4",
+    GX_TYPE_ICON_BUTTON,                     /* widget type                    */
+    FUNCTION4_ICON,                          /* widget id                      */
     #if defined(GX_WIDGET_USER_DATA)
     0,                                       /* user data                      */
     #endif
-    GX_STYLE_BORDER_THICK|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_HALIGN_CENTER|GX_STYLE_VALIGN_CENTER,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_PIXELMAP_BUTTON),              /* control block size             */
-    GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
-    GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_HALIGN_CENTER|GX_STYLE_VALIGN_CENTER,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_ICON_BUTTON),                  /* control block size             */
+    GX_COLOR_ID_WINDOW_FILL,                 /* normal color id                */
+    GX_COLOR_ID_WINDOW_FILL,                 /* selected color id              */
     GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_pixelmap_button_create,        /* create function                */
+    gx_studio_icon_button_create,            /* create function                */
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
-    {389, 36, 476, 105},                     /* widget size                    */
+    {419, 231, 450, 262},                    /* widget size                    */
     &MainUserScreen_1_prompt_define,         /* next widget definition         */
     GX_NULL,                                 /* no child widgets               */ 
-    offsetof(MAINUSERSCREEN_1_CONTROL_BLOCK, MainUserScreen_1_UserPortFeature), /* control block */
-    (void *) &MainUserScreen_1_UserPortFeature_properties /* extended properties */
+    offsetof(MAINUSERSCREEN_1_CONTROL_BLOCK, MainUserScreen_1_Function4), /* control block */
+    (void *) &MainUserScreen_1_Function4_properties /* extended properties     */
 };
 
-GX_CONST GX_STUDIO_WIDGET MainUserScreen_1_UserPortPrompt_define =
+GX_CONST GX_STUDIO_WIDGET MainUserScreen_1_Function3_define =
 {
-    "UserPortPrompt",
-    GX_TYPE_PROMPT,                          /* widget type                    */
-    GX_ID_NONE,                              /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
-    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
-    sizeof(GX_PROMPT),                       /* control block size             */
-    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
-    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_prompt_create,                 /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {288, 62, 367, 85},                      /* widget size                    */
-    &MainUserScreen_1_UserPortFeature_define, /* next widget definition        */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(MAINUSERSCREEN_1_CONTROL_BLOCK, MainUserScreen_1_UserPortPrompt), /* control block */
-    (void *) &MainUserScreen_1_UserPortPrompt_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET MainUserScreen_1_icon_button_3_define =
-{
-    "icon_button_3",
+    "Function3",
     GX_TYPE_ICON_BUTTON,                     /* widget type                    */
-    GX_ID_NONE,                              /* widget id                      */
+    FUNCTION3_ICON,                          /* widget id                      */
     #if defined(GX_WIDGET_USER_DATA)
     0,                                       /* user data                      */
     #endif
@@ -820,18 +807,18 @@ GX_CONST GX_STUDIO_WIDGET MainUserScreen_1_icon_button_3_define =
     gx_studio_icon_button_create,            /* create function                */
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
-    {422, 232, 453, 263},                    /* widget size                    */
-    GX_NULL,                                 /* no next widget                 */
+    {418, 194, 449, 225},                    /* widget size                    */
+    &MainUserScreen_1_Function4_define,      /* next widget definition         */
     GX_NULL,                                 /* no child widgets               */ 
-    offsetof(MAINUSERSCREEN_1_CONTROL_BLOCK, MainUserScreen_1_icon_button_3), /* control block */
-    (void *) &MainUserScreen_1_icon_button_3_properties /* extended properties */
+    offsetof(MAINUSERSCREEN_1_CONTROL_BLOCK, MainUserScreen_1_Function3), /* control block */
+    (void *) &MainUserScreen_1_Function3_properties /* extended properties     */
 };
 
-GX_CONST GX_STUDIO_WIDGET MainUserScreen_1_icon_button_2_define =
+GX_CONST GX_STUDIO_WIDGET MainUserScreen_1_Function2_define =
 {
-    "icon_button_2",
+    "Function2",
     GX_TYPE_ICON_BUTTON,                     /* widget type                    */
-    GX_ID_NONE,                              /* widget id                      */
+    FUNCTION2_ICON,                          /* widget id                      */
     #if defined(GX_WIDGET_USER_DATA)
     0,                                       /* user data                      */
     #endif
@@ -844,18 +831,18 @@ GX_CONST GX_STUDIO_WIDGET MainUserScreen_1_icon_button_2_define =
     gx_studio_icon_button_create,            /* create function                */
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
-    {422, 195, 453, 226},                    /* widget size                    */
-    &MainUserScreen_1_icon_button_3_define,  /* next widget definition         */
+    {417, 154, 448, 185},                    /* widget size                    */
+    &MainUserScreen_1_Function3_define,      /* next widget definition         */
     GX_NULL,                                 /* no child widgets               */ 
-    offsetof(MAINUSERSCREEN_1_CONTROL_BLOCK, MainUserScreen_1_icon_button_2), /* control block */
-    (void *) &MainUserScreen_1_icon_button_2_properties /* extended properties */
+    offsetof(MAINUSERSCREEN_1_CONTROL_BLOCK, MainUserScreen_1_Function2), /* control block */
+    (void *) &MainUserScreen_1_Function2_properties /* extended properties     */
 };
 
-GX_CONST GX_STUDIO_WIDGET MainUserScreen_1_icon_button_1_define =
+GX_CONST GX_STUDIO_WIDGET MainUserScreen_1_Function1_define =
 {
-    "icon_button_1",
+    "Function1",
     GX_TYPE_ICON_BUTTON,                     /* widget type                    */
-    GX_ID_NONE,                              /* widget id                      */
+    FUNCTION1_ICON,                          /* widget id                      */
     #if defined(GX_WIDGET_USER_DATA)
     0,                                       /* user data                      */
     #endif
@@ -868,59 +855,11 @@ GX_CONST GX_STUDIO_WIDGET MainUserScreen_1_icon_button_1_define =
     gx_studio_icon_button_create,            /* create function                */
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
-    {420, 156, 451, 187},                    /* widget size                    */
-    &MainUserScreen_1_icon_button_2_define,  /* next widget definition         */
+    {416, 116, 447, 147},                    /* widget size                    */
+    &MainUserScreen_1_Function2_define,      /* next widget definition         */
     GX_NULL,                                 /* no child widgets               */ 
-    offsetof(MAINUSERSCREEN_1_CONTROL_BLOCK, MainUserScreen_1_icon_button_1), /* control block */
-    (void *) &MainUserScreen_1_icon_button_1_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET MainUserScreen_1_icon_button_define =
-{
-    "icon_button",
-    GX_TYPE_ICON_BUTTON,                     /* widget type                    */
-    GX_ID_NONE,                              /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_HALIGN_CENTER|GX_STYLE_VALIGN_CENTER,   /* style flags */
-    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
-    sizeof(GX_ICON_BUTTON),                  /* control block size             */
-    GX_COLOR_ID_WINDOW_FILL,                 /* normal color id                */
-    GX_COLOR_ID_WINDOW_FILL,                 /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_icon_button_create,            /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {420, 119, 451, 150},                    /* widget size                    */
-    &MainUserScreen_1_icon_button_1_define,  /* next widget definition         */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(MAINUSERSCREEN_1_CONTROL_BLOCK, MainUserScreen_1_icon_button), /* control block */
-    (void *) &MainUserScreen_1_icon_button_properties /* extended properties   */
-};
-
-GX_CONST GX_STUDIO_WIDGET MainUserScreen_1_UserPortWindow_define =
-{
-    "UserPortWindow",
-    GX_TYPE_WINDOW,                          /* widget type                    */
-    GX_ID_NONE,                              /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED,   /* style flags */
-    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
-    sizeof(GX_WINDOW),                       /* control block size             */
-    GX_COLOR_ID_WINDOW_FILL,                 /* normal color id                */
-    GX_COLOR_ID_WINDOW_FILL,                 /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_window_create,                 /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {386, 14, 479, 111},                     /* widget size                    */
-    &MainUserScreen_1_icon_button_define,    /* next widget definition         */
-    &MainUserScreen_1_UserPortPrompt_define, /* child widget definition        */
-    offsetof(MAINUSERSCREEN_1_CONTROL_BLOCK, MainUserScreen_1_UserPortWindow), /* control block */
-    (void *) &MainUserScreen_1_UserPortWindow_properties /* extended properties */
+    offsetof(MAINUSERSCREEN_1_CONTROL_BLOCK, MainUserScreen_1_Function1), /* control block */
+    (void *) &MainUserScreen_1_Function1_properties /* extended properties     */
 };
 
 GX_CONST GX_STUDIO_WIDGET MainUserScreen_1_FunctionWindow_define =
@@ -942,7 +881,7 @@ GX_CONST GX_STUDIO_WIDGET MainUserScreen_1_FunctionWindow_define =
     GX_NULL,                                 /* event function override        */
     {386, 2, 475, 270},                      /* widget size                    */
     GX_NULL,                                 /* no next widget                 */
-    &MainUserScreen_1_UserPortWindow_define, /* child widget definition        */
+    &MainUserScreen_1_Function1_define,      /* child widget definition        */
     offsetof(MAINUSERSCREEN_1_CONTROL_BLOCK, MainUserScreen_1_FunctionWindow), /* control block */
     (void *) &MainUserScreen_1_FunctionWindow_properties /* extended properties */
 };
@@ -1060,7 +999,7 @@ GX_CONST GX_STUDIO_WIDGET MainUserScreen_1_ModePortWindow_define =
     gx_studio_window_create,                 /* create function                */
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
-    {33, 91, 126, 188},                      /* widget size                    */
+    {32, 140, 125, 237},                     /* widget size                    */
     &MainUserScreen_1_LeftPad_Button_define, /* next widget definition         */
     &MainUserScreen_1_ModePrompt_define,     /* child widget definition        */
     offsetof(MAINUSERSCREEN_1_CONTROL_BLOCK, MainUserScreen_1_ModePortWindow), /* control block */
@@ -11039,7 +10978,7 @@ GX_CONST GX_STUDIO_WIDGET HHP_Start_Screen_define =
     0,                                       /* control block                  */
     (void *) &HHP_Start_Screen_properties    /* extended properties            */
 };
-GX_CONST GX_STUDIO_WIDGET_ENTRY asl4321_display_demo_widget_table[] =
+GX_CONST GX_STUDIO_WIDGET_ENTRY ASL4321_Display_Demo_widget_table[] =
 {
     { &MainUserScreen_1_define, (GX_WIDGET *) &MainUserScreen_1 },
     { &FeatureSettingsScreen_define, (GX_WIDGET *) &FeatureSettingsScreen },
@@ -11172,7 +11111,7 @@ GX_WIDGET *gx_studio_widget_create(GX_BYTE *control, GX_CONST GX_STUDIO_WIDGET *
 UINT gx_studio_named_widget_create(char *name, GX_WIDGET *parent, GX_WIDGET **new_widget)
 {
     UINT status = GX_FAILURE;
-    GX_CONST GX_STUDIO_WIDGET_ENTRY *entry = asl4321_display_demo_widget_table;
+    GX_CONST GX_STUDIO_WIDGET_ENTRY *entry = ASL4321_Display_Demo_widget_table;
     GX_WIDGET *widget = GX_NULL;
 
     while(entry->widget_information)
@@ -11199,7 +11138,7 @@ UINT gx_studio_named_widget_create(char *name, GX_WIDGET *parent, GX_WIDGET **ne
 extern GX_CONST GX_THEME *PrimaryDisplay_theme_table[];
 extern GX_CONST GX_CHAR **PrimaryDisplay_language_table[];
 
-GX_STUDIO_DISPLAY_INFO asl4321_display_demo_display_table[1] =
+GX_STUDIO_DISPLAY_INFO ASL4321_Display_Demo_display_table[1] =
 {
     {
     "PrimaryDisplay",
@@ -11225,7 +11164,7 @@ UINT gx_studio_display_configure(USHORT display, UINT (*driver)(GX_DISPLAY *),
     GX_CONST GX_THEME *theme_ptr;
     GX_RECTANGLE size;
 
-    GX_STUDIO_DISPLAY_INFO *display_info = &asl4321_display_demo_display_table[display];
+    GX_STUDIO_DISPLAY_INFO *display_info = &ASL4321_Display_Demo_display_table[display];
 
 
 /* create the requested display                                                */
