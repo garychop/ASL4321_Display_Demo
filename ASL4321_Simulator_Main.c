@@ -57,8 +57,11 @@ int g_DeltaValue;
 int g_ClicksActive = FALSE;
 int g_PowerUpInIdle = FALSE;
 int g_TimeoutValue = 20;
-int g_RNet_Active = TRUE;
+int g_RNet_Active = FALSE;
 MODE_SWITCH_SCHEMA_ENUM g_Mode_Switch_Schema = MODE_SWITCH_PIN5;
+
+FEATURE_ID_ENUM g_ActiveFeature = POWER_ONOFF_ID;
+int g_ActiveGroup = 0;
 
 //*************************************************************************************
 // GLOBAL VARIABLES
@@ -141,7 +144,7 @@ VOID  start_guix(VOID)
 	//CreateFeatureWidgets (&FeatureSettingsScreen.FeatureSettingsScreen_FeatureListBox);
 	myError = gx_studio_named_widget_create("HHP_Start_Screen", GX_NULL, GX_NULL);
 	//myError = gx_studio_named_widget_create("MainUserScreen", , GX_NULL, GX_NULL);
-	myError = gx_studio_named_widget_create("MainUserScreen_1", (GX_WIDGET *)root, GX_NULL);
+	myError = gx_studio_named_widget_create("MainUserScreen", (GX_WIDGET *)root, GX_NULL);
 	myError = gx_studio_named_widget_create("MainUserScreen_3", GX_NULL, GX_NULL);
 	myError = gx_studio_named_widget_create("MinimumDriveScreen", GX_NULL, GX_NULL);
 	myError = gx_studio_named_widget_create("MoreSelectionScreen", GX_NULL, GX_NULL);
@@ -149,6 +152,7 @@ VOID  start_guix(VOID)
 	myError = gx_studio_named_widget_create("OON_Screen", GX_NULL, GX_NULL);
 	myError = gx_studio_named_widget_create("PadCalibrationScreen", GX_NULL, GX_NULL);
 	myError = gx_studio_named_widget_create("PadOptionsSettingsScreen", GX_NULL, GX_NULL);
+	myError = gx_studio_named_widget_create("ReadyScreen", GX_NULL, GX_NULL);
 	myError = gx_studio_named_widget_create("ResetScreen", GX_NULL, GX_NULL);
 	myError = gx_studio_named_widget_create("ResetFinishScreen", GX_NULL, GX_NULL);
 	myError = gx_studio_named_widget_create("StartupScreen", GX_NULL, GX_NULL);
@@ -199,6 +203,8 @@ VOID screen_toggle(GX_WINDOW *new_win, GX_WINDOW *old_win)
 
 UINT Template_event_function (GX_WINDOW *window, GX_EVENT *event_ptr)
 {
+#ifdef THIS_IS_USEFUL	// The following is not called when a button is pushed, So I'm 
+						// commenting it out to reduce confusion as to it's usefullness.
 	UINT myErr = -1;
 
 	switch (event_ptr->gx_event_type)
@@ -281,7 +287,9 @@ UINT Template_event_function (GX_WINDOW *window, GX_EVENT *event_ptr)
 	} // end switch
 
     myErr = gx_window_event_process(window, event_ptr);
-
 	return myErr;
+
+#endif // 
+	return (GX_SUCCESS);
 }
 

@@ -20,8 +20,19 @@
 #define FEATURE_TOGGLE_BUTTON_ID 1000	// this is used as the dynamically created buttons in the feature list.
 
 // The following hold the Digital (non0) vs Proportional (0) setting for each pad.
-typedef enum FEATURE_ID {POWER_ONOFF_ID, BLUETOOTH_ID, NEXT_FUNCTION_OR_TOGGLE_ID, NEXT_PROFILE_OR_USER_MENU_ID, RNET_SEATING_ID, RNET_SLEEP_FEATURE_ID, NUM_FEATURES} FEATURE_ID_ENUM; // "invalid" must be last enum
-typedef enum ENUM_TIMER_IDS {ARROW_PUSHED_TIMER_ID = 1, CALIBRATION_TIMER_ID, PAD_ACTIVE_TIMER_ID} ENUM_TIMER_IDS_ENUM;
+typedef enum FEATURE_ID {
+	POWER_ONOFF_ID,
+	BLUETOOTH_ID,
+	NEXT_FUNCTION_OR_TOGGLE_ID,
+	NEXT_PROFILE_OR_USER_MENU_ID,
+	RNET_SEATING_ID,
+	RNET_SLEEP_FEATURE_ID,
+	NEXT_GROUP_ID,
+	AUDIBLE_OUT_FEATURE_ID,
+	NUM_FEATURES} FEATURE_ID_ENUM; // NUM_FEATURES must be last enum
+
+
+typedef enum ENUM_TIMER_IDS {ARROW_PUSHED_TIMER_ID = 1, CALIBRATION_TIMER_ID, PAD_ACTIVE_TIMER_ID, USER_PORT_PUSHED_TIMER_ID} ENUM_TIMER_IDS_ENUM;
 typedef enum ENUM_MODE_SWITCH_SCHEMA {MODE_SWITCH_PIN5, MODE_SWITCH_REVERSE} MODE_SWITCH_SCHEMA_ENUM;
 
 typedef struct MAIN_SCREEN_FEATURE_STRUCT
@@ -33,6 +44,7 @@ typedef struct MAIN_SCREEN_FEATURE_STRUCT
     GX_RESOURCE_ID m_LargeIcon;
     GX_RESOURCE_ID m_SmallDescriptionID;
     GX_RESOURCE_ID m_LargeDescriptionID;
+    GX_RESOURCE_ID m_FeatureIconID;
 	GX_WIDGET m_ItemWidget;
 	GX_PROMPT m_PromptWidget;
 	GX_CHECKBOX m_ButtonWidget;
@@ -53,6 +65,8 @@ extern int g_RNet_Active;
 extern MODE_SWITCH_SCHEMA_ENUM g_Mode_Switch_Schema;
 
 extern MAIN_SCREEN_FEATURE g_MainScreenFeatureInfo[];
+extern FEATURE_ID_ENUM g_ActiveFeature;
+extern int g_ActiveGroup;
 
 //*****************************************************************************
 // EXTERNAL, GLOBALLY available functions

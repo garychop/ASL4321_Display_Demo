@@ -88,7 +88,7 @@
     <ClCompile Include="..\..\..\..\DiagnosticScreen.c" />
     <ClCompile Include="..\..\..\..\FeatureSettingScreen.c" />
     <ClCompile Include="..\..\..\..\HHP_StartScreen.c" />
-    <ClCompile Include="..\..\..\..\MainUserScreen_1.c" />
+    <ClCompile Include="..\..\..\..\MainUserScreen.c" />
     <ClCompile Include="..\..\..\..\MainUserScreen_3.c" />
     <ClCompile Include="..\..\..\..\MinimumDriveScreen.c" />
     <ClCompile Include="..\..\..\..\MoreSelectionScreen.c" />
@@ -97,6 +97,7 @@
     <ClCompile Include="..\..\..\..\PadDirectionScreen.c" />
     <ClCompile Include="..\..\..\..\PadOptionsSettingScreen.c" />
     <ClCompile Include="..\..\..\..\PerformanceSelectionScreen.c" />
+    <ClCompile Include="..\..\..\..\ReadyScreen.c" />
     <ClCompile Include="..\..\..\..\ResetScreen.c" />
     <ClCompile Include="..\..\..\..\SetPadTypeScreen.c" />
     <ClCompile Include="..\..\..\..\StartupScreen.c" />

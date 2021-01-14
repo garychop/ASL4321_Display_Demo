@@ -21,6 +21,18 @@
 
 UINT OON_Window_event_function (GX_WINDOW *window, GX_EVENT *event_ptr)
 {
+	switch (event_ptr->gx_event_type)
+	{
+		case GX_EVENT_PEN_UP:
+		{
+			if (event_ptr->gx_event_target->gx_widget_name == "UserPortButton")
+			{
+		        screen_toggle((GX_WINDOW *)&MainUserScreen, window);
+			}
+		}
+		break;
+	} // end switch
+
 	gx_window_event_process(window, event_ptr);
 
 	return GX_SUCCESS;
