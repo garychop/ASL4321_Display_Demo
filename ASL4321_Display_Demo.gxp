@@ -4953,8 +4953,8 @@
 <size>
 <left>0</left>
 <top>0</top>
-<right>319</right>
-<bottom>239</bottom>
+<right>479</right>
+<bottom>271</bottom>
 </size>
 <style>4</style>
 <allocation>0</allocation>
@@ -4964,7 +4964,7 @@
 <disabled_fill_color>DISABLED_FILL</disabled_fill_color>
 <template>FALSE</template>
 <visible_at_startup>FALSE</visible_at_startup>
-<wallpaper>NEWBACKGROUND_FLATTEN_1</wallpaper>
+<wallpaper>BACKGROUND_480X272</wallpaper>
 <widget>
 <type>text_button</type>
 <app_name>MainMore_Button</app_name>
