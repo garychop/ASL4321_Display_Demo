@@ -62,6 +62,7 @@ MODE_SWITCH_SCHEMA_ENUM g_Mode_Switch_Schema = MODE_SWITCH_PIN5;
 
 FEATURE_ID_ENUM g_ActiveFeature = POWER_ONOFF_ID;
 int g_ActiveGroup = 0;
+int g_ActiveSpeakerGroup = 0;
 
 //*************************************************************************************
 // GLOBAL VARIABLES

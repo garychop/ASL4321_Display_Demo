@@ -6,7 +6,7 @@
 /*  site at www.expresslogic.com.                                              */
 /*                                                                             */
 /*  GUIX Studio Revision 5.4.2.9                                               */
-/*  Date (dd.mm.yyyy): 14. 1.2021   Time (hh:mm): 09:19                        */
+/*  Date (dd.mm.yyyy): 15. 1.2021   Time (hh:mm): 14:10                        */
 /*******************************************************************************/
 
 
@@ -188,17 +188,23 @@
 #define GX_PIXELMAP_ID_SPEAKER_A_88X70 103
 #define GX_PIXELMAP_ID_SPEAKER_B_88X70 104
 #define GX_PIXELMAP_ID_SPEAKER_C_88X70 105
-#define GX_PIXELMAP_ID_SWITCH_ACTIVE 106
-#define GX_PIXELMAP_ID_SWITCH_BG 107
-#define GX_PIXELMAP_ID_SWITCH_DISACTIVE 108
-#define GX_PIXELMAP_ID_TOGGLE_GRAY 109
-#define GX_PIXELMAP_ID_TOGGLE_GREEN 110
-#define GX_PIXELMAP_ID_UPARROW 111
-#define GX_PIXELMAP_ID_UPARROW_DISABLED 112
-#define GX_PIXELMAP_ID_UPARROW_ENABLED 113
-#define GX_PIXELMAP_ID_UPWHITEARROW 114
-#define GX_PIXELMAP_ID_WARNINGICON 115
-#define PRIMARYDISPLAY_PIXELMAP_TABLE_SIZE 116
+#define GX_PIXELMAP_ID_SPEAKER_D_88X70 106
+#define GX_PIXELMAP_ID_SPEAKER_E_88X70 107
+#define GX_PIXELMAP_ID_SPEAKER_F_88X70 108
+#define GX_PIXELMAP_ID_SPEAKER_G_88X70 109
+#define GX_PIXELMAP_ID_SPEAKER_NO_88X70 110
+#define GX_PIXELMAP_ID_SPEAKER_YES_88X70 111
+#define GX_PIXELMAP_ID_SWITCH_ACTIVE 112
+#define GX_PIXELMAP_ID_SWITCH_BG 113
+#define GX_PIXELMAP_ID_SWITCH_DISACTIVE 114
+#define GX_PIXELMAP_ID_TOGGLE_GRAY 115
+#define GX_PIXELMAP_ID_TOGGLE_GREEN 116
+#define GX_PIXELMAP_ID_UPARROW 117
+#define GX_PIXELMAP_ID_UPARROW_DISABLED 118
+#define GX_PIXELMAP_ID_UPARROW_ENABLED 119
+#define GX_PIXELMAP_ID_UPWHITEARROW 120
+#define GX_PIXELMAP_ID_WARNINGICON 121
+#define PRIMARYDISPLAY_PIXELMAP_TABLE_SIZE 122
 
 /* String Ids                                                                  */
 

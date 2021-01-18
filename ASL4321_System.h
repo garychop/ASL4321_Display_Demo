@@ -67,6 +67,7 @@ extern MODE_SWITCH_SCHEMA_ENUM g_Mode_Switch_Schema;
 extern MAIN_SCREEN_FEATURE g_MainScreenFeatureInfo[];
 extern FEATURE_ID_ENUM g_ActiveFeature;
 extern int g_ActiveGroup;
+extern int g_ActiveSpeakerGroup;
 
 //*****************************************************************************
 // EXTERNAL, GLOBALLY available functions
