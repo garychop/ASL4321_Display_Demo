@@ -29,6 +29,7 @@ typedef enum FEATURE_ID {
 	RNET_SLEEP_FEATURE_ID,
 	NEXT_GROUP_ID,
 	AUDIBLE_OUT_FEATURE_ID,
+	SEATING_FEATURE_ID,
 	NUM_FEATURES} FEATURE_ID_ENUM; // NUM_FEATURES must be last enum
 
 
@@ -68,6 +69,8 @@ extern MAIN_SCREEN_FEATURE g_MainScreenFeatureInfo[];
 extern FEATURE_ID_ENUM g_ActiveFeature;
 extern int g_ActiveGroup;
 extern int g_ActiveSpeakerGroup;
+extern int g_ActiveSeatingGroup;
+
 
 //*****************************************************************************
 // EXTERNAL, GLOBALLY available functions
@@ -75,6 +78,7 @@ extern int g_ActiveSpeakerGroup;
 
 VOID screen_toggle(GX_WINDOW *new_win, GX_WINDOW *old_win);
 VOID screen_switch(GX_WIDGET *parent, GX_WIDGET *new_screen);
+VOID SetGroupIcon (GX_ICON_BUTTON *icon_button);
 
 
 #endif // ASL165_SYSTEM_H

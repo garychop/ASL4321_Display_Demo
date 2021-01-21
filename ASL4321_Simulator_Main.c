@@ -63,6 +63,7 @@ MODE_SWITCH_SCHEMA_ENUM g_Mode_Switch_Schema = MODE_SWITCH_PIN5;
 FEATURE_ID_ENUM g_ActiveFeature = POWER_ONOFF_ID;
 int g_ActiveGroup = 0;
 int g_ActiveSpeakerGroup = 0;
+int g_ActiveSeatingGroup = 0;
 
 //*************************************************************************************
 // GLOBAL VARIABLES
@@ -186,6 +187,29 @@ VOID screen_toggle(GX_WINDOW *new_win, GX_WINDOW *old_win)
         status = gx_widget_show((GX_WIDGET *)new_win);
     }
     status = gx_widget_detach((GX_WIDGET *)old_win);
+}
+
+//*************************************************************************************
+
+VOID SetGroupIcon (GX_ICON_BUTTON *icon_button)
+{
+	switch (g_ActiveGroup)
+	{
+	case 0:
+		gx_icon_button_pixelmap_set (icon_button, GX_PIXELMAP_ID_GROUPA);
+		break;
+	case 1:
+		gx_icon_button_pixelmap_set (icon_button, GX_PIXELMAP_ID_GROUPB);
+		break;
+	case 2:
+		gx_icon_button_pixelmap_set (icon_button, GX_PIXELMAP_ID_GROUPC);
+		break;
+	case 3:
+		gx_icon_button_pixelmap_set (icon_button, GX_PIXELMAP_ID_GROUPD);
+		break;
+	default:
+		break;
+	} // end of switch
 }
 
 ////******************************************************************************************

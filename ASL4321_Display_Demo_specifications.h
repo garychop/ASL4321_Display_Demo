@@ -6,7 +6,7 @@
 /*  www.expresslogic.com.                                                      */
 /*                                                                             */
 /*  GUIX Studio Revision 5.4.2.9                                               */
-/*  Date (dd.mm.yyyy): 15. 1.2021   Time (hh:mm): 14:10                        */
+/*  Date (dd.mm.yyyy): 21. 1.2021   Time (hh:mm): 14:48                        */
 /*******************************************************************************/
 
 
@@ -37,31 +37,31 @@ extern   "C" {
 #define FEATURE_ICON_ID 13
 #define GROUP_ICON_BUTTON 14
 #define FUSION_BUTTON_ID 15
-#define FEATURE_SETTINGS_SCREEN_ID 16
-#define OK_BTN_ID 17
-#define FEATURE_LIST_BOX_ID 18
-#define HH_START_SCREEN_ID_1 19
-#define MORE_BTN_ID 20
-#define MAIN_USER_SCREEN_3 21
-#define USER_PORT_FEATURE_ID 22
-#define MAIN_USER_SCREEN_2 23
-#define CENTER_PAD_FORWARD_ARROW_BTN_ID 24
-#define LEFT_PAD_LEFT_ARROW_BTN_ID 25
-#define RIGHT_PAD_RIGHT_ARROW_BTN_ID 26
-#define LEFT_PAD_RIGHT_ARROW_BTN_ID 27
-#define LEFT_PAD_FORWARD_ARROW_BTN_ID 28
-#define LEFT_PAD_OFF_BTN_ID 29
-#define RIGHT_PAD_LEFT_ARROW_BTN_ID 30
-#define RIGHT_PAD_FORWARD_ARROW_BTN_ID 31
-#define RIGHT_PAD_OFF_BTN_ID 32
-#define CENTER_PAD_LEFT_ARROW_BTN_ID 33
-#define CENTER_PAD_RIGHT_ARROW_BTN_ID 34
-#define CENTER_PAD_OFF_BTN_ID 35
-#define ADVANCE_PAD_3_SCREEN 36
-#define SETTINGS_BTN_ID 37
-#define PAD_SETTINGS_BTN_ID 38
-#define SET_PAD_DIRECTION_SCREEN_ID 39
-#define SETTING_PROMPT01_ID 40
+#define DEVICE_TYPE_ICON 16
+#define FEATURE_SETTINGS_SCREEN_ID 17
+#define OK_BTN_ID 18
+#define FEATURE_LIST_BOX_ID 19
+#define HH_START_SCREEN_ID_1 20
+#define MORE_BTN_ID 21
+#define MAIN_USER_SCREEN_3 22
+#define USER_PORT_FEATURE_ID 23
+#define ADVANCE_PAD_3_SCREEN 24
+#define SETTINGS_BTN_ID 25
+#define PAD_SETTINGS_BTN_ID 26
+#define SET_PAD_DIRECTION_SCREEN_ID 27
+#define CENTER_PAD_FORWARD_ARROW_BTN_ID 28
+#define LEFT_PAD_LEFT_ARROW_BTN_ID 29
+#define RIGHT_PAD_RIGHT_ARROW_BTN_ID 30
+#define SETTING_PROMPT01_ID 31
+#define LEFT_PAD_RIGHT_ARROW_BTN_ID 32
+#define LEFT_PAD_FORWARD_ARROW_BTN_ID 33
+#define LEFT_PAD_OFF_BTN_ID 34
+#define RIGHT_PAD_LEFT_ARROW_BTN_ID 35
+#define RIGHT_PAD_FORWARD_ARROW_BTN_ID 36
+#define RIGHT_PAD_OFF_BTN_ID 37
+#define CENTER_PAD_LEFT_ARROW_BTN_ID 38
+#define CENTER_PAD_RIGHT_ARROW_BTN_ID 39
+#define CENTER_PAD_OFF_BTN_ID 40
 #define ADVANCE_PAD_SETTINGS_SCREEN_1_ID 41
 #define POWER_PROMPT_ID 42
 #define BLUETOOTH_PROMPT_ID 43
@@ -390,6 +390,7 @@ typedef struct MAINUSERSCREEN_CONTROL_BLOCK_STRUCT
     GX_ICON MainUserScreen_FeatureIcon;
     GX_ICON_BUTTON MainUserScreen_GroupIconButton;
     GX_ICON MainUserScreen_Fusion_Button;
+    GX_ICON MainUserScreen_DeviceType_icon;
 } MAINUSERSCREEN_CONTROL_BLOCK;
 
 typedef struct FEATURESETTINGSSCREEN_CONTROL_BLOCK_STRUCT
@@ -434,34 +435,6 @@ typedef struct MAINUSERSCREEN_3_CONTROL_BLOCK_STRUCT
     GX_ICON_BUTTON MainUserScreen_3_icon_button_1;
     GX_ICON_BUTTON MainUserScreen_3_icon_button_2;
 } MAINUSERSCREEN_3_CONTROL_BLOCK;
-
-typedef struct MAINUSERSCREEN_2_CONTROL_BLOCK_STRUCT
-{
-    PRIMARYTEMPLATE_CONTROL_BLOCK base;
-    GX_WINDOW MainUserScreen_2_MainUserScreen_1_WindowName;
-    GX_PIXELMAP_BUTTON MainUserScreen_2_CenterPad_ForwardArrow_Button;
-    GX_PIXELMAP_BUTTON MainUserScreen_2_LeftPad_LeftArrow_Button;
-    GX_PIXELMAP_BUTTON MainUserScreen_2_RightPad_RightArrow_Button;
-    GX_PIXELMAP_BUTTON MainUserScreen_2_LeftPad_RightArrow_Button;
-    GX_PIXELMAP_BUTTON MainUserScreen_2_LeftPad_ForwardArrow_Button;
-    GX_PIXELMAP_BUTTON MainUserScreen_2_LeftPad_Off_Button;
-    GX_PIXELMAP_BUTTON MainUserScreen_2_RightPad_LeftArrow_Button;
-    GX_PIXELMAP_BUTTON MainUserScreen_2_RightPad_ForwardArrow_Button;
-    GX_PIXELMAP_BUTTON MainUserScreen_2_RightPad_Off_Button;
-    GX_PIXELMAP_BUTTON MainUserScreen_2_CenterPad_LeftArrow_Button;
-    GX_PIXELMAP_BUTTON MainUserScreen_2_CenterPad_RightArrow_Button;
-    GX_PIXELMAP_BUTTON MainUserScreen_2_CenterPad_Off_Button;
-    GX_PIXELMAP_BUTTON MainUserScreen_2_CenterPad_ForwardArrow_Button_1;
-    GX_WINDOW MainUserScreen_2_ModePortWindow;
-    GX_PROMPT MainUserScreen_2_ModePrompt;
-    GX_PIXELMAP_BUTTON MainUserScreen_2_ModePortFeature;
-    GX_PIXELMAP_PROMPT MainUserScreen_2_prompt_1;
-    GX_WINDOW MainUserScreen_2_UserPortWindow;
-    GX_PROMPT MainUserScreen_2_UserPortPrompt;
-    GX_PIXELMAP_BUTTON MainUserScreen_2_UserPortFeature;
-    GX_PIXELMAP_PROMPT MainUserScreen_2_prompt;
-    GX_PIXELMAP_BUTTON MainUserScreen_2_pixelmap_button_1;
-} MAINUSERSCREEN_2_CONTROL_BLOCK;
 
 typedef struct ADVANCEPAD_3_SCREEN_CONTROL_BLOCK_STRUCT
 {
@@ -763,6 +736,7 @@ typedef struct PADOPTIONSSETTINGSSCREEN_CONTROL_BLOCK_STRUCT
     GX_TEXT_BUTTON PadOptionsSettingsScreen_PadDirection_Button;
     GX_TEXT_BUTTON PadOptionsSettingsScreen_OK_Button;
     GX_TEXT_BUTTON PadOptionsSettingsScreen_PadDirection_Button_1;
+    GX_ICON_BUTTON PadOptionsSettingsScreen_GroupIconButton;
 } PADOPTIONSSETTINGSSCREEN_CONTROL_BLOCK;
 
 typedef struct USERSETTINGSSCREEN_CONTROL_BLOCK_STRUCT
@@ -839,6 +813,7 @@ typedef struct HHP_START_SCREEN_CONTROL_BLOCK_STRUCT
     GX_TEXT_BUTTON HHP_Start_Screen_Settings_Button;
     GX_TEXT_BUTTON HHP_Start_Screen_OK_Button;
     GX_TEXT_BUTTON HHP_Start_Screen_PadSettings_Button;
+    GX_ICON_BUTTON HHP_Start_Screen_GroupIconButton;
 } HHP_START_SCREEN_CONTROL_BLOCK;
 
 
@@ -849,7 +824,6 @@ extern MAINUSERSCREEN_CONTROL_BLOCK MainUserScreen;
 extern FEATURESETTINGSSCREEN_CONTROL_BLOCK FeatureSettingsScreen;
 extern HHP_START_SCREEN_1_CONTROL_BLOCK HHP_Start_Screen_1;
 extern MAINUSERSCREEN_3_CONTROL_BLOCK MainUserScreen_3;
-extern MAINUSERSCREEN_2_CONTROL_BLOCK MainUserScreen_2;
 extern ADVANCEPAD_3_SCREEN_CONTROL_BLOCK AdvancePad_3_Screen;
 extern SETPADDIRECTIONSCREEN_1_CONTROL_BLOCK SetPadDirectionScreen_1;
 extern ADVANCEPADSETTINGSSCREEN_2_CONTROL_BLOCK AdvancePadSettingsScreen_2;

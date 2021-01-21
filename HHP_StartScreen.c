@@ -27,6 +27,9 @@ UINT HHP_Start_Screen_event_process (GX_WINDOW *window, GX_EVENT *event_ptr)
 
 	switch (event_ptr->gx_event_type)
 	{
+	case GX_EVENT_SHOW:
+		SetGroupIcon (&HHP_Start_Screen.HHP_Start_Screen_GroupIconButton);
+		break;
 	case GX_SIGNAL(PAD_SETTINGS_BTN_ID, GX_EVENT_CLICKED):		// When selected, goto Main Pad Setting scree.
         screen_toggle((GX_WINDOW *)&PadOptionsSettingsScreen, window);
 		break;

@@ -27,13 +27,13 @@ void DisplayPadFeatures()
 			gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_ForwardPad_Button, GX_PIXELMAP_ID_SPEAKER_A_88X70);
 			gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_ReversePad_Button, GX_PIXELMAP_ID_PADDOWNARROW_DISABLED);
 			gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_LeftPad_Button, GX_PIXELMAP_ID_SPEAKER_B_88X70);
-			gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_RightPad_Button, GX_PIXELMAP_ID_SPEAKER_C_88X70);
+			gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_RightPad_Button, GX_PIXELMAP_ID_SPEAKER_F_88X70);
 			break;
 		case 1:
 			gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_ForwardPad_Button, GX_PIXELMAP_ID_PADUPARROW_DISABLED);
 			gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_ReversePad_Button, GX_PIXELMAP_ID_PADDOWNARROW_DISABLED);
 			gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_LeftPad_Button, GX_PIXELMAP_ID_SPEAKER_B_88X70);
-			gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_RightPad_Button, GX_PIXELMAP_ID_SPEAKER_C_88X70);
+			gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_RightPad_Button, GX_PIXELMAP_ID_SPEAKER_F_88X70);
 			break;
 		case 2:
 			gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_ForwardPad_Button, GX_PIXELMAP_ID_PADUPARROW_DISABLED);
@@ -49,6 +49,23 @@ void DisplayPadFeatures()
 			break;
 		} // end switch
 		break;
+	case SEATING_FEATURE_ID:
+		switch (g_ActiveSeatingGroup)
+		{
+		case 0:
+			gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_ForwardPad_Button, GX_PIXELMAP_ID_PADUPARROW_DISABLED);
+			gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_ReversePad_Button, GX_PIXELMAP_ID_PADDOWNARROW_DISABLED);
+			gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_LeftPad_Button, GX_PIXELMAP_ID_TILTDOWN_88X70);
+			gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_RightPad_Button, GX_PIXELMAP_ID_TILTUP_88X70);
+			break;
+		case 1:
+			gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_ForwardPad_Button, GX_PIXELMAP_ID_PADUPARROW_DISABLED);
+			gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_ReversePad_Button, GX_PIXELMAP_ID_PADDOWNARROW_DISABLED);
+			gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_LeftPad_Button, GX_PIXELMAP_ID_RECLINEDOWN_88X70);
+			gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_RightPad_Button, GX_PIXELMAP_ID_RECLINEUP_88X70);
+			break;
+		} // end switch 
+		break;
 	default:
 		gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_ForwardPad_Button, GX_PIXELMAP_ID_UPWHITEARROW);
 		gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_ReversePad_Button, GX_PIXELMAP_ID_PADDOWNARROW_ENABLED);
@@ -57,6 +74,8 @@ void DisplayPadFeatures()
 		break;
 	}
 }
+
+//*************************************************************************************
 
 UINT DisplayMainScreenActiveFeatures ()
 {
@@ -173,23 +192,28 @@ UINT DisplayMainScreenActiveFeatures ()
 
 	
 	// Display the group icon and set the function box color
+	SetGroupIcon (&MainUserScreen.MainUserScreen_GroupIconButton);
 	switch (g_ActiveGroup)
 	{
 	case 0:
-		myErr = gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_GroupIconButton, GX_PIXELMAP_ID_GROUPA);
+		//myErr = gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_GroupIconButton, GX_PIXELMAP_ID_GROUPA);
 		gx_widget_fill_color_set (&MainUserScreen.MainUserScreen_FunctionWindow, GX_COLOR_ID_GREEN_ISH, GX_COLOR_ID_GREEN_ISH, GX_COLOR_ID_GREEN_ISH);
+		gx_icon_pixelmap_set (&MainUserScreen.MainUserScreen_DeviceType_icon, GX_PIXELMAP_ID_DEVICETYPE_HEADARRAY_88X70, GX_PIXELMAP_ID_DEVICETYPE_HEADARRAY_88X70);
 		break;
 	case 1:
-		myErr = gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_GroupIconButton, GX_PIXELMAP_ID_GROUPB);
+		//myErr = gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_GroupIconButton, GX_PIXELMAP_ID_GROUPB);
 		gx_widget_fill_color_set (&MainUserScreen.MainUserScreen_FunctionWindow, GX_COLOR_ID_SELECTED_FILL, GX_COLOR_ID_SELECTED_FILL, GX_COLOR_ID_SELECTED_FILL);
+		gx_icon_pixelmap_set (&MainUserScreen.MainUserScreen_DeviceType_icon, GX_PIXELMAP_ID_DEVICETYPE_HEADARRAY_88X70, GX_PIXELMAP_ID_DEVICETYPE_HEADARRAY_88X70);
 		break;
 	case 2:
-		myErr = gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_GroupIconButton, GX_PIXELMAP_ID_GROUPC);
+		//myErr = gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_GroupIconButton, GX_PIXELMAP_ID_GROUPC);
 		gx_widget_fill_color_set (&MainUserScreen.MainUserScreen_FunctionWindow, GX_COLOR_ID_BRIGHT_ORANGE, GX_COLOR_ID_BRIGHT_ORANGE, GX_COLOR_ID_BRIGHT_ORANGE);
+		gx_icon_pixelmap_set (&MainUserScreen.MainUserScreen_DeviceType_icon, GX_PIXELMAP_ID_DEVICETYPE_JOYSTICK_88X70, GX_PIXELMAP_ID_DEVICETYPE_JOYSTICK_88X70);
 		break;
 	case 3:
-		myErr = gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_GroupIconButton, GX_PIXELMAP_ID_GROUPD);
+		//myErr = gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_GroupIconButton, GX_PIXELMAP_ID_GROUPD);
 		gx_widget_fill_color_set (&MainUserScreen.MainUserScreen_FunctionWindow, GX_COLOR_ID_MAROON, GX_COLOR_ID_MAROON, GX_COLOR_ID_MAROON);
+		gx_icon_pixelmap_set (&MainUserScreen.MainUserScreen_DeviceType_icon, GX_PIXELMAP_ID_DEVICETYPE_JOYSTICK_88X70, GX_PIXELMAP_ID_DEVICETYPE_JOYSTICK_88X70);
 		break;
 	default:
 		break;
@@ -382,6 +406,12 @@ UINT MainUserScreen_EventFunction (GX_WINDOW *window, GX_EVENT *event_ptr)
 					++g_ActiveSpeakerGroup;
 					if (g_ActiveSpeakerGroup > 3)
 						g_ActiveSpeakerGroup = 0;
+					DisplayMainScreenActiveFeatures();
+					break;
+				case SEATING_FEATURE_ID:
+					++g_ActiveSeatingGroup;
+					if (g_ActiveSeatingGroup > 1)
+						g_ActiveSeatingGroup = 0;
 					DisplayMainScreenActiveFeatures();
 					break;
 				default:
