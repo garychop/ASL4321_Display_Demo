@@ -22,6 +22,10 @@ UINT PerformanceSelectionScreen_event_process (GX_WINDOW *window, GX_EVENT *even
 
 	switch (event_ptr->gx_event_type)
 	{
+	case GX_EVENT_SHOW:
+		SetGroupIcon (&PerformanceSelectionScreen.PerformanceSelectionScreen_GroupIconButton);
+		break;
+
 	case GX_SIGNAL(OK_BTN_ID, GX_EVENT_CLICKED):
         screen_toggle((GX_WINDOW *)&UserSelectionScreen, window);
 		break;

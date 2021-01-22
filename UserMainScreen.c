@@ -84,8 +84,8 @@ VOID Initialize_MainScreenInfo()
     g_MainScreenFeatureInfo[NEXT_GROUP_ID].m_Location = 0;
     g_MainScreenFeatureInfo[NEXT_GROUP_ID].m_LargeDescriptionID = GX_STRING_ID_NEXT_GROUP;
     g_MainScreenFeatureInfo[NEXT_GROUP_ID].m_SmallDescriptionID = GX_STRING_ID_NEXT_GROUP;
-    g_MainScreenFeatureInfo[NEXT_GROUP_ID].m_SmallIcon = GX_PIXELMAP_ID_NEXTGROUP_30X30;
-    g_MainScreenFeatureInfo[NEXT_GROUP_ID].m_LargeIcon = GX_PIXELMAP_ID_NEXTGROUP_70X70;
+    g_MainScreenFeatureInfo[NEXT_GROUP_ID].m_SmallIcon = GX_PIXELMAP_ID_NEXTGROUP_30X30_E2;
+    g_MainScreenFeatureInfo[NEXT_GROUP_ID].m_LargeIcon = GX_PIXELMAP_ID_NEXTGROUP_70X70_E2;
 	g_MainScreenFeatureInfo[NEXT_GROUP_ID].m_FeatureIconID = GX_PIXELMAP_ID_DRIVING_60X50;
 
 	// "AUDIBLE OUT" information and description
@@ -98,7 +98,7 @@ VOID Initialize_MainScreenInfo()
     g_MainScreenFeatureInfo[AUDIBLE_OUT_FEATURE_ID].m_LargeIcon = GX_PIXELMAP_ID_SPEAKER_70X70;
 	g_MainScreenFeatureInfo[AUDIBLE_OUT_FEATURE_ID].m_FeatureIconID = GX_PIXELMAP_ID_SPEAKER_60X50;
 
-	
+	// SEATING informaton and description
     g_MainScreenFeatureInfo[SEATING_FEATURE_ID].m_Enabled = TRUE;
     g_MainScreenFeatureInfo[SEATING_FEATURE_ID].m_Available = TRUE;
     g_MainScreenFeatureInfo[SEATING_FEATURE_ID].m_Location = 0;

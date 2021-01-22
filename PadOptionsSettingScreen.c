@@ -92,6 +92,10 @@ UINT PadOptionsSettingsScreen_event_process (GX_WINDOW *window, GX_EVENT *event_
 
 	switch (event_ptr->gx_event_type)
 	{
+	case GX_EVENT_SHOW:
+		SetGroupIcon (&PadOptionsSettingsScreen.PadOptionsSettingsScreen_GroupIconButton);
+		break;
+
 	case GX_SIGNAL(OK_BTN_ID, GX_EVENT_CLICKED):
         screen_toggle((GX_WINDOW *)&HHP_Start_Screen, window);
 		break;

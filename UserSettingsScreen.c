@@ -28,6 +28,8 @@ UINT UserSettingsScreen_event_process (GX_WINDOW *window, GX_EVENT *event_ptr)
 	switch (event_ptr->gx_event_type)
 	{
 	case GX_EVENT_SHOW:
+		SetGroupIcon (&UserSettingsScreen.UserSettingsScreen_GroupIconButton);
+
 		if (g_ClicksActive)
 		{
 			gx_button_select ((GX_BUTTON*) &UserSettingsScreen.UserSettingsScreen_ClicksToggleBtn);

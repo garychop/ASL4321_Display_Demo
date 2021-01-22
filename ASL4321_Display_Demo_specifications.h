@@ -6,7 +6,7 @@
 /*  www.expresslogic.com.                                                      */
 /*                                                                             */
 /*  GUIX Studio Revision 5.4.2.9                                               */
-/*  Date (dd.mm.yyyy): 21. 1.2021   Time (hh:mm): 14:48                        */
+/*  Date (dd.mm.yyyy): 22. 1.2021   Time (hh:mm): 17:12                        */
 /*******************************************************************************/
 
 
@@ -400,6 +400,7 @@ typedef struct FEATURESETTINGSSCREEN_CONTROL_BLOCK_STRUCT
     GX_TEXT_BUTTON FeatureSettingsScreen_OK_Button_1;
     GX_VERTICAL_LIST FeatureSettingsScreen_FeatureListBox;
     GX_SCROLLBAR FeatureSettingsScreen_FeatureList_vertical_scroll;
+    GX_ICON_BUTTON FeatureSettingsScreen_GroupIconButton;
 } FEATURESETTINGSSCREEN_CONTROL_BLOCK;
 
 typedef struct HHP_START_SCREEN_1_CONTROL_BLOCK_STRUCT
@@ -602,6 +603,7 @@ typedef struct PERFORMANCESELECTIONSCREEN_CONTROL_BLOCK_STRUCT
     GX_TEXT_BUTTON PerformanceSelectionScreen_MinimumDrive_lButton;
     GX_TEXT_BUTTON PerformanceSelectionScreen_OK_Button;
     GX_TEXT_BUTTON PerformanceSelectionScreen_VeerAdjust_Button;
+    GX_ICON_BUTTON PerformanceSelectionScreen_GroupIconButton;
 } PERFORMANCESELECTIONSCREEN_CONTROL_BLOCK;
 
 typedef struct RESETFINISHSCREEN_CONTROL_BLOCK_STRUCT
@@ -631,6 +633,7 @@ typedef struct USERSELECTIONSCREEN_CONTROL_BLOCK_STRUCT
     GX_TEXT_BUTTON UserSelectionScreen_FeatureSettings_lButton;
     GX_TEXT_BUTTON UserSelectionScreen_OK_Button;
     GX_TEXT_BUTTON UserSelectionScreen_Performance_Button;
+    GX_ICON_BUTTON UserSelectionScreen_GroupIconButton;
 } USERSELECTIONSCREEN_CONTROL_BLOCK;
 
 typedef struct VEERADJUSTSCREEN_CONTROL_BLOCK_STRUCT
@@ -642,6 +645,7 @@ typedef struct VEERADJUSTSCREEN_CONTROL_BLOCK_STRUCT
     GX_TEXT_BUTTON VeerAdjustScreen_SliderValue_Button;
     GX_PROMPT VeerAdjustScreen_InstructionLine_1;
     GX_PROMPT VeerAdjustScreen_InstructionLine_2;
+    GX_ICON_BUTTON VeerAdjustScreen_GroupIconButton;
 } VEERADJUSTSCREEN_CONTROL_BLOCK;
 
 typedef struct OON_SCREEN_CONTROL_BLOCK_STRUCT
@@ -678,6 +682,7 @@ typedef struct PADCALIBRATIONSCREEN_CONTROL_BLOCK_STRUCT
     GX_PROMPT PadCalibrationScreen_MaximumInstructionsText;
     GX_NUMERIC_PROMPT PadCalibrationScreen_Value_Prompt;
     GX_NUMERIC_PROMPT PadCalibrationScreen_PadValue_Prompt;
+    GX_ICON_BUTTON PadCalibrationScreen_GroupIconButton;
 } PADCALIBRATIONSCREEN_CONTROL_BLOCK;
 
 typedef struct FEATURESETTINGSSCREEN_OLD_CONTROL_BLOCK_STRUCT
@@ -726,6 +731,7 @@ typedef struct SETPADDIRECTIONSCREEN_CONTROL_BLOCK_STRUCT
     GX_PIXELMAP_BUTTON SetPadDirectionScreen_CenterPad_RightArrow_Button;
     GX_PIXELMAP_BUTTON SetPadDirectionScreen_CenterPad_Off_Button;
     GX_PROMPT SetPadDirectionScreen_SettingPadPrompt_1;
+    GX_ICON_BUTTON SetPadDirectionScreen_GroupIconButton;
 } SETPADDIRECTIONSCREEN_CONTROL_BLOCK;
 
 typedef struct PADOPTIONSSETTINGSSCREEN_CONTROL_BLOCK_STRUCT
@@ -764,6 +770,7 @@ typedef struct USERSETTINGSSCREEN_CONTROL_BLOCK_STRUCT
     GX_CHECKBOX UserSettingsScreen_RNET_ToggleBtn;
     GX_PROMPT UserSettingsScreen_ModePortSchema_Prompt;
     GX_CHECKBOX UserSettingsScreen_ModeSwitchSchema_ToggleBtn;
+    GX_ICON_BUTTON UserSettingsScreen_GroupIconButton;
 } USERSETTINGSSCREEN_CONTROL_BLOCK;
 
 typedef struct SETPADTYPESCREEN_CONTROL_BLOCK_STRUCT
@@ -779,6 +786,7 @@ typedef struct SETPADTYPESCREEN_CONTROL_BLOCK_STRUCT
     GX_PIXELMAP_BUTTON SetPadTypeScreen_RightPadProportional_Button;
     GX_PROMPT SetPadTypeScreen_SettingPadPrompt;
     GX_PROMPT SetPadTypeScreen_SettingPadPrompt_1;
+    GX_ICON_BUTTON SetPadTypeScreen_GroupIconButton;
 } SETPADTYPESCREEN_CONTROL_BLOCK;
 
 typedef struct DIAGNOSTICSCREEN_CONTROL_BLOCK_STRUCT
@@ -856,11 +864,11 @@ extern PRIMARYTEMPLATE_CONTROL_BLOCK PrimaryTemplate;
 /* Declare event process functions, draw functions, and callback functions     */
 
 UINT MainUserScreen_EventFunction(GX_WINDOW *widget, GX_EVENT *event_ptr);
+UINT FeatureSettingsScreen_event_process(GX_WINDOW *widget, GX_EVENT *event_ptr);
 VOID FeatureList_callback(GX_VERTICAL_LIST *, GX_WIDGET *, INT);
 UINT HHP_Start_Screen_event_process(GX_WINDOW *widget, GX_EVENT *event_ptr);
 UINT MainUserScreen_3_EventFunction(GX_WINDOW *widget, GX_EVENT *event_ptr);
 UINT SetPadDirectionScreen_event_process(GX_WINDOW *widget, GX_EVENT *event_ptr);
-UINT FeatureSettingsScreen_event_process(GX_WINDOW *widget, GX_EVENT *event_ptr);
 UINT MainUserScreen_event_process(GX_WINDOW *widget, GX_EVENT *event_ptr);
 VOID MainUserScreen_draw_function(GX_WINDOW *widget);
 UINT ResetScreen_event_process(GX_WINDOW *widget, GX_EVENT *event_ptr);

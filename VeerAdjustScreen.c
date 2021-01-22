@@ -30,6 +30,7 @@ int g_MyValues[20];
 
 VOID VeerAdjust_Screen_draw_function (GX_WINDOW *window)
 {
+	SetGroupIcon (&VeerAdjustScreen.VeerAdjustScreen_GroupIconButton);
 	gx_window_draw(window);
 }
 

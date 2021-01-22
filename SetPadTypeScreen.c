@@ -29,6 +29,7 @@ UINT SetPadTypeScreen_event_process (GX_WINDOW *window, GX_EVENT *event_ptr)
 	switch (event_ptr->gx_event_type)
 	{
 	case GX_EVENT_SHOW:
+		SetGroupIcon (&SetPadTypeScreen.SetPadTypeScreen_GroupIconButton);
 		g_ChangeScreen_WIP = FALSE;
 		if (g_PadSettings[LEFT_PAD].m_PadType)	// Digital?
 		{

@@ -128,6 +128,8 @@ UINT CalibrationScreen_event_process (GX_WINDOW *window, GX_EVENT *event_ptr)
 	switch (event_ptr->gx_event_type)
 	{
 	case GX_EVENT_SHOW:
+		SetGroupIcon (&PadCalibrationScreen.PadCalibrationScreen_GroupIconButton);
+
 		myErr = gx_widget_resize ((GX_WIDGET*) &PadCalibrationScreen.PadCalibrationScreen_MaximumInstructionsText, &g_HiddenRectangle);
 		myErr = gx_widget_resize ((GX_WIDGET*) &PadCalibrationScreen.PadCalibrationScreen_MinimumInstructionsText, &g_CalibrationPromptLocations[0]);
 		g_CalibrationStepNumber = 0;

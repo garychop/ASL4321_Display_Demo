@@ -120,6 +120,8 @@ UINT FeatureSettingsScreen_event_process (GX_WINDOW *window, GX_EVENT *event_ptr
 	switch (event_ptr->gx_event_type)
 	{
 		case GX_EVENT_SHOW:
+			SetGroupIcon (&FeatureSettingsScreen.FeatureSettingsScreen_GroupIconButton);
+
 			CreateFeatureWidgets (&FeatureWindowPtr->FeatureSettingsScreen_FeatureListBox);
 			if (FeatureWindowPtr->FeatureSettingsScreen_FeatureListBox.gx_vertical_list_total_rows < 5)
 				gx_widget_hide ((GX_WIDGET*) &FeatureWindowPtr->FeatureSettingsScreen_FeatureList_vertical_scroll);

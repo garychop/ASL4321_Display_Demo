@@ -44,6 +44,8 @@ UINT SetPadDirectionScreen_event_process (GX_WINDOW *window, GX_EVENT *event_ptr
 	switch (event_ptr->gx_event_type)
 	{
 	case GX_EVENT_SHOW:
+		SetGroupIcon (&SetPadDirectionScreen.SetPadDirectionScreen_GroupIconButton);
+
 		// Show correct settings for LEFT pad. Off, Right, Forward or Left.
 		// First let's hide all choices for all pads.
 		for (pads = 0; pads < 3; ++pads)
