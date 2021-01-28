@@ -27,6 +27,7 @@ UINT UserSelectionScreen_event_process (GX_WINDOW *window, GX_EVENT *event_ptr)
 	case GX_EVENT_SHOW:
 		SetGroupIcon (&UserSelectionScreen.UserSelectionScreen_GroupIconButton);
 		break;
+
 	case GX_SIGNAL(OK_BTN_ID, GX_EVENT_CLICKED):
         screen_toggle((GX_WINDOW *)&HHP_Start_Screen, window);
 		break;

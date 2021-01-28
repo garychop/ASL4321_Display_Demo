@@ -24,6 +24,8 @@ UINT MinimumDriveScreen_event_process (GX_WINDOW *window, GX_EVENT *event_ptr)
 	switch (event_ptr->gx_event_type)
 	{
 	case GX_EVENT_SHOW:
+		SetGroupIcon (&MinimumDriveScreen.MinimumDriveScreen_GroupIconButton);
+
 		if (g_HA_EEPROM_Version >= 5)		// Firmware version 5 uses 3 drive offset values.
 		{
 		}

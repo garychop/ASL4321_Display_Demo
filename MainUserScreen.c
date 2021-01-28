@@ -6,6 +6,7 @@
 
 static int mycounter=0;
 static unsigned char g_Inhibit_UpButtonResponse = FALSE;
+static int g_GroupIcon = 0;
 
 //*************************************************************************************
 // Function Name: DisplayMainScreenActiveFeatures
@@ -325,7 +326,26 @@ UINT MainUserScreen_EventFunction (GX_WINDOW *window, GX_EVENT *event_ptr)
 		break;
 
 	case GX_SIGNAL (CHANGE_SCREEN_BTN_ID, GX_EVENT_CLICKED):
-		screen_toggle((GX_WINDOW *)&MainUserScreen_3, window);
+		++g_GroupIcon;
+		if (g_GroupIcon > 2)	// Only 3 selections.
+			g_GroupIcon = 0;
+		switch (g_GroupIcon)
+		{
+		case 1:
+			g_MainScreenFeatureInfo[NEXT_GROUP_ID].m_SmallIcon = GX_PIXELMAP_ID_NEXTGROUP_30X30;
+			g_MainScreenFeatureInfo[NEXT_GROUP_ID].m_LargeIcon = GX_PIXELMAP_ID_NEXTGROUP_70X70;
+			break;
+		case 2:
+			g_MainScreenFeatureInfo[NEXT_GROUP_ID].m_SmallIcon = GX_PIXELMAP_ID_NEXTGROUP_30X30_C;
+			g_MainScreenFeatureInfo[NEXT_GROUP_ID].m_LargeIcon = GX_PIXELMAP_ID_NEXTGROUP_70X70_C;
+			break;
+		default:
+			g_MainScreenFeatureInfo[NEXT_GROUP_ID].m_SmallIcon = GX_PIXELMAP_ID_NEXTGROUP_30X30_E2;
+			g_MainScreenFeatureInfo[NEXT_GROUP_ID].m_LargeIcon = GX_PIXELMAP_ID_NEXTGROUP_70X70_E2;
+			break;
+		} // end switch g_GroupIcon
+		DisplayMainScreenActiveFeatures();
+		//screen_toggle((GX_WINDOW *)&MainUserScreen_3, window);
 		break;
 
 	case GX_SIGNAL (LEFT_PAD_BUTTON, GX_EVENT_CLICKED):

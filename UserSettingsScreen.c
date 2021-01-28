@@ -65,7 +65,7 @@ UINT UserSettingsScreen_event_process (GX_WINDOW *window, GX_EVENT *event_ptr)
 		break;
 
 	case GX_SIGNAL(OK_BTN_ID, GX_EVENT_CLICKED):
-        screen_toggle((GX_WINDOW *)&UserSelectionScreen, window);
+        screen_toggle((GX_WINDOW *)&HHP_Start_Screen, window);
 		// Adjust available features based upon RNet setting.
 		if (g_RNet_Active)
 		{

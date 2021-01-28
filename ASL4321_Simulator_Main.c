@@ -27,8 +27,6 @@
 // Define prototypes.
 VOID start_guix(VOID);
 
-extern void CreateFeatureWidgets (GX_VERTICAL_LIST *list);
-
 //--------------------------------------------------------------------
 // Global Variables
 TX_BYTE_POOL       memory_pool;
@@ -143,7 +141,6 @@ VOID  start_guix(VOID)
 //    myError = gx_studio_named_widget_create("PrimaryTemplate", (GX_WIDGET *)root, GX_NULL);
 	myError = gx_studio_named_widget_create("DiagnosticScreen", GX_NULL, GX_NULL);
 	myError = gx_studio_named_widget_create("FeatureSettingsScreen", GX_NULL, GX_NULL);
-	//CreateFeatureWidgets (&FeatureSettingsScreen.FeatureSettingsScreen_FeatureListBox);
 	myError = gx_studio_named_widget_create("HHP_Start_Screen", GX_NULL, GX_NULL);
 	//myError = gx_studio_named_widget_create("MainUserScreen", , GX_NULL, GX_NULL);
 	myError = gx_studio_named_widget_create("MainUserScreen", (GX_WIDGET *)root, GX_NULL);

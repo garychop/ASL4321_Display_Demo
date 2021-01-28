@@ -40,7 +40,7 @@ UINT ResetScreen_event_process(GX_WINDOW *window, GX_EVENT *event_ptr)
     switch (event_ptr->gx_event_type)
     {
 	case GX_SIGNAL(OK_BTN_ID, GX_EVENT_CLICKED):
-        screen_toggle((GX_WINDOW *)&MoreSelectionScreen, window);
+		screen_toggle ((GX_WINDOW*) &DiagnosticScreen, window);
 		break;
 
 	case GX_SIGNAL(CONTINUE_BTN_ID, GX_EVENT_CLICKED):

@@ -6,7 +6,7 @@
 /*  www.expresslogic.com.                                                      */
 /*                                                                             */
 /*  GUIX Studio Revision 5.4.2.9                                               */
-/*  Date (dd.mm.yyyy): 22. 1.2021   Time (hh:mm): 17:12                        */
+/*  Date (dd.mm.yyyy): 28. 1.2021   Time (hh:mm): 11:18                        */
 /*******************************************************************************/
 
 
@@ -18,15 +18,8 @@
 static GX_WIDGET *gx_studio_nested_widget_create(GX_BYTE *control, GX_CONST GX_STUDIO_WIDGET *definition, GX_WIDGET *parent);
 MAINUSERSCREEN_CONTROL_BLOCK MainUserScreen;
 FEATURESETTINGSSCREEN_CONTROL_BLOCK FeatureSettingsScreen;
-HHP_START_SCREEN_1_CONTROL_BLOCK HHP_Start_Screen_1;
+HHP_START_SCREEN_CONTROL_BLOCK HHP_Start_Screen;
 MAINUSERSCREEN_3_CONTROL_BLOCK MainUserScreen_3;
-ADVANCEPAD_3_SCREEN_CONTROL_BLOCK AdvancePad_3_Screen;
-SETPADDIRECTIONSCREEN_1_CONTROL_BLOCK SetPadDirectionScreen_1;
-ADVANCEPADSETTINGSSCREEN_2_CONTROL_BLOCK AdvancePadSettingsScreen_2;
-ADVANCEPADSETTINGSSCREEN_1_CONTROL_BLOCK AdvancePadSettingsScreen_1;
-ADVANCEPAD_2_SCREEN_CONTROL_BLOCK AdvancePad_2_Screen;
-ADVANCEPAD_1_SCREEN_CONTROL_BLOCK AdvancePad_1_Screen;
-ADVANCEPADSETTINGSSCREEN_CONTROL_BLOCK AdvancePadSettingsScreen;
 MAINUSERSCREEN_OLD_CONTROL_BLOCK MainUserScreen_old;
 RESETSCREEN_CONTROL_BLOCK ResetScreen;
 MINIMUMDRIVESCREEN_CONTROL_BLOCK MinimumDriveScreen;
@@ -39,13 +32,11 @@ OON_SCREEN_CONTROL_BLOCK OON_Screen;
 READYSCREEN_CONTROL_BLOCK ReadyScreen;
 STARTUPSCREEN_CONTROL_BLOCK StartupScreen;
 PADCALIBRATIONSCREEN_CONTROL_BLOCK PadCalibrationScreen;
-FEATURESETTINGSSCREEN_OLD_CONTROL_BLOCK FeatureSettingsScreen_OLD;
 SETPADDIRECTIONSCREEN_CONTROL_BLOCK SetPadDirectionScreen;
 PADOPTIONSSETTINGSSCREEN_CONTROL_BLOCK PadOptionsSettingsScreen;
 USERSETTINGSSCREEN_CONTROL_BLOCK UserSettingsScreen;
 SETPADTYPESCREEN_CONTROL_BLOCK SetPadTypeScreen;
 DIAGNOSTICSCREEN_CONTROL_BLOCK DiagnosticScreen;
-HHP_START_SCREEN_CONTROL_BLOCK HHP_Start_Screen;
 GX_DISPLAY PrimaryDisplay_control_block;
 GX_WINDOW_ROOT PrimaryDisplay_root_window;
 GX_CANVAS  PrimaryDisplay_canvas_control_block;
@@ -1185,7 +1176,7 @@ GX_WINDOW_PROPERTIES FeatureSettingsScreen_UserSettingsScreenBackdrop_properties
 {
     GX_PIXELMAP_ID_BACKGROUND_480X272        /* wallpaper pixelmap id          */
 };
-GX_TEXT_BUTTON_PROPERTIES FeatureSettingsScreen_OK_Button_1_properties =
+GX_TEXT_BUTTON_PROPERTIES FeatureSettingsScreen_OK_Button_properties =
 {
     GX_STRING_ID_STRING_24,                  /* string id                      */
     GX_FONT_ID_ASC24PT,                      /* font id                        */
@@ -1260,7 +1251,7 @@ GX_CONST GX_STUDIO_WIDGET FeatureSettingsScreen_GroupIconButton_define =
     gx_studio_icon_button_create,            /* create function                */
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
-    {334, 14, 453, 83},                      /* widget size                    */
+    {342, 14, 461, 83},                      /* widget size                    */
     GX_NULL,                                 /* no next widget                 */
     GX_NULL,                                 /* no child widgets               */ 
     offsetof(FEATURESETTINGSSCREEN_CONTROL_BLOCK, FeatureSettingsScreen_GroupIconButton), /* control block */
@@ -1291,9 +1282,9 @@ GX_CONST GX_STUDIO_WIDGET FeatureSettingsScreen_FeatureListBox_define =
     (void *) &FeatureSettingsScreen_FeatureListBox_properties /* extended properties */
 };
 
-GX_CONST GX_STUDIO_WIDGET FeatureSettingsScreen_OK_Button_1_define =
+GX_CONST GX_STUDIO_WIDGET FeatureSettingsScreen_OK_Button_define =
 {
-    "OK_Button_1",
+    "OK_Button",
     GX_TYPE_TEXT_BUTTON,                     /* widget type                    */
     OK_BTN_ID,                               /* widget id                      */
     #if defined(GX_WIDGET_USER_DATA)
@@ -1308,11 +1299,11 @@ GX_CONST GX_STUDIO_WIDGET FeatureSettingsScreen_OK_Button_1_define =
     gx_studio_text_button_create,            /* create function                */
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
-    {372, 188, 451, 251},                    /* widget size                    */
+    {380, 188, 459, 251},                    /* widget size                    */
     &FeatureSettingsScreen_FeatureListBox_define, /* next widget definition    */
     GX_NULL,                                 /* no child widgets               */ 
-    offsetof(FEATURESETTINGSSCREEN_CONTROL_BLOCK, FeatureSettingsScreen_OK_Button_1), /* control block */
-    (void *) &FeatureSettingsScreen_OK_Button_1_properties /* extended properties */
+    offsetof(FEATURESETTINGSSCREEN_CONTROL_BLOCK, FeatureSettingsScreen_OK_Button), /* control block */
+    (void *) &FeatureSettingsScreen_OK_Button_properties /* extended properties */
 };
 
 GX_CONST GX_STUDIO_WIDGET FeatureSettingsScreen_UserSettingsScreenBackdrop_define =
@@ -1334,7 +1325,7 @@ GX_CONST GX_STUDIO_WIDGET FeatureSettingsScreen_UserSettingsScreenBackdrop_defin
     GX_NULL,                                 /* event function override        */
     {0, 0, 479, 271},                        /* widget size                    */
     GX_NULL,                                 /* no next widget                 */
-    &FeatureSettingsScreen_OK_Button_1_define, /* child widget definition      */
+    &FeatureSettingsScreen_OK_Button_define, /* child widget definition        */
     offsetof(FEATURESETTINGSSCREEN_CONTROL_BLOCK, FeatureSettingsScreen_UserSettingsScreenBackdrop), /* control block */
     (void *) &FeatureSettingsScreen_UserSettingsScreenBackdrop_properties /* extended properties */
 };
@@ -1362,25 +1353,38 @@ GX_CONST GX_STUDIO_WIDGET FeatureSettingsScreen_define =
     0,                                       /* control block                  */
     (void *) &FeatureSettingsScreen_properties /* extended properties          */
 };
-GX_TEMPLATE_PROPERTIES HHP_Start_Screen_1_properties =
+GX_TEMPLATE_PROPERTIES HHP_Start_Screen_properties =
 {
     &PrimaryTemplate_define,                 /* base info                      */
     gx_studio_window_create,                 /* base create function           */
     {0, 0, 479, 399}                         /* widget size                    */
 };
-GX_WINDOW_PROPERTIES HHP_Start_Screen_1_HHP_Start_Backdrop_properties =
+GX_WINDOW_PROPERTIES HHP_Start_Screen_HHP_Start_Backdrop_properties =
 {
     GX_PIXELMAP_ID_BACKGROUND_480X272        /* wallpaper pixelmap id          */
 };
-GX_TEXT_BUTTON_PROPERTIES HHP_Start_Screen_1_MainMore_Button_properties =
+GX_VERTICAL_LIST_PROPERTIES HHP_Start_Screen_FeatureList_properties =
 {
-    GX_STRING_ID_STRING_44,                  /* string id                      */
-    GX_FONT_ID_BUTTON,                       /* font id                        */
-    GX_COLOR_ID_BTN_TEXT,                    /* normal text color              */
-    GX_COLOR_ID_BTN_TEXT,                    /* selected text color            */
-    GX_COLOR_ID_DISABLED_TEXT                /* disabled text color            */
+    0,                                       /* wallpaper id                   */
+    MenuItem_Callback,                       /* callback function              */
+    10                                       /* total rows                     */
 };
-GX_TEXT_BUTTON_PROPERTIES HHP_Start_Screen_1_OK_Button_properties =
+GX_SCROLLBAR_APPEARANCE  HHP_Start_Screen_FeatureList_vertical_scroll_properties =
+{
+    20,                                      /* scroll width                   */
+    10,                                      /* thumb width                    */
+    0,                                       /* thumb travel min               */
+    0,                                       /* thumb travel max               */
+    4,                                       /* thumb border style             */
+    0,                                       /* scroll fill pixelmap           */
+    0,                                       /* scroll thumb pixelmap          */
+    0,                                       /* scroll up pixelmap             */
+    0,                                       /* scroll down pixelmap           */
+    GX_COLOR_ID_SHINE,                       /* scroll thumb color             */
+    GX_COLOR_ID_SHINE,                       /* scroll thumb border color      */
+    GX_COLOR_ID_WINDOW_BORDER,               /* scroll button color            */
+};
+GX_TEXT_BUTTON_PROPERTIES HHP_Start_Screen_OK_Button_properties =
 {
     GX_STRING_ID_STRING_24,                  /* string id                      */
     GX_FONT_ID_ASC24PT,                      /* font id                        */
@@ -1388,128 +1392,60 @@ GX_TEXT_BUTTON_PROPERTIES HHP_Start_Screen_1_OK_Button_properties =
     GX_COLOR_ID_BTN_TEXT,                    /* selected text color            */
     GX_COLOR_ID_DISABLED_TEXT                /* disabled text color            */
 };
-GX_PIXELMAP_BUTTON_PROPERTIES HHP_Start_Screen_1_pixelmap_button_4_properties =
+GX_ICON_BUTTON_PROPERTIES HHP_Start_Screen_GroupIconButton_properties =
 {
-    GX_PIXELMAP_ID_DIAMOND_76X57_P4,         /* normal pixelmap id             */
-    0,                                       /* selected pixelmap id           */
-    0                                        /* disabled pixelmap id           */
-};
-GX_PIXELMAP_BUTTON_PROPERTIES HHP_Start_Screen_1_pixelmap_button_1_properties =
-{
-    GX_PIXELMAP_ID_DIAMOND_76X57_P1,         /* normal pixelmap id             */
-    0,                                       /* selected pixelmap id           */
-    0                                        /* disabled pixelmap id           */
-};
-GX_PIXELMAP_BUTTON_PROPERTIES HHP_Start_Screen_1_pixelmap_button_2_properties =
-{
-    GX_PIXELMAP_ID_DIAMOND_76X57_P2,         /* normal pixelmap id             */
-    0,                                       /* selected pixelmap id           */
-    0                                        /* disabled pixelmap id           */
-};
-GX_PIXELMAP_BUTTON_PROPERTIES HHP_Start_Screen_1_pixelmap_button_3_properties =
-{
-    GX_PIXELMAP_ID_DIAMOND_76X57_P3,         /* normal pixelmap id             */
-    0,                                       /* selected pixelmap id           */
-    0                                        /* disabled pixelmap id           */
+    GX_PIXELMAP_ID_GROUPA                    /* pixelmap id                    */
 };
 
-GX_CONST GX_STUDIO_WIDGET HHP_Start_Screen_1_pixelmap_button_3_define =
+GX_CONST GX_STUDIO_WIDGET HHP_Start_Screen_FeatureList_vertical_scroll_define =
 {
-    "pixelmap_button_3",
-    GX_TYPE_PIXELMAP_BUTTON,                 /* widget type                    */
+    "FeatureList_vertical_scroll",
+    GX_TYPE_VERTICAL_SCROLL,                 /* widget type                    */
     GX_ID_NONE,                              /* widget id                      */
     #if defined(GX_WIDGET_USER_DATA)
     0,                                       /* user data                      */
     #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_ENABLED,   /* style flags                    */
-    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
-    sizeof(GX_PIXELMAP_BUTTON),              /* control block size             */
-    GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
-    GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_pixelmap_button_create,        /* create function                */
+    GX_STYLE_BORDER_THIN|GX_STYLE_TRANSPARENT|GX_SCROLLBAR_RELATIVE_THUMB|GX_SCROLLBAR_VERTICAL,   /* style flags */
+    0,                                       /* status flags                   */
+    sizeof(GX_SCROLLBAR),                    /* control block size             */
+    GX_COLOR_ID_BLACK,                       /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_BLACK,                       /* disabled color id              */
+    gx_studio_vertical_scrollbar_create,     /* create function                */
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
-    {86, 74, 161, 130},                      /* widget size                    */
+    {289, 11, 308, 260},                     /* widget size                    */
     GX_NULL,                                 /* no next widget                 */
     GX_NULL,                                 /* no child widgets               */ 
-    offsetof(HHP_START_SCREEN_1_CONTROL_BLOCK, HHP_Start_Screen_1_pixelmap_button_3), /* control block */
-    (void *) &HHP_Start_Screen_1_pixelmap_button_3_properties /* extended properties */
+    offsetof(HHP_START_SCREEN_CONTROL_BLOCK, HHP_Start_Screen_FeatureList_vertical_scroll), /* control block */
+    (void *) &HHP_Start_Screen_FeatureList_vertical_scroll_properties /* extended properties */
 };
 
-GX_CONST GX_STUDIO_WIDGET HHP_Start_Screen_1_pixelmap_button_2_define =
+GX_CONST GX_STUDIO_WIDGET HHP_Start_Screen_GroupIconButton_define =
 {
-    "pixelmap_button_2",
-    GX_TYPE_PIXELMAP_BUTTON,                 /* widget type                    */
-    GX_ID_NONE,                              /* widget id                      */
+    "GroupIconButton",
+    GX_TYPE_ICON_BUTTON,                     /* widget type                    */
+    GROUP_ICON_BUTTON,                       /* widget id                      */
     #if defined(GX_WIDGET_USER_DATA)
     0,                                       /* user data                      */
     #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_ENABLED,   /* style flags                    */
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_HALIGN_CENTER|GX_STYLE_VALIGN_CENTER,   /* style flags */
     GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
-    sizeof(GX_PIXELMAP_BUTTON),              /* control block size             */
+    sizeof(GX_ICON_BUTTON),                  /* control block size             */
     GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
     GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
     GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_pixelmap_button_create,        /* create function                */
+    gx_studio_icon_button_create,            /* create function                */
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
-    {162, 16, 237, 72},                      /* widget size                    */
-    &HHP_Start_Screen_1_pixelmap_button_3_define, /* next widget definition    */
+    {342, 14, 461, 83},                      /* widget size                    */
+    GX_NULL,                                 /* no next widget                 */
     GX_NULL,                                 /* no child widgets               */ 
-    offsetof(HHP_START_SCREEN_1_CONTROL_BLOCK, HHP_Start_Screen_1_pixelmap_button_2), /* control block */
-    (void *) &HHP_Start_Screen_1_pixelmap_button_2_properties /* extended properties */
+    offsetof(HHP_START_SCREEN_CONTROL_BLOCK, HHP_Start_Screen_GroupIconButton), /* control block */
+    (void *) &HHP_Start_Screen_GroupIconButton_properties /* extended properties */
 };
 
-GX_CONST GX_STUDIO_WIDGET HHP_Start_Screen_1_pixelmap_button_1_define =
-{
-    "pixelmap_button_1",
-    GX_TYPE_PIXELMAP_BUTTON,                 /* widget type                    */
-    GX_ID_NONE,                              /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_ENABLED,   /* style flags                    */
-    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
-    sizeof(GX_PIXELMAP_BUTTON),              /* control block size             */
-    GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
-    GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_pixelmap_button_create,        /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {33, 17, 108, 73},                       /* widget size                    */
-    &HHP_Start_Screen_1_pixelmap_button_2_define, /* next widget definition    */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(HHP_START_SCREEN_1_CONTROL_BLOCK, HHP_Start_Screen_1_pixelmap_button_1), /* control block */
-    (void *) &HHP_Start_Screen_1_pixelmap_button_1_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET HHP_Start_Screen_1_pixelmap_button_4_define =
-{
-    "pixelmap_button_4",
-    GX_TYPE_PIXELMAP_BUTTON,                 /* widget type                    */
-    GX_ID_NONE,                              /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_ENABLED,   /* style flags                    */
-    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
-    sizeof(GX_PIXELMAP_BUTTON),              /* control block size             */
-    GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
-    GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_pixelmap_button_create,        /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {213, 78, 288, 134},                     /* widget size                    */
-    &HHP_Start_Screen_1_pixelmap_button_1_define, /* next widget definition    */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(HHP_START_SCREEN_1_CONTROL_BLOCK, HHP_Start_Screen_1_pixelmap_button_4), /* control block */
-    (void *) &HHP_Start_Screen_1_pixelmap_button_4_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET HHP_Start_Screen_1_OK_Button_define =
+GX_CONST GX_STUDIO_WIDGET HHP_Start_Screen_OK_Button_define =
 {
     "OK_Button",
     GX_TYPE_TEXT_BUTTON,                     /* widget type                    */
@@ -1517,7 +1453,7 @@ GX_CONST GX_STUDIO_WIDGET HHP_Start_Screen_1_OK_Button_define =
     #if defined(GX_WIDGET_USER_DATA)
     0,                                       /* user data                      */
     #endif
-    GX_STYLE_BORDER_THIN|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    GX_STYLE_BORDER_NONE|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
     0,                                       /* status flags                   */
     sizeof(GX_TEXT_BUTTON),                  /* control block size             */
     GX_COLOR_ID_TEXT_INPUT_FILL,             /* normal color id                */
@@ -1526,38 +1462,38 @@ GX_CONST GX_STUDIO_WIDGET HHP_Start_Screen_1_OK_Button_define =
     gx_studio_text_button_create,            /* create function                */
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
-    {230, 165, 309, 228},                    /* widget size                    */
-    &HHP_Start_Screen_1_pixelmap_button_4_define, /* next widget definition    */
+    {380, 188, 459, 251},                    /* widget size                    */
+    &HHP_Start_Screen_GroupIconButton_define, /* next widget definition        */
     GX_NULL,                                 /* no child widgets               */ 
-    offsetof(HHP_START_SCREEN_1_CONTROL_BLOCK, HHP_Start_Screen_1_OK_Button), /* control block */
-    (void *) &HHP_Start_Screen_1_OK_Button_properties /* extended properties   */
+    offsetof(HHP_START_SCREEN_CONTROL_BLOCK, HHP_Start_Screen_OK_Button), /* control block */
+    (void *) &HHP_Start_Screen_OK_Button_properties /* extended properties     */
 };
 
-GX_CONST GX_STUDIO_WIDGET HHP_Start_Screen_1_MainMore_Button_define =
+GX_CONST GX_STUDIO_WIDGET HHP_Start_Screen_FeatureList_define =
 {
-    "MainMore_Button",
-    GX_TYPE_TEXT_BUTTON,                     /* widget type                    */
-    MORE_BTN_ID,                             /* widget id                      */
+    "FeatureList",
+    GX_TYPE_VERTICAL_LIST,                   /* widget type                    */
+    FEATURE_VERTICAL_LIST,                   /* widget id                      */
     #if defined(GX_WIDGET_USER_DATA)
     0,                                       /* user data                      */
     #endif
-    GX_STYLE_BORDER_THIN|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_TEXT_BUTTON),                  /* control block size             */
-    GX_COLOR_ID_TEXT_INPUT_FILL,             /* normal color id                */
-    GX_COLOR_ID_TEXT_INPUT_TEXT,             /* selected color id              */
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_VERTICAL_LIST),                /* control block size             */
+    GX_COLOR_ID_WINDOW_FILL,                 /* normal color id                */
+    GX_COLOR_ID_WINDOW_FILL,                 /* selected color id              */
     GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_text_button_create,            /* create function                */
+    gx_studio_vertical_list_create,          /* create function                */
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
-    {16, 165, 205, 228},                     /* widget size                    */
-    &HHP_Start_Screen_1_OK_Button_define,    /* next widget definition         */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(HHP_START_SCREEN_1_CONTROL_BLOCK, HHP_Start_Screen_1_MainMore_Button), /* control block */
-    (void *) &HHP_Start_Screen_1_MainMore_Button_properties /* extended properties */
+    {10, 10, 309, 261},                      /* widget size                    */
+    &HHP_Start_Screen_OK_Button_define,      /* next widget definition         */
+    &HHP_Start_Screen_FeatureList_vertical_scroll_define, /* child widget definition */
+    offsetof(HHP_START_SCREEN_CONTROL_BLOCK, HHP_Start_Screen_FeatureList), /* control block */
+    (void *) &HHP_Start_Screen_FeatureList_properties /* extended properties   */
 };
 
-GX_CONST GX_STUDIO_WIDGET HHP_Start_Screen_1_HHP_Start_Backdrop_define =
+GX_CONST GX_STUDIO_WIDGET HHP_Start_Screen_HHP_Start_Backdrop_define =
 {
     "HHP_Start_Backdrop",
     GX_TYPE_WINDOW,                          /* widget type                    */
@@ -1576,33 +1512,33 @@ GX_CONST GX_STUDIO_WIDGET HHP_Start_Screen_1_HHP_Start_Backdrop_define =
     GX_NULL,                                 /* event function override        */
     {0, 0, 479, 271},                        /* widget size                    */
     GX_NULL,                                 /* no next widget                 */
-    &HHP_Start_Screen_1_MainMore_Button_define, /* child widget definition     */
-    offsetof(HHP_START_SCREEN_1_CONTROL_BLOCK, HHP_Start_Screen_1_HHP_Start_Backdrop), /* control block */
-    (void *) &HHP_Start_Screen_1_HHP_Start_Backdrop_properties /* extended properties */
+    &HHP_Start_Screen_FeatureList_define,    /* child widget definition        */
+    offsetof(HHP_START_SCREEN_CONTROL_BLOCK, HHP_Start_Screen_HHP_Start_Backdrop), /* control block */
+    (void *) &HHP_Start_Screen_HHP_Start_Backdrop_properties /* extended properties */
 };
 
-GX_CONST GX_STUDIO_WIDGET HHP_Start_Screen_1_define =
+GX_CONST GX_STUDIO_WIDGET HHP_Start_Screen_define =
 {
-    "HHP_Start_Screen_1",
+    "HHP_Start_Screen",
     GX_TYPE_TEMPLATE,                        /* widget type                    */
-    HH_START_SCREEN_ID_1,                    /* widget id                      */
+    HH_START_SCREEN_ID,                      /* widget id                      */
     #if defined(GX_WIDGET_USER_DATA)
     0,                                       /* user data                      */
     #endif
     GX_STYLE_BORDER_THIN,                    /* style flags                    */
     0,                                       /* status flags                   */
-    sizeof(HHP_START_SCREEN_1_CONTROL_BLOCK), /* control block size            */
+    sizeof(HHP_START_SCREEN_CONTROL_BLOCK),  /* control block size             */
     GX_COLOR_ID_WINDOW_FILL,                 /* normal color id                */
     GX_COLOR_ID_WINDOW_FILL,                 /* selected color id              */
     GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
     gx_studio_template_create,               /* create function                */
     GX_NULL,                                 /* drawing function override      */
-    (UINT (*)(GX_WIDGET *, GX_EVENT *)) HHP_Start_Screen_event_process, /* event function override */
+    (UINT (*)(GX_WIDGET *, GX_EVENT *)) HHP_Start_Screen_event_process_new, /* event function override */
     {0, 0, 479, 399},                        /* widget size                    */
     GX_NULL,                                 /* next widget                    */
-    &HHP_Start_Screen_1_HHP_Start_Backdrop_define, /* child widget             */
+    &HHP_Start_Screen_HHP_Start_Backdrop_define, /* child widget               */
     0,                                       /* control block                  */
-    (void *) &HHP_Start_Screen_1_properties  /* extended properties            */
+    (void *) &HHP_Start_Screen_properties    /* extended properties            */
 };
 GX_TEMPLATE_PROPERTIES MainUserScreen_3_properties =
 {
@@ -2142,2778 +2078,6 @@ GX_CONST GX_STUDIO_WIDGET MainUserScreen_3_define =
     0,                                       /* control block                  */
     (void *) &MainUserScreen_3_properties    /* extended properties            */
 };
-GX_TEMPLATE_PROPERTIES AdvancePad_3_Screen_properties =
-{
-    &PrimaryTemplate_define,                 /* base info                      */
-    gx_studio_window_create,                 /* base create function           */
-    {0, 0, 479, 399}                         /* widget size                    */
-};
-GX_WINDOW_PROPERTIES AdvancePad_3_Screen_AdvancePad_3_Screen_WindowName_properties =
-{
-    GX_PIXELMAP_ID_NEWBACKGROUND_FLATTEN_1   /* wallpaper pixelmap id          */
-};
-GX_TEXT_BUTTON_PROPERTIES AdvancePad_3_Screen_Settings_Button_properties =
-{
-    GX_STRING_ID_STRING_102,                 /* string id                      */
-    GX_FONT_ID_BUTTON,                       /* font id                        */
-    GX_COLOR_ID_BTN_TEXT,                    /* normal text color              */
-    GX_COLOR_ID_BTN_TEXT,                    /* selected text color            */
-    GX_COLOR_ID_DISABLED_TEXT                /* disabled text color            */
-};
-GX_TEXT_BUTTON_PROPERTIES AdvancePad_3_Screen_OK_Button_properties =
-{
-    GX_STRING_ID_STRING_24,                  /* string id                      */
-    GX_FONT_ID_ASC24PT,                      /* font id                        */
-    GX_COLOR_ID_BTN_TEXT,                    /* normal text color              */
-    GX_COLOR_ID_BTN_TEXT,                    /* selected text color            */
-    GX_COLOR_ID_DISABLED_TEXT                /* disabled text color            */
-};
-GX_TEXT_BUTTON_PROPERTIES AdvancePad_3_Screen_PadSettings_Button_properties =
-{
-    GX_STRING_ID_STRING_101,                 /* string id                      */
-    GX_FONT_ID_BUTTON,                       /* font id                        */
-    GX_COLOR_ID_BTN_TEXT,                    /* normal text color              */
-    GX_COLOR_ID_BTN_TEXT,                    /* selected text color            */
-    GX_COLOR_ID_DISABLED_TEXT                /* disabled text color            */
-};
-
-GX_CONST GX_STUDIO_WIDGET AdvancePad_3_Screen_PadSettings_Button_define =
-{
-    "PadSettings_Button",
-    GX_TYPE_TEXT_BUTTON,                     /* widget type                    */
-    PAD_SETTINGS_BTN_ID,                     /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_THIN|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_TEXT_BUTTON),                  /* control block size             */
-    GX_COLOR_ID_TEXT_INPUT_FILL,             /* normal color id                */
-    GX_COLOR_ID_TEXT_INPUT_TEXT,             /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_text_button_create,            /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {16, 14, 205, 77},                       /* widget size                    */
-    GX_NULL,                                 /* no next widget                 */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(ADVANCEPAD_3_SCREEN_CONTROL_BLOCK, AdvancePad_3_Screen_PadSettings_Button), /* control block */
-    (void *) &AdvancePad_3_Screen_PadSettings_Button_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET AdvancePad_3_Screen_OK_Button_define =
-{
-    "OK_Button",
-    GX_TYPE_TEXT_BUTTON,                     /* widget type                    */
-    OK_BTN_ID,                               /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_THIN|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_TEXT_BUTTON),                  /* control block size             */
-    GX_COLOR_ID_TEXT_INPUT_FILL,             /* normal color id                */
-    GX_COLOR_ID_TEXT_INPUT_TEXT,             /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_text_button_create,            /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {230, 165, 309, 228},                    /* widget size                    */
-    &AdvancePad_3_Screen_PadSettings_Button_define, /* next widget definition  */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(ADVANCEPAD_3_SCREEN_CONTROL_BLOCK, AdvancePad_3_Screen_OK_Button), /* control block */
-    (void *) &AdvancePad_3_Screen_OK_Button_properties /* extended properties  */
-};
-
-GX_CONST GX_STUDIO_WIDGET AdvancePad_3_Screen_Settings_Button_define =
-{
-    "Settings_Button",
-    GX_TYPE_TEXT_BUTTON,                     /* widget type                    */
-    SETTINGS_BTN_ID,                         /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_THIN|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_TEXT_BUTTON),                  /* control block size             */
-    GX_COLOR_ID_TEXT_INPUT_FILL,             /* normal color id                */
-    GX_COLOR_ID_TEXT_INPUT_TEXT,             /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_text_button_create,            /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {16, 89, 205, 152},                      /* widget size                    */
-    &AdvancePad_3_Screen_OK_Button_define,   /* next widget definition         */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(ADVANCEPAD_3_SCREEN_CONTROL_BLOCK, AdvancePad_3_Screen_Settings_Button), /* control block */
-    (void *) &AdvancePad_3_Screen_Settings_Button_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET AdvancePad_3_Screen_AdvancePad_3_Screen_WindowName_define =
-{
-    "AdvancePad_3_Screen_WindowName",
-    GX_TYPE_WINDOW,                          /* widget type                    */
-    GX_ID_NONE,                              /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_THIN,                    /* style flags                    */
-    0,                                       /* status flags                   */
-    sizeof(GX_WINDOW),                       /* control block size             */
-    GX_COLOR_ID_SCROLL_BUTTON,               /* normal color id                */
-    GX_COLOR_ID_WINDOW_FILL,                 /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_window_create,                 /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {0, 0, 319, 239},                        /* widget size                    */
-    GX_NULL,                                 /* no next widget                 */
-    &AdvancePad_3_Screen_Settings_Button_define, /* child widget definition    */
-    offsetof(ADVANCEPAD_3_SCREEN_CONTROL_BLOCK, AdvancePad_3_Screen_AdvancePad_3_Screen_WindowName), /* control block */
-    (void *) &AdvancePad_3_Screen_AdvancePad_3_Screen_WindowName_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET AdvancePad_3_Screen_define =
-{
-    "AdvancePad_3_Screen",
-    GX_TYPE_TEMPLATE,                        /* widget type                    */
-    ADVANCE_PAD_3_SCREEN,                    /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_THIN,                    /* style flags                    */
-    0,                                       /* status flags                   */
-    sizeof(ADVANCEPAD_3_SCREEN_CONTROL_BLOCK), /* control block size           */
-    GX_COLOR_ID_WINDOW_FILL,                 /* normal color id                */
-    GX_COLOR_ID_WINDOW_FILL,                 /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_template_create,               /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    (UINT (*)(GX_WIDGET *, GX_EVENT *)) HHP_Start_Screen_event_process, /* event function override */
-    {0, 0, 479, 399},                        /* widget size                    */
-    GX_NULL,                                 /* next widget                    */
-    &AdvancePad_3_Screen_AdvancePad_3_Screen_WindowName_define, /* child widget */
-    0,                                       /* control block                  */
-    (void *) &AdvancePad_3_Screen_properties /* extended properties            */
-};
-GX_TEMPLATE_PROPERTIES SetPadDirectionScreen_1_properties =
-{
-    &PrimaryTemplate_define,                 /* base info                      */
-    gx_studio_window_create,                 /* base create function           */
-    {0, 0, 479, 399}                         /* widget size                    */
-};
-GX_WINDOW_PROPERTIES SetPadDirectionScreen_1_SetPadScreenBackdrop_properties =
-{
-    GX_PIXELMAP_ID_NEWBACKGROUND_FLATTEN_1   /* wallpaper pixelmap id          */
-};
-GX_PIXELMAP_BUTTON_PROPERTIES SetPadDirectionScreen_1_CenterPad_ForwardArrow_Button_properties =
-{
-    GX_PIXELMAP_ID_UPWHITEARROW,             /* normal pixelmap id             */
-    0,                                       /* selected pixelmap id           */
-    0                                        /* disabled pixelmap id           */
-};
-GX_PIXELMAP_BUTTON_PROPERTIES SetPadDirectionScreen_1_LeftPad_LeftArrow_Button_properties =
-{
-    GX_PIXELMAP_ID_LEFTWHITEARROW,           /* normal pixelmap id             */
-    0,                                       /* selected pixelmap id           */
-    0                                        /* disabled pixelmap id           */
-};
-GX_TEXT_BUTTON_PROPERTIES SetPadDirectionScreen_1_OK_Button_properties =
-{
-    GX_STRING_ID_STRING_24,                  /* string id                      */
-    GX_FONT_ID_ASC24PT,                      /* font id                        */
-    GX_COLOR_ID_BTN_TEXT,                    /* normal text color              */
-    GX_COLOR_ID_BTN_TEXT,                    /* selected text color            */
-    GX_COLOR_ID_DISABLED_TEXT                /* disabled text color            */
-};
-GX_PIXELMAP_BUTTON_PROPERTIES SetPadDirectionScreen_1_RightPad_RightArrow_Button_properties =
-{
-    GX_PIXELMAP_ID_RIGHTWHITEARROW,          /* normal pixelmap id             */
-    0,                                       /* selected pixelmap id           */
-    0                                        /* disabled pixelmap id           */
-};
-GX_PROMPT_PROPERTIES SetPadDirectionScreen_1_SettingPadPrompt_properties =
-{
-    GX_STRING_ID_STRING_36,                  /* string id                      */
-    GX_FONT_ID_PROMPT,                       /* font id                        */
-    GX_COLOR_ID_TEXT_INPUT_TEXT,             /* normal text color              */
-    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
-    GX_COLOR_ID_DISABLED_TEXT                /* disabled text color            */
-};
-GX_PIXELMAP_BUTTON_PROPERTIES SetPadDirectionScreen_1_LeftPad_RightArrow_Button_properties =
-{
-    GX_PIXELMAP_ID_RIGHTWHITEARROW,          /* normal pixelmap id             */
-    0,                                       /* selected pixelmap id           */
-    0                                        /* disabled pixelmap id           */
-};
-GX_PIXELMAP_BUTTON_PROPERTIES SetPadDirectionScreen_1_LeftPad_ForwardArrow_Button_properties =
-{
-    GX_PIXELMAP_ID_UPWHITEARROW,             /* normal pixelmap id             */
-    0,                                       /* selected pixelmap id           */
-    0                                        /* disabled pixelmap id           */
-};
-GX_PIXELMAP_BUTTON_PROPERTIES SetPadDirectionScreen_1_LeftPad_Off_Button_properties =
-{
-    GX_PIXELMAP_ID_PAD_OFF,                  /* normal pixelmap id             */
-    0,                                       /* selected pixelmap id           */
-    0                                        /* disabled pixelmap id           */
-};
-GX_PIXELMAP_BUTTON_PROPERTIES SetPadDirectionScreen_1_RightPad_LeftArrow_Button_properties =
-{
-    GX_PIXELMAP_ID_LEFTWHITEARROW,           /* normal pixelmap id             */
-    0,                                       /* selected pixelmap id           */
-    0                                        /* disabled pixelmap id           */
-};
-GX_PIXELMAP_BUTTON_PROPERTIES SetPadDirectionScreen_1_RightPad_ForwardArrow_Button_properties =
-{
-    GX_PIXELMAP_ID_UPWHITEARROW,             /* normal pixelmap id             */
-    0,                                       /* selected pixelmap id           */
-    0                                        /* disabled pixelmap id           */
-};
-GX_PIXELMAP_BUTTON_PROPERTIES SetPadDirectionScreen_1_RightPad_Off_Button_properties =
-{
-    GX_PIXELMAP_ID_PAD_OFF,                  /* normal pixelmap id             */
-    0,                                       /* selected pixelmap id           */
-    0                                        /* disabled pixelmap id           */
-};
-GX_PIXELMAP_BUTTON_PROPERTIES SetPadDirectionScreen_1_CenterPad_LeftArrow_Button_properties =
-{
-    GX_PIXELMAP_ID_LEFTWHITEARROW,           /* normal pixelmap id             */
-    0,                                       /* selected pixelmap id           */
-    0                                        /* disabled pixelmap id           */
-};
-GX_PIXELMAP_BUTTON_PROPERTIES SetPadDirectionScreen_1_CenterPad_RightArrow_Button_properties =
-{
-    GX_PIXELMAP_ID_RIGHTWHITEARROW,          /* normal pixelmap id             */
-    0,                                       /* selected pixelmap id           */
-    0                                        /* disabled pixelmap id           */
-};
-GX_PIXELMAP_BUTTON_PROPERTIES SetPadDirectionScreen_1_CenterPad_Off_Button_properties =
-{
-    GX_PIXELMAP_ID_PAD_OFF,                  /* normal pixelmap id             */
-    0,                                       /* selected pixelmap id           */
-    0                                        /* disabled pixelmap id           */
-};
-GX_PROMPT_PROPERTIES SetPadDirectionScreen_1_SettingPadPrompt_1_properties =
-{
-    GX_STRING_ID_STRING_37,                  /* string id                      */
-    GX_FONT_ID_PROMPT,                       /* font id                        */
-    GX_COLOR_ID_TEXT_INPUT_TEXT,             /* normal text color              */
-    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
-    GX_COLOR_ID_DISABLED_TEXT                /* disabled text color            */
-};
-GX_PIXELMAP_BUTTON_PROPERTIES SetPadDirectionScreen_1_CenterPad_ForwardArrow_Button_1_properties =
-{
-    GX_PIXELMAP_ID_CYCLEBUTTON,              /* normal pixelmap id             */
-    0,                                       /* selected pixelmap id           */
-    0                                        /* disabled pixelmap id           */
-};
-
-GX_CONST GX_STUDIO_WIDGET SetPadDirectionScreen_1_CenterPad_ForwardArrow_Button_1_define =
-{
-    "CenterPad_ForwardArrow_Button_1",
-    GX_TYPE_PIXELMAP_BUTTON,                 /* widget type                    */
-    CENTER_PAD_FORWARD_ARROW_BTN_ID,         /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_RAISED|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_HALIGN_CENTER|GX_STYLE_VALIGN_CENTER,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_PIXELMAP_BUTTON),              /* control block size             */
-    GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
-    GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_pixelmap_button_create,        /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {116, 150, 203, 219},                    /* widget size                    */
-    GX_NULL,                                 /* no next widget                 */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(SETPADDIRECTIONSCREEN_1_CONTROL_BLOCK, SetPadDirectionScreen_1_CenterPad_ForwardArrow_Button_1), /* control block */
-    (void *) &SetPadDirectionScreen_1_CenterPad_ForwardArrow_Button_1_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET SetPadDirectionScreen_1_SettingPadPrompt_1_define =
-{
-    "SettingPadPrompt_1",
-    GX_TYPE_PROMPT,                          /* widget type                    */
-    SETTING_PROMPT01_ID,                     /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
-    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
-    sizeof(GX_PROMPT),                       /* control block size             */
-    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
-    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_prompt_create,                 /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {4, 28, 313, 51},                        /* widget size                    */
-    &SetPadDirectionScreen_1_CenterPad_ForwardArrow_Button_1_define, /* next widget definition */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(SETPADDIRECTIONSCREEN_1_CONTROL_BLOCK, SetPadDirectionScreen_1_SettingPadPrompt_1), /* control block */
-    (void *) &SetPadDirectionScreen_1_SettingPadPrompt_1_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET SetPadDirectionScreen_1_CenterPad_Off_Button_define =
-{
-    "CenterPad_Off_Button",
-    GX_TYPE_PIXELMAP_BUTTON,                 /* widget type                    */
-    CENTER_PAD_OFF_BTN_ID,                   /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_RAISED|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_HALIGN_CENTER|GX_STYLE_VALIGN_CENTER,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_PIXELMAP_BUTTON),              /* control block size             */
-    GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
-    GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_pixelmap_button_create,        /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {416, 150, 503, 219},                    /* widget size                    */
-    &SetPadDirectionScreen_1_SettingPadPrompt_1_define, /* next widget definition */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(SETPADDIRECTIONSCREEN_1_CONTROL_BLOCK, SetPadDirectionScreen_1_CenterPad_Off_Button), /* control block */
-    (void *) &SetPadDirectionScreen_1_CenterPad_Off_Button_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET SetPadDirectionScreen_1_CenterPad_RightArrow_Button_define =
-{
-    "CenterPad_RightArrow_Button",
-    GX_TYPE_PIXELMAP_BUTTON,                 /* widget type                    */
-    CENTER_PAD_RIGHT_ARROW_BTN_ID,           /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_RAISED|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_HALIGN_CENTER|GX_STYLE_VALIGN_CENTER,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_PIXELMAP_BUTTON),              /* control block size             */
-    GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
-    GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_pixelmap_button_create,        /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {416, 150, 503, 219},                    /* widget size                    */
-    &SetPadDirectionScreen_1_CenterPad_Off_Button_define, /* next widget definition */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(SETPADDIRECTIONSCREEN_1_CONTROL_BLOCK, SetPadDirectionScreen_1_CenterPad_RightArrow_Button), /* control block */
-    (void *) &SetPadDirectionScreen_1_CenterPad_RightArrow_Button_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET SetPadDirectionScreen_1_CenterPad_LeftArrow_Button_define =
-{
-    "CenterPad_LeftArrow_Button",
-    GX_TYPE_PIXELMAP_BUTTON,                 /* widget type                    */
-    CENTER_PAD_LEFT_ARROW_BTN_ID,            /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_RAISED|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_HALIGN_CENTER|GX_STYLE_VALIGN_CENTER,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_PIXELMAP_BUTTON),              /* control block size             */
-    GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
-    GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_pixelmap_button_create,        /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {416, 150, 503, 219},                    /* widget size                    */
-    &SetPadDirectionScreen_1_CenterPad_RightArrow_Button_define, /* next widget definition */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(SETPADDIRECTIONSCREEN_1_CONTROL_BLOCK, SetPadDirectionScreen_1_CenterPad_LeftArrow_Button), /* control block */
-    (void *) &SetPadDirectionScreen_1_CenterPad_LeftArrow_Button_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET SetPadDirectionScreen_1_RightPad_Off_Button_define =
-{
-    "RightPad_Off_Button",
-    GX_TYPE_PIXELMAP_BUTTON,                 /* widget type                    */
-    RIGHT_PAD_OFF_BTN_ID,                    /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_THICK|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_HALIGN_CENTER|GX_STYLE_VALIGN_CENTER,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_PIXELMAP_BUTTON),              /* control block size             */
-    GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
-    GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_pixelmap_button_create,        /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {605, 55, 692, 124},                     /* widget size                    */
-    &SetPadDirectionScreen_1_CenterPad_LeftArrow_Button_define, /* next widget definition */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(SETPADDIRECTIONSCREEN_1_CONTROL_BLOCK, SetPadDirectionScreen_1_RightPad_Off_Button), /* control block */
-    (void *) &SetPadDirectionScreen_1_RightPad_Off_Button_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET SetPadDirectionScreen_1_RightPad_ForwardArrow_Button_define =
-{
-    "RightPad_ForwardArrow_Button",
-    GX_TYPE_PIXELMAP_BUTTON,                 /* widget type                    */
-    RIGHT_PAD_FORWARD_ARROW_BTN_ID,          /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_THICK|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_HALIGN_CENTER|GX_STYLE_VALIGN_CENTER,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_PIXELMAP_BUTTON),              /* control block size             */
-    GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
-    GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_pixelmap_button_create,        /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {605, 55, 692, 124},                     /* widget size                    */
-    &SetPadDirectionScreen_1_RightPad_Off_Button_define, /* next widget definition */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(SETPADDIRECTIONSCREEN_1_CONTROL_BLOCK, SetPadDirectionScreen_1_RightPad_ForwardArrow_Button), /* control block */
-    (void *) &SetPadDirectionScreen_1_RightPad_ForwardArrow_Button_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET SetPadDirectionScreen_1_RightPad_LeftArrow_Button_define =
-{
-    "RightPad_LeftArrow_Button",
-    GX_TYPE_PIXELMAP_BUTTON,                 /* widget type                    */
-    RIGHT_PAD_LEFT_ARROW_BTN_ID,             /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_THICK|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_HALIGN_CENTER|GX_STYLE_VALIGN_CENTER,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_PIXELMAP_BUTTON),              /* control block size             */
-    GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
-    GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_pixelmap_button_create,        /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {605, 55, 692, 124},                     /* widget size                    */
-    &SetPadDirectionScreen_1_RightPad_ForwardArrow_Button_define, /* next widget definition */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(SETPADDIRECTIONSCREEN_1_CONTROL_BLOCK, SetPadDirectionScreen_1_RightPad_LeftArrow_Button), /* control block */
-    (void *) &SetPadDirectionScreen_1_RightPad_LeftArrow_Button_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET SetPadDirectionScreen_1_LeftPad_Off_Button_define =
-{
-    "LeftPad_Off_Button",
-    GX_TYPE_PIXELMAP_BUTTON,                 /* widget type                    */
-    LEFT_PAD_OFF_BTN_ID,                     /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_RAISED|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_HALIGN_CENTER|GX_STYLE_VALIGN_CENTER,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_PIXELMAP_BUTTON),              /* control block size             */
-    GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
-    GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_pixelmap_button_create,        /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {428, 55, 515, 124},                     /* widget size                    */
-    &SetPadDirectionScreen_1_RightPad_LeftArrow_Button_define, /* next widget definition */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(SETPADDIRECTIONSCREEN_1_CONTROL_BLOCK, SetPadDirectionScreen_1_LeftPad_Off_Button), /* control block */
-    (void *) &SetPadDirectionScreen_1_LeftPad_Off_Button_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET SetPadDirectionScreen_1_LeftPad_ForwardArrow_Button_define =
-{
-    "LeftPad_ForwardArrow_Button",
-    GX_TYPE_PIXELMAP_BUTTON,                 /* widget type                    */
-    LEFT_PAD_FORWARD_ARROW_BTN_ID,           /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_RAISED|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_HALIGN_CENTER|GX_STYLE_VALIGN_CENTER,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_PIXELMAP_BUTTON),              /* control block size             */
-    GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
-    GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_pixelmap_button_create,        /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {428, 55, 515, 124},                     /* widget size                    */
-    &SetPadDirectionScreen_1_LeftPad_Off_Button_define, /* next widget definition */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(SETPADDIRECTIONSCREEN_1_CONTROL_BLOCK, SetPadDirectionScreen_1_LeftPad_ForwardArrow_Button), /* control block */
-    (void *) &SetPadDirectionScreen_1_LeftPad_ForwardArrow_Button_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET SetPadDirectionScreen_1_LeftPad_RightArrow_Button_define =
-{
-    "LeftPad_RightArrow_Button",
-    GX_TYPE_PIXELMAP_BUTTON,                 /* widget type                    */
-    LEFT_PAD_RIGHT_ARROW_BTN_ID,             /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_RAISED|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_HALIGN_CENTER|GX_STYLE_VALIGN_CENTER,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_PIXELMAP_BUTTON),              /* control block size             */
-    GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
-    GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_pixelmap_button_create,        /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {428, 55, 515, 124},                     /* widget size                    */
-    &SetPadDirectionScreen_1_LeftPad_ForwardArrow_Button_define, /* next widget definition */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(SETPADDIRECTIONSCREEN_1_CONTROL_BLOCK, SetPadDirectionScreen_1_LeftPad_RightArrow_Button), /* control block */
-    (void *) &SetPadDirectionScreen_1_LeftPad_RightArrow_Button_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET SetPadDirectionScreen_1_SettingPadPrompt_define =
-{
-    "SettingPadPrompt",
-    GX_TYPE_PROMPT,                          /* widget type                    */
-    SETTING_PROMPT01_ID,                     /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_PROMPT),                       /* control block size             */
-    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
-    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_prompt_create,                 /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {4, 6, 313, 29},                         /* widget size                    */
-    &SetPadDirectionScreen_1_LeftPad_RightArrow_Button_define, /* next widget definition */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(SETPADDIRECTIONSCREEN_1_CONTROL_BLOCK, SetPadDirectionScreen_1_SettingPadPrompt), /* control block */
-    (void *) &SetPadDirectionScreen_1_SettingPadPrompt_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET SetPadDirectionScreen_1_RightPad_RightArrow_Button_define =
-{
-    "RightPad_RightArrow_Button",
-    GX_TYPE_PIXELMAP_BUTTON,                 /* widget type                    */
-    RIGHT_PAD_RIGHT_ARROW_BTN_ID,            /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_THICK|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_HALIGN_CENTER|GX_STYLE_VALIGN_CENTER,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_PIXELMAP_BUTTON),              /* control block size             */
-    GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
-    GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_pixelmap_button_create,        /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {205, 55, 292, 124},                     /* widget size                    */
-    &SetPadDirectionScreen_1_SettingPadPrompt_define, /* next widget definition */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(SETPADDIRECTIONSCREEN_1_CONTROL_BLOCK, SetPadDirectionScreen_1_RightPad_RightArrow_Button), /* control block */
-    (void *) &SetPadDirectionScreen_1_RightPad_RightArrow_Button_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET SetPadDirectionScreen_1_OK_Button_define =
-{
-    "OK_Button",
-    GX_TYPE_TEXT_BUTTON,                     /* widget type                    */
-    OK_BTN_ID,                               /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_THIN|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_TEXT_BUTTON),                  /* control block size             */
-    GX_COLOR_ID_TEXT_INPUT_FILL,             /* normal color id                */
-    GX_COLOR_ID_TEXT_INPUT_TEXT,             /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_text_button_create,            /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {230, 165, 309, 228},                    /* widget size                    */
-    &SetPadDirectionScreen_1_RightPad_RightArrow_Button_define, /* next widget definition */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(SETPADDIRECTIONSCREEN_1_CONTROL_BLOCK, SetPadDirectionScreen_1_OK_Button), /* control block */
-    (void *) &SetPadDirectionScreen_1_OK_Button_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET SetPadDirectionScreen_1_LeftPad_LeftArrow_Button_define =
-{
-    "LeftPad_LeftArrow_Button",
-    GX_TYPE_PIXELMAP_BUTTON,                 /* widget type                    */
-    LEFT_PAD_LEFT_ARROW_BTN_ID,              /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_RAISED|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_HALIGN_CENTER|GX_STYLE_VALIGN_CENTER,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_PIXELMAP_BUTTON),              /* control block size             */
-    GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
-    GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_pixelmap_button_create,        /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {28, 55, 115, 124},                      /* widget size                    */
-    &SetPadDirectionScreen_1_OK_Button_define, /* next widget definition       */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(SETPADDIRECTIONSCREEN_1_CONTROL_BLOCK, SetPadDirectionScreen_1_LeftPad_LeftArrow_Button), /* control block */
-    (void *) &SetPadDirectionScreen_1_LeftPad_LeftArrow_Button_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET SetPadDirectionScreen_1_CenterPad_ForwardArrow_Button_define =
-{
-    "CenterPad_ForwardArrow_Button",
-    GX_TYPE_PIXELMAP_BUTTON,                 /* widget type                    */
-    CENTER_PAD_FORWARD_ARROW_BTN_ID,         /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_RAISED|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_HALIGN_CENTER|GX_STYLE_VALIGN_CENTER,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_PIXELMAP_BUTTON),              /* control block size             */
-    GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
-    GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_pixelmap_button_create,        /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {416, 150, 503, 219},                    /* widget size                    */
-    &SetPadDirectionScreen_1_LeftPad_LeftArrow_Button_define, /* next widget definition */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(SETPADDIRECTIONSCREEN_1_CONTROL_BLOCK, SetPadDirectionScreen_1_CenterPad_ForwardArrow_Button), /* control block */
-    (void *) &SetPadDirectionScreen_1_CenterPad_ForwardArrow_Button_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET SetPadDirectionScreen_1_SetPadScreenBackdrop_define =
-{
-    "SetPadScreenBackdrop",
-    GX_TYPE_WINDOW,                          /* widget type                    */
-    GX_ID_NONE,                              /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_THIN,                    /* style flags                    */
-    0,                                       /* status flags                   */
-    sizeof(GX_WINDOW),                       /* control block size             */
-    GX_COLOR_ID_SCROLL_BUTTON,               /* normal color id                */
-    GX_COLOR_ID_WINDOW_FILL,                 /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_window_create,                 /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {0, 0, 319, 239},                        /* widget size                    */
-    GX_NULL,                                 /* no next widget                 */
-    &SetPadDirectionScreen_1_CenterPad_ForwardArrow_Button_define, /* child widget definition */
-    offsetof(SETPADDIRECTIONSCREEN_1_CONTROL_BLOCK, SetPadDirectionScreen_1_SetPadScreenBackdrop), /* control block */
-    (void *) &SetPadDirectionScreen_1_SetPadScreenBackdrop_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET SetPadDirectionScreen_1_define =
-{
-    "SetPadDirectionScreen_1",
-    GX_TYPE_TEMPLATE,                        /* widget type                    */
-    SET_PAD_DIRECTION_SCREEN_ID,             /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_THIN,                    /* style flags                    */
-    0,                                       /* status flags                   */
-    sizeof(SETPADDIRECTIONSCREEN_1_CONTROL_BLOCK), /* control block size       */
-    GX_COLOR_ID_WINDOW_FILL,                 /* normal color id                */
-    GX_COLOR_ID_WINDOW_FILL,                 /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_template_create,               /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    (UINT (*)(GX_WIDGET *, GX_EVENT *)) SetPadDirectionScreen_event_process, /* event function override */
-    {0, 0, 479, 399},                        /* widget size                    */
-    GX_NULL,                                 /* next widget                    */
-    &SetPadDirectionScreen_1_SetPadScreenBackdrop_define, /* child widget      */
-    0,                                       /* control block                  */
-    (void *) &SetPadDirectionScreen_1_properties /* extended properties        */
-};
-GX_TEMPLATE_PROPERTIES AdvancePadSettingsScreen_2_properties =
-{
-    &PrimaryTemplate_define,                 /* base info                      */
-    gx_studio_window_create,                 /* base create function           */
-    {0, 0, 479, 399}                         /* widget size                    */
-};
-GX_WINDOW_PROPERTIES AdvancePadSettingsScreen_2_UserSettingsScreenBackdrop_properties =
-{
-    GX_PIXELMAP_ID_NEWBACKGROUND_FLATTEN_1   /* wallpaper pixelmap id          */
-};
-GX_PROMPT_PROPERTIES AdvancePadSettingsScreen_2_PowerPrompt_properties =
-{
-    GX_STRING_ID_STRING_71,                  /* string id                      */
-    GX_FONT_ID_PROMPT,                       /* font id                        */
-    GX_COLOR_ID_SELECTED_TEXT,               /* normal text color              */
-    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
-    GX_COLOR_ID_SELECTED_TEXT                /* disabled text color            */
-};
-GX_PROMPT_PROPERTIES AdvancePadSettingsScreen_2_BluetoothPrompt_properties =
-{
-    GX_STRING_ID_STRING_70,                  /* string id                      */
-    GX_FONT_ID_PROMPT,                       /* font id                        */
-    GX_COLOR_ID_SELECTED_TEXT,               /* normal text color              */
-    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
-    GX_COLOR_ID_SELECTED_TEXT                /* disabled text color            */
-};
-GX_PROMPT_PROPERTIES AdvancePadSettingsScreen_2_NextFunctionPrompt_properties =
-{
-    GX_STRING_ID_STRING_72,                  /* string id                      */
-    GX_FONT_ID_PROMPT,                       /* font id                        */
-    GX_COLOR_ID_SELECTED_TEXT,               /* normal text color              */
-    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
-    GX_COLOR_ID_SELECTED_TEXT                /* disabled text color            */
-};
-GX_TEXT_BUTTON_PROPERTIES AdvancePadSettingsScreen_2_OK_Button_properties =
-{
-    GX_STRING_ID_STRING_24,                  /* string id                      */
-    GX_FONT_ID_ASC24PT,                      /* font id                        */
-    GX_COLOR_ID_BTN_TEXT,                    /* normal text color              */
-    GX_COLOR_ID_BTN_TEXT,                    /* selected text color            */
-    GX_COLOR_ID_DISABLED_TEXT                /* disabled text color            */
-};
-GX_CHECKBOX_PROPERTIES AdvancePadSettingsScreen_2_BluetoothToggleBtn_properties =
-{
-    0,                                       /* string id                      */
-    GX_FONT_ID_BUTTON,                       /* font id                        */
-    GX_COLOR_ID_SELECTED_TEXT,               /* normal text color              */
-    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
-    GX_COLOR_ID_DISABLED_TEXT,               /* disabled text color            */
-    GX_PIXELMAP_ID_TOGGLE_GRAY,              /* unchecked pixelmap id          */
-    GX_PIXELMAP_ID_TOGGLE_GREEN,             /* checked pixelmap id            */
-    GX_PIXELMAP_ID_TOGGLE_GRAY,              /* unchecked disabled pixelmap id */
-    GX_PIXELMAP_ID_TOGGLE_GREEN              /* checked disabled pixelmap id   */
-};
-GX_CHECKBOX_PROPERTIES AdvancePadSettingsScreen_2_PowerToggleBtn_properties =
-{
-    0,                                       /* string id                      */
-    GX_FONT_ID_BUTTON,                       /* font id                        */
-    GX_COLOR_ID_SELECTED_TEXT,               /* normal text color              */
-    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
-    GX_COLOR_ID_DISABLED_TEXT,               /* disabled text color            */
-    GX_PIXELMAP_ID_TOGGLE_GRAY,              /* unchecked pixelmap id          */
-    GX_PIXELMAP_ID_TOGGLE_GREEN,             /* checked pixelmap id            */
-    GX_PIXELMAP_ID_TOGGLE_GRAY,              /* unchecked disabled pixelmap id */
-    GX_PIXELMAP_ID_TOGGLE_GREEN              /* checked disabled pixelmap id   */
-};
-GX_CHECKBOX_PROPERTIES AdvancePadSettingsScreen_2_NextFunctionToggleBtn_properties =
-{
-    0,                                       /* string id                      */
-    GX_FONT_ID_BUTTON,                       /* font id                        */
-    GX_COLOR_ID_SELECTED_TEXT,               /* normal text color              */
-    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
-    GX_COLOR_ID_DISABLED_TEXT,               /* disabled text color            */
-    GX_PIXELMAP_ID_TOGGLE_GRAY,              /* unchecked pixelmap id          */
-    GX_PIXELMAP_ID_TOGGLE_GREEN,             /* checked pixelmap id            */
-    GX_PIXELMAP_ID_TOGGLE_GRAY,              /* unchecked disabled pixelmap id */
-    GX_PIXELMAP_ID_TOGGLE_GREEN              /* checked disabled pixelmap id   */
-};
-GX_CHECKBOX_PROPERTIES AdvancePadSettingsScreen_2_NextProfileToggleBtn_properties =
-{
-    0,                                       /* string id                      */
-    GX_FONT_ID_BUTTON,                       /* font id                        */
-    GX_COLOR_ID_SELECTED_TEXT,               /* normal text color              */
-    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
-    GX_COLOR_ID_DISABLED_TEXT,               /* disabled text color            */
-    GX_PIXELMAP_ID_TOGGLE_GRAY,              /* unchecked pixelmap id          */
-    GX_PIXELMAP_ID_TOGGLE_GREEN,             /* checked pixelmap id            */
-    GX_PIXELMAP_ID_TOGGLE_GRAY,              /* unchecked disabled pixelmap id */
-    GX_PIXELMAP_ID_TOGGLE_GREEN              /* checked disabled pixelmap id   */
-};
-GX_PIXELMAP_BUTTON_PROPERTIES AdvancePadSettingsScreen_2_DownArrowButton_properties =
-{
-    GX_PIXELMAP_ID_DOWNARROW_ENABLED,        /* normal pixelmap id             */
-    0,                                       /* selected pixelmap id           */
-    GX_PIXELMAP_ID_DOWNARROW_DISABLED        /* disabled pixelmap id           */
-};
-GX_PIXELMAP_BUTTON_PROPERTIES AdvancePadSettingsScreen_2_UpArrowButton_properties =
-{
-    GX_PIXELMAP_ID_UPARROW_ENABLED,          /* normal pixelmap id             */
-    0,                                       /* selected pixelmap id           */
-    GX_PIXELMAP_ID_UPARROW_DISABLED          /* disabled pixelmap id           */
-};
-GX_PROMPT_PROPERTIES AdvancePadSettingsScreen_2_NextProfilePrompt_properties =
-{
-    GX_STRING_ID_STRING_77,                  /* string id                      */
-    GX_FONT_ID_PROMPT,                       /* font id                        */
-    GX_COLOR_ID_SELECTED_TEXT,               /* normal text color              */
-    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
-    GX_COLOR_ID_SELECTED_TEXT                /* disabled text color            */
-};
-
-GX_CONST GX_STUDIO_WIDGET AdvancePadSettingsScreen_2_NextProfilePrompt_define =
-{
-    "NextProfilePrompt",
-    GX_TYPE_PROMPT,                          /* widget type                    */
-    NEXT_PROFILE_PROMPT_ID,                  /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_TEXT_RIGHT,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_PROMPT),                       /* control block size             */
-    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
-    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_prompt_create,                 /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {13, 176, 142, 215},                     /* widget size                    */
-    GX_NULL,                                 /* no next widget                 */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(ADVANCEPADSETTINGSSCREEN_2_CONTROL_BLOCK, AdvancePadSettingsScreen_2_NextProfilePrompt), /* control block */
-    (void *) &AdvancePadSettingsScreen_2_NextProfilePrompt_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET AdvancePadSettingsScreen_2_UpArrowButton_define =
-{
-    "UpArrowButton",
-    GX_TYPE_PIXELMAP_BUTTON,                 /* widget type                    */
-    UP_ARROW_BUTTON_ID,                      /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE,                    /* style flags                    */
-    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
-    sizeof(GX_PIXELMAP_BUTTON),              /* control block size             */
-    GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
-    GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_pixelmap_button_create,        /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {236, 17, 305, 86},                      /* widget size                    */
-    &AdvancePadSettingsScreen_2_NextProfilePrompt_define, /* next widget definition */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(ADVANCEPADSETTINGSSCREEN_2_CONTROL_BLOCK, AdvancePadSettingsScreen_2_UpArrowButton), /* control block */
-    (void *) &AdvancePadSettingsScreen_2_UpArrowButton_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET AdvancePadSettingsScreen_2_DownArrowButton_define =
-{
-    "DownArrowButton",
-    GX_TYPE_PIXELMAP_BUTTON,                 /* widget type                    */
-    DOWN_ARROW_BUTTON_ID,                    /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_ENABLED,   /* style flags                    */
-    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
-    sizeof(GX_PIXELMAP_BUTTON),              /* control block size             */
-    GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
-    GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_pixelmap_button_create,        /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {236, 90, 305, 159},                     /* widget size                    */
-    &AdvancePadSettingsScreen_2_UpArrowButton_define, /* next widget definition */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(ADVANCEPADSETTINGSSCREEN_2_CONTROL_BLOCK, AdvancePadSettingsScreen_2_DownArrowButton), /* control block */
-    (void *) &AdvancePadSettingsScreen_2_DownArrowButton_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET AdvancePadSettingsScreen_2_NextProfileToggleBtn_define =
-{
-    "NextProfileToggleBtn",
-    GX_TYPE_CHECKBOX,                        /* widget type                    */
-    NEXT_PROFILE_TOGGLE_BTN,                 /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_BUTTON_PUSHED|GX_STYLE_BUTTON_TOGGLE|GX_STYLE_TEXT_RIGHT,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_CHECKBOX),                     /* control block size             */
-    GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
-    GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_checkbox_create,               /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {148, 176, 210, 212},                    /* widget size                    */
-    &AdvancePadSettingsScreen_2_DownArrowButton_define, /* next widget definition */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(ADVANCEPADSETTINGSSCREEN_2_CONTROL_BLOCK, AdvancePadSettingsScreen_2_NextProfileToggleBtn), /* control block */
-    (void *) &AdvancePadSettingsScreen_2_NextProfileToggleBtn_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET AdvancePadSettingsScreen_2_NextFunctionToggleBtn_define =
-{
-    "NextFunctionToggleBtn",
-    GX_TYPE_CHECKBOX,                        /* widget type                    */
-    NEXT_FUNCTION_TOGGLE_BTN,                /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_BUTTON_PUSHED|GX_STYLE_BUTTON_TOGGLE|GX_STYLE_TEXT_RIGHT,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_CHECKBOX),                     /* control block size             */
-    GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
-    GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_checkbox_create,               /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {149, 122, 211, 158},                    /* widget size                    */
-    &AdvancePadSettingsScreen_2_NextProfileToggleBtn_define, /* next widget definition */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(ADVANCEPADSETTINGSSCREEN_2_CONTROL_BLOCK, AdvancePadSettingsScreen_2_NextFunctionToggleBtn), /* control block */
-    (void *) &AdvancePadSettingsScreen_2_NextFunctionToggleBtn_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET AdvancePadSettingsScreen_2_PowerToggleBtn_define =
-{
-    "PowerToggleBtn",
-    GX_TYPE_CHECKBOX,                        /* widget type                    */
-    POWER_TOGGLE_BTN,                        /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_BUTTON_PUSHED|GX_STYLE_BUTTON_TOGGLE|GX_STYLE_TEXT_RIGHT,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_CHECKBOX),                     /* control block size             */
-    GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
-    GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_checkbox_create,               /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {148, 14, 210, 50},                      /* widget size                    */
-    &AdvancePadSettingsScreen_2_NextFunctionToggleBtn_define, /* next widget definition */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(ADVANCEPADSETTINGSSCREEN_2_CONTROL_BLOCK, AdvancePadSettingsScreen_2_PowerToggleBtn), /* control block */
-    (void *) &AdvancePadSettingsScreen_2_PowerToggleBtn_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET AdvancePadSettingsScreen_2_BluetoothToggleBtn_define =
-{
-    "BluetoothToggleBtn",
-    GX_TYPE_CHECKBOX,                        /* widget type                    */
-    BLUETOOTH_TOGGLE_BTN,                    /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_BUTTON_PUSHED|GX_STYLE_BUTTON_TOGGLE|GX_STYLE_TEXT_RIGHT,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_CHECKBOX),                     /* control block size             */
-    GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
-    GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_checkbox_create,               /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {148, 68, 210, 104},                     /* widget size                    */
-    &AdvancePadSettingsScreen_2_PowerToggleBtn_define, /* next widget definition */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(ADVANCEPADSETTINGSSCREEN_2_CONTROL_BLOCK, AdvancePadSettingsScreen_2_BluetoothToggleBtn), /* control block */
-    (void *) &AdvancePadSettingsScreen_2_BluetoothToggleBtn_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET AdvancePadSettingsScreen_2_OK_Button_define =
-{
-    "OK_Button",
-    GX_TYPE_TEXT_BUTTON,                     /* widget type                    */
-    OK_BTN_ID,                               /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_THIN|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_TEXT_BUTTON),                  /* control block size             */
-    GX_COLOR_ID_TEXT_INPUT_FILL,             /* normal color id                */
-    GX_COLOR_ID_TEXT_INPUT_TEXT,             /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_text_button_create,            /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {230, 165, 309, 228},                    /* widget size                    */
-    &AdvancePadSettingsScreen_2_BluetoothToggleBtn_define, /* next widget definition */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(ADVANCEPADSETTINGSSCREEN_2_CONTROL_BLOCK, AdvancePadSettingsScreen_2_OK_Button), /* control block */
-    (void *) &AdvancePadSettingsScreen_2_OK_Button_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET AdvancePadSettingsScreen_2_NextFunctionPrompt_define =
-{
-    "NextFunctionPrompt",
-    GX_TYPE_PROMPT,                          /* widget type                    */
-    NEXT_FUNCTION_PROMPT_ID,                 /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_TEXT_RIGHT,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_PROMPT),                       /* control block size             */
-    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
-    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_prompt_create,                 /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {13, 122, 142, 161},                     /* widget size                    */
-    &AdvancePadSettingsScreen_2_OK_Button_define, /* next widget definition    */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(ADVANCEPADSETTINGSSCREEN_2_CONTROL_BLOCK, AdvancePadSettingsScreen_2_NextFunctionPrompt), /* control block */
-    (void *) &AdvancePadSettingsScreen_2_NextFunctionPrompt_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET AdvancePadSettingsScreen_2_BluetoothPrompt_define =
-{
-    "BluetoothPrompt",
-    GX_TYPE_PROMPT,                          /* widget type                    */
-    BLUETOOTH_PROMPT_ID,                     /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_TEXT_RIGHT,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_PROMPT),                       /* control block size             */
-    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
-    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_prompt_create,                 /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {14, 68, 143, 107},                      /* widget size                    */
-    &AdvancePadSettingsScreen_2_NextFunctionPrompt_define, /* next widget definition */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(ADVANCEPADSETTINGSSCREEN_2_CONTROL_BLOCK, AdvancePadSettingsScreen_2_BluetoothPrompt), /* control block */
-    (void *) &AdvancePadSettingsScreen_2_BluetoothPrompt_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET AdvancePadSettingsScreen_2_PowerPrompt_define =
-{
-    "PowerPrompt",
-    GX_TYPE_PROMPT,                          /* widget type                    */
-    POWER_PROMPT_ID,                         /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_TEXT_RIGHT,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_PROMPT),                       /* control block size             */
-    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
-    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_prompt_create,                 /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {12, 14, 141, 52},                       /* widget size                    */
-    &AdvancePadSettingsScreen_2_BluetoothPrompt_define, /* next widget definition */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(ADVANCEPADSETTINGSSCREEN_2_CONTROL_BLOCK, AdvancePadSettingsScreen_2_PowerPrompt), /* control block */
-    (void *) &AdvancePadSettingsScreen_2_PowerPrompt_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET AdvancePadSettingsScreen_2_UserSettingsScreenBackdrop_define =
-{
-    "UserSettingsScreenBackdrop",
-    GX_TYPE_WINDOW,                          /* widget type                    */
-    GX_ID_NONE,                              /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_THIN|GX_STYLE_ENABLED,   /* style flags                    */
-    0,                                       /* status flags                   */
-    sizeof(GX_WINDOW),                       /* control block size             */
-    GX_COLOR_ID_SCROLL_BUTTON,               /* normal color id                */
-    GX_COLOR_ID_SCROLL_BUTTON,               /* selected color id              */
-    GX_COLOR_ID_SCROLL_BUTTON,               /* disabled color id              */
-    gx_studio_window_create,                 /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {0, 0, 319, 239},                        /* widget size                    */
-    GX_NULL,                                 /* no next widget                 */
-    &AdvancePadSettingsScreen_2_PowerPrompt_define, /* child widget definition */
-    offsetof(ADVANCEPADSETTINGSSCREEN_2_CONTROL_BLOCK, AdvancePadSettingsScreen_2_UserSettingsScreenBackdrop), /* control block */
-    (void *) &AdvancePadSettingsScreen_2_UserSettingsScreenBackdrop_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET AdvancePadSettingsScreen_2_define =
-{
-    "AdvancePadSettingsScreen_2",
-    GX_TYPE_TEMPLATE,                        /* widget type                    */
-    ADVANCE_PAD_SETTINGS_SCREEN_1_ID,        /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_THIN,                    /* style flags                    */
-    0,                                       /* status flags                   */
-    sizeof(ADVANCEPADSETTINGSSCREEN_2_CONTROL_BLOCK), /* control block size    */
-    GX_COLOR_ID_WINDOW_FILL,                 /* normal color id                */
-    GX_COLOR_ID_WINDOW_FILL,                 /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_template_create,               /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    (UINT (*)(GX_WIDGET *, GX_EVENT *)) FeatureSettingsScreen_event_process, /* event function override */
-    {0, 0, 479, 399},                        /* widget size                    */
-    GX_NULL,                                 /* next widget                    */
-    &AdvancePadSettingsScreen_2_UserSettingsScreenBackdrop_define, /* child widget */
-    0,                                       /* control block                  */
-    (void *) &AdvancePadSettingsScreen_2_properties /* extended properties     */
-};
-GX_TEMPLATE_PROPERTIES AdvancePadSettingsScreen_1_properties =
-{
-    &PrimaryTemplate_define,                 /* base info                      */
-    gx_studio_window_create,                 /* base create function           */
-    {0, 0, 479, 399}                         /* widget size                    */
-};
-GX_WINDOW_PROPERTIES AdvancePadSettingsScreen_1_UserSettingsScreenBackdrop_properties =
-{
-    GX_PIXELMAP_ID_NEWBACKGROUND_FLATTEN_1   /* wallpaper pixelmap id          */
-};
-GX_PROMPT_PROPERTIES AdvancePadSettingsScreen_1_Prompt1_properties =
-{
-    GX_STRING_ID_BLUETOOTH,                  /* string id                      */
-    GX_FONT_ID_PROMPT,                       /* font id                        */
-    GX_COLOR_ID_SELECTED_TEXT,               /* normal text color              */
-    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
-    GX_COLOR_ID_SELECTED_TEXT                /* disabled text color            */
-};
-GX_PROMPT_PROPERTIES AdvancePadSettingsScreen_1_Prompt2_properties =
-{
-    GX_STRING_ID_NEXT_FUNCTION,              /* string id                      */
-    GX_FONT_ID_PROMPT,                       /* font id                        */
-    GX_COLOR_ID_SELECTED_TEXT,               /* normal text color              */
-    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
-    GX_COLOR_ID_SELECTED_TEXT                /* disabled text color            */
-};
-GX_PROMPT_PROPERTIES AdvancePadSettingsScreen_1_Prompt3_properties =
-{
-    GX_STRING_ID_NEXT_PROFILE,               /* string id                      */
-    GX_FONT_ID_PROMPT,                       /* font id                        */
-    GX_COLOR_ID_SELECTED_TEXT,               /* normal text color              */
-    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
-    GX_COLOR_ID_SELECTED_TEXT                /* disabled text color            */
-};
-GX_TEXT_BUTTON_PROPERTIES AdvancePadSettingsScreen_1_OK_Button_properties =
-{
-    GX_STRING_ID_STRING_24,                  /* string id                      */
-    GX_FONT_ID_ASC24PT,                      /* font id                        */
-    GX_COLOR_ID_BTN_TEXT,                    /* normal text color              */
-    GX_COLOR_ID_BTN_TEXT,                    /* selected text color            */
-    GX_COLOR_ID_DISABLED_TEXT                /* disabled text color            */
-};
-GX_CHECKBOX_PROPERTIES AdvancePadSettingsScreen_1_ToggleBtn2_properties =
-{
-    0,                                       /* string id                      */
-    GX_FONT_ID_BUTTON,                       /* font id                        */
-    GX_COLOR_ID_SELECTED_TEXT,               /* normal text color              */
-    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
-    GX_COLOR_ID_DISABLED_TEXT,               /* disabled text color            */
-    GX_PIXELMAP_ID_TOGGLE_GRAY,              /* unchecked pixelmap id          */
-    GX_PIXELMAP_ID_TOGGLE_GREEN,             /* checked pixelmap id            */
-    GX_PIXELMAP_ID_TOGGLE_GRAY,              /* unchecked disabled pixelmap id */
-    GX_PIXELMAP_ID_TOGGLE_GREEN              /* checked disabled pixelmap id   */
-};
-GX_CHECKBOX_PROPERTIES AdvancePadSettingsScreen_1_ToggleBtn1_properties =
-{
-    0,                                       /* string id                      */
-    GX_FONT_ID_BUTTON,                       /* font id                        */
-    GX_COLOR_ID_SELECTED_TEXT,               /* normal text color              */
-    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
-    GX_COLOR_ID_DISABLED_TEXT,               /* disabled text color            */
-    GX_PIXELMAP_ID_TOGGLE_GRAY,              /* unchecked pixelmap id          */
-    GX_PIXELMAP_ID_TOGGLE_GREEN,             /* checked pixelmap id            */
-    GX_PIXELMAP_ID_TOGGLE_GRAY,              /* unchecked disabled pixelmap id */
-    GX_PIXELMAP_ID_TOGGLE_GREEN              /* checked disabled pixelmap id   */
-};
-GX_CHECKBOX_PROPERTIES AdvancePadSettingsScreen_1_ToggleBtn3_properties =
-{
-    0,                                       /* string id                      */
-    GX_FONT_ID_BUTTON,                       /* font id                        */
-    GX_COLOR_ID_SELECTED_TEXT,               /* normal text color              */
-    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
-    GX_COLOR_ID_DISABLED_TEXT,               /* disabled text color            */
-    GX_PIXELMAP_ID_TOGGLE_GRAY,              /* unchecked pixelmap id          */
-    GX_PIXELMAP_ID_TOGGLE_GREEN,             /* checked pixelmap id            */
-    GX_PIXELMAP_ID_TOGGLE_GRAY,              /* unchecked disabled pixelmap id */
-    GX_PIXELMAP_ID_TOGGLE_GREEN              /* checked disabled pixelmap id   */
-};
-GX_CHECKBOX_PROPERTIES AdvancePadSettingsScreen_1_ToggleBtn_properties =
-{
-    0,                                       /* string id                      */
-    GX_FONT_ID_BUTTON,                       /* font id                        */
-    GX_COLOR_ID_SELECTED_TEXT,               /* normal text color              */
-    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
-    GX_COLOR_ID_DISABLED_TEXT,               /* disabled text color            */
-    GX_PIXELMAP_ID_TOGGLE_GRAY,              /* unchecked pixelmap id          */
-    GX_PIXELMAP_ID_TOGGLE_GREEN,             /* checked pixelmap id            */
-    GX_PIXELMAP_ID_TOGGLE_GRAY,              /* unchecked disabled pixelmap id */
-    GX_PIXELMAP_ID_TOGGLE_GREEN              /* checked disabled pixelmap id   */
-};
-GX_PIXELMAP_BUTTON_PROPERTIES AdvancePadSettingsScreen_1_DownArrowButton_properties =
-{
-    GX_PIXELMAP_ID_DOWNARROW_ENABLED,        /* normal pixelmap id             */
-    0,                                       /* selected pixelmap id           */
-    GX_PIXELMAP_ID_DOWNARROW_DISABLED        /* disabled pixelmap id           */
-};
-GX_PIXELMAP_BUTTON_PROPERTIES AdvancePadSettingsScreen_1_UpArrowButton_properties =
-{
-    GX_PIXELMAP_ID_UPARROW_ENABLED,          /* normal pixelmap id             */
-    0,                                       /* selected pixelmap id           */
-    GX_PIXELMAP_ID_UPARROW_DISABLED          /* disabled pixelmap id           */
-};
-GX_PROMPT_PROPERTIES AdvancePadSettingsScreen_1_Prompt4_properties =
-{
-    GX_STRING_ID_STRING_70,                  /* string id                      */
-    GX_FONT_ID_PROMPT,                       /* font id                        */
-    GX_COLOR_ID_SELECTED_TEXT,               /* normal text color              */
-    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
-    GX_COLOR_ID_SELECTED_TEXT                /* disabled text color            */
-};
-
-GX_CONST GX_STUDIO_WIDGET AdvancePadSettingsScreen_1_Prompt4_define =
-{
-    "Prompt4",
-    GX_TYPE_PROMPT,                          /* widget type                    */
-    PROMPT_ID_4,                             /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_TEXT_RIGHT,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_PROMPT),                       /* control block size             */
-    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
-    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_prompt_create,                 /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {13, 176, 142, 215},                     /* widget size                    */
-    GX_NULL,                                 /* no next widget                 */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(ADVANCEPADSETTINGSSCREEN_1_CONTROL_BLOCK, AdvancePadSettingsScreen_1_Prompt4), /* control block */
-    (void *) &AdvancePadSettingsScreen_1_Prompt4_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET AdvancePadSettingsScreen_1_UpArrowButton_define =
-{
-    "UpArrowButton",
-    GX_TYPE_PIXELMAP_BUTTON,                 /* widget type                    */
-    UP_ARROW_BUTTON_ID,                      /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_ENABLED,   /* style flags                    */
-    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
-    sizeof(GX_PIXELMAP_BUTTON),              /* control block size             */
-    GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
-    GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_pixelmap_button_create,        /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {236, 17, 305, 86},                      /* widget size                    */
-    &AdvancePadSettingsScreen_1_Prompt4_define, /* next widget definition      */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(ADVANCEPADSETTINGSSCREEN_1_CONTROL_BLOCK, AdvancePadSettingsScreen_1_UpArrowButton), /* control block */
-    (void *) &AdvancePadSettingsScreen_1_UpArrowButton_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET AdvancePadSettingsScreen_1_DownArrowButton_define =
-{
-    "DownArrowButton",
-    GX_TYPE_PIXELMAP_BUTTON,                 /* widget type                    */
-    DOWN_ARROW_BUTTON_ID,                    /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_ENABLED,   /* style flags                    */
-    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
-    sizeof(GX_PIXELMAP_BUTTON),              /* control block size             */
-    GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
-    GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_pixelmap_button_create,        /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {236, 90, 305, 159},                     /* widget size                    */
-    &AdvancePadSettingsScreen_1_UpArrowButton_define, /* next widget definition */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(ADVANCEPADSETTINGSSCREEN_1_CONTROL_BLOCK, AdvancePadSettingsScreen_1_DownArrowButton), /* control block */
-    (void *) &AdvancePadSettingsScreen_1_DownArrowButton_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET AdvancePadSettingsScreen_1_ToggleBtn_define =
-{
-    "ToggleBtn",
-    GX_TYPE_CHECKBOX,                        /* widget type                    */
-    NEXT_PROFILE_TOGGLE_BTN,                 /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_BUTTON_PUSHED|GX_STYLE_BUTTON_TOGGLE|GX_STYLE_TEXT_RIGHT,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_CHECKBOX),                     /* control block size             */
-    GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
-    GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_checkbox_create,               /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {148, 176, 210, 212},                    /* widget size                    */
-    &AdvancePadSettingsScreen_1_DownArrowButton_define, /* next widget definition */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(ADVANCEPADSETTINGSSCREEN_1_CONTROL_BLOCK, AdvancePadSettingsScreen_1_ToggleBtn), /* control block */
-    (void *) &AdvancePadSettingsScreen_1_ToggleBtn_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET AdvancePadSettingsScreen_1_ToggleBtn3_define =
-{
-    "ToggleBtn3",
-    GX_TYPE_CHECKBOX,                        /* widget type                    */
-    TOGGLE_BTN_3,                            /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_BUTTON_TOGGLE|GX_STYLE_TEXT_RIGHT,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_CHECKBOX),                     /* control block size             */
-    GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
-    GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_checkbox_create,               /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {149, 122, 211, 158},                    /* widget size                    */
-    &AdvancePadSettingsScreen_1_ToggleBtn_define, /* next widget definition    */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(ADVANCEPADSETTINGSSCREEN_1_CONTROL_BLOCK, AdvancePadSettingsScreen_1_ToggleBtn3), /* control block */
-    (void *) &AdvancePadSettingsScreen_1_ToggleBtn3_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET AdvancePadSettingsScreen_1_ToggleBtn1_define =
-{
-    "ToggleBtn1",
-    GX_TYPE_CHECKBOX,                        /* widget type                    */
-    TOGGLE_BTN_1,                            /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_BUTTON_TOGGLE|GX_STYLE_TEXT_RIGHT,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_CHECKBOX),                     /* control block size             */
-    GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
-    GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_checkbox_create,               /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {147, 14, 209, 50},                      /* widget size                    */
-    &AdvancePadSettingsScreen_1_ToggleBtn3_define, /* next widget definition   */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(ADVANCEPADSETTINGSSCREEN_1_CONTROL_BLOCK, AdvancePadSettingsScreen_1_ToggleBtn1), /* control block */
-    (void *) &AdvancePadSettingsScreen_1_ToggleBtn1_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET AdvancePadSettingsScreen_1_ToggleBtn2_define =
-{
-    "ToggleBtn2",
-    GX_TYPE_CHECKBOX,                        /* widget type                    */
-    TOGGLE_BTN_2,                            /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_BUTTON_TOGGLE|GX_STYLE_TEXT_RIGHT,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_CHECKBOX),                     /* control block size             */
-    GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
-    GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_checkbox_create,               /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {148, 68, 210, 104},                     /* widget size                    */
-    &AdvancePadSettingsScreen_1_ToggleBtn1_define, /* next widget definition   */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(ADVANCEPADSETTINGSSCREEN_1_CONTROL_BLOCK, AdvancePadSettingsScreen_1_ToggleBtn2), /* control block */
-    (void *) &AdvancePadSettingsScreen_1_ToggleBtn2_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET AdvancePadSettingsScreen_1_OK_Button_define =
-{
-    "OK_Button",
-    GX_TYPE_TEXT_BUTTON,                     /* widget type                    */
-    OK_BTN_ID,                               /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_THIN|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_TEXT_BUTTON),                  /* control block size             */
-    GX_COLOR_ID_TEXT_INPUT_FILL,             /* normal color id                */
-    GX_COLOR_ID_TEXT_INPUT_TEXT,             /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_text_button_create,            /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {230, 165, 309, 228},                    /* widget size                    */
-    &AdvancePadSettingsScreen_1_ToggleBtn2_define, /* next widget definition   */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(ADVANCEPADSETTINGSSCREEN_1_CONTROL_BLOCK, AdvancePadSettingsScreen_1_OK_Button), /* control block */
-    (void *) &AdvancePadSettingsScreen_1_OK_Button_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET AdvancePadSettingsScreen_1_Prompt3_define =
-{
-    "Prompt3",
-    GX_TYPE_PROMPT,                          /* widget type                    */
-    PROMPT_ID_3,                             /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_TEXT_RIGHT,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_PROMPT),                       /* control block size             */
-    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
-    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_prompt_create,                 /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {13, 122, 142, 161},                     /* widget size                    */
-    &AdvancePadSettingsScreen_1_OK_Button_define, /* next widget definition    */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(ADVANCEPADSETTINGSSCREEN_1_CONTROL_BLOCK, AdvancePadSettingsScreen_1_Prompt3), /* control block */
-    (void *) &AdvancePadSettingsScreen_1_Prompt3_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET AdvancePadSettingsScreen_1_Prompt2_define =
-{
-    "Prompt2",
-    GX_TYPE_PROMPT,                          /* widget type                    */
-    PROMPT_ID_2,                             /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_TEXT_RIGHT,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_PROMPT),                       /* control block size             */
-    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
-    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_prompt_create,                 /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {14, 68, 143, 107},                      /* widget size                    */
-    &AdvancePadSettingsScreen_1_Prompt3_define, /* next widget definition      */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(ADVANCEPADSETTINGSSCREEN_1_CONTROL_BLOCK, AdvancePadSettingsScreen_1_Prompt2), /* control block */
-    (void *) &AdvancePadSettingsScreen_1_Prompt2_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET AdvancePadSettingsScreen_1_Prompt1_define =
-{
-    "Prompt1",
-    GX_TYPE_PROMPT,                          /* widget type                    */
-    PROMPT_ID_1,                             /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_TEXT_RIGHT,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_PROMPT),                       /* control block size             */
-    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
-    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_prompt_create,                 /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {12, 14, 141, 52},                       /* widget size                    */
-    &AdvancePadSettingsScreen_1_Prompt2_define, /* next widget definition      */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(ADVANCEPADSETTINGSSCREEN_1_CONTROL_BLOCK, AdvancePadSettingsScreen_1_Prompt1), /* control block */
-    (void *) &AdvancePadSettingsScreen_1_Prompt1_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET AdvancePadSettingsScreen_1_UserSettingsScreenBackdrop_define =
-{
-    "UserSettingsScreenBackdrop",
-    GX_TYPE_WINDOW,                          /* widget type                    */
-    GX_ID_NONE,                              /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_THIN|GX_STYLE_ENABLED,   /* style flags                    */
-    0,                                       /* status flags                   */
-    sizeof(GX_WINDOW),                       /* control block size             */
-    GX_COLOR_ID_SCROLL_BUTTON,               /* normal color id                */
-    GX_COLOR_ID_SCROLL_BUTTON,               /* selected color id              */
-    GX_COLOR_ID_SCROLL_BUTTON,               /* disabled color id              */
-    gx_studio_window_create,                 /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {0, 0, 319, 239},                        /* widget size                    */
-    GX_NULL,                                 /* no next widget                 */
-    &AdvancePadSettingsScreen_1_Prompt1_define, /* child widget definition     */
-    offsetof(ADVANCEPADSETTINGSSCREEN_1_CONTROL_BLOCK, AdvancePadSettingsScreen_1_UserSettingsScreenBackdrop), /* control block */
-    (void *) &AdvancePadSettingsScreen_1_UserSettingsScreenBackdrop_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET AdvancePadSettingsScreen_1_define =
-{
-    "AdvancePadSettingsScreen_1",
-    GX_TYPE_TEMPLATE,                        /* widget type                    */
-    ADVANCE_PAD_SETTINGS_SCREEN_1_ID,        /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_THIN,                    /* style flags                    */
-    0,                                       /* status flags                   */
-    sizeof(ADVANCEPADSETTINGSSCREEN_1_CONTROL_BLOCK), /* control block size    */
-    GX_COLOR_ID_WINDOW_FILL,                 /* normal color id                */
-    GX_COLOR_ID_WINDOW_FILL,                 /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_template_create,               /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    (UINT (*)(GX_WIDGET *, GX_EVENT *)) FeatureSettingsScreen_event_process, /* event function override */
-    {0, 0, 479, 399},                        /* widget size                    */
-    GX_NULL,                                 /* next widget                    */
-    &AdvancePadSettingsScreen_1_UserSettingsScreenBackdrop_define, /* child widget */
-    0,                                       /* control block                  */
-    (void *) &AdvancePadSettingsScreen_1_properties /* extended properties     */
-};
-GX_TEMPLATE_PROPERTIES AdvancePad_2_Screen_properties =
-{
-    &PrimaryTemplate_define,                 /* base info                      */
-    gx_studio_window_create,                 /* base create function           */
-    {0, 0, 479, 399}                         /* widget size                    */
-};
-GX_WINDOW_PROPERTIES AdvancePad_2_Screen_AdvancePad_2_WindowName_properties =
-{
-    GX_PIXELMAP_ID_NEWBACKGROUND_FLATTEN_1   /* wallpaper pixelmap id          */
-};
-GX_PROMPT_PROPERTIES AdvancePad_2_Screen_PowerPrompt_properties =
-{
-    GX_STRING_ID_STRING_48,                  /* string id                      */
-    GX_FONT_ID_PROMPT,                       /* font id                        */
-    GX_COLOR_ID_SELECTED_TEXT,               /* normal text color              */
-    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
-    GX_COLOR_ID_SELECTED_TEXT                /* disabled text color            */
-};
-GX_PROMPT_PROPERTIES AdvancePad_2_Screen_BluetoothPrompt_properties =
-{
-    GX_STRING_ID_STRING_49,                  /* string id                      */
-    GX_FONT_ID_PROMPT,                       /* font id                        */
-    GX_COLOR_ID_SELECTED_TEXT,               /* normal text color              */
-    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
-    GX_COLOR_ID_SELECTED_TEXT                /* disabled text color            */
-};
-GX_PROMPT_PROPERTIES AdvancePad_2_Screen_NextFunctionPrompt_properties =
-{
-    GX_STRING_ID_STRING_64,                  /* string id                      */
-    GX_FONT_ID_PROMPT,                       /* font id                        */
-    GX_COLOR_ID_SELECTED_TEXT,               /* normal text color              */
-    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
-    GX_COLOR_ID_SELECTED_TEXT                /* disabled text color            */
-};
-GX_TEXT_BUTTON_PROPERTIES AdvancePad_2_Screen_OK_Button_properties =
-{
-    GX_STRING_ID_STRING_24,                  /* string id                      */
-    GX_FONT_ID_ASC24PT,                      /* font id                        */
-    GX_COLOR_ID_BTN_TEXT,                    /* normal text color              */
-    GX_COLOR_ID_BTN_TEXT,                    /* selected text color            */
-    GX_COLOR_ID_DISABLED_TEXT                /* disabled text color            */
-};
-GX_CHECKBOX_PROPERTIES AdvancePad_2_Screen_BluetoothToggleBtn_properties =
-{
-    0,                                       /* string id                      */
-    GX_FONT_ID_BUTTON,                       /* font id                        */
-    GX_COLOR_ID_SELECTED_TEXT,               /* normal text color              */
-    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
-    GX_COLOR_ID_DISABLED_TEXT,               /* disabled text color            */
-    GX_PIXELMAP_ID_TOGGLE_GRAY,              /* unchecked pixelmap id          */
-    GX_PIXELMAP_ID_TOGGLE_GREEN,             /* checked pixelmap id            */
-    GX_PIXELMAP_ID_TOGGLE_GRAY,              /* unchecked disabled pixelmap id */
-    GX_PIXELMAP_ID_TOGGLE_GREEN              /* checked disabled pixelmap id   */
-};
-GX_CHECKBOX_PROPERTIES AdvancePad_2_Screen_PowerToggleBtn_properties =
-{
-    0,                                       /* string id                      */
-    GX_FONT_ID_BUTTON,                       /* font id                        */
-    GX_COLOR_ID_SELECTED_TEXT,               /* normal text color              */
-    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
-    GX_COLOR_ID_DISABLED_TEXT,               /* disabled text color            */
-    GX_PIXELMAP_ID_TOGGLE_GRAY,              /* unchecked pixelmap id          */
-    GX_PIXELMAP_ID_TOGGLE_GREEN,             /* checked pixelmap id            */
-    GX_PIXELMAP_ID_TOGGLE_GRAY,              /* unchecked disabled pixelmap id */
-    GX_PIXELMAP_ID_TOGGLE_GREEN              /* checked disabled pixelmap id   */
-};
-GX_CHECKBOX_PROPERTIES AdvancePad_2_Screen_NextFunctionToggleBtn_properties =
-{
-    0,                                       /* string id                      */
-    GX_FONT_ID_BUTTON,                       /* font id                        */
-    GX_COLOR_ID_SELECTED_TEXT,               /* normal text color              */
-    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
-    GX_COLOR_ID_DISABLED_TEXT,               /* disabled text color            */
-    GX_PIXELMAP_ID_TOGGLE_GRAY,              /* unchecked pixelmap id          */
-    GX_PIXELMAP_ID_TOGGLE_GREEN,             /* checked pixelmap id            */
-    GX_PIXELMAP_ID_TOGGLE_GRAY,              /* unchecked disabled pixelmap id */
-    GX_PIXELMAP_ID_TOGGLE_GREEN              /* checked disabled pixelmap id   */
-};
-
-GX_CONST GX_STUDIO_WIDGET AdvancePad_2_Screen_NextFunctionToggleBtn_define =
-{
-    "NextFunctionToggleBtn",
-    GX_TYPE_CHECKBOX,                        /* widget type                    */
-    NEXT_FUNCTION_TOGGLE_BTN,                /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_BUTTON_PUSHED|GX_STYLE_BUTTON_TOGGLE|GX_STYLE_TEXT_RIGHT,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_CHECKBOX),                     /* control block size             */
-    GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
-    GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_checkbox_create,               /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {149, 122, 211, 158},                    /* widget size                    */
-    GX_NULL,                                 /* no next widget                 */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(ADVANCEPAD_2_SCREEN_CONTROL_BLOCK, AdvancePad_2_Screen_NextFunctionToggleBtn), /* control block */
-    (void *) &AdvancePad_2_Screen_NextFunctionToggleBtn_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET AdvancePad_2_Screen_PowerToggleBtn_define =
-{
-    "PowerToggleBtn",
-    GX_TYPE_CHECKBOX,                        /* widget type                    */
-    POWER_TOGGLE_BTN,                        /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_BUTTON_PUSHED|GX_STYLE_BUTTON_TOGGLE|GX_STYLE_TEXT_RIGHT,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_CHECKBOX),                     /* control block size             */
-    GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
-    GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_checkbox_create,               /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {147, 14, 209, 50},                      /* widget size                    */
-    &AdvancePad_2_Screen_NextFunctionToggleBtn_define, /* next widget definition */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(ADVANCEPAD_2_SCREEN_CONTROL_BLOCK, AdvancePad_2_Screen_PowerToggleBtn), /* control block */
-    (void *) &AdvancePad_2_Screen_PowerToggleBtn_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET AdvancePad_2_Screen_BluetoothToggleBtn_define =
-{
-    "BluetoothToggleBtn",
-    GX_TYPE_CHECKBOX,                        /* widget type                    */
-    BLUETOOTH_TOGGLE_BTN,                    /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_BUTTON_PUSHED|GX_STYLE_BUTTON_TOGGLE|GX_STYLE_TEXT_RIGHT,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_CHECKBOX),                     /* control block size             */
-    GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
-    GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_checkbox_create,               /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {148, 68, 210, 104},                     /* widget size                    */
-    &AdvancePad_2_Screen_PowerToggleBtn_define, /* next widget definition      */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(ADVANCEPAD_2_SCREEN_CONTROL_BLOCK, AdvancePad_2_Screen_BluetoothToggleBtn), /* control block */
-    (void *) &AdvancePad_2_Screen_BluetoothToggleBtn_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET AdvancePad_2_Screen_OK_Button_define =
-{
-    "OK_Button",
-    GX_TYPE_TEXT_BUTTON,                     /* widget type                    */
-    OK_BTN_ID,                               /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_THIN|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_TEXT_BUTTON),                  /* control block size             */
-    GX_COLOR_ID_TEXT_INPUT_FILL,             /* normal color id                */
-    GX_COLOR_ID_TEXT_INPUT_TEXT,             /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_text_button_create,            /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {230, 165, 309, 228},                    /* widget size                    */
-    &AdvancePad_2_Screen_BluetoothToggleBtn_define, /* next widget definition  */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(ADVANCEPAD_2_SCREEN_CONTROL_BLOCK, AdvancePad_2_Screen_OK_Button), /* control block */
-    (void *) &AdvancePad_2_Screen_OK_Button_properties /* extended properties  */
-};
-
-GX_CONST GX_STUDIO_WIDGET AdvancePad_2_Screen_NextFunctionPrompt_define =
-{
-    "NextFunctionPrompt",
-    GX_TYPE_PROMPT,                          /* widget type                    */
-    NEXT_FUNCTION_PROMPT_ID,                 /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_TEXT_RIGHT,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_PROMPT),                       /* control block size             */
-    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
-    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_prompt_create,                 /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {14, 122, 143, 161},                     /* widget size                    */
-    &AdvancePad_2_Screen_OK_Button_define,   /* next widget definition         */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(ADVANCEPAD_2_SCREEN_CONTROL_BLOCK, AdvancePad_2_Screen_NextFunctionPrompt), /* control block */
-    (void *) &AdvancePad_2_Screen_NextFunctionPrompt_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET AdvancePad_2_Screen_BluetoothPrompt_define =
-{
-    "BluetoothPrompt",
-    GX_TYPE_PROMPT,                          /* widget type                    */
-    BLUETOOTH_PROMPT_ID,                     /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_TEXT_RIGHT,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_PROMPT),                       /* control block size             */
-    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
-    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_prompt_create,                 /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {14, 68, 143, 107},                      /* widget size                    */
-    &AdvancePad_2_Screen_NextFunctionPrompt_define, /* next widget definition  */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(ADVANCEPAD_2_SCREEN_CONTROL_BLOCK, AdvancePad_2_Screen_BluetoothPrompt), /* control block */
-    (void *) &AdvancePad_2_Screen_BluetoothPrompt_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET AdvancePad_2_Screen_PowerPrompt_define =
-{
-    "PowerPrompt",
-    GX_TYPE_PROMPT,                          /* widget type                    */
-    POWER_PROMPT_ID,                         /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_TEXT_RIGHT,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_PROMPT),                       /* control block size             */
-    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
-    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_prompt_create,                 /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {12, 14, 141, 52},                       /* widget size                    */
-    &AdvancePad_2_Screen_BluetoothPrompt_define, /* next widget definition     */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(ADVANCEPAD_2_SCREEN_CONTROL_BLOCK, AdvancePad_2_Screen_PowerPrompt), /* control block */
-    (void *) &AdvancePad_2_Screen_PowerPrompt_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET AdvancePad_2_Screen_AdvancePad_2_WindowName_define =
-{
-    "AdvancePad_2_WindowName",
-    GX_TYPE_WINDOW,                          /* widget type                    */
-    GX_ID_NONE,                              /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_THIN|GX_STYLE_ENABLED,   /* style flags                    */
-    0,                                       /* status flags                   */
-    sizeof(GX_WINDOW),                       /* control block size             */
-    GX_COLOR_ID_SCROLL_BUTTON,               /* normal color id                */
-    GX_COLOR_ID_SCROLL_BUTTON,               /* selected color id              */
-    GX_COLOR_ID_SCROLL_BUTTON,               /* disabled color id              */
-    gx_studio_window_create,                 /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {0, 0, 319, 239},                        /* widget size                    */
-    GX_NULL,                                 /* no next widget                 */
-    &AdvancePad_2_Screen_PowerPrompt_define, /* child widget definition        */
-    offsetof(ADVANCEPAD_2_SCREEN_CONTROL_BLOCK, AdvancePad_2_Screen_AdvancePad_2_WindowName), /* control block */
-    (void *) &AdvancePad_2_Screen_AdvancePad_2_WindowName_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET AdvancePad_2_Screen_define =
-{
-    "AdvancePad_2_Screen",
-    GX_TYPE_TEMPLATE,                        /* widget type                    */
-    ADVANCE_PAD_2_SCREEN,                    /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_THIN,                    /* style flags                    */
-    0,                                       /* status flags                   */
-    sizeof(ADVANCEPAD_2_SCREEN_CONTROL_BLOCK), /* control block size           */
-    GX_COLOR_ID_WINDOW_FILL,                 /* normal color id                */
-    GX_COLOR_ID_WINDOW_FILL,                 /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_template_create,               /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    (UINT (*)(GX_WIDGET *, GX_EVENT *)) FeatureSettingsScreen_event_process, /* event function override */
-    {0, 0, 479, 399},                        /* widget size                    */
-    GX_NULL,                                 /* next widget                    */
-    &AdvancePad_2_Screen_AdvancePad_2_WindowName_define, /* child widget       */
-    0,                                       /* control block                  */
-    (void *) &AdvancePad_2_Screen_properties /* extended properties            */
-};
-GX_TEMPLATE_PROPERTIES AdvancePad_1_Screen_properties =
-{
-    &PrimaryTemplate_define,                 /* base info                      */
-    gx_studio_window_create,                 /* base create function           */
-    {0, 0, 479, 399}                         /* widget size                    */
-};
-GX_WINDOW_PROPERTIES AdvancePad_1_Screen_AdvancePad_1_Screen_WindowName_properties =
-{
-    GX_PIXELMAP_ID_NEWBACKGROUND_FLATTEN_1   /* wallpaper pixelmap id          */
-};
-GX_TEXT_BUTTON_PROPERTIES AdvancePad_1_Screen_Settings_Button_properties =
-{
-    GX_STRING_ID_STRING_42,                  /* string id                      */
-    GX_FONT_ID_BUTTON,                       /* font id                        */
-    GX_COLOR_ID_BTN_TEXT,                    /* normal text color              */
-    GX_COLOR_ID_BTN_TEXT,                    /* selected text color            */
-    GX_COLOR_ID_DISABLED_TEXT                /* disabled text color            */
-};
-GX_TEXT_BUTTON_PROPERTIES AdvancePad_1_Screen_OK_Button_properties =
-{
-    GX_STRING_ID_STRING_24,                  /* string id                      */
-    GX_FONT_ID_ASC24PT,                      /* font id                        */
-    GX_COLOR_ID_BTN_TEXT,                    /* normal text color              */
-    GX_COLOR_ID_BTN_TEXT,                    /* selected text color            */
-    GX_COLOR_ID_DISABLED_TEXT                /* disabled text color            */
-};
-GX_TEXT_BUTTON_PROPERTIES AdvancePad_1_Screen_PadSettings_Button_properties =
-{
-    GX_STRING_ID_STRING_41,                  /* string id                      */
-    GX_FONT_ID_BUTTON,                       /* font id                        */
-    GX_COLOR_ID_BTN_TEXT,                    /* normal text color              */
-    GX_COLOR_ID_BTN_TEXT,                    /* selected text color            */
-    GX_COLOR_ID_DISABLED_TEXT                /* disabled text color            */
-};
-
-GX_CONST GX_STUDIO_WIDGET AdvancePad_1_Screen_PadSettings_Button_define =
-{
-    "PadSettings_Button",
-    GX_TYPE_TEXT_BUTTON,                     /* widget type                    */
-    PAD_SETTINGS_BTN_ID,                     /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_THIN|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_TEXT_BUTTON),                  /* control block size             */
-    GX_COLOR_ID_TEXT_INPUT_FILL,             /* normal color id                */
-    GX_COLOR_ID_TEXT_INPUT_TEXT,             /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_text_button_create,            /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {16, 14, 205, 77},                       /* widget size                    */
-    GX_NULL,                                 /* no next widget                 */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(ADVANCEPAD_1_SCREEN_CONTROL_BLOCK, AdvancePad_1_Screen_PadSettings_Button), /* control block */
-    (void *) &AdvancePad_1_Screen_PadSettings_Button_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET AdvancePad_1_Screen_OK_Button_define =
-{
-    "OK_Button",
-    GX_TYPE_TEXT_BUTTON,                     /* widget type                    */
-    OK_BTN_ID,                               /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_THIN|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_TEXT_BUTTON),                  /* control block size             */
-    GX_COLOR_ID_TEXT_INPUT_FILL,             /* normal color id                */
-    GX_COLOR_ID_TEXT_INPUT_TEXT,             /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_text_button_create,            /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {230, 165, 309, 228},                    /* widget size                    */
-    &AdvancePad_1_Screen_PadSettings_Button_define, /* next widget definition  */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(ADVANCEPAD_1_SCREEN_CONTROL_BLOCK, AdvancePad_1_Screen_OK_Button), /* control block */
-    (void *) &AdvancePad_1_Screen_OK_Button_properties /* extended properties  */
-};
-
-GX_CONST GX_STUDIO_WIDGET AdvancePad_1_Screen_Settings_Button_define =
-{
-    "Settings_Button",
-    GX_TYPE_TEXT_BUTTON,                     /* widget type                    */
-    SETTINGS_BTN_ID,                         /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_THIN|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_TEXT_BUTTON),                  /* control block size             */
-    GX_COLOR_ID_TEXT_INPUT_FILL,             /* normal color id                */
-    GX_COLOR_ID_TEXT_INPUT_TEXT,             /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_text_button_create,            /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {16, 89, 205, 152},                      /* widget size                    */
-    &AdvancePad_1_Screen_OK_Button_define,   /* next widget definition         */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(ADVANCEPAD_1_SCREEN_CONTROL_BLOCK, AdvancePad_1_Screen_Settings_Button), /* control block */
-    (void *) &AdvancePad_1_Screen_Settings_Button_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET AdvancePad_1_Screen_AdvancePad_1_Screen_WindowName_define =
-{
-    "AdvancePad_1_Screen_WindowName",
-    GX_TYPE_WINDOW,                          /* widget type                    */
-    GX_ID_NONE,                              /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_THIN,                    /* style flags                    */
-    0,                                       /* status flags                   */
-    sizeof(GX_WINDOW),                       /* control block size             */
-    GX_COLOR_ID_SCROLL_BUTTON,               /* normal color id                */
-    GX_COLOR_ID_WINDOW_FILL,                 /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_window_create,                 /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {0, 0, 319, 239},                        /* widget size                    */
-    GX_NULL,                                 /* no next widget                 */
-    &AdvancePad_1_Screen_Settings_Button_define, /* child widget definition    */
-    offsetof(ADVANCEPAD_1_SCREEN_CONTROL_BLOCK, AdvancePad_1_Screen_AdvancePad_1_Screen_WindowName), /* control block */
-    (void *) &AdvancePad_1_Screen_AdvancePad_1_Screen_WindowName_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET AdvancePad_1_Screen_define =
-{
-    "AdvancePad_1_Screen",
-    GX_TYPE_TEMPLATE,                        /* widget type                    */
-    ADVANCE_PAD_1_SCREEN,                    /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_THIN,                    /* style flags                    */
-    0,                                       /* status flags                   */
-    sizeof(ADVANCEPAD_1_SCREEN_CONTROL_BLOCK), /* control block size           */
-    GX_COLOR_ID_WINDOW_FILL,                 /* normal color id                */
-    GX_COLOR_ID_WINDOW_FILL,                 /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_template_create,               /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    (UINT (*)(GX_WIDGET *, GX_EVENT *)) HHP_Start_Screen_event_process, /* event function override */
-    {0, 0, 479, 399},                        /* widget size                    */
-    GX_NULL,                                 /* next widget                    */
-    &AdvancePad_1_Screen_AdvancePad_1_Screen_WindowName_define, /* child widget */
-    0,                                       /* control block                  */
-    (void *) &AdvancePad_1_Screen_properties /* extended properties            */
-};
-GX_TEMPLATE_PROPERTIES AdvancePadSettingsScreen_properties =
-{
-    &PrimaryTemplate_define,                 /* base info                      */
-    gx_studio_window_create,                 /* base create function           */
-    {0, 0, 479, 399}                         /* widget size                    */
-};
-GX_WINDOW_PROPERTIES AdvancePadSettingsScreen_AdvancePadSettingScreen_WindowName_properties =
-{
-    GX_PIXELMAP_ID_NEWBACKGROUND_FLATTEN_1   /* wallpaper pixelmap id          */
-};
-GX_PIXELMAP_BUTTON_PROPERTIES AdvancePadSettingsScreen_PowerButtonBackground_properties =
-{
-    GX_PIXELMAP_ID_SWITCH_BG,                /* normal pixelmap id             */
-    0,                                       /* selected pixelmap id           */
-    0                                        /* disabled pixelmap id           */
-};
-GX_PROMPT_PROPERTIES AdvancePadSettingsScreen_PowerPrompt_properties =
-{
-    GX_STRING_ID_STRING_5,                   /* string id                      */
-    GX_FONT_ID_PROMPT,                       /* font id                        */
-    GX_COLOR_ID_SELECTED_TEXT,               /* normal text color              */
-    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
-    GX_COLOR_ID_SELECTED_TEXT                /* disabled text color            */
-};
-GX_PIXELMAP_BUTTON_PROPERTIES AdvancePadSettingsScreen_Power_ActiveIcon_properties =
-{
-    GX_PIXELMAP_ID_SWITCH_ACTIVE,            /* normal pixelmap id             */
-    0,                                       /* selected pixelmap id           */
-    0                                        /* disabled pixelmap id           */
-};
-GX_PIXELMAP_BUTTON_PROPERTIES AdvancePadSettingsScreen_Power_InactiveIcon_properties =
-{
-    GX_PIXELMAP_ID_SWITCH_DISACTIVE,         /* normal pixelmap id             */
-    0,                                       /* selected pixelmap id           */
-    0                                        /* disabled pixelmap id           */
-};
-GX_PROMPT_PROPERTIES AdvancePadSettingsScreen_BluetoothPrompt_properties =
-{
-    GX_STRING_ID_STRING_7,                   /* string id                      */
-    GX_FONT_ID_PROMPT,                       /* font id                        */
-    GX_COLOR_ID_SELECTED_TEXT,               /* normal text color              */
-    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
-    GX_COLOR_ID_SELECTED_TEXT                /* disabled text color            */
-};
-GX_PIXELMAP_BUTTON_PROPERTIES AdvancePadSettingsScreen_BluetoothButtonBackground_properties =
-{
-    GX_PIXELMAP_ID_SWITCH_BG,                /* normal pixelmap id             */
-    0,                                       /* selected pixelmap id           */
-    0                                        /* disabled pixelmap id           */
-};
-GX_PIXELMAP_BUTTON_PROPERTIES AdvancePadSettingsScreen_Bluetooth_ActiveIcon_properties =
-{
-    GX_PIXELMAP_ID_SWITCH_ACTIVE,            /* normal pixelmap id             */
-    0,                                       /* selected pixelmap id           */
-    0                                        /* disabled pixelmap id           */
-};
-GX_PIXELMAP_BUTTON_PROPERTIES AdvancePadSettingsScreen_Bluetooth_InactiveIcon_properties =
-{
-    GX_PIXELMAP_ID_SWITCH_DISACTIVE,         /* normal pixelmap id             */
-    0,                                       /* selected pixelmap id           */
-    0                                        /* disabled pixelmap id           */
-};
-GX_PROMPT_PROPERTIES AdvancePadSettingsScreen_NextFunctionPrompt_properties =
-{
-    GX_STRING_ID_STRING_6,                   /* string id                      */
-    GX_FONT_ID_PROMPT,                       /* font id                        */
-    GX_COLOR_ID_SELECTED_TEXT,               /* normal text color              */
-    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
-    GX_COLOR_ID_SELECTED_TEXT                /* disabled text color            */
-};
-GX_PIXELMAP_BUTTON_PROPERTIES AdvancePadSettingsScreen_NextFunctionButtonBackground_properties =
-{
-    GX_PIXELMAP_ID_SWITCH_BG,                /* normal pixelmap id             */
-    0,                                       /* selected pixelmap id           */
-    0                                        /* disabled pixelmap id           */
-};
-GX_PIXELMAP_BUTTON_PROPERTIES AdvancePadSettingsScreen_NextFunction_ActiveIcon_properties =
-{
-    GX_PIXELMAP_ID_SWITCH_ACTIVE,            /* normal pixelmap id             */
-    0,                                       /* selected pixelmap id           */
-    0                                        /* disabled pixelmap id           */
-};
-GX_PIXELMAP_BUTTON_PROPERTIES AdvancePadSettingsScreen_NextFunction_InactiveIcon_properties =
-{
-    GX_PIXELMAP_ID_SWITCH_DISACTIVE,         /* normal pixelmap id             */
-    0,                                       /* selected pixelmap id           */
-    0                                        /* disabled pixelmap id           */
-};
-GX_PROMPT_PROPERTIES AdvancePadSettingsScreen_NextProfilePrompt_properties =
-{
-    GX_STRING_ID_STRING_8,                   /* string id                      */
-    GX_FONT_ID_PROMPT,                       /* font id                        */
-    GX_COLOR_ID_SELECTED_TEXT,               /* normal text color              */
-    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
-    GX_COLOR_ID_SELECTED_TEXT                /* disabled text color            */
-};
-GX_PIXELMAP_BUTTON_PROPERTIES AdvancePadSettingsScreen_NextProfileButtonBackground_properties =
-{
-    GX_PIXELMAP_ID_SWITCH_BG,                /* normal pixelmap id             */
-    0,                                       /* selected pixelmap id           */
-    0                                        /* disabled pixelmap id           */
-};
-GX_PIXELMAP_BUTTON_PROPERTIES AdvancePadSettingsScreen_NextProfile_ActiveIcon_properties =
-{
-    GX_PIXELMAP_ID_SWITCH_ACTIVE,            /* normal pixelmap id             */
-    0,                                       /* selected pixelmap id           */
-    0                                        /* disabled pixelmap id           */
-};
-GX_PIXELMAP_BUTTON_PROPERTIES AdvancePadSettingsScreen_NextProfile_InactiveIcon_properties =
-{
-    GX_PIXELMAP_ID_SWITCH_DISACTIVE,         /* normal pixelmap id             */
-    0,                                       /* selected pixelmap id           */
-    0                                        /* disabled pixelmap id           */
-};
-GX_TEXT_BUTTON_PROPERTIES AdvancePadSettingsScreen_OK_Button_properties =
-{
-    GX_STRING_ID_STRING_24,                  /* string id                      */
-    GX_FONT_ID_ASC24PT,                      /* font id                        */
-    GX_COLOR_ID_BTN_TEXT,                    /* normal text color              */
-    GX_COLOR_ID_BTN_TEXT,                    /* selected text color            */
-    GX_COLOR_ID_DISABLED_TEXT                /* disabled text color            */
-};
-GX_CHECKBOX_PROPERTIES AdvancePadSettingsScreen_BluetoothToggleBtn_properties =
-{
-    0,                                       /* string id                      */
-    GX_FONT_ID_BUTTON,                       /* font id                        */
-    GX_COLOR_ID_SELECTED_TEXT,               /* normal text color              */
-    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
-    GX_COLOR_ID_DISABLED_TEXT,               /* disabled text color            */
-    GX_PIXELMAP_ID_TOGGLE_GRAY,              /* unchecked pixelmap id          */
-    GX_PIXELMAP_ID_TOGGLE_GREEN,             /* checked pixelmap id            */
-    GX_PIXELMAP_ID_TOGGLE_GRAY,              /* unchecked disabled pixelmap id */
-    GX_PIXELMAP_ID_TOGGLE_GREEN              /* checked disabled pixelmap id   */
-};
-GX_CHECKBOX_PROPERTIES AdvancePadSettingsScreen_PowerToggleBtn_properties =
-{
-    0,                                       /* string id                      */
-    GX_FONT_ID_BUTTON,                       /* font id                        */
-    GX_COLOR_ID_SELECTED_TEXT,               /* normal text color              */
-    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
-    GX_COLOR_ID_DISABLED_TEXT,               /* disabled text color            */
-    GX_PIXELMAP_ID_TOGGLE_GRAY,              /* unchecked pixelmap id          */
-    GX_PIXELMAP_ID_TOGGLE_GREEN,             /* checked pixelmap id            */
-    GX_PIXELMAP_ID_TOGGLE_GRAY,              /* unchecked disabled pixelmap id */
-    GX_PIXELMAP_ID_TOGGLE_GREEN              /* checked disabled pixelmap id   */
-};
-GX_CHECKBOX_PROPERTIES AdvancePadSettingsScreen_NextFunctionToggleBtn_properties =
-{
-    0,                                       /* string id                      */
-    GX_FONT_ID_BUTTON,                       /* font id                        */
-    GX_COLOR_ID_SELECTED_TEXT,               /* normal text color              */
-    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
-    GX_COLOR_ID_DISABLED_TEXT,               /* disabled text color            */
-    GX_PIXELMAP_ID_TOGGLE_GRAY,              /* unchecked pixelmap id          */
-    GX_PIXELMAP_ID_TOGGLE_GREEN,             /* checked pixelmap id            */
-    GX_PIXELMAP_ID_TOGGLE_GRAY,              /* unchecked disabled pixelmap id */
-    GX_PIXELMAP_ID_TOGGLE_GREEN              /* checked disabled pixelmap id   */
-};
-GX_CHECKBOX_PROPERTIES AdvancePadSettingsScreen_NextProfileToggleBtn_properties =
-{
-    0,                                       /* string id                      */
-    GX_FONT_ID_BUTTON,                       /* font id                        */
-    GX_COLOR_ID_SELECTED_TEXT,               /* normal text color              */
-    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
-    GX_COLOR_ID_DISABLED_TEXT,               /* disabled text color            */
-    GX_PIXELMAP_ID_TOGGLE_GRAY,              /* unchecked pixelmap id          */
-    GX_PIXELMAP_ID_TOGGLE_GREEN,             /* checked pixelmap id            */
-    GX_PIXELMAP_ID_TOGGLE_GRAY,              /* unchecked disabled pixelmap id */
-    GX_PIXELMAP_ID_TOGGLE_GREEN              /* checked disabled pixelmap id   */
-};
-GX_PIXELMAP_BUTTON_PROPERTIES AdvancePadSettingsScreen_DownArrowButton_properties =
-{
-    GX_PIXELMAP_ID_DOWNARROW_ENABLED,        /* normal pixelmap id             */
-    0,                                       /* selected pixelmap id           */
-    GX_PIXELMAP_ID_DOWNARROW_DISABLED        /* disabled pixelmap id           */
-};
-GX_PIXELMAP_BUTTON_PROPERTIES AdvancePadSettingsScreen_UpArrowButton_properties =
-{
-    GX_PIXELMAP_ID_UPARROW_ENABLED,          /* normal pixelmap id             */
-    0,                                       /* selected pixelmap id           */
-    GX_PIXELMAP_ID_UPARROW_DISABLED          /* disabled pixelmap id           */
-};
-
-GX_CONST GX_STUDIO_WIDGET AdvancePadSettingsScreen_UpArrowButton_define =
-{
-    "UpArrowButton",
-    GX_TYPE_PIXELMAP_BUTTON,                 /* widget type                    */
-    UP_ARROW_BUTTON_ID,                      /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE,                    /* style flags                    */
-    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
-    sizeof(GX_PIXELMAP_BUTTON),              /* control block size             */
-    GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
-    GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_pixelmap_button_create,        /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {236, 17, 305, 86},                      /* widget size                    */
-    GX_NULL,                                 /* no next widget                 */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(ADVANCEPADSETTINGSSCREEN_CONTROL_BLOCK, AdvancePadSettingsScreen_UpArrowButton), /* control block */
-    (void *) &AdvancePadSettingsScreen_UpArrowButton_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET AdvancePadSettingsScreen_DownArrowButton_define =
-{
-    "DownArrowButton",
-    GX_TYPE_PIXELMAP_BUTTON,                 /* widget type                    */
-    DOWN_ARROW_BUTTON_ID,                    /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_ENABLED,   /* style flags                    */
-    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
-    sizeof(GX_PIXELMAP_BUTTON),              /* control block size             */
-    GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
-    GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_pixelmap_button_create,        /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {236, 90, 305, 159},                     /* widget size                    */
-    &AdvancePadSettingsScreen_UpArrowButton_define, /* next widget definition  */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(ADVANCEPADSETTINGSSCREEN_CONTROL_BLOCK, AdvancePadSettingsScreen_DownArrowButton), /* control block */
-    (void *) &AdvancePadSettingsScreen_DownArrowButton_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET AdvancePadSettingsScreen_NextProfileToggleBtn_define =
-{
-    "NextProfileToggleBtn",
-    GX_TYPE_CHECKBOX,                        /* widget type                    */
-    NEXT_PROFILE_TOGGLE_BTN,                 /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_BUTTON_PUSHED|GX_STYLE_BUTTON_TOGGLE|GX_STYLE_TEXT_RIGHT,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_CHECKBOX),                     /* control block size             */
-    GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
-    GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_checkbox_create,               /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {148, 176, 210, 212},                    /* widget size                    */
-    &AdvancePadSettingsScreen_DownArrowButton_define, /* next widget definition */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(ADVANCEPADSETTINGSSCREEN_CONTROL_BLOCK, AdvancePadSettingsScreen_NextProfileToggleBtn), /* control block */
-    (void *) &AdvancePadSettingsScreen_NextProfileToggleBtn_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET AdvancePadSettingsScreen_NextFunctionToggleBtn_define =
-{
-    "NextFunctionToggleBtn",
-    GX_TYPE_CHECKBOX,                        /* widget type                    */
-    NEXT_FUNCTION_TOGGLE_BTN,                /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_BUTTON_PUSHED|GX_STYLE_BUTTON_TOGGLE|GX_STYLE_TEXT_RIGHT,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_CHECKBOX),                     /* control block size             */
-    GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
-    GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_checkbox_create,               /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {149, 122, 211, 158},                    /* widget size                    */
-    &AdvancePadSettingsScreen_NextProfileToggleBtn_define, /* next widget definition */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(ADVANCEPADSETTINGSSCREEN_CONTROL_BLOCK, AdvancePadSettingsScreen_NextFunctionToggleBtn), /* control block */
-    (void *) &AdvancePadSettingsScreen_NextFunctionToggleBtn_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET AdvancePadSettingsScreen_PowerToggleBtn_define =
-{
-    "PowerToggleBtn",
-    GX_TYPE_CHECKBOX,                        /* widget type                    */
-    POWER_TOGGLE_BTN,                        /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_BUTTON_PUSHED|GX_STYLE_BUTTON_TOGGLE|GX_STYLE_TEXT_RIGHT,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_CHECKBOX),                     /* control block size             */
-    GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
-    GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_checkbox_create,               /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {147, 14, 209, 50},                      /* widget size                    */
-    &AdvancePadSettingsScreen_NextFunctionToggleBtn_define, /* next widget definition */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(ADVANCEPADSETTINGSSCREEN_CONTROL_BLOCK, AdvancePadSettingsScreen_PowerToggleBtn), /* control block */
-    (void *) &AdvancePadSettingsScreen_PowerToggleBtn_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET AdvancePadSettingsScreen_BluetoothToggleBtn_define =
-{
-    "BluetoothToggleBtn",
-    GX_TYPE_CHECKBOX,                        /* widget type                    */
-    BLUETOOTH_TOGGLE_BTN,                    /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_BUTTON_PUSHED|GX_STYLE_BUTTON_TOGGLE|GX_STYLE_TEXT_RIGHT,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_CHECKBOX),                     /* control block size             */
-    GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
-    GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_checkbox_create,               /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {148, 68, 210, 104},                     /* widget size                    */
-    &AdvancePadSettingsScreen_PowerToggleBtn_define, /* next widget definition */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(ADVANCEPADSETTINGSSCREEN_CONTROL_BLOCK, AdvancePadSettingsScreen_BluetoothToggleBtn), /* control block */
-    (void *) &AdvancePadSettingsScreen_BluetoothToggleBtn_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET AdvancePadSettingsScreen_OK_Button_define =
-{
-    "OK_Button",
-    GX_TYPE_TEXT_BUTTON,                     /* widget type                    */
-    OK_BTN_ID,                               /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_THIN|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_TEXT_BUTTON),                  /* control block size             */
-    GX_COLOR_ID_TEXT_INPUT_FILL,             /* normal color id                */
-    GX_COLOR_ID_TEXT_INPUT_TEXT,             /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_text_button_create,            /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {230, 165, 309, 228},                    /* widget size                    */
-    &AdvancePadSettingsScreen_BluetoothToggleBtn_define, /* next widget definition */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(ADVANCEPADSETTINGSSCREEN_CONTROL_BLOCK, AdvancePadSettingsScreen_OK_Button), /* control block */
-    (void *) &AdvancePadSettingsScreen_OK_Button_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET AdvancePadSettingsScreen_NextProfile_InactiveIcon_define =
-{
-    "NextProfile_InactiveIcon",
-    GX_TYPE_PIXELMAP_BUTTON,                 /* widget type                    */
-    NEXT_PROFILE_INACTIVE_ICON,              /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_HALIGN_CENTER|GX_STYLE_VALIGN_CENTER,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_PIXELMAP_BUTTON),              /* control block size             */
-    GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
-    GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_pixelmap_button_create,        /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {554, 176, 581, 203},                    /* widget size                    */
-    &AdvancePadSettingsScreen_OK_Button_define, /* next widget definition      */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(ADVANCEPADSETTINGSSCREEN_CONTROL_BLOCK, AdvancePadSettingsScreen_NextProfile_InactiveIcon), /* control block */
-    (void *) &AdvancePadSettingsScreen_NextProfile_InactiveIcon_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET AdvancePadSettingsScreen_NextProfile_ActiveIcon_define =
-{
-    "NextProfile_ActiveIcon",
-    GX_TYPE_PIXELMAP_BUTTON,                 /* widget type                    */
-    NEXT_PROFILE_ACTIVE_ICON,                /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_HALIGN_CENTER|GX_STYLE_VALIGN_CENTER,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_PIXELMAP_BUTTON),              /* control block size             */
-    GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
-    GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_pixelmap_button_create,        /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {574, 176, 601, 203},                    /* widget size                    */
-    &AdvancePadSettingsScreen_NextProfile_InactiveIcon_define, /* next widget definition */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(ADVANCEPADSETTINGSSCREEN_CONTROL_BLOCK, AdvancePadSettingsScreen_NextProfile_ActiveIcon), /* control block */
-    (void *) &AdvancePadSettingsScreen_NextProfile_ActiveIcon_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET AdvancePadSettingsScreen_NextProfileButtonBackground_define =
-{
-    "NextProfileButtonBackground",
-    GX_TYPE_PIXELMAP_BUTTON,                 /* widget type                    */
-    NEXT_PROFILE_BTN_ID,                     /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_HALIGN_CENTER|GX_STYLE_VALIGN_CENTER,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_PIXELMAP_BUTTON),              /* control block size             */
-    GX_COLOR_ID_SLIDER_GROOVE_BOTTOM,        /* normal color id                */
-    GX_COLOR_ID_SLIDER_GROOVE_TOP,           /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_pixelmap_button_create,        /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {548, 170, 607, 209},                    /* widget size                    */
-    &AdvancePadSettingsScreen_NextProfile_ActiveIcon_define, /* next widget definition */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(ADVANCEPADSETTINGSSCREEN_CONTROL_BLOCK, AdvancePadSettingsScreen_NextProfileButtonBackground), /* control block */
-    (void *) &AdvancePadSettingsScreen_NextProfileButtonBackground_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET AdvancePadSettingsScreen_NextProfilePrompt_define =
-{
-    "NextProfilePrompt",
-    GX_TYPE_PROMPT,                          /* widget type                    */
-    NEXT_PROFILE_PROMPT_ID,                  /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_TEXT_RIGHT,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_PROMPT),                       /* control block size             */
-    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
-    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_prompt_create,                 /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {13, 176, 142, 215},                     /* widget size                    */
-    &AdvancePadSettingsScreen_NextProfileButtonBackground_define, /* next widget definition */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(ADVANCEPADSETTINGSSCREEN_CONTROL_BLOCK, AdvancePadSettingsScreen_NextProfilePrompt), /* control block */
-    (void *) &AdvancePadSettingsScreen_NextProfilePrompt_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET AdvancePadSettingsScreen_NextFunction_InactiveIcon_define =
-{
-    "NextFunction_InactiveIcon",
-    GX_TYPE_PIXELMAP_BUTTON,                 /* widget type                    */
-    NEXT_FUNCTION_INACTIVE_ICON,             /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_HALIGN_CENTER|GX_STYLE_VALIGN_CENTER,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_PIXELMAP_BUTTON),              /* control block size             */
-    GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
-    GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_pixelmap_button_create,        /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {554, 124, 581, 151},                    /* widget size                    */
-    &AdvancePadSettingsScreen_NextProfilePrompt_define, /* next widget definition */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(ADVANCEPADSETTINGSSCREEN_CONTROL_BLOCK, AdvancePadSettingsScreen_NextFunction_InactiveIcon), /* control block */
-    (void *) &AdvancePadSettingsScreen_NextFunction_InactiveIcon_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET AdvancePadSettingsScreen_NextFunction_ActiveIcon_define =
-{
-    "NextFunction_ActiveIcon",
-    GX_TYPE_PIXELMAP_BUTTON,                 /* widget type                    */
-    NEXT_FUNCTION_ACTIVE_ICON,               /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_HALIGN_CENTER|GX_STYLE_VALIGN_CENTER,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_PIXELMAP_BUTTON),              /* control block size             */
-    GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
-    GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_pixelmap_button_create,        /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {575, 124, 602, 151},                    /* widget size                    */
-    &AdvancePadSettingsScreen_NextFunction_InactiveIcon_define, /* next widget definition */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(ADVANCEPADSETTINGSSCREEN_CONTROL_BLOCK, AdvancePadSettingsScreen_NextFunction_ActiveIcon), /* control block */
-    (void *) &AdvancePadSettingsScreen_NextFunction_ActiveIcon_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET AdvancePadSettingsScreen_NextFunctionButtonBackground_define =
-{
-    "NextFunctionButtonBackground",
-    GX_TYPE_PIXELMAP_BUTTON,                 /* widget type                    */
-    NEXT_FUNCTION_BTN_ID,                    /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_HALIGN_CENTER|GX_STYLE_VALIGN_CENTER,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_PIXELMAP_BUTTON),              /* control block size             */
-    GX_COLOR_ID_SLIDER_GROOVE_BOTTOM,        /* normal color id                */
-    GX_COLOR_ID_SLIDER_GROOVE_TOP,           /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_pixelmap_button_create,        /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {548, 118, 607, 157},                    /* widget size                    */
-    &AdvancePadSettingsScreen_NextFunction_ActiveIcon_define, /* next widget definition */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(ADVANCEPADSETTINGSSCREEN_CONTROL_BLOCK, AdvancePadSettingsScreen_NextFunctionButtonBackground), /* control block */
-    (void *) &AdvancePadSettingsScreen_NextFunctionButtonBackground_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET AdvancePadSettingsScreen_NextFunctionPrompt_define =
-{
-    "NextFunctionPrompt",
-    GX_TYPE_PROMPT,                          /* widget type                    */
-    NEXT_FUNCTION_PROMPT_ID,                 /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_TEXT_RIGHT,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_PROMPT),                       /* control block size             */
-    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
-    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_prompt_create,                 /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {14, 122, 143, 161},                     /* widget size                    */
-    &AdvancePadSettingsScreen_NextFunctionButtonBackground_define, /* next widget definition */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(ADVANCEPADSETTINGSSCREEN_CONTROL_BLOCK, AdvancePadSettingsScreen_NextFunctionPrompt), /* control block */
-    (void *) &AdvancePadSettingsScreen_NextFunctionPrompt_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET AdvancePadSettingsScreen_Bluetooth_InactiveIcon_define =
-{
-    "Bluetooth_InactiveIcon",
-    GX_TYPE_PIXELMAP_BUTTON,                 /* widget type                    */
-    BLUETOOTH_INACTIVE_ICON,                 /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_HALIGN_CENTER|GX_STYLE_VALIGN_CENTER,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_PIXELMAP_BUTTON),              /* control block size             */
-    GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
-    GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_pixelmap_button_create,        /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {554, 72, 581, 99},                      /* widget size                    */
-    &AdvancePadSettingsScreen_NextFunctionPrompt_define, /* next widget definition */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(ADVANCEPADSETTINGSSCREEN_CONTROL_BLOCK, AdvancePadSettingsScreen_Bluetooth_InactiveIcon), /* control block */
-    (void *) &AdvancePadSettingsScreen_Bluetooth_InactiveIcon_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET AdvancePadSettingsScreen_Bluetooth_ActiveIcon_define =
-{
-    "Bluetooth_ActiveIcon",
-    GX_TYPE_PIXELMAP_BUTTON,                 /* widget type                    */
-    BLUETOOTH_ACTIVE_ICON,                   /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_HALIGN_CENTER|GX_STYLE_VALIGN_CENTER,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_PIXELMAP_BUTTON),              /* control block size             */
-    GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
-    GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_pixelmap_button_create,        /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {575, 72, 602, 99},                      /* widget size                    */
-    &AdvancePadSettingsScreen_Bluetooth_InactiveIcon_define, /* next widget definition */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(ADVANCEPADSETTINGSSCREEN_CONTROL_BLOCK, AdvancePadSettingsScreen_Bluetooth_ActiveIcon), /* control block */
-    (void *) &AdvancePadSettingsScreen_Bluetooth_ActiveIcon_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET AdvancePadSettingsScreen_BluetoothButtonBackground_define =
-{
-    "BluetoothButtonBackground",
-    GX_TYPE_PIXELMAP_BUTTON,                 /* widget type                    */
-    BLUETOOTH_BTN_ID,                        /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_HALIGN_CENTER|GX_STYLE_VALIGN_CENTER,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_PIXELMAP_BUTTON),              /* control block size             */
-    GX_COLOR_ID_SLIDER_GROOVE_BOTTOM,        /* normal color id                */
-    GX_COLOR_ID_SLIDER_GROOVE_TOP,           /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_pixelmap_button_create,        /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {548, 66, 607, 105},                     /* widget size                    */
-    &AdvancePadSettingsScreen_Bluetooth_ActiveIcon_define, /* next widget definition */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(ADVANCEPADSETTINGSSCREEN_CONTROL_BLOCK, AdvancePadSettingsScreen_BluetoothButtonBackground), /* control block */
-    (void *) &AdvancePadSettingsScreen_BluetoothButtonBackground_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET AdvancePadSettingsScreen_BluetoothPrompt_define =
-{
-    "BluetoothPrompt",
-    GX_TYPE_PROMPT,                          /* widget type                    */
-    BLUETOOTH_PROMPT_ID,                     /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_TEXT_RIGHT,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_PROMPT),                       /* control block size             */
-    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
-    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_prompt_create,                 /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {14, 68, 143, 107},                      /* widget size                    */
-    &AdvancePadSettingsScreen_BluetoothButtonBackground_define, /* next widget definition */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(ADVANCEPADSETTINGSSCREEN_CONTROL_BLOCK, AdvancePadSettingsScreen_BluetoothPrompt), /* control block */
-    (void *) &AdvancePadSettingsScreen_BluetoothPrompt_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET AdvancePadSettingsScreen_Power_InactiveIcon_define =
-{
-    "Power_InactiveIcon",
-    GX_TYPE_PIXELMAP_BUTTON,                 /* widget type                    */
-    POWER_INACTIVE_ICON,                     /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_ENABLED|GX_STYLE_HALIGN_CENTER|GX_STYLE_VALIGN_CENTER,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_PIXELMAP_BUTTON),              /* control block size             */
-    GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
-    GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_pixelmap_button_create,        /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {554, 20, 581, 47},                      /* widget size                    */
-    &AdvancePadSettingsScreen_BluetoothPrompt_define, /* next widget definition */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(ADVANCEPADSETTINGSSCREEN_CONTROL_BLOCK, AdvancePadSettingsScreen_Power_InactiveIcon), /* control block */
-    (void *) &AdvancePadSettingsScreen_Power_InactiveIcon_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET AdvancePadSettingsScreen_Power_ActiveIcon_define =
-{
-    "Power_ActiveIcon",
-    GX_TYPE_PIXELMAP_BUTTON,                 /* widget type                    */
-    POWER_ACTIVE_ICON,                       /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_ENABLED|GX_STYLE_HALIGN_CENTER|GX_STYLE_VALIGN_CENTER,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_PIXELMAP_BUTTON),              /* control block size             */
-    GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
-    GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_pixelmap_button_create,        /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {575, 20, 602, 47},                      /* widget size                    */
-    &AdvancePadSettingsScreen_Power_InactiveIcon_define, /* next widget definition */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(ADVANCEPADSETTINGSSCREEN_CONTROL_BLOCK, AdvancePadSettingsScreen_Power_ActiveIcon), /* control block */
-    (void *) &AdvancePadSettingsScreen_Power_ActiveIcon_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET AdvancePadSettingsScreen_PowerPrompt_define =
-{
-    "PowerPrompt",
-    GX_TYPE_PROMPT,                          /* widget type                    */
-    POWER_PROMPT_ID,                         /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_TEXT_RIGHT,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_PROMPT),                       /* control block size             */
-    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
-    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_prompt_create,                 /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {12, 14, 141, 52},                       /* widget size                    */
-    &AdvancePadSettingsScreen_Power_ActiveIcon_define, /* next widget definition */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(ADVANCEPADSETTINGSSCREEN_CONTROL_BLOCK, AdvancePadSettingsScreen_PowerPrompt), /* control block */
-    (void *) &AdvancePadSettingsScreen_PowerPrompt_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET AdvancePadSettingsScreen_PowerButtonBackground_define =
-{
-    "PowerButtonBackground",
-    GX_TYPE_PIXELMAP_BUTTON,                 /* widget type                    */
-    POWER_BTN_ID,                            /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_HALIGN_CENTER|GX_STYLE_VALIGN_CENTER,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_PIXELMAP_BUTTON),              /* control block size             */
-    GX_COLOR_ID_SLIDER_GROOVE_BOTTOM,        /* normal color id                */
-    GX_COLOR_ID_SLIDER_GROOVE_TOP,           /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_pixelmap_button_create,        /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {548, 14, 607, 53},                      /* widget size                    */
-    &AdvancePadSettingsScreen_PowerPrompt_define, /* next widget definition    */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(ADVANCEPADSETTINGSSCREEN_CONTROL_BLOCK, AdvancePadSettingsScreen_PowerButtonBackground), /* control block */
-    (void *) &AdvancePadSettingsScreen_PowerButtonBackground_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET AdvancePadSettingsScreen_AdvancePadSettingScreen_WindowName_define =
-{
-    "AdvancePadSettingScreen_WindowName",
-    GX_TYPE_WINDOW,                          /* widget type                    */
-    GX_ID_NONE,                              /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_THIN|GX_STYLE_ENABLED,   /* style flags                    */
-    0,                                       /* status flags                   */
-    sizeof(GX_WINDOW),                       /* control block size             */
-    GX_COLOR_ID_SCROLL_BUTTON,               /* normal color id                */
-    GX_COLOR_ID_SCROLL_BUTTON,               /* selected color id              */
-    GX_COLOR_ID_SCROLL_BUTTON,               /* disabled color id              */
-    gx_studio_window_create,                 /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {0, 0, 319, 239},                        /* widget size                    */
-    GX_NULL,                                 /* no next widget                 */
-    &AdvancePadSettingsScreen_PowerButtonBackground_define, /* child widget definition */
-    offsetof(ADVANCEPADSETTINGSSCREEN_CONTROL_BLOCK, AdvancePadSettingsScreen_AdvancePadSettingScreen_WindowName), /* control block */
-    (void *) &AdvancePadSettingsScreen_AdvancePadSettingScreen_WindowName_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET AdvancePadSettingsScreen_define =
-{
-    "AdvancePadSettingsScreen",
-    GX_TYPE_TEMPLATE,                        /* widget type                    */
-    ADVANCE_PAD_SETTINGS_SCREEN_ID,          /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_THIN,                    /* style flags                    */
-    0,                                       /* status flags                   */
-    sizeof(ADVANCEPADSETTINGSSCREEN_CONTROL_BLOCK), /* control block size      */
-    GX_COLOR_ID_WINDOW_FILL,                 /* normal color id                */
-    GX_COLOR_ID_WINDOW_FILL,                 /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_template_create,               /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    (UINT (*)(GX_WIDGET *, GX_EVENT *)) FeatureSettingsScreen_event_process, /* event function override */
-    {0, 0, 479, 399},                        /* widget size                    */
-    GX_NULL,                                 /* next widget                    */
-    &AdvancePadSettingsScreen_AdvancePadSettingScreen_WindowName_define, /* child widget */
-    0,                                       /* control block                  */
-    (void *) &AdvancePadSettingsScreen_properties /* extended properties       */
-};
 GX_TEMPLATE_PROPERTIES MainUserScreen_old_properties =
 {
     &PrimaryTemplate_define,                 /* base info                      */
@@ -5407,7 +2571,7 @@ GX_CONST GX_STUDIO_WIDGET ResetScreen_icon_define =
     gx_studio_icon_create,                   /* create function                */
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
-    {240, 12, 309, 73},                      /* widget size                    */
+    {347, 17, 416, 78},                      /* widget size                    */
     GX_NULL,                                 /* no next widget                 */
     GX_NULL,                                 /* no child widgets               */ 
     offsetof(RESETSCREEN_CONTROL_BLOCK, ResetScreen_icon), /* control block    */
@@ -5431,7 +2595,7 @@ GX_CONST GX_STUDIO_WIDGET ResetScreen_Prompt4_define =
     gx_studio_prompt_create,                 /* create function                */
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
-    {104, 183, 225, 206},                    /* widget size                    */
+    {177, 180, 298, 203},                    /* widget size                    */
     &ResetScreen_icon_define,                /* next widget definition         */
     GX_NULL,                                 /* no child widgets               */ 
     offsetof(RESETSCREEN_CONTROL_BLOCK, ResetScreen_Prompt4), /* control block */
@@ -5455,7 +2619,7 @@ GX_CONST GX_STUDIO_WIDGET ResetScreen_Prompt3_define =
     gx_studio_prompt_create,                 /* create function                */
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
-    {24, 101, 252, 124},                     /* widget size                    */
+    {148, 117, 376, 140},                    /* widget size                    */
     &ResetScreen_Prompt4_define,             /* next widget definition         */
     GX_NULL,                                 /* no child widgets               */ 
     offsetof(RESETSCREEN_CONTROL_BLOCK, ResetScreen_Prompt3), /* control block */
@@ -5479,7 +2643,7 @@ GX_CONST GX_STUDIO_WIDGET ResetScreen_Prompt2_define =
     gx_studio_prompt_create,                 /* create function                */
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
-    {24, 79, 252, 102},                      /* widget size                    */
+    {131, 90, 359, 113},                     /* widget size                    */
     &ResetScreen_Prompt3_define,             /* next widget definition         */
     GX_NULL,                                 /* no child widgets               */ 
     offsetof(RESETSCREEN_CONTROL_BLOCK, ResetScreen_Prompt2), /* control block */
@@ -5503,7 +2667,7 @@ GX_CONST GX_STUDIO_WIDGET ResetScreen_Prompt1_define =
     gx_studio_prompt_create,                 /* create function                */
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
-    {10, 22, 239, 56},                       /* widget size                    */
+    {65, 28, 294, 62},                       /* widget size                    */
     &ResetScreen_Prompt2_define,             /* next widget definition         */
     GX_NULL,                                 /* no child widgets               */ 
     offsetof(RESETSCREEN_CONTROL_BLOCK, ResetScreen_Prompt1), /* control block */
@@ -5527,7 +2691,7 @@ GX_CONST GX_STUDIO_WIDGET ResetScreen_OK_Button_define =
     gx_studio_text_button_create,            /* create function                */
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
-    {230, 165, 309, 228},                    /* widget size                    */
+    {338, 160, 417, 223},                    /* widget size                    */
     &ResetScreen_Prompt1_define,             /* next widget definition         */
     GX_NULL,                                 /* no child widgets               */ 
     offsetof(RESETSCREEN_CONTROL_BLOCK, ResetScreen_OK_Button), /* control block */
@@ -5551,7 +2715,7 @@ GX_CONST GX_STUDIO_WIDGET ResetScreen_Continue_Button_define =
     gx_studio_text_button_create,            /* create function                */
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
-    {19, 164, 98, 227},                      /* widget size                    */
+    {58, 157, 137, 220},                     /* widget size                    */
     &ResetScreen_OK_Button_define,           /* next widget definition         */
     GX_NULL,                                 /* no child widgets               */ 
     offsetof(RESETSCREEN_CONTROL_BLOCK, ResetScreen_Continue_Button), /* control block */
@@ -5566,7 +2730,7 @@ GX_CONST GX_STUDIO_WIDGET ResetScreen_ResetScreenBackdrop_define =
     #if defined(GX_WIDGET_USER_DATA)
     0,                                       /* user data                      */
     #endif
-    GX_STYLE_BORDER_THIN,                    /* style flags                    */
+    GX_STYLE_BORDER_NONE,                    /* style flags                    */
     0,                                       /* status flags                   */
     sizeof(GX_WINDOW),                       /* control block size             */
     GX_COLOR_ID_DARK_GRAY,                   /* normal color id                */
@@ -5574,8 +2738,8 @@ GX_CONST GX_STUDIO_WIDGET ResetScreen_ResetScreenBackdrop_define =
     GX_COLOR_ID_DARK_GRAY,                   /* disabled color id              */
     gx_studio_window_create,                 /* create function                */
     GX_NULL,                                 /* drawing function override      */
-    (UINT (*)(GX_WIDGET *, GX_EVENT *)) ResetScreen_event_process, /* event function override */
-    {0, 0, 319, 239},                        /* widget size                    */
+    GX_NULL,                                 /* event function override        */
+    {0, 0, 479, 271},                        /* widget size                    */
     GX_NULL,                                 /* no next widget                 */
     &ResetScreen_Continue_Button_define,     /* child widget definition        */
     offsetof(RESETSCREEN_CONTROL_BLOCK, ResetScreen_ResetScreenBackdrop), /* control block */
@@ -5598,7 +2762,7 @@ GX_CONST GX_STUDIO_WIDGET ResetScreen_define =
     GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
     gx_studio_template_create,               /* create function                */
     GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
+    (UINT (*)(GX_WIDGET *, GX_EVENT *)) ResetScreen_event_process, /* event function override */
     {0, 0, 479, 399},                        /* widget size                    */
     GX_NULL,                                 /* next widget                    */
     &ResetScreen_ResetScreenBackdrop_define, /* child widget                   */
@@ -5613,7 +2777,7 @@ GX_TEMPLATE_PROPERTIES MinimumDriveScreen_properties =
 };
 GX_WINDOW_PROPERTIES MinimumDriveScreen_MinimumDriveScreenBackdrop_properties =
 {
-    GX_PIXELMAP_ID_NEWBACKGROUND_FLATTEN_1   /* wallpaper pixelmap id          */
+    GX_PIXELMAP_ID_BACKGROUND_480X272        /* wallpaper pixelmap id          */
 };
 GX_TEXT_BUTTON_PROPERTIES MinimumDriveScreen_OK_Button_properties =
 {
@@ -5663,6 +2827,34 @@ GX_TEXT_BUTTON_PROPERTIES MinimumDriveScreen_RightPadPercentage_Button_propertie
     GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
     GX_COLOR_ID_DISABLED_TEXT                /* disabled text color            */
 };
+GX_ICON_BUTTON_PROPERTIES MinimumDriveScreen_GroupIconButton_properties =
+{
+    GX_PIXELMAP_ID_GROUPA                    /* pixelmap id                    */
+};
+
+GX_CONST GX_STUDIO_WIDGET MinimumDriveScreen_GroupIconButton_define =
+{
+    "GroupIconButton",
+    GX_TYPE_ICON_BUTTON,                     /* widget type                    */
+    GROUP_ICON_BUTTON,                       /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_HALIGN_CENTER|GX_STYLE_VALIGN_CENTER,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_ICON_BUTTON),                  /* control block size             */
+    GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
+    GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_icon_button_create,            /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {342, 14, 461, 83},                      /* widget size                    */
+    GX_NULL,                                 /* no next widget                 */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(MINIMUMDRIVESCREEN_CONTROL_BLOCK, MinimumDriveScreen_GroupIconButton), /* control block */
+    (void *) &MinimumDriveScreen_GroupIconButton_properties /* extended properties */
+};
 
 GX_CONST GX_STUDIO_WIDGET MinimumDriveScreen_RightPadPercentage_Button_define =
 {
@@ -5682,7 +2874,7 @@ GX_CONST GX_STUDIO_WIDGET MinimumDriveScreen_RightPadPercentage_Button_define =
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
     {205, 54, 284, 117},                     /* widget size                    */
-    GX_NULL,                                 /* no next widget                 */
+    &MinimumDriveScreen_GroupIconButton_define, /* next widget definition      */
     GX_NULL,                                 /* no child widgets               */ 
     offsetof(MINIMUMDRIVESCREEN_CONTROL_BLOCK, MinimumDriveScreen_RightPadPercentage_Button), /* control block */
     (void *) &MinimumDriveScreen_RightPadPercentage_Button_properties /* extended properties */
@@ -5801,7 +2993,7 @@ GX_CONST GX_STUDIO_WIDGET MinimumDriveScreen_OK_Button_define =
     gx_studio_text_button_create,            /* create function                */
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
-    {230, 165, 309, 228},                    /* widget size                    */
+    {380, 188, 459, 251},                    /* widget size                    */
     &MinimumDriveScreen_Prompt_SetMinimumSpeed_define, /* next widget definition */
     GX_NULL,                                 /* no child widgets               */ 
     offsetof(MINIMUMDRIVESCREEN_CONTROL_BLOCK, MinimumDriveScreen_OK_Button), /* control block */
@@ -5824,8 +3016,8 @@ GX_CONST GX_STUDIO_WIDGET MinimumDriveScreen_MinimumDriveScreenBackdrop_define =
     GX_COLOR_ID_SCROLL_BUTTON,               /* disabled color id              */
     gx_studio_window_create,                 /* create function                */
     GX_NULL,                                 /* drawing function override      */
-    (UINT (*)(GX_WIDGET *, GX_EVENT *)) MinimumDriveScreen_event_process, /* event function override */
-    {0, 0, 319, 239},                        /* widget size                    */
+    GX_NULL,                                 /* event function override        */
+    {0, 0, 479, 271},                        /* widget size                    */
     GX_NULL,                                 /* no next widget                 */
     &MinimumDriveScreen_OK_Button_define,    /* child widget definition        */
     offsetof(MINIMUMDRIVESCREEN_CONTROL_BLOCK, MinimumDriveScreen_MinimumDriveScreenBackdrop), /* control block */
@@ -5848,7 +3040,7 @@ GX_CONST GX_STUDIO_WIDGET MinimumDriveScreen_define =
     GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
     gx_studio_template_create,               /* create function                */
     GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
+    (UINT (*)(GX_WIDGET *, GX_EVENT *)) MinimumDriveScreen_event_process, /* event function override */
     {0, 0, 479, 399},                        /* widget size                    */
     GX_NULL,                                 /* next widget                    */
     &MinimumDriveScreen_MinimumDriveScreenBackdrop_define, /* child widget     */
@@ -5864,14 +3056,6 @@ GX_TEMPLATE_PROPERTIES PerformanceSelectionScreen_properties =
 GX_WINDOW_PROPERTIES PerformanceSelectionScreen_NextPadScreenBackdrop_properties =
 {
     GX_PIXELMAP_ID_BACKGROUND_480X272        /* wallpaper pixelmap id          */
-};
-GX_TEXT_BUTTON_PROPERTIES PerformanceSelectionScreen_MinimumDrive_lButton_properties =
-{
-    GX_STRING_ID_STRING_30,                  /* string id                      */
-    GX_FONT_ID_BUTTON,                       /* font id                        */
-    GX_COLOR_ID_BTN_TEXT,                    /* normal text color              */
-    GX_COLOR_ID_BTN_TEXT,                    /* selected text color            */
-    GX_COLOR_ID_DISABLED_TEXT                /* disabled text color            */
 };
 GX_TEXT_BUTTON_PROPERTIES PerformanceSelectionScreen_OK_Button_properties =
 {
@@ -5911,7 +3095,7 @@ GX_CONST GX_STUDIO_WIDGET PerformanceSelectionScreen_GroupIconButton_define =
     gx_studio_icon_button_create,            /* create function                */
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
-    {334, 14, 453, 83},                      /* widget size                    */
+    {342, 14, 461, 83},                      /* widget size                    */
     GX_NULL,                                 /* no next widget                 */
     GX_NULL,                                 /* no child widgets               */ 
     offsetof(PERFORMANCESELECTIONSCREEN_CONTROL_BLOCK, PerformanceSelectionScreen_GroupIconButton), /* control block */
@@ -5959,35 +3143,11 @@ GX_CONST GX_STUDIO_WIDGET PerformanceSelectionScreen_OK_Button_define =
     gx_studio_text_button_create,            /* create function                */
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
-    {372, 188, 451, 251},                    /* widget size                    */
+    {380, 188, 459, 251},                    /* widget size                    */
     &PerformanceSelectionScreen_VeerAdjust_Button_define, /* next widget definition */
     GX_NULL,                                 /* no child widgets               */ 
     offsetof(PERFORMANCESELECTIONSCREEN_CONTROL_BLOCK, PerformanceSelectionScreen_OK_Button), /* control block */
     (void *) &PerformanceSelectionScreen_OK_Button_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET PerformanceSelectionScreen_MinimumDrive_lButton_define =
-{
-    "MinimumDrive_lButton",
-    GX_TYPE_TEXT_BUTTON,                     /* widget type                    */
-    MINIMUM_DRIVE_BTN_ID,                    /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_THIN|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
-    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
-    sizeof(GX_TEXT_BUTTON),                  /* control block size             */
-    GX_COLOR_ID_TEXT_INPUT_FILL,             /* normal color id                */
-    GX_COLOR_ID_TEXT_INPUT_TEXT,             /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_text_button_create,            /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {16, 89, 205, 152},                      /* widget size                    */
-    &PerformanceSelectionScreen_OK_Button_define, /* next widget definition    */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(PERFORMANCESELECTIONSCREEN_CONTROL_BLOCK, PerformanceSelectionScreen_MinimumDrive_lButton), /* control block */
-    (void *) &PerformanceSelectionScreen_MinimumDrive_lButton_properties /* extended properties */
 };
 
 GX_CONST GX_STUDIO_WIDGET PerformanceSelectionScreen_NextPadScreenBackdrop_define =
@@ -6009,7 +3169,7 @@ GX_CONST GX_STUDIO_WIDGET PerformanceSelectionScreen_NextPadScreenBackdrop_defin
     GX_NULL,                                 /* event function override        */
     {0, 0, 479, 271},                        /* widget size                    */
     GX_NULL,                                 /* no next widget                 */
-    &PerformanceSelectionScreen_MinimumDrive_lButton_define, /* child widget definition */
+    &PerformanceSelectionScreen_OK_Button_define, /* child widget definition   */
     offsetof(PERFORMANCESELECTIONSCREEN_CONTROL_BLOCK, PerformanceSelectionScreen_NextPadScreenBackdrop), /* control block */
     (void *) &PerformanceSelectionScreen_NextPadScreenBackdrop_properties /* extended properties */
 };
@@ -6045,7 +3205,7 @@ GX_TEMPLATE_PROPERTIES ResetFinishScreen_properties =
 };
 GX_WINDOW_PROPERTIES ResetFinishScreen_ResetFinishScreenBackdrop_properties =
 {
-    GX_PIXELMAP_ID_NEWBACKGROUND_FLATTEN_1   /* wallpaper pixelmap id          */
+    GX_PIXELMAP_ID_BACKGROUND_480X272        /* wallpaper pixelmap id          */
 };
 GX_TEXT_BUTTON_PROPERTIES ResetFinishScreen_OK_Button_properties =
 {
@@ -6105,7 +3265,7 @@ GX_CONST GX_STUDIO_WIDGET ResetFinishScreen_OK_Button_define =
     gx_studio_text_button_create,            /* create function                */
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
-    {230, 165, 309, 228},                    /* widget size                    */
+    {380, 188, 459, 251},                    /* widget size                    */
     &ResetFinishScreen_Prompt_define,        /* next widget definition         */
     GX_NULL,                                 /* no child widgets               */ 
     offsetof(RESETFINISHSCREEN_CONTROL_BLOCK, ResetFinishScreen_OK_Button), /* control block */
@@ -6120,7 +3280,7 @@ GX_CONST GX_STUDIO_WIDGET ResetFinishScreen_ResetFinishScreenBackdrop_define =
     #if defined(GX_WIDGET_USER_DATA)
     0,                                       /* user data                      */
     #endif
-    GX_STYLE_BORDER_THIN,                    /* style flags                    */
+    GX_STYLE_BORDER_NONE,                    /* style flags                    */
     0,                                       /* status flags                   */
     sizeof(GX_WINDOW),                       /* control block size             */
     GX_COLOR_ID_SCROLL_BUTTON,               /* normal color id                */
@@ -6128,8 +3288,8 @@ GX_CONST GX_STUDIO_WIDGET ResetFinishScreen_ResetFinishScreenBackdrop_define =
     GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
     gx_studio_window_create,                 /* create function                */
     GX_NULL,                                 /* drawing function override      */
-    (UINT (*)(GX_WIDGET *, GX_EVENT *)) ResetFinishScreen_event_process, /* event function override */
-    {0, 0, 319, 239},                        /* widget size                    */
+    GX_NULL,                                 /* event function override        */
+    {0, 0, 479, 271},                        /* widget size                    */
     GX_NULL,                                 /* no next widget                 */
     &ResetFinishScreen_OK_Button_define,     /* child widget definition        */
     offsetof(RESETFINISHSCREEN_CONTROL_BLOCK, ResetFinishScreen_ResetFinishScreenBackdrop), /* control block */
@@ -6152,7 +3312,7 @@ GX_CONST GX_STUDIO_WIDGET ResetFinishScreen_define =
     GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
     gx_studio_template_create,               /* create function                */
     GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
+    (UINT (*)(GX_WIDGET *, GX_EVENT *)) ResetFinishScreen_event_process, /* event function override */
     {0, 0, 479, 399},                        /* widget size                    */
     GX_NULL,                                 /* next widget                    */
     &ResetFinishScreen_ResetFinishScreenBackdrop_define, /* child widget       */
@@ -6441,7 +3601,7 @@ GX_CONST GX_STUDIO_WIDGET UserSelectionScreen_GroupIconButton_define =
     gx_studio_icon_button_create,            /* create function                */
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
-    {334, 14, 453, 83},                      /* widget size                    */
+    {342, 14, 461, 83},                      /* widget size                    */
     GX_NULL,                                 /* no next widget                 */
     GX_NULL,                                 /* no child widgets               */ 
     offsetof(USERSELECTIONSCREEN_CONTROL_BLOCK, UserSelectionScreen_GroupIconButton), /* control block */
@@ -6489,7 +3649,7 @@ GX_CONST GX_STUDIO_WIDGET UserSelectionScreen_OK_Button_define =
     gx_studio_text_button_create,            /* create function                */
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
-    {372, 188, 451, 251},                    /* widget size                    */
+    {380, 188, 459, 251},                    /* widget size                    */
     &UserSelectionScreen_Performance_Button_define, /* next widget definition  */
     GX_NULL,                                 /* no child widgets               */ 
     offsetof(USERSELECTIONSCREEN_CONTROL_BLOCK, UserSelectionScreen_OK_Button), /* control block */
@@ -6671,7 +3831,7 @@ GX_CONST GX_STUDIO_WIDGET VeerAdjustScreen_GroupIconButton_define =
     gx_studio_icon_button_create,            /* create function                */
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
-    {334, 14, 453, 83},                      /* widget size                    */
+    {342, 14, 461, 83},                      /* widget size                    */
     GX_NULL,                                 /* no next widget                 */
     GX_NULL,                                 /* no child widgets               */ 
     offsetof(VEERADJUSTSCREEN_CONTROL_BLOCK, VeerAdjustScreen_GroupIconButton), /* control block */
@@ -6767,7 +3927,7 @@ GX_CONST GX_STUDIO_WIDGET VeerAdjustScreen_OK_Button_define =
     gx_studio_text_button_create,            /* create function                */
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
-    {372, 188, 451, 251},                    /* widget size                    */
+    {380, 188, 459, 251},                    /* widget size                    */
     &VeerAdjustScreen_SliderValue_Button_define, /* next widget definition     */
     GX_NULL,                                 /* no child widgets               */ 
     offsetof(VEERADJUSTSCREEN_CONTROL_BLOCK, VeerAdjustScreen_OK_Button), /* control block */
@@ -7245,7 +4405,7 @@ GX_CONST GX_STUDIO_WIDGET PadCalibrationScreen_GroupIconButton_define =
     gx_studio_icon_button_create,            /* create function                */
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
-    {334, 14, 453, 83},                      /* widget size                    */
+    {342, 14, 461, 83},                      /* widget size                    */
     GX_NULL,                                 /* no next widget                 */
     GX_NULL,                                 /* no child widgets               */ 
     offsetof(PADCALIBRATIONSCREEN_CONTROL_BLOCK, PadCalibrationScreen_GroupIconButton), /* control block */
@@ -7365,7 +4525,7 @@ GX_CONST GX_STUDIO_WIDGET PadCalibrationScreen_OK_Button_define =
     gx_studio_text_button_create,            /* create function                */
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
-    {372, 188, 451, 251},                    /* widget size                    */
+    {380, 188, 459, 251},                    /* widget size                    */
     &PadCalibrationScreen_RightPadON_Button_define, /* next widget definition  */
     GX_NULL,                                 /* no child widgets               */ 
     offsetof(PADCALIBRATIONSCREEN_CONTROL_BLOCK, PadCalibrationScreen_OK_Button), /* control block */
@@ -7490,728 +4650,6 @@ GX_CONST GX_STUDIO_WIDGET PadCalibrationScreen_define =
     &PadCalibrationScreen_PadScreenBackdrop_define, /* child widget            */
     0,                                       /* control block                  */
     (void *) &PadCalibrationScreen_properties /* extended properties           */
-};
-GX_TEMPLATE_PROPERTIES FeatureSettingsScreen_OLD_properties =
-{
-    &PrimaryTemplate_define,                 /* base info                      */
-    gx_studio_window_create,                 /* base create function           */
-    {0, 0, 479, 399}                         /* widget size                    */
-};
-GX_WINDOW_PROPERTIES FeatureSettingsScreen_OLD_UserSettingsScreenBackdrop_properties =
-{
-    GX_PIXELMAP_ID_NEWBACKGROUND_FLATTEN_1   /* wallpaper pixelmap id          */
-};
-GX_PIXELMAP_BUTTON_PROPERTIES FeatureSettingsScreen_OLD_PowerButtonBackground_properties =
-{
-    GX_PIXELMAP_ID_SWITCH_BG,                /* normal pixelmap id             */
-    0,                                       /* selected pixelmap id           */
-    0                                        /* disabled pixelmap id           */
-};
-GX_PROMPT_PROPERTIES FeatureSettingsScreen_OLD_PowerPrompt_properties =
-{
-    GX_STRING_ID_STRING_5,                   /* string id                      */
-    GX_FONT_ID_PROMPT,                       /* font id                        */
-    GX_COLOR_ID_SELECTED_TEXT,               /* normal text color              */
-    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
-    GX_COLOR_ID_SELECTED_TEXT                /* disabled text color            */
-};
-GX_PIXELMAP_BUTTON_PROPERTIES FeatureSettingsScreen_OLD_Power_ActiveIcon_properties =
-{
-    GX_PIXELMAP_ID_SWITCH_ACTIVE,            /* normal pixelmap id             */
-    0,                                       /* selected pixelmap id           */
-    0                                        /* disabled pixelmap id           */
-};
-GX_PIXELMAP_BUTTON_PROPERTIES FeatureSettingsScreen_OLD_Power_InactiveIcon_properties =
-{
-    GX_PIXELMAP_ID_SWITCH_DISACTIVE,         /* normal pixelmap id             */
-    0,                                       /* selected pixelmap id           */
-    0                                        /* disabled pixelmap id           */
-};
-GX_PROMPT_PROPERTIES FeatureSettingsScreen_OLD_BluetoothPrompt_properties =
-{
-    GX_STRING_ID_STRING_7,                   /* string id                      */
-    GX_FONT_ID_PROMPT,                       /* font id                        */
-    GX_COLOR_ID_SELECTED_TEXT,               /* normal text color              */
-    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
-    GX_COLOR_ID_SELECTED_TEXT                /* disabled text color            */
-};
-GX_PIXELMAP_BUTTON_PROPERTIES FeatureSettingsScreen_OLD_BluetoothButtonBackground_properties =
-{
-    GX_PIXELMAP_ID_SWITCH_BG,                /* normal pixelmap id             */
-    0,                                       /* selected pixelmap id           */
-    0                                        /* disabled pixelmap id           */
-};
-GX_PIXELMAP_BUTTON_PROPERTIES FeatureSettingsScreen_OLD_Bluetooth_ActiveIcon_properties =
-{
-    GX_PIXELMAP_ID_SWITCH_ACTIVE,            /* normal pixelmap id             */
-    0,                                       /* selected pixelmap id           */
-    0                                        /* disabled pixelmap id           */
-};
-GX_PIXELMAP_BUTTON_PROPERTIES FeatureSettingsScreen_OLD_Bluetooth_InactiveIcon_properties =
-{
-    GX_PIXELMAP_ID_SWITCH_DISACTIVE,         /* normal pixelmap id             */
-    0,                                       /* selected pixelmap id           */
-    0                                        /* disabled pixelmap id           */
-};
-GX_PROMPT_PROPERTIES FeatureSettingsScreen_OLD_NextFunctionPrompt_properties =
-{
-    GX_STRING_ID_STRING_6,                   /* string id                      */
-    GX_FONT_ID_PROMPT,                       /* font id                        */
-    GX_COLOR_ID_SELECTED_TEXT,               /* normal text color              */
-    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
-    GX_COLOR_ID_SELECTED_TEXT                /* disabled text color            */
-};
-GX_PIXELMAP_BUTTON_PROPERTIES FeatureSettingsScreen_OLD_NextFunctionButtonBackground_properties =
-{
-    GX_PIXELMAP_ID_SWITCH_BG,                /* normal pixelmap id             */
-    0,                                       /* selected pixelmap id           */
-    0                                        /* disabled pixelmap id           */
-};
-GX_PIXELMAP_BUTTON_PROPERTIES FeatureSettingsScreen_OLD_NextFunction_ActiveIcon_properties =
-{
-    GX_PIXELMAP_ID_SWITCH_ACTIVE,            /* normal pixelmap id             */
-    0,                                       /* selected pixelmap id           */
-    0                                        /* disabled pixelmap id           */
-};
-GX_PIXELMAP_BUTTON_PROPERTIES FeatureSettingsScreen_OLD_NextFunction_InactiveIcon_properties =
-{
-    GX_PIXELMAP_ID_SWITCH_DISACTIVE,         /* normal pixelmap id             */
-    0,                                       /* selected pixelmap id           */
-    0                                        /* disabled pixelmap id           */
-};
-GX_PROMPT_PROPERTIES FeatureSettingsScreen_OLD_NextProfilePrompt_properties =
-{
-    GX_STRING_ID_STRING_8,                   /* string id                      */
-    GX_FONT_ID_PROMPT,                       /* font id                        */
-    GX_COLOR_ID_SELECTED_TEXT,               /* normal text color              */
-    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
-    GX_COLOR_ID_SELECTED_TEXT                /* disabled text color            */
-};
-GX_PIXELMAP_BUTTON_PROPERTIES FeatureSettingsScreen_OLD_NextProfileButtonBackground_properties =
-{
-    GX_PIXELMAP_ID_SWITCH_BG,                /* normal pixelmap id             */
-    0,                                       /* selected pixelmap id           */
-    0                                        /* disabled pixelmap id           */
-};
-GX_PIXELMAP_BUTTON_PROPERTIES FeatureSettingsScreen_OLD_NextProfile_ActiveIcon_properties =
-{
-    GX_PIXELMAP_ID_SWITCH_ACTIVE,            /* normal pixelmap id             */
-    0,                                       /* selected pixelmap id           */
-    0                                        /* disabled pixelmap id           */
-};
-GX_PIXELMAP_BUTTON_PROPERTIES FeatureSettingsScreen_OLD_NextProfile_InactiveIcon_properties =
-{
-    GX_PIXELMAP_ID_SWITCH_DISACTIVE,         /* normal pixelmap id             */
-    0,                                       /* selected pixelmap id           */
-    0                                        /* disabled pixelmap id           */
-};
-GX_TEXT_BUTTON_PROPERTIES FeatureSettingsScreen_OLD_OK_Button_properties =
-{
-    GX_STRING_ID_STRING_24,                  /* string id                      */
-    GX_FONT_ID_ASC24PT,                      /* font id                        */
-    GX_COLOR_ID_BTN_TEXT,                    /* normal text color              */
-    GX_COLOR_ID_BTN_TEXT,                    /* selected text color            */
-    GX_COLOR_ID_DISABLED_TEXT                /* disabled text color            */
-};
-GX_CHECKBOX_PROPERTIES FeatureSettingsScreen_OLD_BluetoothToggleBtn_properties =
-{
-    0,                                       /* string id                      */
-    GX_FONT_ID_BUTTON,                       /* font id                        */
-    GX_COLOR_ID_SELECTED_TEXT,               /* normal text color              */
-    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
-    GX_COLOR_ID_DISABLED_TEXT,               /* disabled text color            */
-    GX_PIXELMAP_ID_TOGGLE_GRAY,              /* unchecked pixelmap id          */
-    GX_PIXELMAP_ID_TOGGLE_GREEN,             /* checked pixelmap id            */
-    GX_PIXELMAP_ID_TOGGLE_GRAY,              /* unchecked disabled pixelmap id */
-    GX_PIXELMAP_ID_TOGGLE_GREEN              /* checked disabled pixelmap id   */
-};
-GX_CHECKBOX_PROPERTIES FeatureSettingsScreen_OLD_PowerToggleBtn_properties =
-{
-    0,                                       /* string id                      */
-    GX_FONT_ID_BUTTON,                       /* font id                        */
-    GX_COLOR_ID_SELECTED_TEXT,               /* normal text color              */
-    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
-    GX_COLOR_ID_DISABLED_TEXT,               /* disabled text color            */
-    GX_PIXELMAP_ID_TOGGLE_GRAY,              /* unchecked pixelmap id          */
-    GX_PIXELMAP_ID_TOGGLE_GREEN,             /* checked pixelmap id            */
-    GX_PIXELMAP_ID_TOGGLE_GRAY,              /* unchecked disabled pixelmap id */
-    GX_PIXELMAP_ID_TOGGLE_GREEN              /* checked disabled pixelmap id   */
-};
-GX_CHECKBOX_PROPERTIES FeatureSettingsScreen_OLD_NextFunctionToggleBtn_properties =
-{
-    0,                                       /* string id                      */
-    GX_FONT_ID_BUTTON,                       /* font id                        */
-    GX_COLOR_ID_SELECTED_TEXT,               /* normal text color              */
-    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
-    GX_COLOR_ID_DISABLED_TEXT,               /* disabled text color            */
-    GX_PIXELMAP_ID_TOGGLE_GRAY,              /* unchecked pixelmap id          */
-    GX_PIXELMAP_ID_TOGGLE_GREEN,             /* checked pixelmap id            */
-    GX_PIXELMAP_ID_TOGGLE_GRAY,              /* unchecked disabled pixelmap id */
-    GX_PIXELMAP_ID_TOGGLE_GREEN              /* checked disabled pixelmap id   */
-};
-GX_CHECKBOX_PROPERTIES FeatureSettingsScreen_OLD_NextProfileToggleBtn_properties =
-{
-    0,                                       /* string id                      */
-    GX_FONT_ID_BUTTON,                       /* font id                        */
-    GX_COLOR_ID_SELECTED_TEXT,               /* normal text color              */
-    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
-    GX_COLOR_ID_DISABLED_TEXT,               /* disabled text color            */
-    GX_PIXELMAP_ID_TOGGLE_GRAY,              /* unchecked pixelmap id          */
-    GX_PIXELMAP_ID_TOGGLE_GREEN,             /* checked pixelmap id            */
-    GX_PIXELMAP_ID_TOGGLE_GRAY,              /* unchecked disabled pixelmap id */
-    GX_PIXELMAP_ID_TOGGLE_GREEN              /* checked disabled pixelmap id   */
-};
-
-GX_CONST GX_STUDIO_WIDGET FeatureSettingsScreen_OLD_NextProfileToggleBtn_define =
-{
-    "NextProfileToggleBtn",
-    GX_TYPE_CHECKBOX,                        /* widget type                    */
-    NEXT_PROFILE_TOGGLE_BTN,                 /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_BUTTON_PUSHED|GX_STYLE_BUTTON_TOGGLE|GX_STYLE_TEXT_RIGHT,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_CHECKBOX),                     /* control block size             */
-    GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
-    GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_checkbox_create,               /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {148, 176, 210, 212},                    /* widget size                    */
-    GX_NULL,                                 /* no next widget                 */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(FEATURESETTINGSSCREEN_OLD_CONTROL_BLOCK, FeatureSettingsScreen_OLD_NextProfileToggleBtn), /* control block */
-    (void *) &FeatureSettingsScreen_OLD_NextProfileToggleBtn_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET FeatureSettingsScreen_OLD_NextFunctionToggleBtn_define =
-{
-    "NextFunctionToggleBtn",
-    GX_TYPE_CHECKBOX,                        /* widget type                    */
-    NEXT_FUNCTION_TOGGLE_BTN,                /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_BUTTON_PUSHED|GX_STYLE_BUTTON_TOGGLE|GX_STYLE_TEXT_RIGHT,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_CHECKBOX),                     /* control block size             */
-    GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
-    GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_checkbox_create,               /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {148, 122, 210, 158},                    /* widget size                    */
-    &FeatureSettingsScreen_OLD_NextProfileToggleBtn_define, /* next widget definition */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(FEATURESETTINGSSCREEN_OLD_CONTROL_BLOCK, FeatureSettingsScreen_OLD_NextFunctionToggleBtn), /* control block */
-    (void *) &FeatureSettingsScreen_OLD_NextFunctionToggleBtn_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET FeatureSettingsScreen_OLD_PowerToggleBtn_define =
-{
-    "PowerToggleBtn",
-    GX_TYPE_CHECKBOX,                        /* widget type                    */
-    POWER_TOGGLE_BTN,                        /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_BUTTON_PUSHED|GX_STYLE_BUTTON_TOGGLE|GX_STYLE_TEXT_RIGHT,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_CHECKBOX),                     /* control block size             */
-    GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
-    GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_checkbox_create,               /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {148, 14, 210, 50},                      /* widget size                    */
-    &FeatureSettingsScreen_OLD_NextFunctionToggleBtn_define, /* next widget definition */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(FEATURESETTINGSSCREEN_OLD_CONTROL_BLOCK, FeatureSettingsScreen_OLD_PowerToggleBtn), /* control block */
-    (void *) &FeatureSettingsScreen_OLD_PowerToggleBtn_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET FeatureSettingsScreen_OLD_BluetoothToggleBtn_define =
-{
-    "BluetoothToggleBtn",
-    GX_TYPE_CHECKBOX,                        /* widget type                    */
-    BLUETOOTH_TOGGLE_BTN,                    /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_BUTTON_TOGGLE|GX_STYLE_TEXT_RIGHT,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_CHECKBOX),                     /* control block size             */
-    GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
-    GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_checkbox_create,               /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {148, 68, 210, 104},                     /* widget size                    */
-    &FeatureSettingsScreen_OLD_PowerToggleBtn_define, /* next widget definition */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(FEATURESETTINGSSCREEN_OLD_CONTROL_BLOCK, FeatureSettingsScreen_OLD_BluetoothToggleBtn), /* control block */
-    (void *) &FeatureSettingsScreen_OLD_BluetoothToggleBtn_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET FeatureSettingsScreen_OLD_OK_Button_define =
-{
-    "OK_Button",
-    GX_TYPE_TEXT_BUTTON,                     /* widget type                    */
-    OK_BTN_ID,                               /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_THIN|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_TEXT_BUTTON),                  /* control block size             */
-    GX_COLOR_ID_TEXT_INPUT_FILL,             /* normal color id                */
-    GX_COLOR_ID_TEXT_INPUT_TEXT,             /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_text_button_create,            /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {230, 165, 309, 228},                    /* widget size                    */
-    &FeatureSettingsScreen_OLD_BluetoothToggleBtn_define, /* next widget definition */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(FEATURESETTINGSSCREEN_OLD_CONTROL_BLOCK, FeatureSettingsScreen_OLD_OK_Button), /* control block */
-    (void *) &FeatureSettingsScreen_OLD_OK_Button_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET FeatureSettingsScreen_OLD_NextProfile_InactiveIcon_define =
-{
-    "NextProfile_InactiveIcon",
-    GX_TYPE_PIXELMAP_BUTTON,                 /* widget type                    */
-    NEXT_PROFILE_INACTIVE_ICON,              /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_HALIGN_CENTER|GX_STYLE_VALIGN_CENTER,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_PIXELMAP_BUTTON),              /* control block size             */
-    GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
-    GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_pixelmap_button_create,        /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {554, 176, 581, 203},                    /* widget size                    */
-    &FeatureSettingsScreen_OLD_OK_Button_define, /* next widget definition     */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(FEATURESETTINGSSCREEN_OLD_CONTROL_BLOCK, FeatureSettingsScreen_OLD_NextProfile_InactiveIcon), /* control block */
-    (void *) &FeatureSettingsScreen_OLD_NextProfile_InactiveIcon_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET FeatureSettingsScreen_OLD_NextProfile_ActiveIcon_define =
-{
-    "NextProfile_ActiveIcon",
-    GX_TYPE_PIXELMAP_BUTTON,                 /* widget type                    */
-    NEXT_PROFILE_ACTIVE_ICON,                /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_HALIGN_CENTER|GX_STYLE_VALIGN_CENTER,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_PIXELMAP_BUTTON),              /* control block size             */
-    GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
-    GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_pixelmap_button_create,        /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {574, 176, 601, 203},                    /* widget size                    */
-    &FeatureSettingsScreen_OLD_NextProfile_InactiveIcon_define, /* next widget definition */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(FEATURESETTINGSSCREEN_OLD_CONTROL_BLOCK, FeatureSettingsScreen_OLD_NextProfile_ActiveIcon), /* control block */
-    (void *) &FeatureSettingsScreen_OLD_NextProfile_ActiveIcon_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET FeatureSettingsScreen_OLD_NextProfileButtonBackground_define =
-{
-    "NextProfileButtonBackground",
-    GX_TYPE_PIXELMAP_BUTTON,                 /* widget type                    */
-    NEXT_PROFILE_BTN_ID,                     /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_HALIGN_CENTER|GX_STYLE_VALIGN_CENTER,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_PIXELMAP_BUTTON),              /* control block size             */
-    GX_COLOR_ID_SLIDER_GROOVE_BOTTOM,        /* normal color id                */
-    GX_COLOR_ID_SLIDER_GROOVE_TOP,           /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_pixelmap_button_create,        /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {548, 170, 607, 209},                    /* widget size                    */
-    &FeatureSettingsScreen_OLD_NextProfile_ActiveIcon_define, /* next widget definition */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(FEATURESETTINGSSCREEN_OLD_CONTROL_BLOCK, FeatureSettingsScreen_OLD_NextProfileButtonBackground), /* control block */
-    (void *) &FeatureSettingsScreen_OLD_NextProfileButtonBackground_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET FeatureSettingsScreen_OLD_NextProfilePrompt_define =
-{
-    "NextProfilePrompt",
-    GX_TYPE_PROMPT,                          /* widget type                    */
-    NEXT_PROFILE_PROMPT_ID,                  /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_TEXT_RIGHT,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_PROMPT),                       /* control block size             */
-    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
-    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_prompt_create,                 /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {14, 176, 143, 215},                     /* widget size                    */
-    &FeatureSettingsScreen_OLD_NextProfileButtonBackground_define, /* next widget definition */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(FEATURESETTINGSSCREEN_OLD_CONTROL_BLOCK, FeatureSettingsScreen_OLD_NextProfilePrompt), /* control block */
-    (void *) &FeatureSettingsScreen_OLD_NextProfilePrompt_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET FeatureSettingsScreen_OLD_NextFunction_InactiveIcon_define =
-{
-    "NextFunction_InactiveIcon",
-    GX_TYPE_PIXELMAP_BUTTON,                 /* widget type                    */
-    NEXT_FUNCTION_INACTIVE_ICON,             /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_HALIGN_CENTER|GX_STYLE_VALIGN_CENTER,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_PIXELMAP_BUTTON),              /* control block size             */
-    GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
-    GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_pixelmap_button_create,        /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {554, 124, 581, 151},                    /* widget size                    */
-    &FeatureSettingsScreen_OLD_NextProfilePrompt_define, /* next widget definition */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(FEATURESETTINGSSCREEN_OLD_CONTROL_BLOCK, FeatureSettingsScreen_OLD_NextFunction_InactiveIcon), /* control block */
-    (void *) &FeatureSettingsScreen_OLD_NextFunction_InactiveIcon_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET FeatureSettingsScreen_OLD_NextFunction_ActiveIcon_define =
-{
-    "NextFunction_ActiveIcon",
-    GX_TYPE_PIXELMAP_BUTTON,                 /* widget type                    */
-    NEXT_FUNCTION_ACTIVE_ICON,               /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_HALIGN_CENTER|GX_STYLE_VALIGN_CENTER,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_PIXELMAP_BUTTON),              /* control block size             */
-    GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
-    GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_pixelmap_button_create,        /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {575, 124, 602, 151},                    /* widget size                    */
-    &FeatureSettingsScreen_OLD_NextFunction_InactiveIcon_define, /* next widget definition */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(FEATURESETTINGSSCREEN_OLD_CONTROL_BLOCK, FeatureSettingsScreen_OLD_NextFunction_ActiveIcon), /* control block */
-    (void *) &FeatureSettingsScreen_OLD_NextFunction_ActiveIcon_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET FeatureSettingsScreen_OLD_NextFunctionButtonBackground_define =
-{
-    "NextFunctionButtonBackground",
-    GX_TYPE_PIXELMAP_BUTTON,                 /* widget type                    */
-    NEXT_FUNCTION_BTN_ID,                    /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_HALIGN_CENTER|GX_STYLE_VALIGN_CENTER,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_PIXELMAP_BUTTON),              /* control block size             */
-    GX_COLOR_ID_SLIDER_GROOVE_BOTTOM,        /* normal color id                */
-    GX_COLOR_ID_SLIDER_GROOVE_TOP,           /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_pixelmap_button_create,        /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {548, 118, 607, 157},                    /* widget size                    */
-    &FeatureSettingsScreen_OLD_NextFunction_ActiveIcon_define, /* next widget definition */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(FEATURESETTINGSSCREEN_OLD_CONTROL_BLOCK, FeatureSettingsScreen_OLD_NextFunctionButtonBackground), /* control block */
-    (void *) &FeatureSettingsScreen_OLD_NextFunctionButtonBackground_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET FeatureSettingsScreen_OLD_NextFunctionPrompt_define =
-{
-    "NextFunctionPrompt",
-    GX_TYPE_PROMPT,                          /* widget type                    */
-    NEXT_FUNCTION_PROMPT_ID,                 /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_TEXT_RIGHT,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_PROMPT),                       /* control block size             */
-    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
-    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_prompt_create,                 /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {14, 122, 143, 161},                     /* widget size                    */
-    &FeatureSettingsScreen_OLD_NextFunctionButtonBackground_define, /* next widget definition */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(FEATURESETTINGSSCREEN_OLD_CONTROL_BLOCK, FeatureSettingsScreen_OLD_NextFunctionPrompt), /* control block */
-    (void *) &FeatureSettingsScreen_OLD_NextFunctionPrompt_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET FeatureSettingsScreen_OLD_Bluetooth_InactiveIcon_define =
-{
-    "Bluetooth_InactiveIcon",
-    GX_TYPE_PIXELMAP_BUTTON,                 /* widget type                    */
-    BLUETOOTH_INACTIVE_ICON,                 /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_HALIGN_CENTER|GX_STYLE_VALIGN_CENTER,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_PIXELMAP_BUTTON),              /* control block size             */
-    GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
-    GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_pixelmap_button_create,        /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {554, 72, 581, 99},                      /* widget size                    */
-    &FeatureSettingsScreen_OLD_NextFunctionPrompt_define, /* next widget definition */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(FEATURESETTINGSSCREEN_OLD_CONTROL_BLOCK, FeatureSettingsScreen_OLD_Bluetooth_InactiveIcon), /* control block */
-    (void *) &FeatureSettingsScreen_OLD_Bluetooth_InactiveIcon_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET FeatureSettingsScreen_OLD_Bluetooth_ActiveIcon_define =
-{
-    "Bluetooth_ActiveIcon",
-    GX_TYPE_PIXELMAP_BUTTON,                 /* widget type                    */
-    BLUETOOTH_ACTIVE_ICON,                   /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_HALIGN_CENTER|GX_STYLE_VALIGN_CENTER,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_PIXELMAP_BUTTON),              /* control block size             */
-    GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
-    GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_pixelmap_button_create,        /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {575, 72, 602, 99},                      /* widget size                    */
-    &FeatureSettingsScreen_OLD_Bluetooth_InactiveIcon_define, /* next widget definition */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(FEATURESETTINGSSCREEN_OLD_CONTROL_BLOCK, FeatureSettingsScreen_OLD_Bluetooth_ActiveIcon), /* control block */
-    (void *) &FeatureSettingsScreen_OLD_Bluetooth_ActiveIcon_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET FeatureSettingsScreen_OLD_BluetoothButtonBackground_define =
-{
-    "BluetoothButtonBackground",
-    GX_TYPE_PIXELMAP_BUTTON,                 /* widget type                    */
-    BLUETOOTH_BTN_ID,                        /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_HALIGN_CENTER|GX_STYLE_VALIGN_CENTER,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_PIXELMAP_BUTTON),              /* control block size             */
-    GX_COLOR_ID_SLIDER_GROOVE_BOTTOM,        /* normal color id                */
-    GX_COLOR_ID_SLIDER_GROOVE_TOP,           /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_pixelmap_button_create,        /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {548, 66, 607, 105},                     /* widget size                    */
-    &FeatureSettingsScreen_OLD_Bluetooth_ActiveIcon_define, /* next widget definition */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(FEATURESETTINGSSCREEN_OLD_CONTROL_BLOCK, FeatureSettingsScreen_OLD_BluetoothButtonBackground), /* control block */
-    (void *) &FeatureSettingsScreen_OLD_BluetoothButtonBackground_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET FeatureSettingsScreen_OLD_BluetoothPrompt_define =
-{
-    "BluetoothPrompt",
-    GX_TYPE_PROMPT,                          /* widget type                    */
-    BLUETOOTH_PROMPT_ID,                     /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_TEXT_RIGHT,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_PROMPT),                       /* control block size             */
-    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
-    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_prompt_create,                 /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {14, 68, 143, 107},                      /* widget size                    */
-    &FeatureSettingsScreen_OLD_BluetoothButtonBackground_define, /* next widget definition */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(FEATURESETTINGSSCREEN_OLD_CONTROL_BLOCK, FeatureSettingsScreen_OLD_BluetoothPrompt), /* control block */
-    (void *) &FeatureSettingsScreen_OLD_BluetoothPrompt_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET FeatureSettingsScreen_OLD_Power_InactiveIcon_define =
-{
-    "Power_InactiveIcon",
-    GX_TYPE_PIXELMAP_BUTTON,                 /* widget type                    */
-    POWER_INACTIVE_ICON,                     /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_ENABLED|GX_STYLE_HALIGN_CENTER|GX_STYLE_VALIGN_CENTER,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_PIXELMAP_BUTTON),              /* control block size             */
-    GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
-    GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_pixelmap_button_create,        /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {554, 20, 581, 47},                      /* widget size                    */
-    &FeatureSettingsScreen_OLD_BluetoothPrompt_define, /* next widget definition */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(FEATURESETTINGSSCREEN_OLD_CONTROL_BLOCK, FeatureSettingsScreen_OLD_Power_InactiveIcon), /* control block */
-    (void *) &FeatureSettingsScreen_OLD_Power_InactiveIcon_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET FeatureSettingsScreen_OLD_Power_ActiveIcon_define =
-{
-    "Power_ActiveIcon",
-    GX_TYPE_PIXELMAP_BUTTON,                 /* widget type                    */
-    POWER_ACTIVE_ICON,                       /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_ENABLED|GX_STYLE_HALIGN_CENTER|GX_STYLE_VALIGN_CENTER,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_PIXELMAP_BUTTON),              /* control block size             */
-    GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
-    GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_pixelmap_button_create,        /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {575, 20, 602, 47},                      /* widget size                    */
-    &FeatureSettingsScreen_OLD_Power_InactiveIcon_define, /* next widget definition */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(FEATURESETTINGSSCREEN_OLD_CONTROL_BLOCK, FeatureSettingsScreen_OLD_Power_ActiveIcon), /* control block */
-    (void *) &FeatureSettingsScreen_OLD_Power_ActiveIcon_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET FeatureSettingsScreen_OLD_PowerPrompt_define =
-{
-    "PowerPrompt",
-    GX_TYPE_PROMPT,                          /* widget type                    */
-    POWER_PROMPT_ID,                         /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_TEXT_RIGHT,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_PROMPT),                       /* control block size             */
-    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
-    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_prompt_create,                 /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {12, 14, 141, 52},                       /* widget size                    */
-    &FeatureSettingsScreen_OLD_Power_ActiveIcon_define, /* next widget definition */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(FEATURESETTINGSSCREEN_OLD_CONTROL_BLOCK, FeatureSettingsScreen_OLD_PowerPrompt), /* control block */
-    (void *) &FeatureSettingsScreen_OLD_PowerPrompt_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET FeatureSettingsScreen_OLD_PowerButtonBackground_define =
-{
-    "PowerButtonBackground",
-    GX_TYPE_PIXELMAP_BUTTON,                 /* widget type                    */
-    POWER_BTN_ID,                            /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_HALIGN_CENTER|GX_STYLE_VALIGN_CENTER,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_PIXELMAP_BUTTON),              /* control block size             */
-    GX_COLOR_ID_SLIDER_GROOVE_BOTTOM,        /* normal color id                */
-    GX_COLOR_ID_SLIDER_GROOVE_TOP,           /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_pixelmap_button_create,        /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {548, 14, 607, 53},                      /* widget size                    */
-    &FeatureSettingsScreen_OLD_PowerPrompt_define, /* next widget definition   */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(FEATURESETTINGSSCREEN_OLD_CONTROL_BLOCK, FeatureSettingsScreen_OLD_PowerButtonBackground), /* control block */
-    (void *) &FeatureSettingsScreen_OLD_PowerButtonBackground_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET FeatureSettingsScreen_OLD_UserSettingsScreenBackdrop_define =
-{
-    "UserSettingsScreenBackdrop",
-    GX_TYPE_WINDOW,                          /* widget type                    */
-    GX_ID_NONE,                              /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_THIN|GX_STYLE_ENABLED,   /* style flags                    */
-    0,                                       /* status flags                   */
-    sizeof(GX_WINDOW),                       /* control block size             */
-    GX_COLOR_ID_SCROLL_BUTTON,               /* normal color id                */
-    GX_COLOR_ID_SCROLL_BUTTON,               /* selected color id              */
-    GX_COLOR_ID_SCROLL_BUTTON,               /* disabled color id              */
-    gx_studio_window_create,                 /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    (UINT (*)(GX_WIDGET *, GX_EVENT *)) FeatureSettingsScreen_event_process, /* event function override */
-    {0, 0, 319, 239},                        /* widget size                    */
-    GX_NULL,                                 /* no next widget                 */
-    &FeatureSettingsScreen_OLD_PowerButtonBackground_define, /* child widget definition */
-    offsetof(FEATURESETTINGSSCREEN_OLD_CONTROL_BLOCK, FeatureSettingsScreen_OLD_UserSettingsScreenBackdrop), /* control block */
-    (void *) &FeatureSettingsScreen_OLD_UserSettingsScreenBackdrop_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET FeatureSettingsScreen_OLD_define =
-{
-    "FeatureSettingsScreen_OLD",
-    GX_TYPE_TEMPLATE,                        /* widget type                    */
-    FEATURE_SETTINGS_SCREEN_ID_OLD,          /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_THIN,                    /* style flags                    */
-    0,                                       /* status flags                   */
-    sizeof(FEATURESETTINGSSCREEN_OLD_CONTROL_BLOCK), /* control block size     */
-    GX_COLOR_ID_WINDOW_FILL,                 /* normal color id                */
-    GX_COLOR_ID_WINDOW_FILL,                 /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_template_create,               /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {0, 0, 479, 399},                        /* widget size                    */
-    GX_NULL,                                 /* next widget                    */
-    &FeatureSettingsScreen_OLD_UserSettingsScreenBackdrop_define, /* child widget */
-    0,                                       /* control block                  */
-    (void *) &FeatureSettingsScreen_OLD_properties /* extended properties      */
 };
 GX_TEMPLATE_PROPERTIES SetPadDirectionScreen_properties =
 {
@@ -8341,7 +4779,7 @@ GX_CONST GX_STUDIO_WIDGET SetPadDirectionScreen_GroupIconButton_define =
     gx_studio_icon_button_create,            /* create function                */
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
-    {334, 14, 453, 83},                      /* widget size                    */
+    {342, 14, 461, 83},                      /* widget size                    */
     GX_NULL,                                 /* no next widget                 */
     GX_NULL,                                 /* no child widgets               */ 
     offsetof(SETPADDIRECTIONSCREEN_CONTROL_BLOCK, SetPadDirectionScreen_GroupIconButton), /* control block */
@@ -8653,7 +5091,7 @@ GX_CONST GX_STUDIO_WIDGET SetPadDirectionScreen_OK_Button_define =
     gx_studio_text_button_create,            /* create function                */
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
-    {372, 188, 451, 251},                    /* widget size                    */
+    {380, 188, 459, 251},                    /* widget size                    */
     &SetPadDirectionScreen_RightPad_RightArrow_Button_define, /* next widget definition */
     GX_NULL,                                 /* no child widgets               */ 
     offsetof(SETPADDIRECTIONSCREEN_CONTROL_BLOCK, SetPadDirectionScreen_OK_Button), /* control block */
@@ -8789,9 +5227,9 @@ GX_TEXT_BUTTON_PROPERTIES PadOptionsSettingsScreen_OK_Button_properties =
     GX_COLOR_ID_BTN_TEXT,                    /* selected text color            */
     GX_COLOR_ID_DISABLED_TEXT                /* disabled text color            */
 };
-GX_TEXT_BUTTON_PROPERTIES PadOptionsSettingsScreen_PadDirection_Button_1_properties =
+GX_TEXT_BUTTON_PROPERTIES PadOptionsSettingsScreen_PadOptonMinimumDrive_properties =
 {
-    GX_STRING_ID_STRING_69,                  /* string id                      */
+    GX_STRING_ID_STRING_114,                 /* string id                      */
     GX_FONT_ID_BUTTON,                       /* font id                        */
     GX_COLOR_ID_BTN_TEXT,                    /* normal text color              */
     GX_COLOR_ID_BTN_TEXT,                    /* selected text color            */
@@ -8819,18 +5257,18 @@ GX_CONST GX_STUDIO_WIDGET PadOptionsSettingsScreen_GroupIconButton_define =
     gx_studio_icon_button_create,            /* create function                */
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
-    {334, 14, 453, 83},                      /* widget size                    */
+    {342, 14, 461, 83},                      /* widget size                    */
     GX_NULL,                                 /* no next widget                 */
     GX_NULL,                                 /* no child widgets               */ 
     offsetof(PADOPTIONSSETTINGSSCREEN_CONTROL_BLOCK, PadOptionsSettingsScreen_GroupIconButton), /* control block */
     (void *) &PadOptionsSettingsScreen_GroupIconButton_properties /* extended properties */
 };
 
-GX_CONST GX_STUDIO_WIDGET PadOptionsSettingsScreen_PadDirection_Button_1_define =
+GX_CONST GX_STUDIO_WIDGET PadOptionsSettingsScreen_PadOptonMinimumDrive_define =
 {
-    "PadDirection_Button_1",
+    "PadOptonMinimumDrive",
     GX_TYPE_TEXT_BUTTON,                     /* widget type                    */
-    PAD_DIRECTIONS_BTN_ID,                   /* widget id                      */
+    MINIMUM_DRIVE_BTN_ID,                    /* widget id                      */
     #if defined(GX_WIDGET_USER_DATA)
     0,                                       /* user data                      */
     #endif
@@ -8846,8 +5284,8 @@ GX_CONST GX_STUDIO_WIDGET PadOptionsSettingsScreen_PadDirection_Button_1_define 
     {16, 164, 205, 227},                     /* widget size                    */
     &PadOptionsSettingsScreen_GroupIconButton_define, /* next widget definition */
     GX_NULL,                                 /* no child widgets               */ 
-    offsetof(PADOPTIONSSETTINGSSCREEN_CONTROL_BLOCK, PadOptionsSettingsScreen_PadDirection_Button_1), /* control block */
-    (void *) &PadOptionsSettingsScreen_PadDirection_Button_1_properties /* extended properties */
+    offsetof(PADOPTIONSSETTINGSSCREEN_CONTROL_BLOCK, PadOptionsSettingsScreen_PadOptonMinimumDrive), /* control block */
+    (void *) &PadOptionsSettingsScreen_PadOptonMinimumDrive_properties /* extended properties */
 };
 
 GX_CONST GX_STUDIO_WIDGET PadOptionsSettingsScreen_OK_Button_define =
@@ -8867,8 +5305,8 @@ GX_CONST GX_STUDIO_WIDGET PadOptionsSettingsScreen_OK_Button_define =
     gx_studio_text_button_create,            /* create function                */
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
-    {372, 188, 451, 251},                    /* widget size                    */
-    &PadOptionsSettingsScreen_PadDirection_Button_1_define, /* next widget definition */
+    {380, 188, 459, 251},                    /* widget size                    */
+    &PadOptionsSettingsScreen_PadOptonMinimumDrive_define, /* next widget definition */
     GX_NULL,                                 /* no child widgets               */ 
     offsetof(PADOPTIONSSETTINGSSCREEN_CONTROL_BLOCK, PadOptionsSettingsScreen_OK_Button), /* control block */
     (void *) &PadOptionsSettingsScreen_OK_Button_properties /* extended properties */
@@ -9165,7 +5603,7 @@ GX_CONST GX_STUDIO_WIDGET UserSettingsScreen_GroupIconButton_define =
     gx_studio_icon_button_create,            /* create function                */
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
-    {334, 14, 453, 83},                      /* widget size                    */
+    {342, 14, 461, 83},                      /* widget size                    */
     GX_NULL,                                 /* no next widget                 */
     GX_NULL,                                 /* no child widgets               */ 
     offsetof(USERSETTINGSSCREEN_CONTROL_BLOCK, UserSettingsScreen_GroupIconButton), /* control block */
@@ -9597,7 +6035,7 @@ GX_CONST GX_STUDIO_WIDGET UserSettingsScreen_OK_Button_define =
     gx_studio_text_button_create,            /* create function                */
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
-    {372, 188, 451, 251},                    /* widget size                    */
+    {380, 188, 459, 251},                    /* widget size                    */
     &UserSettingsScreen_Timer_Off_Button_define, /* next widget definition     */
     GX_NULL,                                 /* no child widgets               */ 
     offsetof(USERSETTINGSSCREEN_CONTROL_BLOCK, UserSettingsScreen_OK_Button), /* control block */
@@ -9815,7 +6253,7 @@ GX_CONST GX_STUDIO_WIDGET SetPadTypeScreen_GroupIconButton_define =
     gx_studio_icon_button_create,            /* create function                */
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
-    {334, 14, 453, 83},                      /* widget size                    */
+    {342, 14, 461, 83},                      /* widget size                    */
     GX_NULL,                                 /* no next widget                 */
     GX_NULL,                                 /* no child widgets               */ 
     offsetof(SETPADTYPESCREEN_CONTROL_BLOCK, SetPadTypeScreen_GroupIconButton), /* control block */
@@ -9935,7 +6373,7 @@ GX_CONST GX_STUDIO_WIDGET SetPadTypeScreen_OK_Button_define =
     gx_studio_text_button_create,            /* create function                */
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
-    {372, 188, 451, 251},                    /* widget size                    */
+    {380, 188, 459, 251},                    /* widget size                    */
     &SetPadTypeScreen_RightPadDigital_Button_define, /* next widget definition */
     GX_NULL,                                 /* no child widgets               */ 
     offsetof(SETPADTYPESCREEN_CONTROL_BLOCK, SetPadTypeScreen_OK_Button), /* control block */
@@ -10213,6 +6651,30 @@ GX_PROMPT_PROPERTIES DiagnosticScreen_ModePort_Prompt_properties =
     GX_COLOR_ID_WHITE,                       /* selected text color            */
     GX_COLOR_ID_WHITE                        /* disabled text color            */
 };
+GX_PROMPT_PROPERTIES DiagnosticScreen_HeadArray_VersionPrompt_properties =
+{
+    GX_STRING_ID_STRING_65_1,                /* string id                      */
+    GX_FONT_ID_PROMPT,                       /* font id                        */
+    GX_COLOR_ID_SELECTED_TEXT,               /* normal text color              */
+    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
+    GX_COLOR_ID_SELECTED_TEXT                /* disabled text color            */
+};
+GX_PROMPT_PROPERTIES DiagnosticScreen_VersionPrompt_properties =
+{
+    GX_STRING_ID_STRING_69_1,                /* string id                      */
+    GX_FONT_ID_PROMPT,                       /* font id                        */
+    GX_COLOR_ID_SELECTED_TEXT,               /* normal text color              */
+    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
+    GX_COLOR_ID_SELECTED_TEXT                /* disabled text color            */
+};
+GX_TEXT_BUTTON_PROPERTIES DiagnosticScreen_GotoResetSettings_lButton_properties =
+{
+    GX_STRING_ID_STRING_68,                  /* string id                      */
+    GX_FONT_ID_BUTTON,                       /* font id                        */
+    GX_COLOR_ID_BTN_TEXT,                    /* normal text color              */
+    GX_COLOR_ID_BTN_TEXT,                    /* selected text color            */
+    GX_COLOR_ID_DISABLED_TEXT                /* disabled text color            */
+};
 
 GX_CONST GX_STUDIO_WIDGET DiagnosticScreen_UserPort_Prompt_define =
 {
@@ -10231,7 +6693,7 @@ GX_CONST GX_STUDIO_WIDGET DiagnosticScreen_UserPort_Prompt_define =
     gx_studio_prompt_create,                 /* create function                */
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
-    {91, 184, 188, 207},                     /* widget size                    */
+    {93, 194, 190, 217},                     /* widget size                    */
     GX_NULL,                                 /* no next widget                 */
     GX_NULL,                                 /* no child widgets               */ 
     offsetof(DIAGNOSTICSCREEN_CONTROL_BLOCK, DiagnosticScreen_UserPort_Prompt), /* control block */
@@ -10255,11 +6717,83 @@ GX_CONST GX_STUDIO_WIDGET DiagnosticScreen_ModePort_Prompt_define =
     gx_studio_prompt_create,                 /* create function                */
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
-    {91, 206, 188, 229},                     /* widget size                    */
+    {91, 226, 188, 249},                     /* widget size                    */
     GX_NULL,                                 /* no next widget                 */
     GX_NULL,                                 /* no child widgets               */ 
     offsetof(DIAGNOSTICSCREEN_CONTROL_BLOCK, DiagnosticScreen_ModePort_Prompt), /* control block */
     (void *) &DiagnosticScreen_ModePort_Prompt_properties /* extended properties */
+};
+
+GX_CONST GX_STUDIO_WIDGET DiagnosticScreen_GotoResetSettings_lButton_define =
+{
+    "GotoResetSettings_lButton",
+    GX_TYPE_TEXT_BUTTON,                     /* widget type                    */
+    GOTO_RESET_SCREEN_BTN_ID,                /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_THIN|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_TEXT_BUTTON),                  /* control block size             */
+    GX_COLOR_ID_TEXT_INPUT_FILL,             /* normal color id                */
+    GX_COLOR_ID_TEXT_INPUT_TEXT,             /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_text_button_create,            /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {274, 14, 463, 77},                      /* widget size                    */
+    GX_NULL,                                 /* no next widget                 */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(DIAGNOSTICSCREEN_CONTROL_BLOCK, DiagnosticScreen_GotoResetSettings_lButton), /* control block */
+    (void *) &DiagnosticScreen_GotoResetSettings_lButton_properties /* extended properties */
+};
+
+GX_CONST GX_STUDIO_WIDGET DiagnosticScreen_VersionPrompt_define =
+{
+    "VersionPrompt",
+    GX_TYPE_PROMPT,                          /* widget type                    */
+    DISPLAY_VERSION_PROMPT_ID,               /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_TEXT_LEFT,   /* style flags */
+    0,                                       /* status flags                   */
+    sizeof(GX_PROMPT),                       /* control block size             */
+    GX_COLOR_ID_SELECTED_TEXT,               /* normal color id                */
+    GX_COLOR_ID_BTN_TEXT,                    /* selected color id              */
+    GX_COLOR_ID_BTN_TEXT,                    /* disabled color id              */
+    gx_studio_prompt_create,                 /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {304, 134, 456, 157},                    /* widget size                    */
+    &DiagnosticScreen_GotoResetSettings_lButton_define, /* next widget definition */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(DIAGNOSTICSCREEN_CONTROL_BLOCK, DiagnosticScreen_VersionPrompt), /* control block */
+    (void *) &DiagnosticScreen_VersionPrompt_properties /* extended properties */
+};
+
+GX_CONST GX_STUDIO_WIDGET DiagnosticScreen_HeadArray_VersionPrompt_define =
+{
+    "HeadArray_VersionPrompt",
+    GX_TYPE_PROMPT,                          /* widget type                    */
+    HEAD_ARRAY_VERSION_PROMPT_ID,            /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_TEXT_LEFT,   /* style flags */
+    0,                                       /* status flags                   */
+    sizeof(GX_PROMPT),                       /* control block size             */
+    GX_COLOR_ID_SELECTED_TEXT,               /* normal color id                */
+    GX_COLOR_ID_BTN_TEXT,                    /* selected color id              */
+    GX_COLOR_ID_BTN_TEXT,                    /* disabled color id              */
+    gx_studio_prompt_create,                 /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {304, 108, 445, 131},                    /* widget size                    */
+    &DiagnosticScreen_VersionPrompt_define,  /* next widget definition         */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(DIAGNOSTICSCREEN_CONTROL_BLOCK, DiagnosticScreen_HeadArray_VersionPrompt), /* control block */
+    (void *) &DiagnosticScreen_HeadArray_VersionPrompt_properties /* extended properties */
 };
 
 GX_CONST GX_STUDIO_WIDGET DiagnosticScreen_ModePort_IconButton_define =
@@ -10279,8 +6813,8 @@ GX_CONST GX_STUDIO_WIDGET DiagnosticScreen_ModePort_IconButton_define =
     gx_studio_icon_button_create,            /* create function                */
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
-    {68, 202, 217, 229},                     /* widget size                    */
-    GX_NULL,                                 /* no next widget                 */
+    {68, 223, 217, 250},                     /* widget size                    */
+    &DiagnosticScreen_HeadArray_VersionPrompt_define, /* next widget definition */
     &DiagnosticScreen_ModePort_Prompt_define, /* child widget definition       */
     offsetof(DIAGNOSTICSCREEN_CONTROL_BLOCK, DiagnosticScreen_ModePort_IconButton), /* control block */
     (void *) &DiagnosticScreen_ModePort_IconButton_properties /* extended properties */
@@ -10303,7 +6837,7 @@ GX_CONST GX_STUDIO_WIDGET DiagnosticScreen_UserPort_IconButton_define =
     gx_studio_icon_button_create,            /* create function                */
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
-    {68, 180, 217, 207},                     /* widget size                    */
+    {70, 190, 219, 217},                     /* widget size                    */
     &DiagnosticScreen_ModePort_IconButton_define, /* next widget definition    */
     &DiagnosticScreen_UserPort_Prompt_define, /* child widget definition       */
     offsetof(DIAGNOSTICSCREEN_CONTROL_BLOCK, DiagnosticScreen_UserPort_IconButton), /* control block */
@@ -10567,7 +7101,7 @@ GX_CONST GX_STUDIO_WIDGET DiagnosticScreen_OK_Button_define =
     gx_studio_text_button_create,            /* create function                */
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
-    {230, 165, 309, 228},                    /* widget size                    */
+    {380, 188, 459, 251},                    /* widget size                    */
     &DiagnosticScreen_RightPadDigital_Button_define, /* next widget definition */
     GX_NULL,                                 /* no child widgets               */ 
     offsetof(DIAGNOSTICSCREEN_CONTROL_BLOCK, DiagnosticScreen_OK_Button), /* control block */
@@ -10654,7 +7188,7 @@ GX_CONST GX_STUDIO_WIDGET DiagnosticScreen_DiagnosticScreenBackdrop_define =
     #if defined(GX_WIDGET_USER_DATA)
     0,                                       /* user data                      */
     #endif
-    GX_STYLE_BORDER_THIN|GX_STYLE_ENABLED,   /* style flags                    */
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED,   /* style flags */
     0,                                       /* status flags                   */
     sizeof(GX_WINDOW),                       /* control block size             */
     GX_COLOR_ID_SCROLL_BUTTON,               /* normal color id                */
@@ -10662,8 +7196,8 @@ GX_CONST GX_STUDIO_WIDGET DiagnosticScreen_DiagnosticScreenBackdrop_define =
     GX_COLOR_ID_SCROLL_BUTTON,               /* disabled color id              */
     gx_studio_window_create,                 /* create function                */
     GX_NULL,                                 /* drawing function override      */
-    (UINT (*)(GX_WIDGET *, GX_EVENT *)) DiagnosticScreen_event_handler, /* event function override */
-    {0, 0, 319, 239},                        /* widget size                    */
+    GX_NULL,                                 /* event function override        */
+    {0, 0, 479, 271},                        /* widget size                    */
     GX_NULL,                                 /* no next widget                 */
     &DiagnosticScreen_CenterPadDigital_Button_define, /* child widget definition */
     offsetof(DIAGNOSTICSCREEN_CONTROL_BLOCK, DiagnosticScreen_DiagnosticScreenBackdrop), /* control block */
@@ -10686,240 +7220,19 @@ GX_CONST GX_STUDIO_WIDGET DiagnosticScreen_define =
     GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
     gx_studio_template_create,               /* create function                */
     GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
+    (UINT (*)(GX_WIDGET *, GX_EVENT *)) DiagnosticScreen_event_handler, /* event function override */
     {0, 0, 479, 399},                        /* widget size                    */
     GX_NULL,                                 /* next widget                    */
     &DiagnosticScreen_DiagnosticScreenBackdrop_define, /* child widget         */
     0,                                       /* control block                  */
     (void *) &DiagnosticScreen_properties    /* extended properties            */
 };
-GX_TEMPLATE_PROPERTIES HHP_Start_Screen_properties =
-{
-    &PrimaryTemplate_define,                 /* base info                      */
-    gx_studio_window_create,                 /* base create function           */
-    {0, 0, 479, 399}                         /* widget size                    */
-};
-GX_WINDOW_PROPERTIES HHP_Start_Screen_HHP_Start_Backdrop_properties =
-{
-    GX_PIXELMAP_ID_BACKGROUND_480X272        /* wallpaper pixelmap id          */
-};
-GX_TEXT_BUTTON_PROPERTIES HHP_Start_Screen_MainMore_Button_properties =
-{
-    GX_STRING_ID_STRING_44,                  /* string id                      */
-    GX_FONT_ID_BUTTON,                       /* font id                        */
-    GX_COLOR_ID_BTN_TEXT,                    /* normal text color              */
-    GX_COLOR_ID_BTN_TEXT,                    /* selected text color            */
-    GX_COLOR_ID_DISABLED_TEXT                /* disabled text color            */
-};
-GX_TEXT_BUTTON_PROPERTIES HHP_Start_Screen_Settings_Button_properties =
-{
-    GX_STRING_ID_STRING_11,                  /* string id                      */
-    GX_FONT_ID_BUTTON,                       /* font id                        */
-    GX_COLOR_ID_BTN_TEXT,                    /* normal text color              */
-    GX_COLOR_ID_BTN_TEXT,                    /* selected text color            */
-    GX_COLOR_ID_DISABLED_TEXT                /* disabled text color            */
-};
-GX_TEXT_BUTTON_PROPERTIES HHP_Start_Screen_OK_Button_properties =
-{
-    GX_STRING_ID_STRING_24,                  /* string id                      */
-    GX_FONT_ID_ASC24PT,                      /* font id                        */
-    GX_COLOR_ID_BTN_TEXT,                    /* normal text color              */
-    GX_COLOR_ID_BTN_TEXT,                    /* selected text color            */
-    GX_COLOR_ID_DISABLED_TEXT                /* disabled text color            */
-};
-GX_TEXT_BUTTON_PROPERTIES HHP_Start_Screen_PadSettings_Button_properties =
-{
-    GX_STRING_ID_STRING_46,                  /* string id                      */
-    GX_FONT_ID_BUTTON,                       /* font id                        */
-    GX_COLOR_ID_BTN_TEXT,                    /* normal text color              */
-    GX_COLOR_ID_BTN_TEXT,                    /* selected text color            */
-    GX_COLOR_ID_DISABLED_TEXT                /* disabled text color            */
-};
-GX_ICON_BUTTON_PROPERTIES HHP_Start_Screen_GroupIconButton_properties =
-{
-    GX_PIXELMAP_ID_GROUPA                    /* pixelmap id                    */
-};
-
-GX_CONST GX_STUDIO_WIDGET HHP_Start_Screen_GroupIconButton_define =
-{
-    "GroupIconButton",
-    GX_TYPE_ICON_BUTTON,                     /* widget type                    */
-    GROUP_ICON_BUTTON,                       /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_HALIGN_CENTER|GX_STYLE_VALIGN_CENTER,   /* style flags */
-    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
-    sizeof(GX_ICON_BUTTON),                  /* control block size             */
-    GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
-    GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_icon_button_create,            /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {334, 14, 453, 83},                      /* widget size                    */
-    GX_NULL,                                 /* no next widget                 */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(HHP_START_SCREEN_CONTROL_BLOCK, HHP_Start_Screen_GroupIconButton), /* control block */
-    (void *) &HHP_Start_Screen_GroupIconButton_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET HHP_Start_Screen_PadSettings_Button_define =
-{
-    "PadSettings_Button",
-    GX_TYPE_TEXT_BUTTON,                     /* widget type                    */
-    PAD_SETTINGS_BTN_ID,                     /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_THIN|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_TEXT_BUTTON),                  /* control block size             */
-    GX_COLOR_ID_TEXT_INPUT_FILL,             /* normal color id                */
-    GX_COLOR_ID_TEXT_INPUT_TEXT,             /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_text_button_create,            /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {16, 14, 205, 77},                       /* widget size                    */
-    &HHP_Start_Screen_GroupIconButton_define, /* next widget definition        */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(HHP_START_SCREEN_CONTROL_BLOCK, HHP_Start_Screen_PadSettings_Button), /* control block */
-    (void *) &HHP_Start_Screen_PadSettings_Button_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET HHP_Start_Screen_OK_Button_define =
-{
-    "OK_Button",
-    GX_TYPE_TEXT_BUTTON,                     /* widget type                    */
-    OK_BTN_ID,                               /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_THIN|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_TEXT_BUTTON),                  /* control block size             */
-    GX_COLOR_ID_TEXT_INPUT_FILL,             /* normal color id                */
-    GX_COLOR_ID_TEXT_INPUT_TEXT,             /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_text_button_create,            /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {372, 188, 451, 251},                    /* widget size                    */
-    &HHP_Start_Screen_PadSettings_Button_define, /* next widget definition     */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(HHP_START_SCREEN_CONTROL_BLOCK, HHP_Start_Screen_OK_Button), /* control block */
-    (void *) &HHP_Start_Screen_OK_Button_properties /* extended properties     */
-};
-
-GX_CONST GX_STUDIO_WIDGET HHP_Start_Screen_Settings_Button_define =
-{
-    "Settings_Button",
-    GX_TYPE_TEXT_BUTTON,                     /* widget type                    */
-    SETTINGS_BTN_ID,                         /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_THIN|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_TEXT_BUTTON),                  /* control block size             */
-    GX_COLOR_ID_TEXT_INPUT_FILL,             /* normal color id                */
-    GX_COLOR_ID_TEXT_INPUT_TEXT,             /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_text_button_create,            /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {16, 89, 205, 152},                      /* widget size                    */
-    &HHP_Start_Screen_OK_Button_define,      /* next widget definition         */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(HHP_START_SCREEN_CONTROL_BLOCK, HHP_Start_Screen_Settings_Button), /* control block */
-    (void *) &HHP_Start_Screen_Settings_Button_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET HHP_Start_Screen_MainMore_Button_define =
-{
-    "MainMore_Button",
-    GX_TYPE_TEXT_BUTTON,                     /* widget type                    */
-    MORE_BTN_ID,                             /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_THIN|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_TEXT_BUTTON),                  /* control block size             */
-    GX_COLOR_ID_TEXT_INPUT_FILL,             /* normal color id                */
-    GX_COLOR_ID_TEXT_INPUT_TEXT,             /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_text_button_create,            /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {16, 165, 205, 228},                     /* widget size                    */
-    &HHP_Start_Screen_Settings_Button_define, /* next widget definition        */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(HHP_START_SCREEN_CONTROL_BLOCK, HHP_Start_Screen_MainMore_Button), /* control block */
-    (void *) &HHP_Start_Screen_MainMore_Button_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET HHP_Start_Screen_HHP_Start_Backdrop_define =
-{
-    "HHP_Start_Backdrop",
-    GX_TYPE_WINDOW,                          /* widget type                    */
-    GX_ID_NONE,                              /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT,   /* style flags                */
-    0,                                       /* status flags                   */
-    sizeof(GX_WINDOW),                       /* control block size             */
-    GX_COLOR_ID_SCROLL_BUTTON,               /* normal color id                */
-    GX_COLOR_ID_WINDOW_FILL,                 /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_window_create,                 /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {0, 0, 479, 271},                        /* widget size                    */
-    GX_NULL,                                 /* no next widget                 */
-    &HHP_Start_Screen_MainMore_Button_define, /* child widget definition       */
-    offsetof(HHP_START_SCREEN_CONTROL_BLOCK, HHP_Start_Screen_HHP_Start_Backdrop), /* control block */
-    (void *) &HHP_Start_Screen_HHP_Start_Backdrop_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET HHP_Start_Screen_define =
-{
-    "HHP_Start_Screen",
-    GX_TYPE_TEMPLATE,                        /* widget type                    */
-    HH_START_SCREEN_ID,                      /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_THIN,                    /* style flags                    */
-    0,                                       /* status flags                   */
-    sizeof(HHP_START_SCREEN_CONTROL_BLOCK),  /* control block size             */
-    GX_COLOR_ID_WINDOW_FILL,                 /* normal color id                */
-    GX_COLOR_ID_WINDOW_FILL,                 /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_template_create,               /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    (UINT (*)(GX_WIDGET *, GX_EVENT *)) HHP_Start_Screen_event_process, /* event function override */
-    {0, 0, 479, 399},                        /* widget size                    */
-    GX_NULL,                                 /* next widget                    */
-    &HHP_Start_Screen_HHP_Start_Backdrop_define, /* child widget               */
-    0,                                       /* control block                  */
-    (void *) &HHP_Start_Screen_properties    /* extended properties            */
-};
 GX_CONST GX_STUDIO_WIDGET_ENTRY ASL4321_Display_Demo_widget_table[] =
 {
     { &MainUserScreen_define, (GX_WIDGET *) &MainUserScreen },
     { &FeatureSettingsScreen_define, (GX_WIDGET *) &FeatureSettingsScreen },
-    { &HHP_Start_Screen_1_define, (GX_WIDGET *) &HHP_Start_Screen_1 },
+    { &HHP_Start_Screen_define, (GX_WIDGET *) &HHP_Start_Screen },
     { &MainUserScreen_3_define, (GX_WIDGET *) &MainUserScreen_3 },
-    { &AdvancePad_3_Screen_define, (GX_WIDGET *) &AdvancePad_3_Screen },
-    { &SetPadDirectionScreen_1_define, (GX_WIDGET *) &SetPadDirectionScreen_1 },
-    { &AdvancePadSettingsScreen_2_define, (GX_WIDGET *) &AdvancePadSettingsScreen_2 },
-    { &AdvancePadSettingsScreen_1_define, (GX_WIDGET *) &AdvancePadSettingsScreen_1 },
-    { &AdvancePad_2_Screen_define, (GX_WIDGET *) &AdvancePad_2_Screen },
-    { &AdvancePad_1_Screen_define, (GX_WIDGET *) &AdvancePad_1_Screen },
-    { &AdvancePadSettingsScreen_define, (GX_WIDGET *) &AdvancePadSettingsScreen },
     { &MainUserScreen_old_define, (GX_WIDGET *) &MainUserScreen_old },
     { &ResetScreen_define, (GX_WIDGET *) &ResetScreen },
     { &MinimumDriveScreen_define, (GX_WIDGET *) &MinimumDriveScreen },
@@ -10932,13 +7245,11 @@ GX_CONST GX_STUDIO_WIDGET_ENTRY ASL4321_Display_Demo_widget_table[] =
     { &ReadyScreen_define, (GX_WIDGET *) &ReadyScreen },
     { &StartupScreen_define, (GX_WIDGET *) &StartupScreen },
     { &PadCalibrationScreen_define, (GX_WIDGET *) &PadCalibrationScreen },
-    { &FeatureSettingsScreen_OLD_define, (GX_WIDGET *) &FeatureSettingsScreen_OLD },
     { &SetPadDirectionScreen_define, (GX_WIDGET *) &SetPadDirectionScreen },
     { &PadOptionsSettingsScreen_define, (GX_WIDGET *) &PadOptionsSettingsScreen },
     { &UserSettingsScreen_define, (GX_WIDGET *) &UserSettingsScreen },
     { &SetPadTypeScreen_define, (GX_WIDGET *) &SetPadTypeScreen },
     { &DiagnosticScreen_define, (GX_WIDGET *) &DiagnosticScreen },
-    { &HHP_Start_Screen_define, (GX_WIDGET *) &HHP_Start_Screen },
     {GX_NULL, GX_NULL}
 };
 

@@ -56,8 +56,12 @@ UINT DiagnosticScreen_event_handler(GX_WINDOW *window, GX_EVENT *event_ptr)
 		}
 		break;
 
+	case GX_SIGNAL(GOTO_RESET_SCREEN_BTN_ID, GX_EVENT_CLICKED):
+        screen_toggle((GX_WINDOW *)&ResetScreen, window);
+		break;
+
 	case GX_SIGNAL(OK_BTN_ID, GX_EVENT_CLICKED):
-        screen_toggle((GX_WINDOW *)&MoreSelectionScreen, window);
+        screen_toggle((GX_WINDOW *)&HHP_Start_Screen, window);
 		break;
 
 	case GX_EVENT_PEN_DOWN:
