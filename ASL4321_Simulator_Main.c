@@ -144,7 +144,7 @@ VOID  start_guix(VOID)
 	myError = gx_studio_named_widget_create("HHP_Start_Screen", GX_NULL, GX_NULL);
 	//myError = gx_studio_named_widget_create("MainUserScreen", , GX_NULL, GX_NULL);
 	myError = gx_studio_named_widget_create("MainUserScreen", (GX_WIDGET *)root, GX_NULL);
-	myError = gx_studio_named_widget_create("MainUserScreen_3", GX_NULL, GX_NULL);
+	myError = gx_studio_named_widget_create("ManageSoundScreen", GX_NULL, GX_NULL);
 	myError = gx_studio_named_widget_create("MinimumDriveScreen", GX_NULL, GX_NULL);
 	myError = gx_studio_named_widget_create("MoreSelectionScreen", GX_NULL, GX_NULL);
 	myError = gx_studio_named_widget_create("PerformanceSelectionScreen", GX_NULL, GX_NULL);
@@ -157,6 +157,8 @@ VOID  start_guix(VOID)
 	myError = gx_studio_named_widget_create("StartupScreen", GX_NULL, GX_NULL);
 	myError = gx_studio_named_widget_create("SetPadDirectionScreen", GX_NULL, GX_NULL);
 	myError = gx_studio_named_widget_create("SetPadTypeScreen", GX_NULL, GX_NULL);
+	myError = gx_studio_named_widget_create("SoundOptionScreen", GX_NULL, GX_NULL);
+	myError = gx_studio_named_widget_create("SoundSetupScreen", GX_NULL, GX_NULL);
 	myError = gx_studio_named_widget_create("UserSettingsScreen", GX_NULL, GX_NULL);
 	myError = gx_studio_named_widget_create("UserSelectionScreen", GX_NULL, GX_NULL);
 	myError = gx_studio_named_widget_create("VeerAdjustScreen", GX_NULL, GX_NULL);

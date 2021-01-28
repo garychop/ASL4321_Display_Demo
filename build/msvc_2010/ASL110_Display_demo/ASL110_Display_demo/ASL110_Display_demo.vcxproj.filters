@@ -87,6 +87,9 @@
     <ClCompile Include="..\..\..\..\ReadyScreen.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\SoundOptionScreen.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\ASL4321_Display_Demo_resources.h">

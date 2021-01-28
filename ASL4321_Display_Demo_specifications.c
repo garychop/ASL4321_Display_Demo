@@ -6,7 +6,7 @@
 /*  www.expresslogic.com.                                                      */
 /*                                                                             */
 /*  GUIX Studio Revision 5.4.2.9                                               */
-/*  Date (dd.mm.yyyy): 28. 1.2021   Time (hh:mm): 11:18                        */
+/*  Date (dd.mm.yyyy): 28. 1.2021   Time (hh:mm): 12:28                        */
 /*******************************************************************************/
 
 
@@ -16,6 +16,9 @@
 #include "ASL4321_Display_Demo_specifications.h"
 
 static GX_WIDGET *gx_studio_nested_widget_create(GX_BYTE *control, GX_CONST GX_STUDIO_WIDGET *definition, GX_WIDGET *parent);
+SOUNDSETUPSCREEN_CONTROL_BLOCK SoundSetupScreen;
+MANAGESOUNDSCREEN_CONTROL_BLOCK ManageSoundScreen;
+SOUNDOPTIONSCREEN_CONTROL_BLOCK SoundOptionScreen;
 MAINUSERSCREEN_CONTROL_BLOCK MainUserScreen;
 FEATURESETTINGSSCREEN_CONTROL_BLOCK FeatureSettingsScreen;
 HHP_START_SCREEN_CONTROL_BLOCK HHP_Start_Screen;
@@ -546,6 +549,432 @@ GX_CONST GX_STUDIO_WIDGET PrimaryTemplate_define =
     &PrimaryTemplate_window_define,          /* child widget                   */
     0,                                       /* control block                  */
     (void *) &PrimaryTemplate_properties     /* extended properties            */
+};
+GX_TEMPLATE_PROPERTIES SoundSetupScreen_properties =
+{
+    &PrimaryTemplate_define,                 /* base info                      */
+    gx_studio_window_create,                 /* base create function           */
+    {0, 0, 479, 399}                         /* widget size                    */
+};
+GX_WINDOW_PROPERTIES SoundSetupScreen_SoundSetupScreenBackdrop_properties =
+{
+    GX_PIXELMAP_ID_BACKGROUND_480X272        /* wallpaper pixelmap id          */
+};
+GX_TEXT_BUTTON_PROPERTIES SoundSetupScreen_OK_Button_properties =
+{
+    GX_STRING_ID_STRING_24,                  /* string id                      */
+    GX_FONT_ID_ASC24PT,                      /* font id                        */
+    GX_COLOR_ID_BTN_TEXT,                    /* normal text color              */
+    GX_COLOR_ID_BTN_TEXT,                    /* selected text color            */
+    GX_COLOR_ID_DISABLED_TEXT                /* disabled text color            */
+};
+GX_PROMPT_PROPERTIES SoundSetupScreen_prompt_2_properties =
+{
+    GX_STRING_ID_STRING_119,                 /* string id                      */
+    GX_FONT_ID_PROMPT,                       /* font id                        */
+    GX_COLOR_ID_WHITE,                       /* normal text color              */
+    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
+    GX_COLOR_ID_DISABLED_TEXT                /* disabled text color            */
+};
+
+GX_CONST GX_STUDIO_WIDGET SoundSetupScreen_prompt_2_define =
+{
+    "prompt_2",
+    GX_TYPE_PROMPT,                          /* widget type                    */
+    GX_ID_NONE,                              /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_THIN|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_PROMPT),                       /* control block size             */
+    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_prompt_create,                 /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {23, 42, 435, 153},                      /* widget size                    */
+    GX_NULL,                                 /* no next widget                 */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(SOUNDSETUPSCREEN_CONTROL_BLOCK, SoundSetupScreen_prompt_2), /* control block */
+    (void *) &SoundSetupScreen_prompt_2_properties /* extended properties      */
+};
+
+GX_CONST GX_STUDIO_WIDGET SoundSetupScreen_OK_Button_define =
+{
+    "OK_Button",
+    GX_TYPE_TEXT_BUTTON,                     /* widget type                    */
+    OK_BTN_ID,                               /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_THIN|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    0,                                       /* status flags                   */
+    sizeof(GX_TEXT_BUTTON),                  /* control block size             */
+    GX_COLOR_ID_TEXT_INPUT_FILL,             /* normal color id                */
+    GX_COLOR_ID_TEXT_INPUT_TEXT,             /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_text_button_create,            /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {380, 188, 459, 251},                    /* widget size                    */
+    &SoundSetupScreen_prompt_2_define,       /* next widget definition         */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(SOUNDSETUPSCREEN_CONTROL_BLOCK, SoundSetupScreen_OK_Button), /* control block */
+    (void *) &SoundSetupScreen_OK_Button_properties /* extended properties     */
+};
+
+GX_CONST GX_STUDIO_WIDGET SoundSetupScreen_SoundSetupScreenBackdrop_define =
+{
+    "SoundSetupScreenBackdrop",
+    GX_TYPE_WINDOW,                          /* widget type                    */
+    GX_ID_NONE,                              /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE,                    /* style flags                    */
+    0,                                       /* status flags                   */
+    sizeof(GX_WINDOW),                       /* control block size             */
+    GX_COLOR_ID_SCROLL_BUTTON,               /* normal color id                */
+    GX_COLOR_ID_WINDOW_FILL,                 /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_window_create,                 /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {0, 0, 479, 271},                        /* widget size                    */
+    GX_NULL,                                 /* no next widget                 */
+    &SoundSetupScreen_OK_Button_define,      /* child widget definition        */
+    offsetof(SOUNDSETUPSCREEN_CONTROL_BLOCK, SoundSetupScreen_SoundSetupScreenBackdrop), /* control block */
+    (void *) &SoundSetupScreen_SoundSetupScreenBackdrop_properties /* extended properties */
+};
+
+GX_CONST GX_STUDIO_WIDGET SoundSetupScreen_define =
+{
+    "SoundSetupScreen",
+    GX_TYPE_TEMPLATE,                        /* widget type                    */
+    SOUND_SETUP_SCREEN_ID,                   /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_THIN,                    /* style flags                    */
+    0,                                       /* status flags                   */
+    sizeof(SOUNDSETUPSCREEN_CONTROL_BLOCK),  /* control block size             */
+    GX_COLOR_ID_WINDOW_FILL,                 /* normal color id                */
+    GX_COLOR_ID_WINDOW_FILL,                 /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_template_create,               /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    (UINT (*)(GX_WIDGET *, GX_EVENT *)) SoundSetupScreen_event_process, /* event function override */
+    {0, 0, 479, 399},                        /* widget size                    */
+    GX_NULL,                                 /* next widget                    */
+    &SoundSetupScreen_SoundSetupScreenBackdrop_define, /* child widget         */
+    0,                                       /* control block                  */
+    (void *) &SoundSetupScreen_properties    /* extended properties            */
+};
+GX_TEMPLATE_PROPERTIES ManageSoundScreen_properties =
+{
+    &PrimaryTemplate_define,                 /* base info                      */
+    gx_studio_window_create,                 /* base create function           */
+    {0, 0, 479, 399}                         /* widget size                    */
+};
+GX_WINDOW_PROPERTIES ManageSoundScreen_PadSettingsScreenBackdrop_properties =
+{
+    GX_PIXELMAP_ID_BACKGROUND_480X272        /* wallpaper pixelmap id          */
+};
+GX_TEXT_BUTTON_PROPERTIES ManageSoundScreen_OK_Button_properties =
+{
+    GX_STRING_ID_STRING_24,                  /* string id                      */
+    GX_FONT_ID_ASC24PT,                      /* font id                        */
+    GX_COLOR_ID_BTN_TEXT,                    /* normal text color              */
+    GX_COLOR_ID_BTN_TEXT,                    /* selected text color            */
+    GX_COLOR_ID_DISABLED_TEXT                /* disabled text color            */
+};
+GX_PROMPT_PROPERTIES ManageSoundScreen_prompt_2_properties =
+{
+    GX_STRING_ID_STRING_119,                 /* string id                      */
+    GX_FONT_ID_PROMPT,                       /* font id                        */
+    GX_COLOR_ID_WHITE,                       /* normal text color              */
+    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
+    GX_COLOR_ID_DISABLED_TEXT                /* disabled text color            */
+};
+
+GX_CONST GX_STUDIO_WIDGET ManageSoundScreen_prompt_2_define =
+{
+    "prompt_2",
+    GX_TYPE_PROMPT,                          /* widget type                    */
+    GX_ID_NONE,                              /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_THIN|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_PROMPT),                       /* control block size             */
+    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_prompt_create,                 /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {23, 42, 435, 153},                      /* widget size                    */
+    GX_NULL,                                 /* no next widget                 */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(MANAGESOUNDSCREEN_CONTROL_BLOCK, ManageSoundScreen_prompt_2), /* control block */
+    (void *) &ManageSoundScreen_prompt_2_properties /* extended properties     */
+};
+
+GX_CONST GX_STUDIO_WIDGET ManageSoundScreen_OK_Button_define =
+{
+    "OK_Button",
+    GX_TYPE_TEXT_BUTTON,                     /* widget type                    */
+    OK_BTN_ID,                               /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_THIN|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    0,                                       /* status flags                   */
+    sizeof(GX_TEXT_BUTTON),                  /* control block size             */
+    GX_COLOR_ID_TEXT_INPUT_FILL,             /* normal color id                */
+    GX_COLOR_ID_TEXT_INPUT_TEXT,             /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_text_button_create,            /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {380, 188, 459, 251},                    /* widget size                    */
+    &ManageSoundScreen_prompt_2_define,      /* next widget definition         */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(MANAGESOUNDSCREEN_CONTROL_BLOCK, ManageSoundScreen_OK_Button), /* control block */
+    (void *) &ManageSoundScreen_OK_Button_properties /* extended properties    */
+};
+
+GX_CONST GX_STUDIO_WIDGET ManageSoundScreen_PadSettingsScreenBackdrop_define =
+{
+    "PadSettingsScreenBackdrop",
+    GX_TYPE_WINDOW,                          /* widget type                    */
+    GX_ID_NONE,                              /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE,                    /* style flags                    */
+    0,                                       /* status flags                   */
+    sizeof(GX_WINDOW),                       /* control block size             */
+    GX_COLOR_ID_SCROLL_BUTTON,               /* normal color id                */
+    GX_COLOR_ID_WINDOW_FILL,                 /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_window_create,                 /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {0, 0, 479, 271},                        /* widget size                    */
+    GX_NULL,                                 /* no next widget                 */
+    &ManageSoundScreen_OK_Button_define,     /* child widget definition        */
+    offsetof(MANAGESOUNDSCREEN_CONTROL_BLOCK, ManageSoundScreen_PadSettingsScreenBackdrop), /* control block */
+    (void *) &ManageSoundScreen_PadSettingsScreenBackdrop_properties /* extended properties */
+};
+
+GX_CONST GX_STUDIO_WIDGET ManageSoundScreen_define =
+{
+    "ManageSoundScreen",
+    GX_TYPE_TEMPLATE,                        /* widget type                    */
+    MANAGE_SOUND_SCREEN_ID,                  /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_THIN,                    /* style flags                    */
+    0,                                       /* status flags                   */
+    sizeof(MANAGESOUNDSCREEN_CONTROL_BLOCK), /* control block size             */
+    GX_COLOR_ID_WINDOW_FILL,                 /* normal color id                */
+    GX_COLOR_ID_WINDOW_FILL,                 /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_template_create,               /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    (UINT (*)(GX_WIDGET *, GX_EVENT *)) ManageSoundScreen_event_process, /* event function override */
+    {0, 0, 479, 399},                        /* widget size                    */
+    GX_NULL,                                 /* next widget                    */
+    &ManageSoundScreen_PadSettingsScreenBackdrop_define, /* child widget       */
+    0,                                       /* control block                  */
+    (void *) &ManageSoundScreen_properties   /* extended properties            */
+};
+GX_TEMPLATE_PROPERTIES SoundOptionScreen_properties =
+{
+    &PrimaryTemplate_define,                 /* base info                      */
+    gx_studio_window_create,                 /* base create function           */
+    {0, 0, 479, 399}                         /* widget size                    */
+};
+GX_WINDOW_PROPERTIES SoundOptionScreen_PadSettingsScreenBackdrop_properties =
+{
+    GX_PIXELMAP_ID_BACKGROUND_480X272        /* wallpaper pixelmap id          */
+};
+GX_TEXT_BUTTON_PROPERTIES SoundOptionScreen_Sound_Button_properties =
+{
+    GX_STRING_ID_STRING_116,                 /* string id                      */
+    GX_FONT_ID_BUTTON,                       /* font id                        */
+    GX_COLOR_ID_BTN_TEXT,                    /* normal text color              */
+    GX_COLOR_ID_BTN_TEXT,                    /* selected text color            */
+    GX_COLOR_ID_DISABLED_TEXT                /* disabled text color            */
+};
+GX_TEXT_BUTTON_PROPERTIES SoundOptionScreen_SetupSounds_Button_properties =
+{
+    GX_STRING_ID_STRING_117,                 /* string id                      */
+    GX_FONT_ID_BUTTON,                       /* font id                        */
+    GX_COLOR_ID_BTN_TEXT,                    /* normal text color              */
+    GX_COLOR_ID_BTN_TEXT,                    /* selected text color            */
+    GX_COLOR_ID_DISABLED_TEXT                /* disabled text color            */
+};
+GX_TEXT_BUTTON_PROPERTIES SoundOptionScreen_OK_Button_properties =
+{
+    GX_STRING_ID_STRING_24,                  /* string id                      */
+    GX_FONT_ID_ASC24PT,                      /* font id                        */
+    GX_COLOR_ID_BTN_TEXT,                    /* normal text color              */
+    GX_COLOR_ID_BTN_TEXT,                    /* selected text color            */
+    GX_COLOR_ID_DISABLED_TEXT                /* disabled text color            */
+};
+GX_ICON_BUTTON_PROPERTIES SoundOptionScreen_GroupIconButton_properties =
+{
+    GX_PIXELMAP_ID_GROUPA                    /* pixelmap id                    */
+};
+
+GX_CONST GX_STUDIO_WIDGET SoundOptionScreen_GroupIconButton_define =
+{
+    "GroupIconButton",
+    GX_TYPE_ICON_BUTTON,                     /* widget type                    */
+    GROUP_ICON_BUTTON,                       /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_HALIGN_CENTER|GX_STYLE_VALIGN_CENTER,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_ICON_BUTTON),                  /* control block size             */
+    GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
+    GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_icon_button_create,            /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {342, 14, 461, 83},                      /* widget size                    */
+    GX_NULL,                                 /* no next widget                 */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(SOUNDOPTIONSCREEN_CONTROL_BLOCK, SoundOptionScreen_GroupIconButton), /* control block */
+    (void *) &SoundOptionScreen_GroupIconButton_properties /* extended properties */
+};
+
+GX_CONST GX_STUDIO_WIDGET SoundOptionScreen_OK_Button_define =
+{
+    "OK_Button",
+    GX_TYPE_TEXT_BUTTON,                     /* widget type                    */
+    OK_BTN_ID,                               /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_THIN|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    0,                                       /* status flags                   */
+    sizeof(GX_TEXT_BUTTON),                  /* control block size             */
+    GX_COLOR_ID_TEXT_INPUT_FILL,             /* normal color id                */
+    GX_COLOR_ID_TEXT_INPUT_TEXT,             /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_text_button_create,            /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {380, 188, 459, 251},                    /* widget size                    */
+    &SoundOptionScreen_GroupIconButton_define, /* next widget definition       */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(SOUNDOPTIONSCREEN_CONTROL_BLOCK, SoundOptionScreen_OK_Button), /* control block */
+    (void *) &SoundOptionScreen_OK_Button_properties /* extended properties    */
+};
+
+GX_CONST GX_STUDIO_WIDGET SoundOptionScreen_SetupSounds_Button_define =
+{
+    "SetupSounds_Button",
+    GX_TYPE_TEXT_BUTTON,                     /* widget type                    */
+    USER_SOUND_SETUP_BTN_ID,                 /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_THIN|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_TEXT_BUTTON),                  /* control block size             */
+    GX_COLOR_ID_TEXT_INPUT_FILL,             /* normal color id                */
+    GX_COLOR_ID_TEXT_INPUT_TEXT,             /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_text_button_create,            /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {16, 89, 205, 152},                      /* widget size                    */
+    &SoundOptionScreen_OK_Button_define,     /* next widget definition         */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(SOUNDOPTIONSCREEN_CONTROL_BLOCK, SoundOptionScreen_SetupSounds_Button), /* control block */
+    (void *) &SoundOptionScreen_SetupSounds_Button_properties /* extended properties */
+};
+
+GX_CONST GX_STUDIO_WIDGET SoundOptionScreen_Sound_Button_define =
+{
+    "Sound_Button",
+    GX_TYPE_TEXT_BUTTON,                     /* widget type                    */
+    SOUND_BTN_ID,                            /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_THIN|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_TEXT_BUTTON),                  /* control block size             */
+    GX_COLOR_ID_TEXT_INPUT_FILL,             /* normal color id                */
+    GX_COLOR_ID_TEXT_INPUT_TEXT,             /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_text_button_create,            /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {16, 14, 205, 77},                       /* widget size                    */
+    &SoundOptionScreen_SetupSounds_Button_define, /* next widget definition    */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(SOUNDOPTIONSCREEN_CONTROL_BLOCK, SoundOptionScreen_Sound_Button), /* control block */
+    (void *) &SoundOptionScreen_Sound_Button_properties /* extended properties */
+};
+
+GX_CONST GX_STUDIO_WIDGET SoundOptionScreen_PadSettingsScreenBackdrop_define =
+{
+    "PadSettingsScreenBackdrop",
+    GX_TYPE_WINDOW,                          /* widget type                    */
+    GX_ID_NONE,                              /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE,                    /* style flags                    */
+    0,                                       /* status flags                   */
+    sizeof(GX_WINDOW),                       /* control block size             */
+    GX_COLOR_ID_SCROLL_BUTTON,               /* normal color id                */
+    GX_COLOR_ID_WINDOW_FILL,                 /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_window_create,                 /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {0, 0, 479, 271},                        /* widget size                    */
+    GX_NULL,                                 /* no next widget                 */
+    &SoundOptionScreen_Sound_Button_define,  /* child widget definition        */
+    offsetof(SOUNDOPTIONSCREEN_CONTROL_BLOCK, SoundOptionScreen_PadSettingsScreenBackdrop), /* control block */
+    (void *) &SoundOptionScreen_PadSettingsScreenBackdrop_properties /* extended properties */
+};
+
+GX_CONST GX_STUDIO_WIDGET SoundOptionScreen_define =
+{
+    "SoundOptionScreen",
+    GX_TYPE_TEMPLATE,                        /* widget type                    */
+    SOUND_OPTIONS_SCREEN_ID,                 /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_THIN,                    /* style flags                    */
+    0,                                       /* status flags                   */
+    sizeof(SOUNDOPTIONSCREEN_CONTROL_BLOCK), /* control block size             */
+    GX_COLOR_ID_WINDOW_FILL,                 /* normal color id                */
+    GX_COLOR_ID_WINDOW_FILL,                 /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_template_create,               /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    (UINT (*)(GX_WIDGET *, GX_EVENT *)) SoundOptionScreen_event_process, /* event function override */
+    {0, 0, 479, 399},                        /* widget size                    */
+    GX_NULL,                                 /* next widget                    */
+    &SoundOptionScreen_PadSettingsScreenBackdrop_define, /* child widget       */
+    0,                                       /* control block                  */
+    (void *) &SoundOptionScreen_properties   /* extended properties            */
 };
 GX_TEMPLATE_PROPERTIES MainUserScreen_properties =
 {
@@ -7229,6 +7658,9 @@ GX_CONST GX_STUDIO_WIDGET DiagnosticScreen_define =
 };
 GX_CONST GX_STUDIO_WIDGET_ENTRY ASL4321_Display_Demo_widget_table[] =
 {
+    { &SoundSetupScreen_define, (GX_WIDGET *) &SoundSetupScreen },
+    { &ManageSoundScreen_define, (GX_WIDGET *) &ManageSoundScreen },
+    { &SoundOptionScreen_define, (GX_WIDGET *) &SoundOptionScreen },
     { &MainUserScreen_define, (GX_WIDGET *) &MainUserScreen },
     { &FeatureSettingsScreen_define, (GX_WIDGET *) &FeatureSettingsScreen },
     { &HHP_Start_Screen_define, (GX_WIDGET *) &HHP_Start_Screen },

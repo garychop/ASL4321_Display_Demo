@@ -33,7 +33,7 @@ typedef enum MENU_POSITION_E
 	BLUETOOTH_SETUP_MENU_POS,
 	SEATING_SETUP_MENU_POS,
 	AUDIBLE_USAGE_MENU_POS,
-	SOUNDS_MENU_POS,
+//	SOUNDS_MENU_POS,
 	PERFORMANCE_MENU_POS,
 	DIAGNOSTICS_MENU_POS,
 	END_OF_LIST_MENU_POS
@@ -116,9 +116,9 @@ void PopulateMenuItems(void)
 	g_MenuItems[AUDIBLE_USAGE_MENU_POS].m_TextID = GX_STRING_ID_AUDIBLE_USAGE;
 	g_MenuItems[AUDIBLE_USAGE_MENU_POS].m_Enabled = TRUE;
 	// SOUNDS
-	g_MenuItems[SOUNDS_MENU_POS].m_ButtonID = 1006;
-	g_MenuItems[SOUNDS_MENU_POS].m_TextID = GX_STRING_ID_SOUNDS;
-	g_MenuItems[SOUNDS_MENU_POS].m_Enabled = TRUE;
+	//g_MenuItems[SOUNDS_MENU_POS].m_ButtonID = 1006;
+	//g_MenuItems[SOUNDS_MENU_POS].m_TextID = GX_STRING_ID_SOUNDS;
+	//g_MenuItems[SOUNDS_MENU_POS].m_Enabled = TRUE;
 	// PERFORMANCE
 	g_MenuItems[PERFORMANCE_MENU_POS].m_ButtonID = 1007;
 	g_MenuItems[PERFORMANCE_MENU_POS].m_TextID = GX_STRING_ID_STRING_94;
@@ -271,11 +271,11 @@ UINT HHP_Start_Screen_event_process_new (GX_WINDOW *window, GX_EVENT *event_ptr)
 		//	screen_toggle ((GX_WINDOW*) &UserSettingsScreen, window);
 			break;
 		case AUDIBLE_USAGE_MENU_POS:	// AUDIBLE USAGE
-		//	screen_toggle ((GX_WINDOW*) &UserSettingsScreen, window);
+			screen_toggle ((GX_WINDOW*) &SoundOptionScreen, window);
 			break;
-		case SOUNDS_MENU_POS:	// SOUNDS
-		//	screen_toggle ((GX_WINDOW*) &UserSettingsScreen, window);
-			break;
+		//case SOUNDS_MENU_POS:	// SOUNDS
+		////	screen_toggle ((GX_WINDOW*) &UserSettingsScreen, window);
+		//	break;
 		case PERFORMANCE_MENU_POS:	// PERFORMANCE
 			screen_toggle ((GX_WINDOW*) &PerformanceSelectionScreen, window);
 			break;
