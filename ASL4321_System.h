@@ -19,7 +19,6 @@
 #define MAXIMUM_DRIVE_SPEED (40)
 #define FEATURE_TOGGLE_BUTTON_ID 1000	// this is used as the dynamically created buttons in the feature list.
 
-// The following hold the Digital (non0) vs Proportional (0) setting for each pad.
 typedef enum FEATURE_ID {
 	POWER_ONOFF_ID,
 	BLUETOOTH_ID,
@@ -70,6 +69,7 @@ extern FEATURE_ID_ENUM g_ActiveFeature;
 extern int g_ActiveGroup;
 extern int g_ActiveSpeakerGroup;
 extern int g_ActiveSeatingGroup;
+extern int g_BluetoothGroup;
 
 
 //*****************************************************************************

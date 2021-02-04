@@ -67,6 +67,23 @@ void DisplayPadFeatures()
 			break;
 		} // end switch 
 		break;
+	case BLUETOOTH_ID:
+		switch (g_BluetoothGroup)
+		{
+		case 0:
+			gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_ForwardPad_Button, GX_PIXELMAP_ID_MOUSEUPDOWN_88X70);
+			gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_ReversePad_Button, GX_PIXELMAP_ID_PADDOWNARROW_DISABLED);
+			gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_LeftPad_Button, GX_PIXELMAP_ID_MOUSELEFTCLICK_88X70);
+			gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_RightPad_Button, GX_PIXELMAP_ID_MOUSELEFT_88X70);
+			break;
+		case 1:
+			gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_ForwardPad_Button, GX_PIXELMAP_ID_PADUPARROW_DISABLED);
+			gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_ReversePad_Button, GX_PIXELMAP_ID_PADDOWNARROW_DISABLED);
+			gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_LeftPad_Button, GX_PIXELMAP_ID_LEFTWHITEARROW);
+			gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_RightPad_Button, GX_PIXELMAP_ID_RIGHTWHITEARROW);
+			break;
+		} // end switch on Bluetooth group.
+		break;
 	default:
 		gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_ForwardPad_Button, GX_PIXELMAP_ID_UPWHITEARROW);
 		gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_ReversePad_Button, GX_PIXELMAP_ID_PADDOWNARROW_ENABLED);
@@ -432,6 +449,12 @@ UINT MainUserScreen_EventFunction (GX_WINDOW *window, GX_EVENT *event_ptr)
 					++g_ActiveSeatingGroup;
 					if (g_ActiveSeatingGroup > 1)
 						g_ActiveSeatingGroup = 0;
+					DisplayMainScreenActiveFeatures();
+					break;
+				case BLUETOOTH_ID:
+					++g_BluetoothGroup;
+					if (g_BluetoothGroup > 1)
+						g_BluetoothGroup = 0;
 					DisplayMainScreenActiveFeatures();
 					break;
 				default:

@@ -62,6 +62,7 @@ FEATURE_ID_ENUM g_ActiveFeature = POWER_ONOFF_ID;
 int g_ActiveGroup = 0;
 int g_ActiveSpeakerGroup = 0;
 int g_ActiveSeatingGroup = 0;
+int g_BluetoothGroup = 0;
 
 //*************************************************************************************
 // GLOBAL VARIABLES
