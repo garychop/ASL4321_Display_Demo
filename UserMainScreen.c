@@ -1,5 +1,5 @@
 //*****************************************************************************
-// Filename: UserMainScreen.cpp
+// Filename: UserMainScreen.c
 // Description: This file displays the User's Main Screen and handling
 //	the front panel button pushes.
 //
@@ -12,117 +12,6 @@
 #include "ASL4321_System.h"
 
 //*************************************************************************************
-
-VOID Initialize_MainScreenInfo()
-{
-	int feature, line;
-
-    // Populate the screen stuff.
-    // "Power ON/OFF" information and description
-    g_MainScreenFeatureInfo[POWER_ONOFF_ID].m_Enabled = TRUE;
-    g_MainScreenFeatureInfo[POWER_ONOFF_ID].m_Available = TRUE;
-    g_MainScreenFeatureInfo[POWER_ONOFF_ID].m_Location = 0;
-    g_MainScreenFeatureInfo[POWER_ONOFF_ID].m_LargeDescriptionID = GX_STRING_ID_POWER_ONOFF; //"POWER ON/OFF"
-    g_MainScreenFeatureInfo[POWER_ONOFF_ID].m_SmallDescriptionID = GX_STRING_ID_POWER_ONOFF;
-    g_MainScreenFeatureInfo[POWER_ONOFF_ID].m_SmallIcon = GX_PIXELMAP_ID_POWERICON_30X30;
-    g_MainScreenFeatureInfo[POWER_ONOFF_ID].m_LargeIcon = GX_PIXELMAP_ID_POWERICON_LARGE;
-	g_MainScreenFeatureInfo[POWER_ONOFF_ID].m_FeatureIconID = GX_PIXELMAP_ID_DRIVING_60X50;
-
-    // "Bluetooth" information and description
-    g_MainScreenFeatureInfo[BLUETOOTH_ID].m_Enabled = TRUE;
-    g_MainScreenFeatureInfo[BLUETOOTH_ID].m_Available = TRUE;
-    g_MainScreenFeatureInfo[BLUETOOTH_ID].m_Location = 0;
-    g_MainScreenFeatureInfo[BLUETOOTH_ID].m_LargeDescriptionID = GX_STRING_ID_BLUETOOTH;
-    g_MainScreenFeatureInfo[BLUETOOTH_ID].m_SmallDescriptionID = GX_STRING_ID_BLUETOOTH;
-    g_MainScreenFeatureInfo[BLUETOOTH_ID].m_SmallIcon = GX_PIXELMAP_ID_BLUETOOTH_30X30;
-    g_MainScreenFeatureInfo[BLUETOOTH_ID].m_LargeIcon = GX_PIXELMAP_ID_BLUETOOTH_70X70;
-	g_MainScreenFeatureInfo[BLUETOOTH_ID].m_FeatureIconID = GX_PIXELMAP_ID_BLUETOOTH_60X50;
-
-    // "Next Function" information and description
-    g_MainScreenFeatureInfo[NEXT_FUNCTION_OR_TOGGLE_ID].m_Enabled = TRUE;
-    g_MainScreenFeatureInfo[NEXT_FUNCTION_OR_TOGGLE_ID].m_Available = TRUE;
-    g_MainScreenFeatureInfo[NEXT_FUNCTION_OR_TOGGLE_ID].m_Location = 0;
-    g_MainScreenFeatureInfo[NEXT_FUNCTION_OR_TOGGLE_ID].m_LargeDescriptionID = GX_STRING_ID_NEXT_FUNCTION; // "NEXT FUNCTION")
-    g_MainScreenFeatureInfo[NEXT_FUNCTION_OR_TOGGLE_ID].m_SmallDescriptionID = GX_STRING_ID_NEXT_FUNCTION;
-    g_MainScreenFeatureInfo[NEXT_FUNCTION_OR_TOGGLE_ID].m_SmallIcon = GX_PIXELMAP_ID_FUNCTIONNEXT_30X30;
-    g_MainScreenFeatureInfo[NEXT_FUNCTION_OR_TOGGLE_ID].m_LargeIcon = GX_PIXELMAP_ID_FUNCTIONNEXT_70X70;
-	g_MainScreenFeatureInfo[NEXT_FUNCTION_OR_TOGGLE_ID].m_FeatureIconID = GX_PIXELMAP_ID_DRIVING_60X50;
-
-    // "Next Profile" information and description
-    g_MainScreenFeatureInfo[NEXT_PROFILE_OR_USER_MENU_ID].m_Enabled = TRUE;
-    g_MainScreenFeatureInfo[NEXT_PROFILE_OR_USER_MENU_ID].m_Available = TRUE;
-    g_MainScreenFeatureInfo[NEXT_PROFILE_OR_USER_MENU_ID].m_Location = 0;
-    g_MainScreenFeatureInfo[NEXT_PROFILE_OR_USER_MENU_ID].m_LargeDescriptionID = GX_STRING_ID_NEXT_PROFILE; // "NEXT PROFILE"
-    g_MainScreenFeatureInfo[NEXT_PROFILE_OR_USER_MENU_ID].m_SmallDescriptionID = GX_STRING_ID_NEXT_PROFILE;
-    g_MainScreenFeatureInfo[NEXT_PROFILE_OR_USER_MENU_ID].m_SmallIcon = GX_PIXELMAP_ID_PROFILENEXT_30X30;
-    g_MainScreenFeatureInfo[NEXT_PROFILE_OR_USER_MENU_ID].m_LargeIcon = GX_PIXELMAP_ID_PROFILENEXT_70X70;
-	g_MainScreenFeatureInfo[NEXT_PROFILE_OR_USER_MENU_ID].m_FeatureIconID = GX_PIXELMAP_ID_DRIVING_60X50;
-
-    // "RNet SEATING" information and description
-    g_MainScreenFeatureInfo[RNET_SEATING_ID].m_Enabled = g_RNet_Active;
-    g_MainScreenFeatureInfo[RNET_SEATING_ID].m_Available = g_RNet_Active;
-    g_MainScreenFeatureInfo[RNET_SEATING_ID].m_Location = 0;
-    g_MainScreenFeatureInfo[RNET_SEATING_ID].m_LargeDescriptionID = GX_STRING_ID_RNET_SEATING;
-    g_MainScreenFeatureInfo[RNET_SEATING_ID].m_SmallDescriptionID = GX_STRING_ID_RNET_SEATING;
-    g_MainScreenFeatureInfo[RNET_SEATING_ID].m_SmallIcon = GX_PIXELMAP_ID_RNET_SEATING_30X30;
-    g_MainScreenFeatureInfo[RNET_SEATING_ID].m_LargeIcon = GX_PIXELMAP_ID_RNET_SEATING_A_70X70;
-	g_MainScreenFeatureInfo[RNET_SEATING_ID].m_FeatureIconID = GX_PIXELMAP_ID_BLANK_60X50;
-
-    // "SLEEP" information and description
-    g_MainScreenFeatureInfo[RNET_SLEEP_FEATURE_ID].m_Enabled = g_RNet_Active;
-    g_MainScreenFeatureInfo[RNET_SLEEP_FEATURE_ID].m_Available = g_RNet_Active;
-    g_MainScreenFeatureInfo[RNET_SLEEP_FEATURE_ID].m_Location = 0;
-    g_MainScreenFeatureInfo[RNET_SLEEP_FEATURE_ID].m_LargeDescriptionID = GX_STRING_ID_RNET_SLEEP;
-    g_MainScreenFeatureInfo[RNET_SLEEP_FEATURE_ID].m_SmallDescriptionID = GX_STRING_ID_RNET_SLEEP;
-    g_MainScreenFeatureInfo[RNET_SLEEP_FEATURE_ID].m_SmallIcon = GX_PIXELMAP_ID_RNET_SLEEP_30X30;
-    g_MainScreenFeatureInfo[RNET_SLEEP_FEATURE_ID].m_LargeIcon = GX_PIXELMAP_ID_RNET_SLEEP_70X70;
-	g_MainScreenFeatureInfo[RNET_SLEEP_FEATURE_ID].m_FeatureIconID = GX_PIXELMAP_ID_BLANK_60X50;
-
-	// "NEXT GROUP" information and description
-    g_MainScreenFeatureInfo[NEXT_GROUP_ID].m_Enabled = TRUE;
-    g_MainScreenFeatureInfo[NEXT_GROUP_ID].m_Available = TRUE;
-    g_MainScreenFeatureInfo[NEXT_GROUP_ID].m_Location = 0;
-    g_MainScreenFeatureInfo[NEXT_GROUP_ID].m_LargeDescriptionID = GX_STRING_ID_NEXT_GROUP;
-    g_MainScreenFeatureInfo[NEXT_GROUP_ID].m_SmallDescriptionID = GX_STRING_ID_NEXT_GROUP;
-    g_MainScreenFeatureInfo[NEXT_GROUP_ID].m_SmallIcon = GX_PIXELMAP_ID_NEXTGROUP_30X30_E2;
-    g_MainScreenFeatureInfo[NEXT_GROUP_ID].m_LargeIcon = GX_PIXELMAP_ID_NEXTGROUP_70X70_E2;
-	g_MainScreenFeatureInfo[NEXT_GROUP_ID].m_FeatureIconID = GX_PIXELMAP_ID_DRIVING_60X50;
-
-	// "AUDIBLE OUT" information and description
-    g_MainScreenFeatureInfo[AUDIBLE_OUT_FEATURE_ID].m_Enabled = TRUE;
-    g_MainScreenFeatureInfo[AUDIBLE_OUT_FEATURE_ID].m_Available = TRUE;
-    g_MainScreenFeatureInfo[AUDIBLE_OUT_FEATURE_ID].m_Location = 0;
-    g_MainScreenFeatureInfo[AUDIBLE_OUT_FEATURE_ID].m_LargeDescriptionID = GX_STRING_ID_BLANK;
-    g_MainScreenFeatureInfo[AUDIBLE_OUT_FEATURE_ID].m_SmallDescriptionID = GX_STRING_ID_BLANK;
-    g_MainScreenFeatureInfo[AUDIBLE_OUT_FEATURE_ID].m_SmallIcon = GX_PIXELMAP_ID_SPEAKER_30X30;
-    g_MainScreenFeatureInfo[AUDIBLE_OUT_FEATURE_ID].m_LargeIcon = GX_PIXELMAP_ID_SPEAKER_70X70;
-	g_MainScreenFeatureInfo[AUDIBLE_OUT_FEATURE_ID].m_FeatureIconID = GX_PIXELMAP_ID_SPEAKER_60X50;
-
-	// SEATING informaton and description
-    g_MainScreenFeatureInfo[SEATING_FEATURE_ID].m_Enabled = TRUE;
-    g_MainScreenFeatureInfo[SEATING_FEATURE_ID].m_Available = TRUE;
-    g_MainScreenFeatureInfo[SEATING_FEATURE_ID].m_Location = 0;
-    g_MainScreenFeatureInfo[SEATING_FEATURE_ID].m_LargeDescriptionID = GX_STRING_ID_BLANK;
-    g_MainScreenFeatureInfo[SEATING_FEATURE_ID].m_SmallDescriptionID = GX_STRING_ID_BLANK;
-    g_MainScreenFeatureInfo[SEATING_FEATURE_ID].m_SmallIcon = GX_PIXELMAP_ID_SEATINGA_30X30;
-    g_MainScreenFeatureInfo[SEATING_FEATURE_ID].m_LargeIcon = GX_PIXELMAP_ID_SEATING_70X70;
-	g_MainScreenFeatureInfo[SEATING_FEATURE_ID].m_FeatureIconID = GX_PIXELMAP_ID_SEATING_60X50;
-		
-	if (g_RNet_Active == FALSE)
-	{
-		g_MainScreenFeatureInfo[RNET_SLEEP_FEATURE_ID].m_Available = FALSE;
-		g_MainScreenFeatureInfo[RNET_SLEEP_FEATURE_ID].m_Location = 0;
-	}
-
-	line = 0;
-	for (feature=0; feature < NUM_FEATURES; ++feature)
-	{
-		if (g_MainScreenFeatureInfo[feature].m_Enabled && g_MainScreenFeatureInfo[feature].m_Available)
-			g_MainScreenFeatureInfo[feature].m_Location = line++;
-			
-	}
-
-}
 
 //*************************************************************************************
 // Function Name: DisplayMainScreenActiveFeatures

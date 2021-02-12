@@ -15,9 +15,28 @@
 #include "asl4321_display_demo_resources.h"
 #include "asl4321_display_demo_specifications.h"
 #include "custom_checkbox.h"
+#include "PadInfo.h"
+
+#define MAX_GROUPS (4)
 
 #define MAXIMUM_DRIVE_SPEED (40)
 #define FEATURE_TOGGLE_BUTTON_ID 1000	// this is used as the dynamically created buttons in the feature list.
+typedef enum BUTTON_IDS {
+	PAD_SETTINGS_BUTTON_ID = FEATURE_TOGGLE_BUTTON_ID,
+	USER_SETTINGS_BUTTON_ID,
+	FEATURE_LIST_BUTTON_ID,
+	BLUETOOTH_SETUP_BUTTON_ID,
+	SEATING_SETUP_BUTTON_ID,
+	AUDIBLE_USAGE_BUTTON_ID,
+	PERFORMANCE_MENU_BUTTON_ID,
+	DIAGNOSTICS_MENU_BUTTON_ID,
+	PAD_OPTIONS_SET_PAD_TYPE_BUTTON_ID,
+	PAD_OPTIONS_SET_PAD_DIRECTION_BUTTON_ID,
+	PAD_OPTIONS_SET_MINIMUM_SPEED_BUTTON_ID,
+	PAD_OPTIONS_SET_NEUTRAL_WINDOW_BUTTON_ID,
+	PAD_OPTIONS_SET_JOYSTICK_THROW_MAX_BUTTON_ID,
+	LAST_MENU_BUTTON_ID // make sure this one is last.
+} BUTTON_IDS_ENUM;
 
 typedef enum FEATURE_ID {
 	POWER_ONOFF_ID,
@@ -29,11 +48,13 @@ typedef enum FEATURE_ID {
 	NEXT_GROUP_ID,
 	AUDIBLE_OUT_FEATURE_ID,
 	SEATING_FEATURE_ID,
+	TECLA_E_FEATURE_ID,
 	NUM_FEATURES} FEATURE_ID_ENUM; // NUM_FEATURES must be last enum
 
 
 typedef enum ENUM_TIMER_IDS {ARROW_PUSHED_TIMER_ID = 1, CALIBRATION_TIMER_ID, PAD_ACTIVE_TIMER_ID, USER_PORT_PUSHED_TIMER_ID} ENUM_TIMER_IDS_ENUM;
 typedef enum ENUM_MODE_SWITCH_SCHEMA {MODE_SWITCH_PIN5, MODE_SWITCH_REVERSE} MODE_SWITCH_SCHEMA_ENUM;
+typedef enum ENUM_DEVICE_TYPE {DEVICE_TYPE_HEAD_ARRAY, DEVICE_TYPE_PROPORTIONAL_JOYSTICK, DEVICE_TYPE_DIGITAL_JOYSTICK, END_OF_DEVICE_TYPES} DEVICE_TYPE_ENUM;
 
 typedef struct MAIN_SCREEN_FEATURE_STRUCT
 {
@@ -50,6 +71,33 @@ typedef struct MAIN_SCREEN_FEATURE_STRUCT
 	GX_CHECKBOX m_ButtonWidget;
     CUSTOM_CHECKBOX m_Checkbox;
 } MAIN_SCREEN_FEATURE;
+
+typedef struct CUSTOM_MENU_BUTTON_STRUCT{
+//    GX_BUTTON_MEMBERS_DECLARE
+    GX_WIDGET m_MenuWidget;
+	GX_PROMPT m_PromptWidget;
+	GX_TEXT_BUTTON m_ButtonWidget;
+	USHORT m_ButtonID;
+	GX_RESOURCE_ID m_TextID;
+	USHORT m_Enabled;
+	//INT start_offset;
+ //   INT end_offset;
+ //   INT cur_offset;
+} CUSTOM_MENU_BUTTON;
+
+//typedef struct //DEVICE_STRUCT_DEFINE
+//{
+//	DEVICE_TYPE_ENUM m_DeviceType;
+//	GX_RESOURCE_ID m_DeviceIcon;
+//} DEVICE_STRUCT;
+
+typedef struct //GROUP_STRUCT_DEFINE
+{
+	DEVICE_TYPE_ENUM m_DeviceType;
+	PAD_INFO_STRUCT m_GroupPadInfo[MAX_PHYSICAL_PADS];
+} GROUP_STRUCT;
+extern GROUP_STRUCT g_GroupInfo[MAX_GROUPS];
+
 
 //*****************************************************************************
 // GLOBAL VARIABLES
@@ -78,7 +126,11 @@ extern int g_BluetoothGroup;
 
 VOID screen_toggle(GX_WINDOW *new_win, GX_WINDOW *old_win);
 VOID screen_switch(GX_WIDGET *parent, GX_WIDGET *new_screen);
-VOID SetGroupIcon (GX_ICON_BUTTON *icon_button);
 
+VOID SelectNextGroup(VOID);
+VOID SetGroupIcon (GX_ICON_BUTTON *icon_button);
+VOID ShowDeviceIcon (GX_ICON *icon);
+VOID SelectNextDevice (VOID);
+VOID InitializeGroupInformation (VOID);
 
 #endif // ASL165_SYSTEM_H

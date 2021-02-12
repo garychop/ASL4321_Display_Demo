@@ -137,16 +137,20 @@ VOID  start_guix(VOID)
 
 	Initialize_MainScreenInfo();
 
+	InitializeGroupInformation();
+
 	InitializePadInformation();
 
 //    myError = gx_studio_named_widget_create("PrimaryTemplate", (GX_WIDGET *)root, GX_NULL);
 	myError = gx_studio_named_widget_create("DiagnosticScreen", GX_NULL, GX_NULL);
 	myError = gx_studio_named_widget_create("FeatureSettingsScreen", GX_NULL, GX_NULL);
 	myError = gx_studio_named_widget_create("HHP_Start_Screen", GX_NULL, GX_NULL);
+	myError = gx_studio_named_widget_create("JoystickThrowScreen", GX_NULL, GX_NULL);
 	//myError = gx_studio_named_widget_create("MainUserScreen", , GX_NULL, GX_NULL);
 	myError = gx_studio_named_widget_create("MainUserScreen", (GX_WIDGET *)root, GX_NULL);
 	myError = gx_studio_named_widget_create("ManageSoundScreen", GX_NULL, GX_NULL);
 	myError = gx_studio_named_widget_create("MinimumDriveScreen", GX_NULL, GX_NULL);
+	myError = gx_studio_named_widget_create("NeutralWindowScreen", GX_NULL, GX_NULL);
 	myError = gx_studio_named_widget_create("MoreSelectionScreen", GX_NULL, GX_NULL);
 	myError = gx_studio_named_widget_create("PerformanceSelectionScreen", GX_NULL, GX_NULL);
 	myError = gx_studio_named_widget_create("OON_Screen", GX_NULL, GX_NULL);
@@ -196,23 +200,54 @@ VOID SetGroupIcon (GX_ICON_BUTTON *icon_button)
 	switch (g_ActiveGroup)
 	{
 	case 0:
-		gx_icon_button_pixelmap_set (icon_button, GX_PIXELMAP_ID_GROUPA);
+		gx_icon_button_pixelmap_set (icon_button, GX_PIXELMAP_ID_GROUPA_64X64);
 		break;
 	case 1:
-		gx_icon_button_pixelmap_set (icon_button, GX_PIXELMAP_ID_GROUPB);
+		gx_icon_button_pixelmap_set (icon_button, GX_PIXELMAP_ID_GROUPB_64X64);
 		break;
 	case 2:
-		gx_icon_button_pixelmap_set (icon_button, GX_PIXELMAP_ID_GROUPC);
+		gx_icon_button_pixelmap_set (icon_button, GX_PIXELMAP_ID_GROUPC_64X64);
 		break;
 	case 3:
-		gx_icon_button_pixelmap_set (icon_button, GX_PIXELMAP_ID_GROUPD);
+		gx_icon_button_pixelmap_set (icon_button, GX_PIXELMAP_ID_GROUPD_64X64);
 		break;
 	default:
 		break;
 	} // end of switch
 }
 
-////******************************************************************************************
+//******************************************************************************************
+
+VOID ShowDeviceIcon (GX_ICON *icon)
+{
+	switch (g_GroupInfo[g_ActiveGroup].m_DeviceType)
+	{
+	case DEVICE_TYPE_HEAD_ARRAY:
+		gx_icon_pixelmap_set (icon, GX_PIXELMAP_ID_DEVICETYPE_HEADARRAY_88X70, GX_PIXELMAP_ID_DEVICETYPE_HEADARRAY_88X70);
+		break;
+	case DEVICE_TYPE_PROPORTIONAL_JOYSTICK:
+		gx_icon_pixelmap_set (icon, GX_PIXELMAP_ID_DEVICETYPE_JOYSTICK_88X70, GX_PIXELMAP_ID_DEVICETYPE_JOYSTICK_88X70);
+		break;
+	case DEVICE_TYPE_DIGITAL_JOYSTICK:
+		gx_icon_pixelmap_set (icon, GX_PIXELMAP_ID_DEVICETYPE_DIGITALJOYSTICK_88X70, GX_PIXELMAP_ID_DEVICETYPE_DIGITALJOYSTICK_88X70);
+		break;
+	case END_OF_DEVICE_TYPES:
+	default:
+		gx_icon_pixelmap_set (icon, GX_PIXELMAP_ID_BLANK_60X50, GX_PIXELMAP_ID_BLANK_60X50);
+		break;
+	} // end switch
+}
+
+//******************************************************************************************
+
+VOID SelectNextDevice (VOID)
+{
+	++g_GroupInfo[g_ActiveGroup].m_DeviceType;
+	if (g_GroupInfo[g_ActiveGroup].m_DeviceType == END_OF_DEVICE_TYPES)
+		g_GroupInfo[g_ActiveGroup].m_DeviceType = (DEVICE_TYPE_ENUM) 0;
+}
+
+//******************************************************************************************
 //VOID screen_switch(GX_WIDGET *parent, GX_WIDGET *new_screen)
 //{
 //    gx_widget_detach(current_screen);

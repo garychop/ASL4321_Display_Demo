@@ -8,19 +8,136 @@ static int mycounter=0;
 static unsigned char g_Inhibit_UpButtonResponse = FALSE;
 static int g_GroupIcon = 0;
 
-//*************************************************************************************
-// Function Name: DisplayMainScreenActiveFeatures
-//
-// Description: This displays the features that are active in the order specificed
-//	in the Screen Prompts "objects".
-//
-//*************************************************************************************
+VOID Initialize_MainScreenInfo()
+{
+	int feature, line;
+
+    // Populate the screen stuff.
+    // "Power ON/OFF" information and description
+    g_MainScreenFeatureInfo[POWER_ONOFF_ID].m_Enabled = TRUE;
+    g_MainScreenFeatureInfo[POWER_ONOFF_ID].m_Available = TRUE;
+    g_MainScreenFeatureInfo[POWER_ONOFF_ID].m_Location = 0;
+    g_MainScreenFeatureInfo[POWER_ONOFF_ID].m_LargeDescriptionID = GX_STRING_ID_POWER_ONOFF; //"POWER ON/OFF"
+    g_MainScreenFeatureInfo[POWER_ONOFF_ID].m_SmallDescriptionID = GX_STRING_ID_POWER_ONOFF;
+    g_MainScreenFeatureInfo[POWER_ONOFF_ID].m_SmallIcon = GX_PIXELMAP_ID_POWERICON_30X30;
+    g_MainScreenFeatureInfo[POWER_ONOFF_ID].m_LargeIcon = GX_PIXELMAP_ID_POWERICON_LARGE;
+	g_MainScreenFeatureInfo[POWER_ONOFF_ID].m_FeatureIconID = GX_PIXELMAP_ID_DRIVING_60X50;
+
+    // "Bluetooth" information and description
+    g_MainScreenFeatureInfo[BLUETOOTH_ID].m_Enabled = TRUE;
+    g_MainScreenFeatureInfo[BLUETOOTH_ID].m_Available = TRUE;
+    g_MainScreenFeatureInfo[BLUETOOTH_ID].m_Location = 0;
+    g_MainScreenFeatureInfo[BLUETOOTH_ID].m_LargeDescriptionID = GX_STRING_ID_BLUETOOTH;
+    g_MainScreenFeatureInfo[BLUETOOTH_ID].m_SmallDescriptionID = GX_STRING_ID_BLUETOOTH;
+    g_MainScreenFeatureInfo[BLUETOOTH_ID].m_SmallIcon = GX_PIXELMAP_ID_BLUETOOTH_30X30;
+    g_MainScreenFeatureInfo[BLUETOOTH_ID].m_LargeIcon = GX_PIXELMAP_ID_BLUETOOTH_70X70;
+	g_MainScreenFeatureInfo[BLUETOOTH_ID].m_FeatureIconID = GX_PIXELMAP_ID_BLUETOOTH_60X50;
+
+    // "Next Function" information and description
+    g_MainScreenFeatureInfo[NEXT_FUNCTION_OR_TOGGLE_ID].m_Enabled = TRUE;
+    g_MainScreenFeatureInfo[NEXT_FUNCTION_OR_TOGGLE_ID].m_Available = TRUE;
+    g_MainScreenFeatureInfo[NEXT_FUNCTION_OR_TOGGLE_ID].m_Location = 0;
+    g_MainScreenFeatureInfo[NEXT_FUNCTION_OR_TOGGLE_ID].m_LargeDescriptionID = GX_STRING_ID_NEXT_FUNCTION; // "NEXT FUNCTION")
+    g_MainScreenFeatureInfo[NEXT_FUNCTION_OR_TOGGLE_ID].m_SmallDescriptionID = GX_STRING_ID_NEXT_FUNCTION;
+    g_MainScreenFeatureInfo[NEXT_FUNCTION_OR_TOGGLE_ID].m_SmallIcon = GX_PIXELMAP_ID_FUNCTIONNEXT_30X30;
+    g_MainScreenFeatureInfo[NEXT_FUNCTION_OR_TOGGLE_ID].m_LargeIcon = GX_PIXELMAP_ID_FUNCTIONNEXT_70X70;
+	g_MainScreenFeatureInfo[NEXT_FUNCTION_OR_TOGGLE_ID].m_FeatureIconID = GX_PIXELMAP_ID_DRIVING_60X50;
+
+    // "Next Profile" information and description
+    g_MainScreenFeatureInfo[NEXT_PROFILE_OR_USER_MENU_ID].m_Enabled = TRUE;
+    g_MainScreenFeatureInfo[NEXT_PROFILE_OR_USER_MENU_ID].m_Available = TRUE;
+    g_MainScreenFeatureInfo[NEXT_PROFILE_OR_USER_MENU_ID].m_Location = 0;
+    g_MainScreenFeatureInfo[NEXT_PROFILE_OR_USER_MENU_ID].m_LargeDescriptionID = GX_STRING_ID_NEXT_PROFILE; // "NEXT PROFILE"
+    g_MainScreenFeatureInfo[NEXT_PROFILE_OR_USER_MENU_ID].m_SmallDescriptionID = GX_STRING_ID_NEXT_PROFILE;
+    g_MainScreenFeatureInfo[NEXT_PROFILE_OR_USER_MENU_ID].m_SmallIcon = GX_PIXELMAP_ID_PROFILENEXT_30X30;
+    g_MainScreenFeatureInfo[NEXT_PROFILE_OR_USER_MENU_ID].m_LargeIcon = GX_PIXELMAP_ID_PROFILENEXT_70X70;
+	g_MainScreenFeatureInfo[NEXT_PROFILE_OR_USER_MENU_ID].m_FeatureIconID = GX_PIXELMAP_ID_DRIVING_60X50;
+
+    // "RNet SEATING" information and description
+    g_MainScreenFeatureInfo[RNET_SEATING_ID].m_Enabled = g_RNet_Active;
+    g_MainScreenFeatureInfo[RNET_SEATING_ID].m_Available = g_RNet_Active;
+    g_MainScreenFeatureInfo[RNET_SEATING_ID].m_Location = 0;
+    g_MainScreenFeatureInfo[RNET_SEATING_ID].m_LargeDescriptionID = GX_STRING_ID_RNET_SEATING;
+    g_MainScreenFeatureInfo[RNET_SEATING_ID].m_SmallDescriptionID = GX_STRING_ID_RNET_SEATING;
+    g_MainScreenFeatureInfo[RNET_SEATING_ID].m_SmallIcon = GX_PIXELMAP_ID_RNET_SEATING_30X30;
+    g_MainScreenFeatureInfo[RNET_SEATING_ID].m_LargeIcon = GX_PIXELMAP_ID_RNET_SEATING_A_70X70;
+	g_MainScreenFeatureInfo[RNET_SEATING_ID].m_FeatureIconID = GX_PIXELMAP_ID_BLANK_60X50;
+
+    // "SLEEP" information and description
+    g_MainScreenFeatureInfo[RNET_SLEEP_FEATURE_ID].m_Enabled = g_RNet_Active;
+    g_MainScreenFeatureInfo[RNET_SLEEP_FEATURE_ID].m_Available = g_RNet_Active;
+    g_MainScreenFeatureInfo[RNET_SLEEP_FEATURE_ID].m_Location = 0;
+    g_MainScreenFeatureInfo[RNET_SLEEP_FEATURE_ID].m_LargeDescriptionID = GX_STRING_ID_RNET_SLEEP;
+    g_MainScreenFeatureInfo[RNET_SLEEP_FEATURE_ID].m_SmallDescriptionID = GX_STRING_ID_RNET_SLEEP;
+    g_MainScreenFeatureInfo[RNET_SLEEP_FEATURE_ID].m_SmallIcon = GX_PIXELMAP_ID_RNET_SLEEP_30X30;
+    g_MainScreenFeatureInfo[RNET_SLEEP_FEATURE_ID].m_LargeIcon = GX_PIXELMAP_ID_RNET_SLEEP_70X70;
+	g_MainScreenFeatureInfo[RNET_SLEEP_FEATURE_ID].m_FeatureIconID = GX_PIXELMAP_ID_BLANK_60X50;
+
+	// "NEXT GROUP" information and description
+    g_MainScreenFeatureInfo[NEXT_GROUP_ID].m_Enabled = TRUE;
+    g_MainScreenFeatureInfo[NEXT_GROUP_ID].m_Available = TRUE;
+    g_MainScreenFeatureInfo[NEXT_GROUP_ID].m_Location = 0;
+    g_MainScreenFeatureInfo[NEXT_GROUP_ID].m_LargeDescriptionID = GX_STRING_ID_NEXT_GROUP;
+    g_MainScreenFeatureInfo[NEXT_GROUP_ID].m_SmallDescriptionID = GX_STRING_ID_NEXT_GROUP;
+    g_MainScreenFeatureInfo[NEXT_GROUP_ID].m_SmallIcon = GX_PIXELMAP_ID_NEXTGROUP_30X30_E2;
+    g_MainScreenFeatureInfo[NEXT_GROUP_ID].m_LargeIcon = GX_PIXELMAP_ID_NEXTGROUP_70X70_E2;
+	g_MainScreenFeatureInfo[NEXT_GROUP_ID].m_FeatureIconID = GX_PIXELMAP_ID_DRIVING_60X50;
+
+	// "AUDIBLE OUT" information and description
+    g_MainScreenFeatureInfo[AUDIBLE_OUT_FEATURE_ID].m_Enabled = TRUE;
+    g_MainScreenFeatureInfo[AUDIBLE_OUT_FEATURE_ID].m_Available = TRUE;
+    g_MainScreenFeatureInfo[AUDIBLE_OUT_FEATURE_ID].m_Location = 0;
+    g_MainScreenFeatureInfo[AUDIBLE_OUT_FEATURE_ID].m_LargeDescriptionID = GX_STRING_ID_BLANK;
+    g_MainScreenFeatureInfo[AUDIBLE_OUT_FEATURE_ID].m_SmallDescriptionID = GX_STRING_ID_BLANK;
+    g_MainScreenFeatureInfo[AUDIBLE_OUT_FEATURE_ID].m_SmallIcon = GX_PIXELMAP_ID_SPEAKER_30X30;
+    g_MainScreenFeatureInfo[AUDIBLE_OUT_FEATURE_ID].m_LargeIcon = GX_PIXELMAP_ID_SPEAKER_70X70;
+	g_MainScreenFeatureInfo[AUDIBLE_OUT_FEATURE_ID].m_FeatureIconID = GX_PIXELMAP_ID_SPEAKER_60X50;
+
+	// SEATING informaton and description
+    g_MainScreenFeatureInfo[SEATING_FEATURE_ID].m_Enabled = TRUE;
+    g_MainScreenFeatureInfo[SEATING_FEATURE_ID].m_Available = TRUE;
+    g_MainScreenFeatureInfo[SEATING_FEATURE_ID].m_Location = 0;
+    g_MainScreenFeatureInfo[SEATING_FEATURE_ID].m_LargeDescriptionID = GX_STRING_ID_BLANK;
+    g_MainScreenFeatureInfo[SEATING_FEATURE_ID].m_SmallDescriptionID = GX_STRING_ID_BLANK;
+    g_MainScreenFeatureInfo[SEATING_FEATURE_ID].m_SmallIcon = GX_PIXELMAP_ID_SEATINGA_30X30;
+    g_MainScreenFeatureInfo[SEATING_FEATURE_ID].m_LargeIcon = GX_PIXELMAP_ID_SEATING_70X70;
+	g_MainScreenFeatureInfo[SEATING_FEATURE_ID].m_FeatureIconID = GX_PIXELMAP_ID_SEATING_60X50;
+		
+	// Tecla-E informaton and description
+    g_MainScreenFeatureInfo[TECLA_E_FEATURE_ID].m_Enabled = TRUE;
+    g_MainScreenFeatureInfo[TECLA_E_FEATURE_ID].m_Available = TRUE;
+    g_MainScreenFeatureInfo[TECLA_E_FEATURE_ID].m_Location = 0;
+    g_MainScreenFeatureInfo[TECLA_E_FEATURE_ID].m_LargeDescriptionID = GX_STRING_ID_BLANK;
+    g_MainScreenFeatureInfo[TECLA_E_FEATURE_ID].m_SmallDescriptionID = GX_STRING_ID_BLANK;
+    g_MainScreenFeatureInfo[TECLA_E_FEATURE_ID].m_SmallIcon = GX_PIXELMAP_ID_TECLAE_30X30;
+    g_MainScreenFeatureInfo[TECLA_E_FEATURE_ID].m_LargeIcon = GX_PIXELMAP_ID_TECLAE_70X70;
+	g_MainScreenFeatureInfo[TECLA_E_FEATURE_ID].m_FeatureIconID = GX_PIXELMAP_ID_TECLAE_60X50;
+		
+	if (g_RNet_Active == FALSE)
+	{
+		g_MainScreenFeatureInfo[RNET_SLEEP_FEATURE_ID].m_Available = FALSE;
+		g_MainScreenFeatureInfo[RNET_SLEEP_FEATURE_ID].m_Location = 0;
+	}
+
+	line = 0;
+	for (feature=0; feature < NUM_FEATURES; ++feature)
+	{
+		if (g_MainScreenFeatureInfo[feature].m_Enabled && g_MainScreenFeatureInfo[feature].m_Available)
+			g_MainScreenFeatureInfo[feature].m_Location = line++;
+			
+	}
+
+}
 
 void DisplayPadFeatures()
 {
 	switch (g_ActiveFeature)
 	{
 	case AUDIBLE_OUT_FEATURE_ID:
+		gx_widget_show (&MainUserScreen.MainUserScreen_ForwardPad_Button);
+		gx_widget_show (&MainUserScreen.MainUserScreen_ReversePad_Button);
+		gx_widget_show (&MainUserScreen.MainUserScreen_LeftPad_Button);
+		gx_widget_show (&MainUserScreen.MainUserScreen_RightPad_Button);
 		switch (g_ActiveSpeakerGroup)
 		{
 		default:
@@ -51,6 +168,10 @@ void DisplayPadFeatures()
 		} // end switch
 		break;
 	case SEATING_FEATURE_ID:
+		gx_widget_show (&MainUserScreen.MainUserScreen_ForwardPad_Button);
+		gx_widget_show (&MainUserScreen.MainUserScreen_ReversePad_Button);
+		gx_widget_show (&MainUserScreen.MainUserScreen_LeftPad_Button);
+		gx_widget_show (&MainUserScreen.MainUserScreen_RightPad_Button);
 		switch (g_ActiveSeatingGroup)
 		{
 		case 0:
@@ -68,6 +189,10 @@ void DisplayPadFeatures()
 		} // end switch 
 		break;
 	case BLUETOOTH_ID:
+		gx_widget_show (&MainUserScreen.MainUserScreen_ForwardPad_Button);
+		gx_widget_show (&MainUserScreen.MainUserScreen_ReversePad_Button);
+		gx_widget_show (&MainUserScreen.MainUserScreen_LeftPad_Button);
+		gx_widget_show (&MainUserScreen.MainUserScreen_RightPad_Button);
 		switch (g_BluetoothGroup)
 		{
 		case 0:
@@ -84,7 +209,17 @@ void DisplayPadFeatures()
 			break;
 		} // end switch on Bluetooth group.
 		break;
+	case TECLA_E_FEATURE_ID:
+		gx_widget_hide (&MainUserScreen.MainUserScreen_ForwardPad_Button);
+		gx_widget_hide (&MainUserScreen.MainUserScreen_ReversePad_Button);
+		gx_widget_hide (&MainUserScreen.MainUserScreen_LeftPad_Button);
+		gx_widget_hide (&MainUserScreen.MainUserScreen_RightPad_Button);
+		break;
 	default:
+		gx_widget_show (&MainUserScreen.MainUserScreen_ForwardPad_Button);
+		gx_widget_show (&MainUserScreen.MainUserScreen_ReversePad_Button);
+		gx_widget_show (&MainUserScreen.MainUserScreen_LeftPad_Button);
+		gx_widget_show (&MainUserScreen.MainUserScreen_RightPad_Button);
 		gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_ForwardPad_Button, GX_PIXELMAP_ID_UPWHITEARROW);
 		gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_ReversePad_Button, GX_PIXELMAP_ID_PADDOWNARROW_ENABLED);
 		gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_LeftPad_Button, GX_PIXELMAP_ID_LEFTWHITEARROW);
@@ -93,6 +228,12 @@ void DisplayPadFeatures()
 	}
 }
 
+//*************************************************************************************
+// Function Name: DisplayMainScreenActiveFeatures
+//
+// Description: This displays the features that are active in the order specificed
+//	in the Screen Prompts "objects".
+//
 //*************************************************************************************
 
 UINT DisplayMainScreenActiveFeatures ()
@@ -145,26 +286,30 @@ UINT DisplayMainScreenActiveFeatures ()
             switch (g_MainScreenFeatureInfo[feature].m_Location)
             {
             case 0: // Show the first line
-                //myErr = gx_prompt_text_id_set (&MainUserScreen.MainUserScreen_FirstPrompt, g_MainScreenFeatureInfo[feature].m_LargeDescriptionID);
-				//gx_icon_pixelmap_set (&MainUserScreen.MainUserScreen_Function0_Icon , g_MainScreenFeatureInfo[feature].m_LargeIcon, g_MainScreenFeatureInfo[feature].m_LargeIcon);
                 myErr = gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_Function0_IconButton, g_MainScreenFeatureInfo[feature].m_LargeIcon);
 				gx_icon_pixelmap_set (&MainUserScreen.MainUserScreen_FeatureIcon, g_MainScreenFeatureInfo[feature].m_FeatureIconID, g_MainScreenFeatureInfo[feature].m_FeatureIconID);
 				g_ActiveFeature = (FEATURE_ID_ENUM) feature;
+				if (g_ActiveFeature == TECLA_E_FEATURE_ID)
+				{
+					gx_widget_show (&MainUserScreen.MainUserScreen_TeclaMain_Prompt);
+					gx_widget_hide (&MainUserScreen.MainUserScreen_FeatureIcon);
+				}
+				else	// It's something other than Tecla
+				{
+					gx_widget_hide (&MainUserScreen.MainUserScreen_TeclaMain_Prompt);
+					gx_widget_show (&MainUserScreen.MainUserScreen_FeatureIcon);
+				}
                 break;
             case 1: // Show second line item
-                //myErr = gx_prompt_text_id_set (&MainUserScreen.MainUserScreen_SecondPrompt, g_MainScreenFeatureInfo[feature].m_SmallDescriptionID);
                 myErr = gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_Function1_IconButton, g_MainScreenFeatureInfo[feature].m_SmallIcon);
                 break;
             case 2: // Show third line item
-                //myErr = gx_prompt_text_id_set (&MainUserScreen.MainUserScreen_ThirdPrompt, g_MainScreenFeatureInfo[feature].m_SmallDescriptionID);
                 myErr = gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_Function2_IconButton, g_MainScreenFeatureInfo[feature].m_SmallIcon);
                 break;
             case 3: // Show fourth line item
-                //myErr = gx_prompt_text_id_set (&MainUserScreen.MainUserScreen_FourthPrompt, g_MainScreenFeatureInfo[feature].m_SmallDescriptionID);
                 myErr = gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_Function3_IconButton, g_MainScreenFeatureInfo[feature].m_SmallIcon);
                 break;
             case 4: // Show fifth line item
-                //myErr = gx_prompt_text_id_set (&MainUserScreen.MainUserScreen_FifthPrompt, g_MainScreenFeatureInfo[feature].m_SmallDescriptionID);
                 myErr = gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_Function4_IconButton, g_MainScreenFeatureInfo[feature].m_SmallIcon);
                 break;
             }
@@ -208,30 +353,24 @@ UINT DisplayMainScreenActiveFeatures ()
         } // end of switch
     } // end of for
 
+	// Show the Device icon in the middle of the screen.
+	ShowDeviceIcon(&MainUserScreen.MainUserScreen_DeviceType_icon);
 	
 	// Display the group icon and set the function box color
 	SetGroupIcon (&MainUserScreen.MainUserScreen_GroupIconButton);
 	switch (g_ActiveGroup)
 	{
 	case 0:
-		//myErr = gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_GroupIconButton, GX_PIXELMAP_ID_GROUPA);
 		gx_widget_fill_color_set (&MainUserScreen.MainUserScreen_FunctionWindow, GX_COLOR_ID_GREEN_ISH, GX_COLOR_ID_GREEN_ISH, GX_COLOR_ID_GREEN_ISH);
-		gx_icon_pixelmap_set (&MainUserScreen.MainUserScreen_DeviceType_icon, GX_PIXELMAP_ID_DEVICETYPE_HEADARRAY_88X70, GX_PIXELMAP_ID_DEVICETYPE_HEADARRAY_88X70);
 		break;
 	case 1:
-		//myErr = gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_GroupIconButton, GX_PIXELMAP_ID_GROUPB);
 		gx_widget_fill_color_set (&MainUserScreen.MainUserScreen_FunctionWindow, GX_COLOR_ID_SELECTED_FILL, GX_COLOR_ID_SELECTED_FILL, GX_COLOR_ID_SELECTED_FILL);
-		gx_icon_pixelmap_set (&MainUserScreen.MainUserScreen_DeviceType_icon, GX_PIXELMAP_ID_DEVICETYPE_HEADARRAY_88X70, GX_PIXELMAP_ID_DEVICETYPE_HEADARRAY_88X70);
 		break;
 	case 2:
-		//myErr = gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_GroupIconButton, GX_PIXELMAP_ID_GROUPC);
 		gx_widget_fill_color_set (&MainUserScreen.MainUserScreen_FunctionWindow, GX_COLOR_ID_BRIGHT_ORANGE, GX_COLOR_ID_BRIGHT_ORANGE, GX_COLOR_ID_BRIGHT_ORANGE);
-		gx_icon_pixelmap_set (&MainUserScreen.MainUserScreen_DeviceType_icon, GX_PIXELMAP_ID_DEVICETYPE_JOYSTICK_88X70, GX_PIXELMAP_ID_DEVICETYPE_JOYSTICK_88X70);
 		break;
 	case 3:
-		//myErr = gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_GroupIconButton, GX_PIXELMAP_ID_GROUPD);
 		gx_widget_fill_color_set (&MainUserScreen.MainUserScreen_FunctionWindow, GX_COLOR_ID_MAROON, GX_COLOR_ID_MAROON, GX_COLOR_ID_MAROON);
-		gx_icon_pixelmap_set (&MainUserScreen.MainUserScreen_DeviceType_icon, GX_PIXELMAP_ID_DEVICETYPE_JOYSTICK_88X70, GX_PIXELMAP_ID_DEVICETYPE_JOYSTICK_88X70);
 		break;
 	default:
 		break;
@@ -281,6 +420,8 @@ void AdvanceToNextFeature ()
                 g_MainScreenFeatureInfo[feature].m_Location = min (4, activeCount-1);
             else if (g_MainScreenFeatureInfo[feature].m_Location == 6)
                 g_MainScreenFeatureInfo[feature].m_Location = min (5, activeCount-1);
+            else if (g_MainScreenFeatureInfo[feature].m_Location == 7)
+                g_MainScreenFeatureInfo[feature].m_Location = min (6, activeCount-1);
 		}
 	}
 }
@@ -326,6 +467,8 @@ void AdvanceToPreviousFeature()
                 g_MainScreenFeatureInfo[feature].m_Location = min (5, activeCount);
             else if (g_MainScreenFeatureInfo[feature].m_Location == 5)
                 g_MainScreenFeatureInfo[feature].m_Location = min (6, activeCount);
+            else if (g_MainScreenFeatureInfo[feature].m_Location == 6)
+                g_MainScreenFeatureInfo[feature].m_Location = min (7, activeCount);
 		}
 	}
 }
@@ -397,7 +540,7 @@ UINT MainUserScreen_EventFunction (GX_WINDOW *window, GX_EVENT *event_ptr)
 							// ... long time (2 seconds) and goto Programming if so.
 		if ( (event_ptr->gx_event_target->gx_widget_name == "DownArrowButton") || (event_ptr->gx_event_target->gx_widget_name == "UpArrowButton"))
 		{
-			gx_system_timer_start(window, ARROW_PUSHED_TIMER_ID, 100, 0);
+			gx_system_timer_start(window, ARROW_PUSHED_TIMER_ID, 50, 0);
 		}
 		else if (event_ptr->gx_event_target->gx_widget_name == "UserPortButton")
 		{
@@ -434,9 +577,7 @@ UINT MainUserScreen_EventFunction (GX_WINDOW *window, GX_EVENT *event_ptr)
 					screen_toggle((GX_WINDOW *)&ReadyScreen, window);
 					break;
 				case NEXT_GROUP_ID:
-					++g_ActiveGroup;		// Advance to the next group
-					if (g_ActiveGroup > 3)	// Ensure a proper rollover to the first group.
-						g_ActiveGroup = 0;
+					SelectNextGroup();
 					DisplayMainScreenActiveFeatures();
 					break;
 				case AUDIBLE_OUT_FEATURE_ID:

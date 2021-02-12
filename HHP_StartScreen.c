@@ -12,20 +12,7 @@
 
 //*************************************************************************************
 
-typedef struct CUSTOM_MENU_BUTTON_STRUCT{
-    GX_BUTTON_MEMBERS_DECLARE
-    GX_WIDGET m_MenuWidget;
-	GX_PROMPT m_PromptWidget;
-	GX_TEXT_BUTTON m_ButtonWidget;
-	USHORT m_ButtonID;
-	GX_RESOURCE_ID m_TextID;
-	USHORT m_Enabled;
-	//INT start_offset;
- //   INT end_offset;
- //   INT cur_offset;
-} CUSTOM_MENU_BUTTON;
-
-typedef enum MENU_POSITION_E
+typedef enum HHP_INITIAL_MENU_POSITION_E
 {
 	PAD_SETTINGS_MENU_POS,
 	USER_SETTINGS_MENU_POS,
@@ -36,10 +23,10 @@ typedef enum MENU_POSITION_E
 //	SOUNDS_MENU_POS,
 	PERFORMANCE_MENU_POS,
 	DIAGNOSTICS_MENU_POS,
-	END_OF_LIST_MENU_POS
-} MENU_POSITION_ENUM;
+	END_OF_HHP_INITIAL_MENU_POS
+} HHP_INITIAL_MENU_POSITION_ENUM;
 
-CUSTOM_MENU_BUTTON g_MenuItems[10];
+CUSTOM_MENU_BUTTON g_HHP_InitialMenuItems[10];
 
 
 //*************************************************************************************
@@ -89,48 +76,48 @@ VOID MenuItem_select(GX_BUTTON *checkbox)
 
 //*************************************************************************************
 
-void PopulateMenuItems(void)
+static void Populate_HHPStart_MenuItems(void)
 {
 	// PAD SETTINGS 
-	g_MenuItems[PAD_SETTINGS_MENU_POS].m_ButtonID = 1000;
-	g_MenuItems[PAD_SETTINGS_MENU_POS].m_TextID = GX_STRING_ID_STRING_46;
-	g_MenuItems[PAD_SETTINGS_MENU_POS].m_Enabled = TRUE;
+	g_HHP_InitialMenuItems[PAD_SETTINGS_MENU_POS].m_ButtonID = PAD_SETTINGS_BUTTON_ID;
+	g_HHP_InitialMenuItems[PAD_SETTINGS_MENU_POS].m_TextID = GX_STRING_ID_STRING_121;
+	g_HHP_InitialMenuItems[PAD_SETTINGS_MENU_POS].m_Enabled = TRUE;
 	// USER SETTINGS
-	g_MenuItems[USER_SETTINGS_MENU_POS].m_ButtonID = 1001;
-	g_MenuItems[USER_SETTINGS_MENU_POS].m_TextID = GX_STRING_ID_STRING_45;
-	g_MenuItems[USER_SETTINGS_MENU_POS].m_Enabled = TRUE;
+	g_HHP_InitialMenuItems[USER_SETTINGS_MENU_POS].m_ButtonID = USER_SETTINGS_BUTTON_ID;
+	g_HHP_InitialMenuItems[USER_SETTINGS_MENU_POS].m_TextID = GX_STRING_ID_STRING_45;
+	g_HHP_InitialMenuItems[USER_SETTINGS_MENU_POS].m_Enabled = TRUE;
 	// FEATURE LIST
-	g_MenuItems[FEATURE_LIST_MENU_POS].m_ButtonID = 1002;
-	g_MenuItems[FEATURE_LIST_MENU_POS].m_TextID = GX_STRING_ID_STRING_67;
-	g_MenuItems[FEATURE_LIST_MENU_POS].m_Enabled = TRUE;
+	g_HHP_InitialMenuItems[FEATURE_LIST_MENU_POS].m_ButtonID = FEATURE_LIST_BUTTON_ID;
+	g_HHP_InitialMenuItems[FEATURE_LIST_MENU_POS].m_TextID = GX_STRING_ID_STRING_67;
+	g_HHP_InitialMenuItems[FEATURE_LIST_MENU_POS].m_Enabled = TRUE;
 	// BLUETOOTH SETUP
-	g_MenuItems[BLUETOOTH_SETUP_MENU_POS].m_ButtonID = 1003;
-	g_MenuItems[BLUETOOTH_SETUP_MENU_POS].m_TextID = GX_STRING_ID_STRING_31;
-	g_MenuItems[BLUETOOTH_SETUP_MENU_POS].m_Enabled = TRUE;
+	g_HHP_InitialMenuItems[BLUETOOTH_SETUP_MENU_POS].m_ButtonID = BLUETOOTH_SETUP_BUTTON_ID;
+	g_HHP_InitialMenuItems[BLUETOOTH_SETUP_MENU_POS].m_TextID = GX_STRING_ID_STRING_31;
+	g_HHP_InitialMenuItems[BLUETOOTH_SETUP_MENU_POS].m_Enabled = TRUE;
 	// SEATING SETUP
-	g_MenuItems[SEATING_SETUP_MENU_POS].m_ButtonID = 1004;
-	g_MenuItems[SEATING_SETUP_MENU_POS].m_TextID = GX_STRING_ID_SEATING;
-	g_MenuItems[SEATING_SETUP_MENU_POS].m_Enabled = TRUE;
+	g_HHP_InitialMenuItems[SEATING_SETUP_MENU_POS].m_ButtonID = SEATING_SETUP_BUTTON_ID;
+	g_HHP_InitialMenuItems[SEATING_SETUP_MENU_POS].m_TextID = GX_STRING_ID_SEATING;
+	g_HHP_InitialMenuItems[SEATING_SETUP_MENU_POS].m_Enabled = TRUE;
 	// AUDIBLE USAGE
-	g_MenuItems[AUDIBLE_USAGE_MENU_POS].m_ButtonID = 1005;
-	g_MenuItems[AUDIBLE_USAGE_MENU_POS].m_TextID = GX_STRING_ID_AUDIBLE_USAGE;
-	g_MenuItems[AUDIBLE_USAGE_MENU_POS].m_Enabled = TRUE;
+	g_HHP_InitialMenuItems[AUDIBLE_USAGE_MENU_POS].m_ButtonID = AUDIBLE_USAGE_BUTTON_ID;
+	g_HHP_InitialMenuItems[AUDIBLE_USAGE_MENU_POS].m_TextID = GX_STRING_ID_AUDIBLE_USAGE;
+	g_HHP_InitialMenuItems[AUDIBLE_USAGE_MENU_POS].m_Enabled = TRUE;
 	// SOUNDS
-	//g_MenuItems[SOUNDS_MENU_POS].m_ButtonID = 1006;
-	//g_MenuItems[SOUNDS_MENU_POS].m_TextID = GX_STRING_ID_SOUNDS;
-	//g_MenuItems[SOUNDS_MENU_POS].m_Enabled = TRUE;
+	//g_HHP_InitialMenuItems[SOUNDS_MENU_POS].m_ButtonID = 1006;
+	//g_HHP_InitialMenuItems[SOUNDS_MENU_POS].m_TextID = GX_STRING_ID_SOUNDS;
+	//g_HHP_InitialMenuItems[SOUNDS_MENU_POS].m_Enabled = TRUE;
 	// PERFORMANCE
-	g_MenuItems[PERFORMANCE_MENU_POS].m_ButtonID = 1007;
-	g_MenuItems[PERFORMANCE_MENU_POS].m_TextID = GX_STRING_ID_STRING_94;
-	g_MenuItems[PERFORMANCE_MENU_POS].m_Enabled = TRUE;
+	g_HHP_InitialMenuItems[PERFORMANCE_MENU_POS].m_ButtonID = PERFORMANCE_MENU_BUTTON_ID;
+	g_HHP_InitialMenuItems[PERFORMANCE_MENU_POS].m_TextID = GX_STRING_ID_STRING_94;
+	g_HHP_InitialMenuItems[PERFORMANCE_MENU_POS].m_Enabled = TRUE;
 	// DIAGNOSTICS
-	g_MenuItems[DIAGNOSTICS_MENU_POS].m_ButtonID = 1008;
-	g_MenuItems[DIAGNOSTICS_MENU_POS].m_TextID = GX_STRING_ID_STRING_10;
-	g_MenuItems[DIAGNOSTICS_MENU_POS].m_Enabled = TRUE;
+	g_HHP_InitialMenuItems[DIAGNOSTICS_MENU_POS].m_ButtonID = DIAGNOSTICS_MENU_BUTTON_ID;
+	g_HHP_InitialMenuItems[DIAGNOSTICS_MENU_POS].m_TextID = GX_STRING_ID_STRING_10;
+	g_HHP_InitialMenuItems[DIAGNOSTICS_MENU_POS].m_Enabled = TRUE;
 	// Not used, must be last
-	g_MenuItems[END_OF_LIST_MENU_POS].m_ButtonID = 0;
-	g_MenuItems[END_OF_LIST_MENU_POS].m_TextID = GX_STRING_ID_BLANK;
-	g_MenuItems[END_OF_LIST_MENU_POS].m_Enabled = FALSE;
+	g_HHP_InitialMenuItems[END_OF_HHP_INITIAL_MENU_POS].m_ButtonID = LAST_MENU_BUTTON_ID;
+	g_HHP_InitialMenuItems[END_OF_HHP_INITIAL_MENU_POS].m_TextID = GX_STRING_ID_BLANK;
+	g_HHP_InitialMenuItems[END_OF_HHP_INITIAL_MENU_POS].m_Enabled = FALSE;
 }
 
 //*************************************************************************************
@@ -233,21 +220,21 @@ UINT HHP_Start_Screen_event_process_new (GX_WINDOW *window, GX_EVENT *event_ptr)
 	case GX_EVENT_SHOW:
 		// This sets the correct Group Icon in the Group Button on this screen.
 		SetGroupIcon (&StartingWindowPtr->HHP_Start_Screen_GroupIconButton);
-		PopulateMenuItems();
+		Populate_HHPStart_MenuItems();
 
 		numberOfActiveMenuItems = 0;
-		for (index = 0; g_MenuItems[index].m_ButtonID > 0; ++index)
+		for (index = 0; g_HHP_InitialMenuItems[index].m_ButtonID != LAST_MENU_BUTTON_ID; ++index)
 		{
-			if (g_MenuItems[index].m_Enabled)
+			if (g_HHP_InitialMenuItems[index].m_Enabled)
 			{
-				MenuItem_Callback (&StartingWindowPtr->HHP_Start_Screen_FeatureList, (GX_WIDGET*) &g_MenuItems[index], index);
+				MenuItem_Callback (&StartingWindowPtr->HHP_Start_Screen_FeatureList, (GX_WIDGET*) &g_HHP_InitialMenuItems[index], index);
 				++numberOfActiveMenuItems;
 			}
 		}
 		StartingWindowPtr->HHP_Start_Screen_FeatureList.gx_vertical_list_total_rows = numberOfActiveMenuItems;
         gx_vertical_list_selected_set(&StartingWindowPtr->HHP_Start_Screen_FeatureList, -1);
 
-		if (StartingWindowPtr->HHP_Start_Screen_FeatureList.gx_vertical_list_total_rows < 5)
+		if (StartingWindowPtr->HHP_Start_Screen_FeatureList.gx_vertical_list_total_rows <= 3)
 			gx_widget_hide ((GX_WIDGET*) &StartingWindowPtr->HHP_Start_Screen_FeatureList_vertical_scroll);
 
 		break;
@@ -286,6 +273,11 @@ UINT HHP_Start_Screen_event_process_new (GX_WINDOW *window, GX_EVENT *event_ptr)
 			break;
 		}
 		break;
+
+	case GX_SIGNAL (GROUP_ICON_BUTTON, GX_EVENT_CLICKED):
+		SelectNextGroup();
+		SetGroupIcon (&HHP_Start_Screen.HHP_Start_Screen_GroupIconButton);
+        break;
 
 	case GX_SIGNAL(OK_BTN_ID, GX_EVENT_CLICKED):
 		gx_window_event_process(window, event_ptr);

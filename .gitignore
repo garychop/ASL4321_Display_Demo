@@ -7,9 +7,15 @@ build/msvc_2010/ASL110_Display_demo/ASL110_Display_demo/Release/
 build/msvc_2010/ASL110_Display_demo/ASL110_Display_demo.opensdf
 build/msvc_2010/ASL110_Display_demo/Release/ASL4321_GUI_demo.dat
 build/msvc_2010/ASL110_Display_demo/Release/ASL4321_GUI_demo.pdb
+build/msvc_2010/ASL110_Display_demo/Release/ASL4321_GUI_demo.exe
 
 build/msvc_2010/ASL110_Display_demo/ASL110_Display_demo/Debug/
 build/msvc_2010/ASL110_Display_demo/Debug/
 build/msvc_2010/ASL110_Display_demo/ipch/
 build/msvc_2010/ASL110_Display_demo/*.opensdf
+
+
+
+
+
 

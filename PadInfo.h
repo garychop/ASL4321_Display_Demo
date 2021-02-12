@@ -12,7 +12,7 @@
 #ifndef PAD_INFORMATON_H
 #define PAD_INFORMATON_H
 
-typedef enum PHYSICAL_PAD {LEFT_PAD, RIGHT_PAD, CENTER_PAD, INVALID_PAD} PHYSICAL_PAD_ENUM;
+typedef enum PHYSICAL_PAD {LEFT_PAD, RIGHT_PAD, CENTER_PAD, REVERSE_PAD, MAX_PHYSICAL_PADS} PHYSICAL_PAD_ENUM;
 typedef enum PAD_DIRECTION {OFF_DIRECTION = 0, LEFT_DIRECTION, FORWARD_DIRECTION, RIGHT_DIRECTION, INVALID_DIRECTION} PAD_DIRECTION_ENUM;
 typedef enum PAD_TYPE {PROPORTIONAL_PADTYPE, DIGITAL_PADTYPE, INVALID_PAD_TYPE} PAD_TYPE_ENUM;
 
@@ -38,7 +38,7 @@ typedef struct PAD_INFO_STRUCT_NAME
 // Global Variables
 //*****************************************************************************
 
-extern PAD_INFO_STRUCT g_PadSettings[3];
+extern PAD_INFO_STRUCT g_PadSettings[];
 
 //*****************************************************************************
 // Function Prototypes

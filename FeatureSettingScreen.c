@@ -129,6 +129,9 @@ UINT FeatureSettingsScreen_event_process (GX_WINDOW *window, GX_EVENT *event_ptr
 			//	gx_widget_show ((GX_WIDGET*) &FeatureWindowPtr->FeatureSettingsScreen_FeatureList_vertical_scroll);
 			break;
 
+		case GX_SIGNAL(GROUP_ICON_BUTTON, GX_EVENT_CLICKED):
+			break;
+
 		case GX_SIGNAL(OK_BTN_ID, GX_EVENT_CLICKED):
 			gx_widget_show ((GX_WIDGET*) &FeatureWindowPtr->FeatureSettingsScreen_FeatureList_vertical_scroll);
 	        screen_toggle((GX_WINDOW *)&HHP_Start_Screen, window);
