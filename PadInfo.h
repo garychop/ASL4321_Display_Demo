@@ -12,6 +12,8 @@
 #ifndef PAD_INFORMATON_H
 #define PAD_INFORMATON_H
 
+#define MAX_NEUTRAL_WINDOW_VALUE (50)			// Percentage
+
 typedef enum PHYSICAL_PAD {LEFT_PAD, RIGHT_PAD, FORWARD_PAD, REVERSE_PAD, MAX_PHYSICAL_PADS} PHYSICAL_PAD_ENUM;
 typedef enum PAD_DIRECTION {OFF_DIRECTION = 0, FORWARD_DIRECTION, LEFT_DIRECTION, RIGHT_DIRECTION, REVERSE_DIRECTION, MAX_DIRECTION} PAD_DIRECTION_ENUM;
 typedef enum PAD_TYPE {PROPORTIONAL_PADTYPE, DIGITAL_PADTYPE, INVALID_PAD_TYPE} PAD_TYPE_ENUM;
@@ -22,6 +24,8 @@ typedef struct PAD_INFO_STRUCT_NAME
 	PAD_DIRECTION_ENUM m_PadDirection;
 	unsigned short m_MinimumDriveValue;
 	char m_MinimuDriveString[8];
+	unsigned short m_NeutralWindowValue;
+	char m_NeutralWindowString[8];
 	int m_PadMinimumCalibrationValue;
 	int m_PadMaximumCalibrationValue;
 	//int m_DiagnosticOff_ID;

@@ -63,7 +63,7 @@ static VOID ShowPads (VOID)
 	gx_text_button_text_set (&MinimumDriveScreen.MinimumDriveScreen_ReversePadPercentage_Button, g_PadSettings[REVERSE_PAD].m_MinimuDriveString);
 }
 
-void AdjustMinimumSpeedValue (PHYSICAL_PAD_ENUM pad)
+VOID AdjustMinimumSpeedValue (PHYSICAL_PAD_ENUM pad)
 {
 	if (g_PadSettings[pad].m_MinimumDriveValue >= MAXIMUM_DRIVE_SPEED)
 	{
@@ -87,6 +87,8 @@ UINT MinimumDriveScreen_event_process (GX_WINDOW *window, GX_EVENT *event_ptr)
 	{
 	case GX_EVENT_SHOW:
 		SetGroupIcon (&MinimumDriveScreen.MinimumDriveScreen_GroupIconButton);
+		// Show the Device icon in the middle of the screen.
+		SetDeviceIcon(&MinimumDriveScreen.MinimumDriveScreen_DeviceType_icon);
 		break;
 
 	case GX_SIGNAL(OK_BTN_ID, GX_EVENT_CLICKED):
@@ -110,9 +112,6 @@ UINT MinimumDriveScreen_event_process (GX_WINDOW *window, GX_EVENT *event_ptr)
 		break;
 
 	} // end switch
-
-	// Show the Device icon in the middle of the screen.
-	SetDeviceIcon(&MinimumDriveScreen.MinimumDriveScreen_DeviceType_icon);
 
 	ShowPads();	// Put buttons in proper screen location and populate percentage string
 

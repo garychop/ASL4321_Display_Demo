@@ -20,6 +20,7 @@
 #define MAX_GROUPS (4)
 
 #define MAXIMUM_DRIVE_SPEED (40)
+
 #define FEATURE_TOGGLE_BUTTON_ID 1000	// this is used as the dynamically created buttons in the feature list.
 typedef enum BUTTON_IDS {
 	PAD_SETTINGS_BUTTON_ID = FEATURE_TOGGLE_BUTTON_ID,

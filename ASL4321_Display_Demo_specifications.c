@@ -6,7 +6,7 @@
 /*  www.expresslogic.com.                                                      */
 /*                                                                             */
 /*  GUIX Studio Revision 5.4.2.9                                               */
-/*  Date (dd.mm.yyyy): 17. 2.2021   Time (hh:mm): 08:56                        */
+/*  Date (dd.mm.yyyy): 17. 2.2021   Time (hh:mm): 10:11                        */
 /*******************************************************************************/
 
 
@@ -745,7 +745,7 @@ GX_WINDOW_PROPERTIES NeutralWindowScreen_NeutralWindowScreen_window_properties =
 };
 GX_PROMPT_PROPERTIES NeutralWindowScreen_prompt_2_properties =
 {
-    GX_STRING_ID_STRING_119,                 /* string id                      */
+    GX_STRING_ID_STRING_35,                  /* string id                      */
     GX_FONT_ID_PROMPT,                       /* font id                        */
     GX_COLOR_ID_WHITE,                       /* normal text color              */
     GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
@@ -758,6 +758,95 @@ GX_TEXT_BUTTON_PROPERTIES NeutralWindowScreen_OK_Button_properties =
     GX_COLOR_ID_BTN_TEXT,                    /* normal text color              */
     GX_COLOR_ID_BTN_TEXT,                    /* selected text color            */
     GX_COLOR_ID_DISABLED_TEXT                /* disabled text color            */
+};
+GX_ICON_BUTTON_PROPERTIES NeutralWindowScreen_GroupIconButton_properties =
+{
+    GX_PIXELMAP_ID_GROUPA_64X64              /* pixelmap id                    */
+};
+GX_ICON_PROPERTIES NeutralWindowScreen_DeviceType_icon_properties =
+{
+    GX_PIXELMAP_ID_DEVICETYPE_HEADARRAY_88X70, /* normal pixelmap id           */
+    0                                        /* selected pixelmap id           */
+};
+GX_TEXT_BUTTON_PROPERTIES NeutralWindowScreen_NeutralWindowPercentage_Button_properties =
+{
+    GX_STRING_ID_STRING_52,                  /* string id                      */
+    GX_FONT_ID_LARGESIZE,                    /* font id                        */
+    GX_COLOR_ID_SELECTED_TEXT,               /* normal text color              */
+    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
+    GX_COLOR_ID_DISABLED_TEXT                /* disabled text color            */
+};
+
+GX_CONST GX_STUDIO_WIDGET NeutralWindowScreen_NeutralWindowPercentage_Button_define =
+{
+    "NeutralWindowPercentage_Button",
+    GX_TYPE_TEXT_BUTTON,                     /* widget type                    */
+    NEUTRAL_WINDOW_BTN_ID,                   /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_RAISED|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    0,                                       /* status flags                   */
+    sizeof(GX_TEXT_BUTTON),                  /* control block size             */
+    GX_COLOR_ID_TEXT,                        /* normal color id                */
+    GX_COLOR_ID_TEXT,                        /* selected color id              */
+    GX_COLOR_ID_TEXT,                        /* disabled color id              */
+    gx_studio_text_button_create,            /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {272, 123, 351, 186},                    /* widget size                    */
+    GX_NULL,                                 /* no next widget                 */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(NEUTRALWINDOWSCREEN_CONTROL_BLOCK, NeutralWindowScreen_NeutralWindowPercentage_Button), /* control block */
+    (void *) &NeutralWindowScreen_NeutralWindowPercentage_Button_properties /* extended properties */
+};
+
+GX_CONST GX_STUDIO_WIDGET NeutralWindowScreen_DeviceType_icon_define =
+{
+    "DeviceType_icon",
+    GX_TYPE_ICON,                            /* widget type                    */
+    DEVICE_TYPE_ICON,                        /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_HALIGN_LEFT|GX_STYLE_VALIGN_TOP,   /* style flags */
+    0,                                       /* status flags                   */
+    sizeof(GX_ICON),                         /* control block size             */
+    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_icon_create,                   /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {130, 44, 217, 113},                     /* widget size                    */
+    &NeutralWindowScreen_NeutralWindowPercentage_Button_define, /* next widget definition */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(NEUTRALWINDOWSCREEN_CONTROL_BLOCK, NeutralWindowScreen_DeviceType_icon), /* control block */
+    (void *) &NeutralWindowScreen_DeviceType_icon_properties /* extended properties */
+};
+
+GX_CONST GX_STUDIO_WIDGET NeutralWindowScreen_GroupIconButton_define =
+{
+    "GroupIconButton",
+    GX_TYPE_ICON_BUTTON,                     /* widget type                    */
+    GROUP_ICON_BUTTON,                       /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_HALIGN_CENTER|GX_STYLE_VALIGN_CENTER,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_ICON_BUTTON),                  /* control block size             */
+    GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
+    GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_icon_button_create,            /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {388, 16, 451, 79},                      /* widget size                    */
+    &NeutralWindowScreen_DeviceType_icon_define, /* next widget definition     */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(NEUTRALWINDOWSCREEN_CONTROL_BLOCK, NeutralWindowScreen_GroupIconButton), /* control block */
+    (void *) &NeutralWindowScreen_GroupIconButton_properties /* extended properties */
 };
 
 GX_CONST GX_STUDIO_WIDGET NeutralWindowScreen_OK_Button_define =
@@ -778,7 +867,7 @@ GX_CONST GX_STUDIO_WIDGET NeutralWindowScreen_OK_Button_define =
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
     {380, 188, 459, 251},                    /* widget size                    */
-    GX_NULL,                                 /* no next widget                 */
+    &NeutralWindowScreen_GroupIconButton_define, /* next widget definition     */
     GX_NULL,                                 /* no child widgets               */ 
     offsetof(NEUTRALWINDOWSCREEN_CONTROL_BLOCK, NeutralWindowScreen_OK_Button), /* control block */
     (void *) &NeutralWindowScreen_OK_Button_properties /* extended properties  */
@@ -792,7 +881,7 @@ GX_CONST GX_STUDIO_WIDGET NeutralWindowScreen_prompt_2_define =
     #if defined(GX_WIDGET_USER_DATA)
     0,                                       /* user data                      */
     #endif
-    GX_STYLE_BORDER_THIN|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_RIGHT,   /* style flags */
     GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
     sizeof(GX_PROMPT),                       /* control block size             */
     GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
@@ -801,7 +890,7 @@ GX_CONST GX_STUDIO_WIDGET NeutralWindowScreen_prompt_2_define =
     gx_studio_prompt_create,                 /* create function                */
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
-    {37, 38, 449, 149},                      /* widget size                    */
+    {33, 128, 258, 179},                     /* widget size                    */
     &NeutralWindowScreen_OK_Button_define,   /* next widget definition         */
     GX_NULL,                                 /* no child widgets               */ 
     offsetof(NEUTRALWINDOWSCREEN_CONTROL_BLOCK, NeutralWindowScreen_prompt_2), /* control block */
