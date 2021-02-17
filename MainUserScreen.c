@@ -87,7 +87,7 @@ VOID Initialize_MainScreenInfo()
     g_MainScreenFeatureInfo[AUDIBLE_OUT_FEATURE_ID].m_Enabled = TRUE;
     g_MainScreenFeatureInfo[AUDIBLE_OUT_FEATURE_ID].m_Available = TRUE;
     g_MainScreenFeatureInfo[AUDIBLE_OUT_FEATURE_ID].m_Location = 0;
-    g_MainScreenFeatureInfo[AUDIBLE_OUT_FEATURE_ID].m_LargeDescriptionID = GX_STRING_ID_BLANK;
+    g_MainScreenFeatureInfo[AUDIBLE_OUT_FEATURE_ID].m_LargeDescriptionID = GX_STRING_ID_AUDIBLE_OUTPUT;
     g_MainScreenFeatureInfo[AUDIBLE_OUT_FEATURE_ID].m_SmallDescriptionID = GX_STRING_ID_BLANK;
     g_MainScreenFeatureInfo[AUDIBLE_OUT_FEATURE_ID].m_SmallIcon = GX_PIXELMAP_ID_SPEAKER_30X30;
     g_MainScreenFeatureInfo[AUDIBLE_OUT_FEATURE_ID].m_LargeIcon = GX_PIXELMAP_ID_SPEAKER_70X70;
@@ -97,7 +97,7 @@ VOID Initialize_MainScreenInfo()
     g_MainScreenFeatureInfo[SEATING_FEATURE_ID].m_Enabled = TRUE;
     g_MainScreenFeatureInfo[SEATING_FEATURE_ID].m_Available = TRUE;
     g_MainScreenFeatureInfo[SEATING_FEATURE_ID].m_Location = 0;
-    g_MainScreenFeatureInfo[SEATING_FEATURE_ID].m_LargeDescriptionID = GX_STRING_ID_BLANK;
+    g_MainScreenFeatureInfo[SEATING_FEATURE_ID].m_LargeDescriptionID = GX_STRING_ID_SEATING_ENABLE;
     g_MainScreenFeatureInfo[SEATING_FEATURE_ID].m_SmallDescriptionID = GX_STRING_ID_BLANK;
     g_MainScreenFeatureInfo[SEATING_FEATURE_ID].m_SmallIcon = GX_PIXELMAP_ID_SEATINGA_30X30;
     g_MainScreenFeatureInfo[SEATING_FEATURE_ID].m_LargeIcon = GX_PIXELMAP_ID_SEATING_70X70;
@@ -107,12 +107,12 @@ VOID Initialize_MainScreenInfo()
     g_MainScreenFeatureInfo[TECLA_E_FEATURE_ID].m_Enabled = TRUE;
     g_MainScreenFeatureInfo[TECLA_E_FEATURE_ID].m_Available = TRUE;
     g_MainScreenFeatureInfo[TECLA_E_FEATURE_ID].m_Location = 0;
-    g_MainScreenFeatureInfo[TECLA_E_FEATURE_ID].m_LargeDescriptionID = GX_STRING_ID_BLANK;
+    g_MainScreenFeatureInfo[TECLA_E_FEATURE_ID].m_LargeDescriptionID = GX_STRING_ID_TECLA_ENABLE;
     g_MainScreenFeatureInfo[TECLA_E_FEATURE_ID].m_SmallDescriptionID = GX_STRING_ID_BLANK;
     g_MainScreenFeatureInfo[TECLA_E_FEATURE_ID].m_SmallIcon = GX_PIXELMAP_ID_TECLAE_30X30;
     g_MainScreenFeatureInfo[TECLA_E_FEATURE_ID].m_LargeIcon = GX_PIXELMAP_ID_TECLAE_70X70;
 	g_MainScreenFeatureInfo[TECLA_E_FEATURE_ID].m_FeatureIconID = GX_PIXELMAP_ID_TECLAE_60X50;
-		
+
 	if (g_RNet_Active == FALSE)
 	{
 		g_MainScreenFeatureInfo[RNET_SLEEP_FEATURE_ID].m_Available = FALSE;

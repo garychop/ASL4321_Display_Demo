@@ -28,13 +28,15 @@ typedef struct PAD_INFO_STRUCT_NAME
 	char m_NeutralWindowString[8];
 	int m_PadMinimumCalibrationValue;
 	int m_PadMaximumCalibrationValue;
+	int m_Speed_Offset;					// This is an adjustment for Neutral offset a.k.a "Y offset"
+	int m_Direction_Offset;				// This is veer adjustment, a.k.a. "X offset"
 	//int m_DiagnosticOff_ID;
-	GX_PIXELMAP_BUTTON *m_DiagnosticOff_Widget;
+	//GX_PIXELMAP_BUTTON *m_DiagnosticOff_Widget;
 	//int m_DiagnosticDigital_ID;
-	GX_PIXELMAP_BUTTON *m_DiagnosticDigital_Widget;
+	//GX_PIXELMAP_BUTTON *m_DiagnosticDigital_Widget;
 	//int m_DiagnosticProportional_ID;
-	GX_PIXELMAP_BUTTON *m_DiagnosticProportional_Widget;
-	GX_RECTANGLE m_DiagnosticWidigetLocation;
+	//GX_PIXELMAP_BUTTON *m_DiagnosticProportional_Widget;
+	//GX_RECTANGLE m_DiagnosticWidigetLocation;
 //	GX_PIXELMAP_BUTTON *m_DirectionIcons[4];
 } PAD_INFO_STRUCT;
 

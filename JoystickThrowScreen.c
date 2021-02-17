@@ -23,6 +23,12 @@ UINT JoystickThrow_event_function (GX_WINDOW *window, GX_EVENT *event_ptr)
 {
 	switch (event_ptr->gx_event_type)
 	{
+	case GX_EVENT_SHOW:
+		SetGroupIcon (&JoystickThrowScreen.JoystickThrowScreen_GroupIconButton);
+		// Show the Device icon
+		SetDeviceIcon(&JoystickThrowScreen.JoystickThrowScreen_DeviceType_icon);
+		break;
+
 	case GX_SIGNAL(OK_BTN_ID, GX_EVENT_CLICKED):
         screen_toggle((GX_WINDOW *)&PadOptionsSettingsScreen, window);
 		break;

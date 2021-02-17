@@ -17,15 +17,16 @@ typedef enum PAD_OPTIONS_MENU_POSITION_E
 	PAD_OPTIONS_SET_MINIMUM_SPEED,
 	PAD_OPTIONS_SET_NEUTRAL_WINDOW,
 	PAD_OPTIONS_SET_JOYSTICK_THROW_MAX,
+	PAD_OPTIONS_SET_VEER_ADJUSTMENT,
 	END_OF_PAD_OPTIONS_MENU_POS
 } PAD_OPTIONSL_MENU_POSITION_ENUM;
 
 PAD_INFO_STRUCT g_PadSettings[MAX_PHYSICAL_PADS];
 
-GX_RECTANGLE g_DiagnosticWidgetLocations[] = {
-	{35, 32, 35+62, 32+90},
-	{183, 32, 183+62, 32+90},
-	{66, 140, 66+145, 140+42}};
+//GX_RECTANGLE g_DiagnosticWidgetLocations[] = {
+//	{35, 32, 35+62, 32+90},
+//	{183, 32, 183+62, 32+90},
+//	{66, 140, 66+145, 140+42}};
 
 CUSTOM_MENU_BUTTON g_PadOptions_MenuItems[END_OF_PAD_OPTIONS_MENU_POS + 1];
 
@@ -36,63 +37,6 @@ VOID DeleteOptionsList (GX_WINDOW *window);
 //*************************************************************************************
 // InitializePadInformation
 //*************************************************************************************
-
-VOID InitializePadInformation()
-{
-	// Populate the default Pad settings.
-	g_PadSettings[LEFT_PAD].m_PadDirection = LEFT_DIRECTION;
-	g_PadSettings[LEFT_PAD].m_PadType = PROPORTIONAL_PADTYPE;
-	g_PadSettings[LEFT_PAD].m_MinimumDriveValue = 5;
-	strcpy_s (g_PadSettings[LEFT_PAD].m_MinimuDriveString, sizeof (g_PadSettings[LEFT_PAD].m_MinimuDriveString), "5%");
-	g_PadSettings[LEFT_PAD].m_NeutralWindowValue = 5;
-	strcpy_s (g_PadSettings[LEFT_PAD].m_NeutralWindowString, sizeof (g_PadSettings[LEFT_PAD].m_NeutralWindowString), "5%");
-	g_PadSettings[LEFT_PAD].m_PadMinimumCalibrationValue = 2;
-	g_PadSettings[LEFT_PAD].m_PadMaximumCalibrationValue = 30;
-	g_PadSettings[LEFT_PAD].m_DiagnosticWidigetLocation = g_DiagnosticWidgetLocations[LEFT_PAD];
-	g_PadSettings[LEFT_PAD].m_DiagnosticOff_Widget = &DiagnosticScreen.DiagnosticScreen_LeftPadOff_Button;
-	g_PadSettings[LEFT_PAD].m_DiagnosticProportional_Widget = &DiagnosticScreen.DiagnosticScreen_LeftPadProp_Button;
-	g_PadSettings[LEFT_PAD].m_DiagnosticDigital_Widget = &DiagnosticScreen.DiagnosticScreen_LeftPadDigital_Button;
-
-	g_PadSettings[RIGHT_PAD].m_PadDirection = RIGHT_DIRECTION;
-	g_PadSettings[RIGHT_PAD].m_PadType = PROPORTIONAL_PADTYPE;
-	g_PadSettings[RIGHT_PAD].m_MinimumDriveValue = 10;
-	strcpy_s (g_PadSettings[RIGHT_PAD].m_MinimuDriveString, sizeof (g_PadSettings[RIGHT_PAD].m_MinimuDriveString), "10%");
-	g_PadSettings[RIGHT_PAD].m_NeutralWindowValue = 5;
-	strcpy_s (g_PadSettings[RIGHT_PAD].m_NeutralWindowString, sizeof (g_PadSettings[RIGHT_PAD].m_NeutralWindowString), "N/A");
-	g_PadSettings[RIGHT_PAD].m_PadMinimumCalibrationValue = 2;
-	g_PadSettings[RIGHT_PAD].m_PadMaximumCalibrationValue = 30;
-	g_PadSettings[RIGHT_PAD].m_DiagnosticWidigetLocation = g_DiagnosticWidgetLocations[RIGHT_PAD];
-	g_PadSettings[RIGHT_PAD].m_DiagnosticOff_Widget = &DiagnosticScreen.DiagnosticScreen_RightPadOff_Button;
-	g_PadSettings[RIGHT_PAD].m_DiagnosticProportional_Widget = &DiagnosticScreen.DiagnosticScreen_RightPadProp_Button;
-	g_PadSettings[RIGHT_PAD].m_DiagnosticDigital_Widget = &DiagnosticScreen.DiagnosticScreen_RightPadDigital_Button;
-
-	g_PadSettings[FORWARD_PAD].m_PadDirection = FORWARD_DIRECTION;
-	g_PadSettings[FORWARD_PAD].m_PadType = PROPORTIONAL_PADTYPE;
-	g_PadSettings[FORWARD_PAD].m_MinimumDriveValue = 15;
-	strcpy_s (g_PadSettings[FORWARD_PAD].m_MinimuDriveString, sizeof (g_PadSettings[FORWARD_PAD].m_MinimuDriveString), "15%");
-	g_PadSettings[FORWARD_PAD].m_NeutralWindowValue = 5;
-	strcpy_s (g_PadSettings[FORWARD_PAD].m_NeutralWindowString, sizeof (g_PadSettings[FORWARD_PAD].m_NeutralWindowString), "N/A");
-	g_PadSettings[FORWARD_PAD].m_PadMinimumCalibrationValue = 2;
-	g_PadSettings[FORWARD_PAD].m_PadMaximumCalibrationValue = 30;
-	g_PadSettings[FORWARD_PAD].m_DiagnosticWidigetLocation = g_DiagnosticWidgetLocations[FORWARD_PAD];
-	g_PadSettings[FORWARD_PAD].m_DiagnosticOff_Widget = &DiagnosticScreen.DiagnosticScreen_CenterPadOff_Button;
-	g_PadSettings[FORWARD_PAD].m_DiagnosticProportional_Widget = &DiagnosticScreen.DiagnosticScreen_CenterPadProp_Button;
-	g_PadSettings[FORWARD_PAD].m_DiagnosticDigital_Widget = &DiagnosticScreen.DiagnosticScreen_CenterPadDigital_Button;
-
-	g_PadSettings[REVERSE_PAD].m_PadDirection = REVERSE_DIRECTION;
-	g_PadSettings[REVERSE_PAD].m_PadType = PROPORTIONAL_PADTYPE;
-	g_PadSettings[REVERSE_PAD].m_MinimumDriveValue = 20;
-	strcpy_s (g_PadSettings[REVERSE_PAD].m_MinimuDriveString, sizeof (g_PadSettings[RIGHT_PAD].m_MinimuDriveString), "20%");
-	g_PadSettings[REVERSE_PAD].m_NeutralWindowValue = 5;
-	strcpy_s (g_PadSettings[REVERSE_PAD].m_NeutralWindowString, sizeof (g_PadSettings[REVERSE_PAD].m_NeutralWindowString), "N/A");
-	g_PadSettings[REVERSE_PAD].m_PadMinimumCalibrationValue = 2;
-	g_PadSettings[REVERSE_PAD].m_PadMaximumCalibrationValue = 30;
-	g_PadSettings[REVERSE_PAD].m_DiagnosticWidigetLocation = g_DiagnosticWidgetLocations[RIGHT_PAD];
-	g_PadSettings[REVERSE_PAD].m_DiagnosticOff_Widget = &DiagnosticScreen.DiagnosticScreen_RightPadOff_Button;
-	g_PadSettings[REVERSE_PAD].m_DiagnosticProportional_Widget = &DiagnosticScreen.DiagnosticScreen_RightPadProp_Button;
-	g_PadSettings[REVERSE_PAD].m_DiagnosticDigital_Widget = &DiagnosticScreen.DiagnosticScreen_RightPadDigital_Button;
-
-}
 
 
 //*************************************************************************************
@@ -121,8 +65,11 @@ static void Populate_PadOptions_MenuItems(void)
 	g_PadOptions_MenuItems[PAD_OPTIONS_SET_JOYSTICK_THROW_MAX].m_ButtonID = PAD_OPTIONS_SET_JOYSTICK_THROW_MAX_BUTTON_ID;
 	g_PadOptions_MenuItems[PAD_OPTIONS_SET_JOYSTICK_THROW_MAX].m_TextID = GX_STRING_ID_STRING_58;
 	g_PadOptions_MenuItems[PAD_OPTIONS_SET_JOYSTICK_THROW_MAX].m_Enabled = FALSE;
-	// END OF LIST
-	// Not used, must be last
+	// PAD_OPTIONS_SET_VEER_ADJUSTMENT
+	g_PadOptions_MenuItems[PAD_OPTIONS_SET_VEER_ADJUSTMENT].m_ButtonID = PAD_OPTIONS_SET_JOYSTICK_THROW_MAX_BUTTON_ID;
+	g_PadOptions_MenuItems[PAD_OPTIONS_SET_VEER_ADJUSTMENT].m_TextID = GX_STRING_ID_STRING_51;
+	g_PadOptions_MenuItems[PAD_OPTIONS_SET_VEER_ADJUSTMENT].m_Enabled = FALSE;
+	// END OF LIST, must be last
 	g_PadOptions_MenuItems[END_OF_PAD_OPTIONS_MENU_POS].m_ButtonID = LAST_MENU_BUTTON_ID;
 	g_PadOptions_MenuItems[END_OF_PAD_OPTIONS_MENU_POS].m_TextID = GX_STRING_ID_BLANK;
 	g_PadOptions_MenuItems[END_OF_PAD_OPTIONS_MENU_POS].m_Enabled = FALSE;
@@ -135,6 +82,7 @@ static void Populate_PadOptions_MenuItems(void)
 		g_PadOptions_MenuItems[PAD_OPTIONS_SET_MINIMUM_SPEED].m_Enabled = TRUE;
 		g_PadOptions_MenuItems[PAD_OPTIONS_SET_NEUTRAL_WINDOW].m_Enabled = FALSE;
 		g_PadOptions_MenuItems[PAD_OPTIONS_SET_JOYSTICK_THROW_MAX].m_Enabled = FALSE;
+		g_PadOptions_MenuItems[PAD_OPTIONS_SET_VEER_ADJUSTMENT].m_Enabled = TRUE;
 		break;
 	case DEVICE_TYPE_PROPORTIONAL_JOYSTICK:
 		g_PadOptions_MenuItems[PAD_OPTIONS_SET_PAD_TYPE].m_Enabled = FALSE;
@@ -142,6 +90,7 @@ static void Populate_PadOptions_MenuItems(void)
 		g_PadOptions_MenuItems[PAD_OPTIONS_SET_MINIMUM_SPEED].m_Enabled = TRUE;
 		g_PadOptions_MenuItems[PAD_OPTIONS_SET_NEUTRAL_WINDOW].m_Enabled = TRUE;
 		g_PadOptions_MenuItems[PAD_OPTIONS_SET_JOYSTICK_THROW_MAX].m_Enabled = TRUE;
+		g_PadOptions_MenuItems[PAD_OPTIONS_SET_VEER_ADJUSTMENT].m_Enabled = TRUE;
 		break;
 	case DEVICE_TYPE_DIGITAL_JOYSTICK:
 		g_PadOptions_MenuItems[PAD_OPTIONS_SET_PAD_TYPE].m_Enabled = FALSE;
@@ -330,6 +279,9 @@ UINT PadOptionsSettingsScreen_event_process (GX_WINDOW *window, GX_EVENT *event_
 			break;
 		case PAD_OPTIONS_SET_JOYSTICK_THROW_MAX:
 			screen_toggle ((GX_WINDOW*) &JoystickThrowScreen, window);
+			break;
+		case PAD_OPTIONS_SET_VEER_ADJUSTMENT:
+			screen_toggle ((GX_WINDOW*) &VeerAdjustScreen, window);
 			break;
 		default:
 			okToDelete = FALSE;

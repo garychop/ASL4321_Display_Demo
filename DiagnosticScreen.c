@@ -47,12 +47,12 @@ UINT DiagnosticScreen_event_handler(GX_WINDOW *window, GX_EVENT *event_ptr)
 	case GX_EVENT_SHOW:
 		for (pads = 0; pads < 3; ++pads)
 		{
-			myError = gx_widget_resize ((GX_WIDGET*) g_PadSettings[pads].m_DiagnosticDigital_Widget, &g_HiddenRectangle);
-			myError = gx_widget_resize ((GX_WIDGET*) g_PadSettings[pads].m_DiagnosticProportional_Widget, &g_HiddenRectangle);
-			if (g_PadSettings[pads].m_PadDirection == OFF_DIRECTION)
-				myError = gx_widget_resize ((GX_WIDGET*)g_PadSettings[pads].m_DiagnosticOff_Widget, &g_PadSettings[pads].m_DiagnosticWidigetLocation);
-			else
-				myError = gx_widget_resize ((GX_WIDGET*)g_PadSettings[pads].m_DiagnosticOff_Widget, &g_HiddenRectangle);
+			//myError = gx_widget_resize ((GX_WIDGET*) g_PadSettings[pads].m_DiagnosticDigital_Widget, &g_HiddenRectangle);
+			//myError = gx_widget_resize ((GX_WIDGET*) g_PadSettings[pads].m_DiagnosticProportional_Widget, &g_HiddenRectangle);
+			//if (g_PadSettings[pads].m_PadDirection == OFF_DIRECTION)
+			//	myError = gx_widget_resize ((GX_WIDGET*)g_PadSettings[pads].m_DiagnosticOff_Widget, &g_PadSettings[pads].m_DiagnosticWidigetLocation);
+			//else
+			//	myError = gx_widget_resize ((GX_WIDGET*)g_PadSettings[pads].m_DiagnosticOff_Widget, &g_HiddenRectangle);
 		}
 		break;
 
@@ -95,6 +95,7 @@ UINT ShowHidePad (GX_EVENT *event_ptr)
 	xPos = event_ptr->gx_event_payload.gx_event_pointdata.gx_point_x;
 	yPos = event_ptr->gx_event_payload.gx_event_pointdata.gx_point_y;
 
+#if 0
 	// Now traverse the entire set of widgets for this window looking for the the "Pressed" icon.
 	for (pad = 0; pad <= 2; ++pad)
 	{
@@ -138,6 +139,7 @@ UINT ShowHidePad (GX_EVENT *event_ptr)
 		gx_icon_button_pixelmap_set (&DiagnosticScreen.DiagnosticScreen_UserPort_IconButton, GX_PIXELMAP_ID_RADIOBUTTON_OFF);
 		gx_icon_button_pixelmap_set (&DiagnosticScreen.DiagnosticScreen_ModePort_IconButton, GX_PIXELMAP_ID_RADIOBUTTON_ON);
 	}
+#endif 
 	return (myError);
 }
 

@@ -6,7 +6,7 @@
 /*  www.expresslogic.com.                                                      */
 /*                                                                             */
 /*  GUIX Studio Revision 5.4.2.9                                               */
-/*  Date (dd.mm.yyyy): 17. 2.2021   Time (hh:mm): 10:11                        */
+/*  Date (dd.mm.yyyy): 17. 2.2021   Time (hh:mm): 16:46                        */
 /*******************************************************************************/
 
 
@@ -24,9 +24,9 @@ extern   "C" {
 
 #define TECLA_E_WINDIOW_ID 1
 #define OK_BTN_ID 2
-#define NEUTRAL_WINDOW_WINDOW 3
+#define DEVICE_TYPE_ICON 3
 #define GROUP_ICON_BUTTON 4
-#define DEVICE_TYPE_ICON 5
+#define NEUTRAL_WINDOW_WINDOW 5
 #define NEUTRAL_WINDOW_BTN_ID 6
 #define SOUND_SETUP_SCREEN_ID 7
 #define MANAGE_SOUND_SCREEN_ID 8
@@ -337,6 +337,10 @@ typedef struct JOYSTICKTHROWSCREEN_CONTROL_BLOCK_STRUCT
     GX_WINDOW JoystickThrowScreen_JoystickThrowScreen_window;
     GX_TEXT_BUTTON JoystickThrowScreen_OK_Button;
     GX_PROMPT JoystickThrowScreen_prompt_2;
+    GX_ICON JoystickThrowScreen_DeviceType_icon;
+    GX_ICON_BUTTON JoystickThrowScreen_GroupIconButton;
+    GX_ICON JoystickThrowScreen_icon_1;
+    GX_ICON JoystickThrowScreen_icon_2;
 } JOYSTICKTHROWSCREEN_CONTROL_BLOCK;
 
 typedef struct NEUTRALWINDOWSCREEN_CONTROL_BLOCK_STRUCT
@@ -410,6 +414,7 @@ typedef struct FEATURESETTINGSSCREEN_CONTROL_BLOCK_STRUCT
     GX_VERTICAL_LIST FeatureSettingsScreen_FeatureListBox;
     GX_SCROLLBAR FeatureSettingsScreen_FeatureList_vertical_scroll;
     GX_ICON_BUTTON FeatureSettingsScreen_GroupIconButton;
+    GX_PROMPT FeatureSettingsScreen_prompt_3;
 } FEATURESETTINGSSCREEN_CONTROL_BLOCK;
 
 typedef struct HHP_START_SCREEN_CONTROL_BLOCK_STRUCT

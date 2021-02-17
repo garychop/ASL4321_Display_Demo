@@ -6,7 +6,7 @@
 /*  www.expresslogic.com.                                                      */
 /*                                                                             */
 /*  GUIX Studio Revision 5.4.2.9                                               */
-/*  Date (dd.mm.yyyy): 17. 2.2021   Time (hh:mm): 10:11                        */
+/*  Date (dd.mm.yyyy): 17. 2.2021   Time (hh:mm): 16:46                        */
 /*******************************************************************************/
 
 
@@ -631,11 +631,126 @@ GX_TEXT_BUTTON_PROPERTIES JoystickThrowScreen_OK_Button_properties =
 };
 GX_PROMPT_PROPERTIES JoystickThrowScreen_prompt_2_properties =
 {
-    GX_STRING_ID_STRING_119,                 /* string id                      */
+    GX_STRING_ID_STRING_127,                 /* string id                      */
     GX_FONT_ID_PROMPT,                       /* font id                        */
     GX_COLOR_ID_WHITE,                       /* normal text color              */
     GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
     GX_COLOR_ID_DISABLED_TEXT                /* disabled text color            */
+};
+GX_ICON_PROPERTIES JoystickThrowScreen_DeviceType_icon_properties =
+{
+    GX_PIXELMAP_ID_DEVICETYPE_JOYSTICK_88X70, /* normal pixelmap id            */
+    0                                        /* selected pixelmap id           */
+};
+GX_ICON_BUTTON_PROPERTIES JoystickThrowScreen_GroupIconButton_properties =
+{
+    GX_PIXELMAP_ID_GROUPA_64X64              /* pixelmap id                    */
+};
+GX_ICON_PROPERTIES JoystickThrowScreen_icon_1_properties =
+{
+    GX_PIXELMAP_ID_NEUTRALWINDOWBACKDROP,    /* normal pixelmap id             */
+    0                                        /* selected pixelmap id           */
+};
+GX_ICON_PROPERTIES JoystickThrowScreen_icon_2_properties =
+{
+    GX_PIXELMAP_ID_JOYSTICKPOSITIONICON,     /* normal pixelmap id             */
+    0                                        /* selected pixelmap id           */
+};
+
+GX_CONST GX_STUDIO_WIDGET JoystickThrowScreen_icon_2_define =
+{
+    "icon_2",
+    GX_TYPE_ICON,                            /* widget type                    */
+    GX_ID_NONE,                              /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_ENABLED|GX_STYLE_HALIGN_LEFT|GX_STYLE_VALIGN_TOP,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_ICON),                         /* control block size             */
+    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_icon_create,                   /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {242, 160, 275, 193},                    /* widget size                    */
+    GX_NULL,                                 /* no next widget                 */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(JOYSTICKTHROWSCREEN_CONTROL_BLOCK, JoystickThrowScreen_icon_2), /* control block */
+    (void *) &JoystickThrowScreen_icon_2_properties /* extended properties     */
+};
+
+GX_CONST GX_STUDIO_WIDGET JoystickThrowScreen_icon_1_define =
+{
+    "icon_1",
+    GX_TYPE_ICON,                            /* widget type                    */
+    GX_ID_NONE,                              /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_HALIGN_LEFT|GX_STYLE_VALIGN_TOP,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_ICON),                         /* control block size             */
+    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_icon_create,                   /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {118, 42, 337, 261},                     /* widget size                    */
+    &JoystickThrowScreen_icon_2_define,      /* next widget definition         */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(JOYSTICKTHROWSCREEN_CONTROL_BLOCK, JoystickThrowScreen_icon_1), /* control block */
+    (void *) &JoystickThrowScreen_icon_1_properties /* extended properties     */
+};
+
+GX_CONST GX_STUDIO_WIDGET JoystickThrowScreen_GroupIconButton_define =
+{
+    "GroupIconButton",
+    GX_TYPE_ICON_BUTTON,                     /* widget type                    */
+    GROUP_ICON_BUTTON,                       /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_HALIGN_CENTER|GX_STYLE_VALIGN_CENTER,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_ICON_BUTTON),                  /* control block size             */
+    GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
+    GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_icon_button_create,            /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {390, 18, 453, 81},                      /* widget size                    */
+    &JoystickThrowScreen_icon_1_define,      /* next widget definition         */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(JOYSTICKTHROWSCREEN_CONTROL_BLOCK, JoystickThrowScreen_GroupIconButton), /* control block */
+    (void *) &JoystickThrowScreen_GroupIconButton_properties /* extended properties */
+};
+
+GX_CONST GX_STUDIO_WIDGET JoystickThrowScreen_DeviceType_icon_define =
+{
+    "DeviceType_icon",
+    GX_TYPE_ICON,                            /* widget type                    */
+    DEVICE_TYPE_ICON,                        /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_HALIGN_LEFT|GX_STYLE_VALIGN_TOP,   /* style flags */
+    0,                                       /* status flags                   */
+    sizeof(GX_ICON),                         /* control block size             */
+    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_icon_create,                   /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {51, 6, 138, 75},                        /* widget size                    */
+    &JoystickThrowScreen_GroupIconButton_define, /* next widget definition     */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(JOYSTICKTHROWSCREEN_CONTROL_BLOCK, JoystickThrowScreen_DeviceType_icon), /* control block */
+    (void *) &JoystickThrowScreen_DeviceType_icon_properties /* extended properties */
 };
 
 GX_CONST GX_STUDIO_WIDGET JoystickThrowScreen_prompt_2_define =
@@ -646,7 +761,7 @@ GX_CONST GX_STUDIO_WIDGET JoystickThrowScreen_prompt_2_define =
     #if defined(GX_WIDGET_USER_DATA)
     0,                                       /* user data                      */
     #endif
-    GX_STYLE_BORDER_THIN|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
     GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
     sizeof(GX_PROMPT),                       /* control block size             */
     GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
@@ -655,8 +770,8 @@ GX_CONST GX_STUDIO_WIDGET JoystickThrowScreen_prompt_2_define =
     gx_studio_prompt_create,                 /* create function                */
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
-    {29, 39, 441, 150},                      /* widget size                    */
-    GX_NULL,                                 /* no next widget                 */
+    {145, 4, 310, 46},                       /* widget size                    */
+    &JoystickThrowScreen_DeviceType_icon_define, /* next widget definition     */
     GX_NULL,                                 /* no child widgets               */ 
     offsetof(JOYSTICKTHROWSCREEN_CONTROL_BLOCK, JoystickThrowScreen_prompt_2), /* control block */
     (void *) &JoystickThrowScreen_prompt_2_properties /* extended properties   */
@@ -679,7 +794,7 @@ GX_CONST GX_STUDIO_WIDGET JoystickThrowScreen_OK_Button_define =
     gx_studio_text_button_create,            /* create function                */
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
-    {380, 188, 459, 251},                    /* widget size                    */
+    {381, 189, 460, 252},                    /* widget size                    */
     &JoystickThrowScreen_prompt_2_define,    /* next widget definition         */
     GX_NULL,                                 /* no child widgets               */ 
     offsetof(JOYSTICKTHROWSCREEN_CONTROL_BLOCK, JoystickThrowScreen_OK_Button), /* control block */
@@ -703,7 +818,7 @@ GX_CONST GX_STUDIO_WIDGET JoystickThrowScreen_JoystickThrowScreen_window_define 
     gx_studio_window_create,                 /* create function                */
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
-    {0, 0, 479, 271},                        /* widget size                    */
+    {1, 1, 480, 272},                        /* widget size                    */
     GX_NULL,                                 /* no next widget                 */
     &JoystickThrowScreen_OK_Button_define,   /* child widget definition        */
     offsetof(JOYSTICKTHROWSCREEN_CONTROL_BLOCK, JoystickThrowScreen_JoystickThrowScreen_window), /* control block */
@@ -2053,8 +2168,8 @@ GX_VERTICAL_LIST_PROPERTIES FeatureSettingsScreen_FeatureListBox_properties =
 };
 GX_SCROLLBAR_APPEARANCE  FeatureSettingsScreen_FeatureList_vertical_scroll_properties =
 {
-    14,                                      /* scroll width                   */
-    6,                                       /* thumb width                    */
+    20,                                      /* scroll width                   */
+    10,                                      /* thumb width                    */
     0,                                       /* thumb travel min               */
     0,                                       /* thumb travel max               */
     4,                                       /* thumb border style             */
@@ -2069,6 +2184,14 @@ GX_SCROLLBAR_APPEARANCE  FeatureSettingsScreen_FeatureList_vertical_scroll_prope
 GX_ICON_BUTTON_PROPERTIES FeatureSettingsScreen_GroupIconButton_properties =
 {
     GX_PIXELMAP_ID_GROUPA_64X64              /* pixelmap id                    */
+};
+GX_PROMPT_PROPERTIES FeatureSettingsScreen_prompt_3_properties =
+{
+    GX_STRING_ID_STRING_128,                 /* string id                      */
+    GX_FONT_ID_PROMPT,                       /* font id                        */
+    GX_COLOR_ID_WHITE,                       /* normal text color              */
+    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
+    GX_COLOR_ID_DISABLED_TEXT                /* disabled text color            */
 };
 
 GX_CONST GX_STUDIO_WIDGET FeatureSettingsScreen_FeatureList_vertical_scroll_define =
@@ -2088,11 +2211,35 @@ GX_CONST GX_STUDIO_WIDGET FeatureSettingsScreen_FeatureList_vertical_scroll_defi
     gx_studio_vertical_scrollbar_create,     /* create function                */
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
-    {211, 10, 224, 224},                     /* widget size                    */
+    {299, 41, 318, 263},                     /* widget size                    */
     GX_NULL,                                 /* no next widget                 */
     GX_NULL,                                 /* no child widgets               */ 
     offsetof(FEATURESETTINGSSCREEN_CONTROL_BLOCK, FeatureSettingsScreen_FeatureList_vertical_scroll), /* control block */
     (void *) &FeatureSettingsScreen_FeatureList_vertical_scroll_properties /* extended properties */
+};
+
+GX_CONST GX_STUDIO_WIDGET FeatureSettingsScreen_prompt_3_define =
+{
+    "prompt_3",
+    GX_TYPE_PROMPT,                          /* widget type                    */
+    GX_ID_NONE,                              /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_PROMPT),                       /* control block size             */
+    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_prompt_create,                 /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {52, 6, 285, 29},                        /* widget size                    */
+    GX_NULL,                                 /* no next widget                 */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(FEATURESETTINGSSCREEN_CONTROL_BLOCK, FeatureSettingsScreen_prompt_3), /* control block */
+    (void *) &FeatureSettingsScreen_prompt_3_properties /* extended properties */
 };
 
 GX_CONST GX_STUDIO_WIDGET FeatureSettingsScreen_GroupIconButton_define =
@@ -2113,7 +2260,7 @@ GX_CONST GX_STUDIO_WIDGET FeatureSettingsScreen_GroupIconButton_define =
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
     {388, 16, 451, 79},                      /* widget size                    */
-    GX_NULL,                                 /* no next widget                 */
+    &FeatureSettingsScreen_prompt_3_define,  /* next widget definition         */
     GX_NULL,                                 /* no child widgets               */ 
     offsetof(FEATURESETTINGSSCREEN_CONTROL_BLOCK, FeatureSettingsScreen_GroupIconButton), /* control block */
     (void *) &FeatureSettingsScreen_GroupIconButton_properties /* extended properties */
@@ -2130,13 +2277,13 @@ GX_CONST GX_STUDIO_WIDGET FeatureSettingsScreen_FeatureListBox_define =
     GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED,   /* style flags */
     GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
     sizeof(GX_VERTICAL_LIST),                /* control block size             */
-    GX_COLOR_ID_BLACK,                       /* normal color id                */
+    GX_COLOR_ID_TEXT_INPUT_TEXT,             /* normal color id                */
     GX_COLOR_ID_BLACK,                       /* selected color id              */
     GX_COLOR_ID_BLACK,                       /* disabled color id              */
     gx_studio_vertical_list_create,          /* create function                */
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
-    {5, 10, 224, 224},                       /* widget size                    */
+    {11, 41, 318, 263},                      /* widget size                    */
     &FeatureSettingsScreen_GroupIconButton_define, /* next widget definition   */
     &FeatureSettingsScreen_FeatureList_vertical_scroll_define, /* child widget definition */
     offsetof(FEATURESETTINGSSCREEN_CONTROL_BLOCK, FeatureSettingsScreen_FeatureListBox), /* control block */
@@ -2275,7 +2422,7 @@ GX_CONST GX_STUDIO_WIDGET HHP_Start_Screen_FeatureList_vertical_scroll_define =
     gx_studio_vertical_scrollbar_create,     /* create function                */
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
-    {289, 11, 308, 260},                     /* widget size                    */
+    {334, 16, 353, 257},                     /* widget size                    */
     GX_NULL,                                 /* no next widget                 */
     GX_NULL,                                 /* no child widgets               */ 
     offsetof(HHP_START_SCREEN_CONTROL_BLOCK, HHP_Start_Screen_FeatureList_vertical_scroll), /* control block */
@@ -2347,7 +2494,7 @@ GX_CONST GX_STUDIO_WIDGET HHP_Start_Screen_FeatureList_define =
     gx_studio_vertical_list_create,          /* create function                */
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
-    {10, 10, 309, 261},                      /* widget size                    */
+    {9, 16, 353, 257},                       /* widget size                    */
     &HHP_Start_Screen_OK_Button_define,      /* next widget definition         */
     &HHP_Start_Screen_FeatureList_vertical_scroll_define, /* child widget definition */
     offsetof(HHP_START_SCREEN_CONTROL_BLOCK, HHP_Start_Screen_FeatureList), /* control block */

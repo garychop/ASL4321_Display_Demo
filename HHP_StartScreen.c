@@ -21,7 +21,7 @@ typedef enum HHP_INITIAL_MENU_POSITION_E
 	SEATING_SETUP_MENU_POS,
 	AUDIBLE_USAGE_MENU_POS,
 //	SOUNDS_MENU_POS,
-	PERFORMANCE_MENU_POS,
+//	PERFORMANCE_MENU_POS,
 	DIAGNOSTICS_MENU_POS,
 	END_OF_HHP_INITIAL_MENU_POS
 } HHP_INITIAL_MENU_POSITION_ENUM;
@@ -107,9 +107,9 @@ static void Populate_HHPStart_MenuItems(void)
 	//g_HHP_InitialMenuItems[SOUNDS_MENU_POS].m_TextID = GX_STRING_ID_SOUNDS;
 	//g_HHP_InitialMenuItems[SOUNDS_MENU_POS].m_Enabled = TRUE;
 	// PERFORMANCE
-	g_HHP_InitialMenuItems[PERFORMANCE_MENU_POS].m_ButtonID = PERFORMANCE_MENU_BUTTON_ID;
-	g_HHP_InitialMenuItems[PERFORMANCE_MENU_POS].m_TextID = GX_STRING_ID_STRING_94;
-	g_HHP_InitialMenuItems[PERFORMANCE_MENU_POS].m_Enabled = TRUE;
+	//g_HHP_InitialMenuItems[PERFORMANCE_MENU_POS].m_ButtonID = PERFORMANCE_MENU_BUTTON_ID;
+	//g_HHP_InitialMenuItems[PERFORMANCE_MENU_POS].m_TextID = GX_STRING_ID_STRING_94;
+	//g_HHP_InitialMenuItems[PERFORMANCE_MENU_POS].m_Enabled = FALSE;
 	// DIAGNOSTICS
 	g_HHP_InitialMenuItems[DIAGNOSTICS_MENU_POS].m_ButtonID = DIAGNOSTICS_MENU_BUTTON_ID;
 	g_HHP_InitialMenuItems[DIAGNOSTICS_MENU_POS].m_TextID = GX_STRING_ID_STRING_10;
@@ -212,6 +212,8 @@ UINT HHP_Start_Screen_event_process_new (GX_WINDOW *window, GX_EVENT *event_ptr)
 	//GX_BOOL result;
 	int index;
 	int numberOfActiveMenuItems;
+	int runningIndex;
+	int selectedIndex;
 
 	HHP_START_SCREEN_CONTROL_BLOCK *StartingWindowPtr = (HHP_START_SCREEN_CONTROL_BLOCK*) window;
 
@@ -240,7 +242,20 @@ UINT HHP_Start_Screen_event_process_new (GX_WINDOW *window, GX_EVENT *event_ptr)
 		break;
 
     case GX_SIGNAL(FEATURE_VERTICAL_LIST, GX_EVENT_LIST_SELECT):
-		gx_vertical_list_selected_index_get (&StartingWindowPtr->HHP_Start_Screen_FeatureList, &index);
+		gx_vertical_list_selected_index_get (&StartingWindowPtr->HHP_Start_Screen_FeatureList, &selectedIndex);
+		// "index" refers to the item in the list... and not the item itself.
+		// We will identify which pad option has been selected.
+		runningIndex = 0;	// This will increment with each enabled items.
+		for (index = 0; index < END_OF_HHP_INITIAL_MENU_POS; ++index)
+		{
+			if (g_HHP_InitialMenuItems[index].m_Enabled)
+			{
+				if (runningIndex == selectedIndex)
+					break;				// we found the correct Pad Option button.
+				else
+					++runningIndex;		// We need to continue looking.
+			}
+		}
 		switch (index)
 		{
 		case PAD_SETTINGS_MENU_POS: // PAD SETTINGS
@@ -263,9 +278,9 @@ UINT HHP_Start_Screen_event_process_new (GX_WINDOW *window, GX_EVENT *event_ptr)
 		//case SOUNDS_MENU_POS:	// SOUNDS
 		////	screen_toggle ((GX_WINDOW*) &UserSettingsScreen, window);
 		//	break;
-		case PERFORMANCE_MENU_POS:	// PERFORMANCE
-			screen_toggle ((GX_WINDOW*) &PerformanceSelectionScreen, window);
-			break;
+		//case PERFORMANCE_MENU_POS:	// PERFORMANCE... Obsoleted.
+		//	screen_toggle ((GX_WINDOW*) &PerformanceSelectionScreen, window);
+		//	break;
 		case DIAGNOSTICS_MENU_POS:	// DIAGNOSTICS
 			screen_toggle ((GX_WINDOW*) &DiagnosticScreen, window);
 			break;

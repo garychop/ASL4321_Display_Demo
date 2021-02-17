@@ -91,7 +91,7 @@ UINT VeerAdjust_Screen_event_handler (GX_WINDOW *window, GX_EVENT *event_ptr)
 	switch (event_ptr->gx_event_type)
 	{
 	case GX_SIGNAL(OK_BTN_ID, GX_EVENT_CLICKED):
-        screen_toggle((GX_WINDOW *)&PerformanceSelectionScreen, window);
+        screen_toggle((GX_WINDOW *)&PadOptionsSettingsScreen, window);
 		break;
 
 	case GX_EVENT_PEN_DOWN:
