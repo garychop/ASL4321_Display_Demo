@@ -22,20 +22,26 @@ static VOID ShowPads (VOID)
 
 	if (GetGroupDeviceType() == DEVICE_TYPE_HEAD_ARRAY)
 	{
+		// Move device icon
+		gx_utility_rectangle_define (&rectangle, 154, 90, 154+88, 90+70);	// Left, top, right, bottom
+		gx_widget_resize (&MinimumDriveScreen.MinimumDriveScreen_DeviceType_icon, &rectangle);
 		// Left Button
-		gx_utility_rectangle_define (&rectangle, 64, 120, 64+88, 120+70);	// Left, top, right, bottom
+		gx_utility_rectangle_define (&rectangle, 64, 90, 64+88, 90+70);	// Left, top, right, bottom
 		gx_widget_resize (&MinimumDriveScreen.MinimumDriveScreen_LeftPadPercentage_Button, &rectangle);
 		// Right Button
-		gx_utility_rectangle_define (&rectangle, 242, 120, 242+88, 120+70);	// Left, top, right, bottom
+		gx_utility_rectangle_define (&rectangle, 242, 90, 242+88, 90+70);	// Left, top, right, bottom
 		gx_widget_resize (&MinimumDriveScreen.MinimumDriveScreen_RightPadPercentage_Button, &rectangle);
 		// Center/Forward Pad
-		gx_utility_rectangle_define (&rectangle, 152, 190, 152+88, 190+70);	// Left, top, right, bottom
+		gx_utility_rectangle_define (&rectangle, 154, 160, 152+88, 160+70);	// Left, top, right, bottom
 		gx_widget_resize (&MinimumDriveScreen.MinimumDriveScreen_ForwardPadPercentage_Button, &rectangle);
 		// Hide the revese button
 		gx_widget_hide (&MinimumDriveScreen.MinimumDriveScreen_ReversePadPercentage_Button);
 	}
 	else	// Must be a joystick, show all 4 pads.
 	{
+		// Move device icon
+		gx_utility_rectangle_define (&rectangle, 154, 120, 154+88, 120+70);	// Left, top, right, bottom
+		gx_widget_resize (&MinimumDriveScreen.MinimumDriveScreen_DeviceType_icon, &rectangle);
 		// Left Button
 		gx_utility_rectangle_define (&rectangle, 64, 120, 64+88, 120+70);	// Left, top, right, bottom
 		gx_widget_resize (&MinimumDriveScreen.MinimumDriveScreen_LeftPadPercentage_Button, &rectangle);
@@ -43,10 +49,10 @@ static VOID ShowPads (VOID)
 		gx_utility_rectangle_define (&rectangle, 242, 120, 242+88, 120+70);	// Left, top, right, bottom
 		gx_widget_resize (&MinimumDriveScreen.MinimumDriveScreen_RightPadPercentage_Button, &rectangle);
 		// Center/Forward Pad
-		gx_utility_rectangle_define (&rectangle, 152, 50, 152+88, 50+70);	// Left, top, right, bottom
+		gx_utility_rectangle_define (&rectangle, 154, 50, 154+88, 50+70);	// Left, top, right, bottom
 		gx_widget_resize (&MinimumDriveScreen.MinimumDriveScreen_ForwardPadPercentage_Button, &rectangle);
 		// Reverse Button
-		gx_utility_rectangle_define (&rectangle, 152, 190, 152+88, 190+70);	// Left, top, right, bottom
+		gx_utility_rectangle_define (&rectangle, 154, 190, 154+88, 190+70);	// Left, top, right, bottom
 		gx_widget_resize (&MinimumDriveScreen.MinimumDriveScreen_ReversePadPercentage_Button, &rectangle);
 		gx_widget_show (&MinimumDriveScreen.MinimumDriveScreen_ReversePadPercentage_Button);
 	}
