@@ -148,7 +148,7 @@ UINT CalibrationScreen_event_process (GX_WINDOW *window, GX_EVENT *event_ptr)
 		case RIGHT_PAD:
 			myErr = gx_widget_resize ((GX_WIDGET*) &PadCalibrationScreen.PadCalibrationScreen_RightPadON_Button, &g_CalibrationPadLocations[1]);
 			break;
-		case CENTER_PAD:
+		case FORWARD_PAD:
 			myErr = gx_widget_resize ((GX_WIDGET*) &PadCalibrationScreen.PadCalibrationScreen_CenterPadON_Button, &g_CalibrationPadLocations[2]);
 			break;
 		} // end switch (g_CalibrationPadNumber)

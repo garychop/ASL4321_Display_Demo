@@ -40,7 +40,7 @@ UINT MainUserScreen_3_EventFunction (GX_WINDOW *window, GX_EVENT *event_ptr)
 			break;
 		} // end switch
 		break;
-	case GX_SIGNAL (RIGHT_PAD_RIGHT_ARROW_BTN_ID, GX_EVENT_CLICKED):
+	case GX_SIGNAL (RIGHT_PAD_BUTTON, GX_EVENT_CLICKED):
 		break;
 	}
 

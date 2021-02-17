@@ -17,7 +17,24 @@
 #include "ASL4321_Simulator_Main.h"
 #include "ASL4321_System.h"
 
-//-----------------------------------------------------------------------------
+int g_TeclaGroup = 0; 
+
+//***********************************************************************************
+
+UINT GetTeclaGroup (VOID)
+{
+	return g_TeclaGroup;
+}
+
+//***********************************************************************************
+
+VOID AdvanceToNextTeclaGroup (VOID)
+{
+	if (++g_TeclaGroup > 2)
+		g_TeclaGroup = 0;
+}
+
+//***********************************************************************************
 
 UINT Tecla_E_Screen_event_function (GX_WINDOW *window, GX_EVENT *event_ptr)
 {

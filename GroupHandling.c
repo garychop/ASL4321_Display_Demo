@@ -30,7 +30,6 @@ VOID InitializeGroupInformation (VOID)
 
 //*************************************************************************************
 // Goes the next group, adjusts global var and returns the active group
-
 //******************************************************************************************
 
 VOID SelectNextGroup(VOID)
@@ -39,3 +38,13 @@ VOID SelectNextGroup(VOID)
 		g_ActiveGroup = 0;
 }
 
+//******************************************************************************************
+UINT GetActiveGroup (VOID)
+{
+	return g_ActiveGroup;
+}
+
+DEVICE_TYPE_ENUM GetGroupDeviceType (VOID)
+{
+	return (g_GroupInfo[g_ActiveGroup].m_DeviceType);
+}

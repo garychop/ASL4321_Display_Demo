@@ -131,6 +131,8 @@ VOID Initialize_MainScreenInfo()
 
 void DisplayPadFeatures()
 {
+	UINT err;
+
 	switch (g_ActiveFeature)
 	{
 	case AUDIBLE_OUT_FEATURE_ID:
@@ -186,6 +188,12 @@ void DisplayPadFeatures()
 			gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_LeftPad_Button, GX_PIXELMAP_ID_RECLINEDOWN_88X70);
 			gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_RightPad_Button, GX_PIXELMAP_ID_RECLINEUP_88X70);
 			break;
+		case 2:
+			gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_ForwardPad_Button, GX_PIXELMAP_ID_PADUPARROW_DISABLED);
+			gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_ReversePad_Button, GX_PIXELMAP_ID_PADDOWNARROW_DISABLED);
+			gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_LeftPad_Button, GX_PIXELMAP_ID_SEATING_ELEVATE_DOWN_88X70);
+			gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_RightPad_Button, GX_PIXELMAP_ID_SEATING_ELEVATE_UP_88X70);
+			break;
 		} // end switch 
 		break;
 	case BLUETOOTH_ID:
@@ -214,6 +222,18 @@ void DisplayPadFeatures()
 		gx_widget_hide (&MainUserScreen.MainUserScreen_ReversePad_Button);
 		gx_widget_hide (&MainUserScreen.MainUserScreen_LeftPad_Button);
 		gx_widget_hide (&MainUserScreen.MainUserScreen_RightPad_Button);
+		switch (GetTeclaGroup())
+		{
+		case 0:
+			err = gx_prompt_text_id_set ((GX_PROMPT*) &MainUserScreen.MainUserScreen_TeclaMain_Prompt, GX_STRING_ID_STRING_123);
+			break;
+		case 1:
+			err = gx_prompt_text_id_set ((GX_PROMPT*) &MainUserScreen.MainUserScreen_TeclaMain_Prompt, GX_STRING_ID_STRING_124);
+			break;
+		case 2:
+			err = gx_prompt_text_id_set ((GX_PROMPT*) &MainUserScreen.MainUserScreen_TeclaMain_Prompt, GX_STRING_ID_STRING_125);
+			break;
+		} // end swtich
 		break;
 	default:
 		gx_widget_show (&MainUserScreen.MainUserScreen_ForwardPad_Button);
@@ -354,7 +374,7 @@ UINT DisplayMainScreenActiveFeatures ()
     } // end of for
 
 	// Show the Device icon in the middle of the screen.
-	ShowDeviceIcon(&MainUserScreen.MainUserScreen_DeviceType_icon);
+	SetDeviceIcon(&MainUserScreen.MainUserScreen_DeviceType_icon);
 	
 	// Display the group icon and set the function box color
 	SetGroupIcon (&MainUserScreen.MainUserScreen_GroupIconButton);
@@ -533,7 +553,7 @@ UINT MainUserScreen_EventFunction (GX_WINDOW *window, GX_EVENT *event_ptr)
 			break;
 		} // end switch
 		break;
-	case GX_SIGNAL (RIGHT_PAD_RIGHT_ARROW_BTN_ID, GX_EVENT_CLICKED):
+	case GX_SIGNAL (RIGHT_PAD_BUTTON, GX_EVENT_CLICKED):
 		break;
 
 	case GX_EVENT_PEN_DOWN:	// We are going to determine if the PAD button is pressed and start a timer to increment the 
@@ -588,7 +608,7 @@ UINT MainUserScreen_EventFunction (GX_WINDOW *window, GX_EVENT *event_ptr)
 					break;
 				case SEATING_FEATURE_ID:
 					++g_ActiveSeatingGroup;
-					if (g_ActiveSeatingGroup > 1)
+					if (g_ActiveSeatingGroup > 2)
 						g_ActiveSeatingGroup = 0;
 					DisplayMainScreenActiveFeatures();
 					break;
@@ -596,6 +616,10 @@ UINT MainUserScreen_EventFunction (GX_WINDOW *window, GX_EVENT *event_ptr)
 					++g_BluetoothGroup;
 					if (g_BluetoothGroup > 1)
 						g_BluetoothGroup = 0;
+					DisplayMainScreenActiveFeatures();
+					break;
+				case TECLA_E_FEATURE_ID:
+					AdvanceToNextTeclaGroup();
 					DisplayMainScreenActiveFeatures();
 					break;
 				default:

@@ -218,7 +218,7 @@ VOID SetGroupIcon (GX_ICON_BUTTON *icon_button)
 
 //******************************************************************************************
 
-VOID ShowDeviceIcon (GX_ICON *icon)
+VOID SetDeviceIcon (GX_ICON *icon)
 {
 	switch (g_GroupInfo[g_ActiveGroup].m_DeviceType)
 	{

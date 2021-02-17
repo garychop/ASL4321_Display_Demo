@@ -14,6 +14,33 @@
 // Local/Global variables
 //*************************************************************************************
 
+VOID DisplayPadType (VOID)
+{
+	if (g_PadSettings[LEFT_PAD].m_PadType)	// Digital?
+	{
+		gx_pixelmap_button_pixelmap_set (&SetPadTypeScreen.SetPadTypeScreen_LeftPadType_Button, GX_PIXELMAP_ID_DIGITAL_INDICATOR, GX_PIXELMAP_ID_DIGITAL_INDICATOR, GX_PIXELMAP_ID_DIGITAL_INDICATOR);
+	}
+	else
+	{
+		gx_pixelmap_button_pixelmap_set (&SetPadTypeScreen.SetPadTypeScreen_LeftPadType_Button, GX_PIXELMAP_ID_PROPORTIONAL_INDICATOR_ORANGE, GX_PIXELMAP_ID_PROPORTIONAL_INDICATOR_ORANGE, GX_PIXELMAP_ID_PROPORTIONAL_INDICATOR_ORANGE);
+	}
+	if (g_PadSettings[RIGHT_PAD].m_PadType)	// Digital?
+	{
+		gx_pixelmap_button_pixelmap_set (&SetPadTypeScreen.SetPadTypeScreen_RightPadType_Button, GX_PIXELMAP_ID_DIGITAL_INDICATOR, GX_PIXELMAP_ID_DIGITAL_INDICATOR, GX_PIXELMAP_ID_DIGITAL_INDICATOR);
+	}
+	else
+	{
+		gx_pixelmap_button_pixelmap_set (&SetPadTypeScreen.SetPadTypeScreen_RightPadType_Button, GX_PIXELMAP_ID_PROPORTIONAL_INDICATOR_ORANGE, GX_PIXELMAP_ID_PROPORTIONAL_INDICATOR_ORANGE, GX_PIXELMAP_ID_PROPORTIONAL_INDICATOR_ORANGE);
+	}
+	if (g_PadSettings[FORWARD_PAD].m_PadType)	// Digital?
+	{
+		gx_pixelmap_button_pixelmap_set (&SetPadTypeScreen.SetPadTypeScreen_ForwardPadType_Button, GX_PIXELMAP_ID_DIGITAL_INDICATOR, GX_PIXELMAP_ID_DIGITAL_INDICATOR, GX_PIXELMAP_ID_DIGITAL_INDICATOR);
+	}
+	else
+	{
+		gx_pixelmap_button_pixelmap_set (&SetPadTypeScreen.SetPadTypeScreen_ForwardPadType_Button, GX_PIXELMAP_ID_PROPORTIONAL_INDICATOR_ORANGE, GX_PIXELMAP_ID_PROPORTIONAL_INDICATOR_ORANGE, GX_PIXELMAP_ID_PROPORTIONAL_INDICATOR_ORANGE);
+	}
+}
 
 //*************************************************************************************
 // Function Name: SetPadTypeScreen_event_process
@@ -29,91 +56,36 @@ UINT SetPadTypeScreen_event_process (GX_WINDOW *window, GX_EVENT *event_ptr)
 	switch (event_ptr->gx_event_type)
 	{
 	case GX_EVENT_SHOW:
+		// Display the active group.
 		SetGroupIcon (&SetPadTypeScreen.SetPadTypeScreen_GroupIconButton);
+		DisplayPadType();
 		g_ChangeScreen_WIP = FALSE;
-		if (g_PadSettings[LEFT_PAD].m_PadType)	// Digital?
-		{
-			gx_widget_hide ((GX_WIDGET*) &SetPadTypeScreen.SetPadTypeScreen_LeftPadProportional_Button);
-			gx_widget_show ((GX_WIDGET*) &SetPadTypeScreen.SetPadTypeScreen_LeftPadDigital_Button);
-		}
-		else
-		{
-			gx_widget_show ((GX_WIDGET*) &SetPadTypeScreen.SetPadTypeScreen_LeftPadProportional_Button);
-			gx_widget_hide ((GX_WIDGET*) &SetPadTypeScreen.SetPadTypeScreen_LeftPadDigital_Button);
-		}
-		if (g_PadSettings[RIGHT_PAD].m_PadType)	// Digital?
-		{
-			gx_widget_hide ((GX_WIDGET*) &SetPadTypeScreen.SetPadTypeScreen_RightPadProportional_Button);
-			gx_widget_show ((GX_WIDGET*) &SetPadTypeScreen.SetPadTypeScreen_RightPadDigital_Button);
-		}
-		else
-		{
-			gx_widget_show ((GX_WIDGET*) &SetPadTypeScreen.SetPadTypeScreen_RightPadProportional_Button);
-			gx_widget_hide ((GX_WIDGET*) &SetPadTypeScreen.SetPadTypeScreen_RightPadDigital_Button);
-		}
-		if (g_PadSettings[CENTER_PAD].m_PadType)	// Digital?
-		{
-			gx_widget_hide ((GX_WIDGET*) &SetPadTypeScreen.SetPadTypeScreen_CenterPadProportional_Button);
-			gx_widget_show ((GX_WIDGET*) &SetPadTypeScreen.SetPadTypeScreen_CenterPadDigital_Button);
-		}
-		else
-		{
-			gx_widget_show ((GX_WIDGET*) &SetPadTypeScreen.SetPadTypeScreen_CenterPadProportional_Button);
-			gx_widget_hide ((GX_WIDGET*) &SetPadTypeScreen.SetPadTypeScreen_CenterPadDigital_Button);
-		}
 		break;
 
 	case GX_SIGNAL(OK_BTN_ID, GX_EVENT_CLICKED):
         screen_toggle((GX_WINDOW *)&PadOptionsSettingsScreen, window);
 		break;
 
-	case GX_SIGNAL(RIGHT_PAD_DIGITAL_BTN_ID, GX_EVENT_CLICKED):
-		if (!g_ChangeScreen_WIP)
-		{
-			myErr = gx_widget_hide ((GX_WIDGET*) &SetPadTypeScreen.SetPadTypeScreen_RightPadDigital_Button);
-			myErr = gx_widget_show ((GX_WIDGET*) &SetPadTypeScreen.SetPadTypeScreen_RightPadProportional_Button);
+	case GX_SIGNAL(RIGHT_PAD_TYPE_BTN_ID, GX_EVENT_CLICKED):
+		if (g_PadSettings[RIGHT_PAD].m_PadType == DIGITAL_PADTYPE)
 			g_PadSettings[RIGHT_PAD].m_PadType = PROPORTIONAL_PADTYPE;
-		}
-		break;
-	case GX_SIGNAL(RIGHT_PAD_PROPORTIONAL_BTN_ID, GX_EVENT_CLICKED):
-		if (!g_ChangeScreen_WIP)
-		{
-			myErr = gx_widget_hide ((GX_WIDGET*) &SetPadTypeScreen.SetPadTypeScreen_RightPadProportional_Button);
-			myErr = gx_widget_show ((GX_WIDGET*) &SetPadTypeScreen.SetPadTypeScreen_RightPadDigital_Button);
+		else
 			g_PadSettings[RIGHT_PAD].m_PadType = DIGITAL_PADTYPE;
-		}
+		DisplayPadType();
 		break;
-	case GX_SIGNAL(LEFT_PAD_DIGITAL_BTN_ID, GX_EVENT_CLICKED):
-		if (!g_ChangeScreen_WIP)
-		{
-			myErr = gx_widget_hide ((GX_WIDGET*) &SetPadTypeScreen.SetPadTypeScreen_LeftPadDigital_Button);
-			myErr = gx_widget_show ((GX_WIDGET*) &SetPadTypeScreen.SetPadTypeScreen_LeftPadProportional_Button);
+	case GX_SIGNAL(LEFT_PAD_TYPE_BTN_ID, GX_EVENT_CLICKED):
+		if (g_PadSettings[LEFT_PAD].m_PadType == DIGITAL_PADTYPE)
 			g_PadSettings[LEFT_PAD].m_PadType = PROPORTIONAL_PADTYPE;
-		}
-		break;
-	case GX_SIGNAL(LEFT_PAD_PROPORTIONAL_BTN_ID, GX_EVENT_CLICKED):
-		if (!g_ChangeScreen_WIP)
-		{
-			myErr = gx_widget_hide ((GX_WIDGET*) &SetPadTypeScreen.SetPadTypeScreen_LeftPadProportional_Button);
-			myErr = gx_widget_show ((GX_WIDGET*) &SetPadTypeScreen.SetPadTypeScreen_LeftPadDigital_Button);
+		else
 			g_PadSettings[LEFT_PAD].m_PadType = DIGITAL_PADTYPE;
-		}
+		DisplayPadType();
 		break;
-	case GX_SIGNAL(CENTER_PAD_DIGITAL_BTN_ID, GX_EVENT_CLICKED):
-		if (!g_ChangeScreen_WIP)
-		{
-			myErr = gx_widget_hide ((GX_WIDGET*) &SetPadTypeScreen.SetPadTypeScreen_CenterPadDigital_Button);
-			myErr = gx_widget_show ((GX_WIDGET*) &SetPadTypeScreen.SetPadTypeScreen_CenterPadProportional_Button);
-			g_PadSettings[CENTER_PAD].m_PadType = PROPORTIONAL_PADTYPE;
-		}
-		break;
-	case GX_SIGNAL(CENTER_PAD_PROPORTIONAL_BTN_ID, GX_EVENT_CLICKED):
-		if (!g_ChangeScreen_WIP)
-		{
-			myErr = gx_widget_hide ((GX_WIDGET*) &SetPadTypeScreen.SetPadTypeScreen_CenterPadProportional_Button);
-			myErr = gx_widget_show ((GX_WIDGET*) &SetPadTypeScreen.SetPadTypeScreen_CenterPadDigital_Button);
-			g_PadSettings[CENTER_PAD].m_PadType = DIGITAL_PADTYPE;
-		}
+	case GX_SIGNAL(FORWARD_PAD_TYPE_BTN_ID, GX_EVENT_CLICKED):
+		if (g_PadSettings[FORWARD_PAD].m_PadType == DIGITAL_PADTYPE)
+			g_PadSettings[FORWARD_PAD].m_PadType = PROPORTIONAL_PADTYPE;
+		else
+			g_PadSettings[FORWARD_PAD].m_PadType = DIGITAL_PADTYPE;
+		DisplayPadType();
 		break;
 
 	case GX_EVENT_TIMER:
@@ -121,30 +93,37 @@ UINT SetPadTypeScreen_event_process (GX_WINDOW *window, GX_EVENT *event_ptr)
 		{
 			gx_system_timer_stop(window, CALIBRATION_TIMER_ID);
 	        screen_toggle((GX_WINDOW *)&PadCalibrationScreen, window);
-			g_ChangeScreen_WIP = TRUE;
 		}
 		break;
 	case GX_EVENT_PEN_DOWN:	// We are going to determine if the Up or Down arrow buttons have been held for a
 							// ... long time (2 seconds) and goto calibration if so.
-
-		if (event_ptr->gx_event_target->gx_widget_name == "CenterPadProportional_Button")
+		if (event_ptr->gx_event_target->gx_widget_name == "ForwardPadType_Button")
 		{
-			g_CalibrationPadNumber = CENTER_PAD; 
-			gx_system_timer_start(window, CALIBRATION_TIMER_ID, 100, 0);
+			if (g_PadSettings[FORWARD_PAD].m_PadType == PROPORTIONAL_PADTYPE)
+			{
+				g_CalibrationPadNumber = FORWARD_PAD; 
+				gx_system_timer_start(window, CALIBRATION_TIMER_ID, 100, 0);
+			}
 		}
-		else if (event_ptr->gx_event_target->gx_widget_name == "LeftPadProportional_Button")
+		else if (event_ptr->gx_event_target->gx_widget_name == "LeftPadType_Button")
 		{
-			g_CalibrationPadNumber = LEFT_PAD; 
-			gx_system_timer_start(window, CALIBRATION_TIMER_ID, 100, 0);
+			if (g_PadSettings[LEFT_PAD].m_PadType == PROPORTIONAL_PADTYPE)
+			{
+				g_CalibrationPadNumber = LEFT_PAD; 
+				gx_system_timer_start(window, CALIBRATION_TIMER_ID, 100, 0);
+			}
 		}
-		else if (event_ptr->gx_event_target->gx_widget_name == "RightPadProportional_Button")
+		else if (event_ptr->gx_event_target->gx_widget_name == "RightPadType_Button")
 		{
-			g_CalibrationPadNumber = RIGHT_PAD; 
-			gx_system_timer_start(window, CALIBRATION_TIMER_ID, 100, 0);
+			if (g_PadSettings[RIGHT_PAD].m_PadType == PROPORTIONAL_PADTYPE)
+			{
+				g_CalibrationPadNumber = RIGHT_PAD; 
+				gx_system_timer_start(window, CALIBRATION_TIMER_ID, 100, 0);
+			}
 		}
 		break;
 	case GX_EVENT_PEN_UP:
-			gx_system_timer_stop(window, CALIBRATION_TIMER_ID);
+		gx_system_timer_stop(window, CALIBRATION_TIMER_ID);
 		break;
 
 	}

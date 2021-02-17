@@ -118,7 +118,7 @@ extern int g_ActiveGroup;
 extern int g_ActiveSpeakerGroup;
 extern int g_ActiveSeatingGroup;
 extern int g_BluetoothGroup;
-
+extern int g_TeclaGroup;
 
 //*****************************************************************************
 // EXTERNAL, GLOBALLY available functions
@@ -127,10 +127,16 @@ extern int g_BluetoothGroup;
 VOID screen_toggle(GX_WINDOW *new_win, GX_WINDOW *old_win);
 VOID screen_switch(GX_WIDGET *parent, GX_WIDGET *new_screen);
 
+// Group Handling Function Prototypes
+UINT GetActiveGroup (VOID);
 VOID SelectNextGroup(VOID);
 VOID SetGroupIcon (GX_ICON_BUTTON *icon_button);
-VOID ShowDeviceIcon (GX_ICON *icon);
+DEVICE_TYPE_ENUM GetGroupDeviceType (VOID);
+
+VOID SetDeviceIcon (GX_ICON *icon);
 VOID SelectNextDevice (VOID);
 VOID InitializeGroupInformation (VOID);
+VOID AdvanceToNextTeclaGroup (VOID);
+UINT GetTeclaGroup (VOID);
 
 #endif // ASL165_SYSTEM_H
