@@ -200,7 +200,7 @@ UINT SetPadDirectionScreen_event_process (GX_WINDOW *window, GX_EVENT *event_ptr
 
 	case GX_EVENT_PEN_DOWN:	// We are going to determine if the PAD button is pressed and start a timer to increment the 
 							// ... long time (2 seconds) and goto Programming if so.
-		g_CyclePad = OFF_DIRECTION;
+		g_CyclePad = MAX_PHYSICAL_PADS;
 		if ((event_ptr->gx_event_target->gx_widget_name == "ForwardPad_Off_Button") && (g_PadSettings[FORWARD_PAD].m_PadDirection == CYCLE_DIRECTION))
 			g_CyclePad = FORWARD_PAD;
 		else if ((event_ptr->gx_event_target->gx_widget_name == "LeftPad_Off_Button") && (g_PadSettings[LEFT_PAD].m_PadDirection == CYCLE_DIRECTION))
@@ -209,7 +209,7 @@ UINT SetPadDirectionScreen_event_process (GX_WINDOW *window, GX_EVENT *event_ptr
 			g_CyclePad = RIGHT_PAD;
 		else if ((event_ptr->gx_event_target->gx_widget_name == "ReversePad_Off_Button") && (g_PadSettings[REVERSE_PAD].m_PadDirection == CYCLE_DIRECTION))
 			g_CyclePad = REVERSE_PAD;
-		if (g_CyclePad != OFF_DIRECTION)
+		if (g_CyclePad != MAX_PHYSICAL_PADS)
 		{
 			gx_system_timer_start(window, ARROW_PUSHED_TIMER_ID, 50, 0);
 		}
@@ -218,7 +218,7 @@ UINT SetPadDirectionScreen_event_process (GX_WINDOW *window, GX_EVENT *event_ptr
     case GX_EVENT_TIMER:
         if (event_ptr->gx_event_payload.gx_event_timer_id == ARROW_PUSHED_TIMER_ID)
 		{
-	        screen_toggle((GX_WINDOW *)&HHP_Start_Screen, window);
+	        screen_toggle((GX_WINDOW *)&PadAdvancedScreen, window);
 		}
 		break;
 

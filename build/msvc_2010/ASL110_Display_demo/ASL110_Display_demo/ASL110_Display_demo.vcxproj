@@ -96,6 +96,7 @@
     <ClCompile Include="..\..\..\..\MoreSelectionScreen.c" />
     <ClCompile Include="..\..\..\..\NeutralWindowScreen.c" />
     <ClCompile Include="..\..\..\..\OutOfNeutralScreen.c" />
+    <ClCompile Include="..\..\..\..\PadAdvanceSettingsScreen.c" />
     <ClCompile Include="..\..\..\..\PadCalibrationScreen.c" />
     <ClCompile Include="..\..\..\..\PadDirectionScreen.c" />
     <ClCompile Include="..\..\..\..\PadHandling.c" />

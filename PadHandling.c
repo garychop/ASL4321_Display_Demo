@@ -17,6 +17,8 @@
 
 VOID InitializePadInformation()
 {
+	int i;
+
 	// Populate the default Pad settings.
 	g_PadSettings[LEFT_PAD].m_PadDirection = LEFT_DIRECTION;
 	g_PadSettings[LEFT_PAD].m_PadType = PROPORTIONAL_PADTYPE;
@@ -28,10 +30,7 @@ VOID InitializePadInformation()
 	g_PadSettings[LEFT_PAD].m_PadMaximumCalibrationValue = 30;
 	g_PadSettings[LEFT_PAD].m_Speed_Offset = 0;
 	g_PadSettings[LEFT_PAD].m_Direction_Offset = 0;
-	//g_PadSettings[LEFT_PAD].m_DiagnosticWidigetLocation = g_DiagnosticWidgetLocations[LEFT_PAD];
-	//g_PadSettings[LEFT_PAD].m_DiagnosticOff_Widget = &DiagnosticScreen.DiagnosticScreen_LeftPadOff_Button;
-	//g_PadSettings[LEFT_PAD].m_DiagnosticProportional_Widget = &DiagnosticScreen.DiagnosticScreen_LeftPadProp_Button;
-	//g_PadSettings[LEFT_PAD].m_DiagnosticDigital_Widget = &DiagnosticScreen.DiagnosticScreen_LeftPadDigital_Button;
+	for (i=0; i<MAX_ADVANCE_PAD_OPERATIONS; ++i) g_PadSettings[LEFT_PAD].m_LongPadOperations[i] = OFF_CYCLE;
 
 	g_PadSettings[RIGHT_PAD].m_PadDirection = RIGHT_DIRECTION;
 	g_PadSettings[RIGHT_PAD].m_PadType = PROPORTIONAL_PADTYPE;
@@ -43,10 +42,7 @@ VOID InitializePadInformation()
 	g_PadSettings[RIGHT_PAD].m_PadMaximumCalibrationValue = 30;
 	g_PadSettings[RIGHT_PAD].m_Speed_Offset = 0;
 	g_PadSettings[RIGHT_PAD].m_Direction_Offset = 0;
-	//g_PadSettings[RIGHT_PAD].m_DiagnosticWidigetLocation = g_DiagnosticWidgetLocations[RIGHT_PAD];
-	//g_PadSettings[RIGHT_PAD].m_DiagnosticOff_Widget = &DiagnosticScreen.DiagnosticScreen_RightPadOff_Button;
-	//g_PadSettings[RIGHT_PAD].m_DiagnosticProportional_Widget = &DiagnosticScreen.DiagnosticScreen_RightPadProp_Button;
-	//g_PadSettings[RIGHT_PAD].m_DiagnosticDigital_Widget = &DiagnosticScreen.DiagnosticScreen_RightPadDigital_Button;
+	for (i=0; i<MAX_ADVANCE_PAD_OPERATIONS; ++i) g_PadSettings[RIGHT_PAD].m_LongPadOperations[i] = OFF_CYCLE;
 
 	g_PadSettings[FORWARD_PAD].m_PadDirection = FORWARD_DIRECTION;
 	g_PadSettings[FORWARD_PAD].m_PadType = PROPORTIONAL_PADTYPE;
@@ -58,10 +54,7 @@ VOID InitializePadInformation()
 	g_PadSettings[FORWARD_PAD].m_PadMaximumCalibrationValue = 30;
 	g_PadSettings[FORWARD_PAD].m_Speed_Offset = 0;
 	g_PadSettings[FORWARD_PAD].m_Direction_Offset = 0;
-	//g_PadSettings[FORWARD_PAD].m_DiagnosticWidigetLocation = g_DiagnosticWidgetLocations[FORWARD_PAD];
-	//g_PadSettings[FORWARD_PAD].m_DiagnosticOff_Widget = &DiagnosticScreen.DiagnosticScreen_CenterPadOff_Button;
-	//g_PadSettings[FORWARD_PAD].m_DiagnosticProportional_Widget = &DiagnosticScreen.DiagnosticScreen_CenterPadProp_Button;
-	//g_PadSettings[FORWARD_PAD].m_DiagnosticDigital_Widget = &DiagnosticScreen.DiagnosticScreen_CenterPadDigital_Button;
+	for (i=0; i<MAX_ADVANCE_PAD_OPERATIONS; ++i) g_PadSettings[FORWARD_PAD].m_LongPadOperations[i] = OFF_CYCLE;
 
 	g_PadSettings[REVERSE_PAD].m_PadDirection = REVERSE_DIRECTION;
 	g_PadSettings[REVERSE_PAD].m_PadType = PROPORTIONAL_PADTYPE;
@@ -73,10 +66,7 @@ VOID InitializePadInformation()
 	g_PadSettings[REVERSE_PAD].m_PadMaximumCalibrationValue = 30;
 	g_PadSettings[REVERSE_PAD].m_Speed_Offset = 0;
 	g_PadSettings[REVERSE_PAD].m_Direction_Offset = 0;
-	//g_PadSettings[REVERSE_PAD].m_DiagnosticWidigetLocation = g_DiagnosticWidgetLocations[RIGHT_PAD];
-	//g_PadSettings[REVERSE_PAD].m_DiagnosticOff_Widget = &DiagnosticScreen.DiagnosticScreen_RightPadOff_Button;
-	//g_PadSettings[REVERSE_PAD].m_DiagnosticProportional_Widget = &DiagnosticScreen.DiagnosticScreen_RightPadProp_Button;
-	//g_PadSettings[REVERSE_PAD].m_DiagnosticDigital_Widget = &DiagnosticScreen.DiagnosticScreen_RightPadDigital_Button;
+	for (i=0; i<MAX_ADVANCE_PAD_OPERATIONS; ++i) g_PadSettings[REVERSE_PAD].m_LongPadOperations[i] = OFF_CYCLE;
 
 }
 

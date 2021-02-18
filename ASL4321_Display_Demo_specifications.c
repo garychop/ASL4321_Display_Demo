@@ -6,7 +6,7 @@
 /*  www.expresslogic.com.                                                      */
 /*                                                                             */
 /*  GUIX Studio Revision 5.4.2.9                                               */
-/*  Date (dd.mm.yyyy): 18. 2.2021   Time (hh:mm): 11:35                        */
+/*  Date (dd.mm.yyyy): 18. 2.2021   Time (hh:mm): 14:00                        */
 /*******************************************************************************/
 
 
@@ -16,6 +16,7 @@
 #include "ASL4321_Display_Demo_specifications.h"
 
 static GX_WIDGET *gx_studio_nested_widget_create(GX_BYTE *control, GX_CONST GX_STUDIO_WIDGET *definition, GX_WIDGET *parent);
+PADADVANCEDSCREEN_CONTROL_BLOCK PadAdvancedScreen;
 TECLA_E_SCREEN_CONTROL_BLOCK Tecla_E_Screen;
 JOYSTICKTHROWSCREEN_CONTROL_BLOCK JoystickThrowScreen;
 NEUTRALWINDOWSCREEN_CONTROL_BLOCK NeutralWindowScreen;
@@ -552,6 +553,225 @@ GX_CONST GX_STUDIO_WIDGET PrimaryTemplate_define =
     &PrimaryTemplate_window_define,          /* child widget                   */
     0,                                       /* control block                  */
     (void *) &PrimaryTemplate_properties     /* extended properties            */
+};
+GX_TEMPLATE_PROPERTIES PadAdvancedScreen_properties =
+{
+    &PrimaryTemplate_define,                 /* base info                      */
+    gx_studio_window_create,                 /* base create function           */
+    {0, 0, 479, 399}                         /* widget size                    */
+};
+GX_WINDOW_PROPERTIES PadAdvancedScreen_PadAdvanceScreenBackdrop_properties =
+{
+    GX_PIXELMAP_ID_BACKGROUND_480X272        /* wallpaper pixelmap id          */
+};
+GX_TEXT_BUTTON_PROPERTIES PadAdvancedScreen_OK_Button_properties =
+{
+    GX_STRING_ID_STRING_24,                  /* string id                      */
+    GX_FONT_ID_ASC24PT,                      /* font id                        */
+    GX_COLOR_ID_BTN_TEXT,                    /* normal text color              */
+    GX_COLOR_ID_BTN_TEXT,                    /* selected text color            */
+    GX_COLOR_ID_DISABLED_TEXT                /* disabled text color            */
+};
+GX_VERTICAL_LIST_PROPERTIES PadAdvancedScreen_FeatureListBox_properties =
+{
+    0,                                       /* wallpaper id                   */
+    AdvancedPadFeatureList_callback,         /* callback function              */
+    20                                       /* total rows                     */
+};
+GX_SCROLLBAR_APPEARANCE  PadAdvancedScreen_FeatureList_vertical_scroll_properties =
+{
+    20,                                      /* scroll width                   */
+    10,                                      /* thumb width                    */
+    0,                                       /* thumb travel min               */
+    0,                                       /* thumb travel max               */
+    4,                                       /* thumb border style             */
+    0,                                       /* scroll fill pixelmap           */
+    0,                                       /* scroll thumb pixelmap          */
+    0,                                       /* scroll up pixelmap             */
+    0,                                       /* scroll down pixelmap           */
+    GX_COLOR_ID_SHINE,                       /* scroll thumb color             */
+    GX_COLOR_ID_SHINE,                       /* scroll thumb border color      */
+    GX_COLOR_ID_WINDOW_BORDER,               /* scroll button color            */
+};
+GX_ICON_BUTTON_PROPERTIES PadAdvancedScreen_GroupIconButton_properties =
+{
+    GX_PIXELMAP_ID_GROUPA_64X64              /* pixelmap id                    */
+};
+GX_PROMPT_PROPERTIES PadAdvancedScreen_prompt_3_properties =
+{
+    GX_STRING_ID_STRING_128,                 /* string id                      */
+    GX_FONT_ID_PROMPT,                       /* font id                        */
+    GX_COLOR_ID_WHITE,                       /* normal text color              */
+    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
+    GX_COLOR_ID_DISABLED_TEXT                /* disabled text color            */
+};
+
+GX_CONST GX_STUDIO_WIDGET PadAdvancedScreen_FeatureList_vertical_scroll_define =
+{
+    "FeatureList_vertical_scroll",
+    GX_TYPE_VERTICAL_SCROLL,                 /* widget type                    */
+    GX_ID_NONE,                              /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_THIN|GX_STYLE_TRANSPARENT|GX_SCROLLBAR_RELATIVE_THUMB|GX_SCROLLBAR_VERTICAL,   /* style flags */
+    0,                                       /* status flags                   */
+    sizeof(GX_SCROLLBAR),                    /* control block size             */
+    GX_COLOR_ID_BLACK,                       /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_BLACK,                       /* disabled color id              */
+    gx_studio_vertical_scrollbar_create,     /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {299, 41, 318, 263},                     /* widget size                    */
+    GX_NULL,                                 /* no next widget                 */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(PADADVANCEDSCREEN_CONTROL_BLOCK, PadAdvancedScreen_FeatureList_vertical_scroll), /* control block */
+    (void *) &PadAdvancedScreen_FeatureList_vertical_scroll_properties /* extended properties */
+};
+
+GX_CONST GX_STUDIO_WIDGET PadAdvancedScreen_prompt_3_define =
+{
+    "prompt_3",
+    GX_TYPE_PROMPT,                          /* widget type                    */
+    GX_ID_NONE,                              /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_PROMPT),                       /* control block size             */
+    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_prompt_create,                 /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {52, 6, 285, 29},                        /* widget size                    */
+    GX_NULL,                                 /* no next widget                 */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(PADADVANCEDSCREEN_CONTROL_BLOCK, PadAdvancedScreen_prompt_3), /* control block */
+    (void *) &PadAdvancedScreen_prompt_3_properties /* extended properties     */
+};
+
+GX_CONST GX_STUDIO_WIDGET PadAdvancedScreen_GroupIconButton_define =
+{
+    "GroupIconButton",
+    GX_TYPE_ICON_BUTTON,                     /* widget type                    */
+    GROUP_ICON_BUTTON,                       /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_HALIGN_CENTER|GX_STYLE_VALIGN_CENTER,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_ICON_BUTTON),                  /* control block size             */
+    GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
+    GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_icon_button_create,            /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {388, 16, 451, 79},                      /* widget size                    */
+    &PadAdvancedScreen_prompt_3_define,      /* next widget definition         */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(PADADVANCEDSCREEN_CONTROL_BLOCK, PadAdvancedScreen_GroupIconButton), /* control block */
+    (void *) &PadAdvancedScreen_GroupIconButton_properties /* extended properties */
+};
+
+GX_CONST GX_STUDIO_WIDGET PadAdvancedScreen_FeatureListBox_define =
+{
+    "FeatureListBox",
+    GX_TYPE_VERTICAL_LIST,                   /* widget type                    */
+    FEATURE_LIST_BOX_ID,                     /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_VERTICAL_LIST),                /* control block size             */
+    GX_COLOR_ID_TEXT_INPUT_TEXT,             /* normal color id                */
+    GX_COLOR_ID_BLACK,                       /* selected color id              */
+    GX_COLOR_ID_BLACK,                       /* disabled color id              */
+    gx_studio_vertical_list_create,          /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {11, 41, 318, 263},                      /* widget size                    */
+    &PadAdvancedScreen_GroupIconButton_define, /* next widget definition       */
+    &PadAdvancedScreen_FeatureList_vertical_scroll_define, /* child widget definition */
+    offsetof(PADADVANCEDSCREEN_CONTROL_BLOCK, PadAdvancedScreen_FeatureListBox), /* control block */
+    (void *) &PadAdvancedScreen_FeatureListBox_properties /* extended properties */
+};
+
+GX_CONST GX_STUDIO_WIDGET PadAdvancedScreen_OK_Button_define =
+{
+    "OK_Button",
+    GX_TYPE_TEXT_BUTTON,                     /* widget type                    */
+    OK_BTN_ID,                               /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_THIN|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    0,                                       /* status flags                   */
+    sizeof(GX_TEXT_BUTTON),                  /* control block size             */
+    GX_COLOR_ID_TEXT_INPUT_FILL,             /* normal color id                */
+    GX_COLOR_ID_TEXT_INPUT_TEXT,             /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_text_button_create,            /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {380, 188, 459, 251},                    /* widget size                    */
+    &PadAdvancedScreen_FeatureListBox_define, /* next widget definition        */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(PADADVANCEDSCREEN_CONTROL_BLOCK, PadAdvancedScreen_OK_Button), /* control block */
+    (void *) &PadAdvancedScreen_OK_Button_properties /* extended properties    */
+};
+
+GX_CONST GX_STUDIO_WIDGET PadAdvancedScreen_PadAdvanceScreenBackdrop_define =
+{
+    "PadAdvanceScreenBackdrop",
+    GX_TYPE_WINDOW,                          /* widget type                    */
+    GX_ID_NONE,                              /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_ENABLED,   /* style flags                    */
+    0,                                       /* status flags                   */
+    sizeof(GX_WINDOW),                       /* control block size             */
+    GX_COLOR_ID_SCROLL_BUTTON,               /* normal color id                */
+    GX_COLOR_ID_SCROLL_BUTTON,               /* selected color id              */
+    GX_COLOR_ID_SCROLL_BUTTON,               /* disabled color id              */
+    gx_studio_window_create,                 /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {0, 0, 479, 271},                        /* widget size                    */
+    GX_NULL,                                 /* no next widget                 */
+    &PadAdvancedScreen_OK_Button_define,     /* child widget definition        */
+    offsetof(PADADVANCEDSCREEN_CONTROL_BLOCK, PadAdvancedScreen_PadAdvanceScreenBackdrop), /* control block */
+    (void *) &PadAdvancedScreen_PadAdvanceScreenBackdrop_properties /* extended properties */
+};
+
+GX_CONST GX_STUDIO_WIDGET PadAdvancedScreen_define =
+{
+    "PadAdvancedScreen",
+    GX_TYPE_TEMPLATE,                        /* widget type                    */
+    PAD_ADVANCE_SCREEN_ID,                   /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_THIN,                    /* style flags                    */
+    0,                                       /* status flags                   */
+    sizeof(PADADVANCEDSCREEN_CONTROL_BLOCK), /* control block size             */
+    GX_COLOR_ID_WINDOW_FILL,                 /* normal color id                */
+    GX_COLOR_ID_WINDOW_FILL,                 /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_template_create,               /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    (UINT (*)(GX_WIDGET *, GX_EVENT *)) PadAdvanceScreen_event_process, /* event function override */
+    {0, 0, 479, 399},                        /* widget size                    */
+    GX_NULL,                                 /* next widget                    */
+    &PadAdvancedScreen_PadAdvanceScreenBackdrop_define, /* child widget        */
+    0,                                       /* control block                  */
+    (void *) &PadAdvancedScreen_properties   /* extended properties            */
 };
 GX_TEMPLATE_PROPERTIES Tecla_E_Screen_properties =
 {
@@ -7809,6 +8029,7 @@ GX_CONST GX_STUDIO_WIDGET DiagnosticScreen_define =
 };
 GX_CONST GX_STUDIO_WIDGET_ENTRY ASL4321_Display_Demo_widget_table[] =
 {
+    { &PadAdvancedScreen_define, (GX_WIDGET *) &PadAdvancedScreen },
     { &Tecla_E_Screen_define, (GX_WIDGET *) &Tecla_E_Screen },
     { &JoystickThrowScreen_define, (GX_WIDGET *) &JoystickThrowScreen },
     { &NeutralWindowScreen_define, (GX_WIDGET *) &NeutralWindowScreen },

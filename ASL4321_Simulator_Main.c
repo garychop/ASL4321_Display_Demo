@@ -152,8 +152,9 @@ VOID  start_guix(VOID)
 	myError = gx_studio_named_widget_create("MinimumDriveScreen", GX_NULL, GX_NULL);
 	myError = gx_studio_named_widget_create("NeutralWindowScreen", GX_NULL, GX_NULL);
 	myError = gx_studio_named_widget_create("MoreSelectionScreen", GX_NULL, GX_NULL);
-	myError = gx_studio_named_widget_create("PerformanceSelectionScreen", GX_NULL, GX_NULL);
 	myError = gx_studio_named_widget_create("OON_Screen", GX_NULL, GX_NULL);
+	myError = gx_studio_named_widget_create("PerformanceSelectionScreen", GX_NULL, GX_NULL);
+	myError = gx_studio_named_widget_create("PadAdvancedScreen", GX_NULL, GX_NULL);
 	myError = gx_studio_named_widget_create("PadCalibrationScreen", GX_NULL, GX_NULL);
 	myError = gx_studio_named_widget_create("PadOptionsSettingsScreen", GX_NULL, GX_NULL);
 	myError = gx_studio_named_widget_create("ReadyScreen", GX_NULL, GX_NULL);

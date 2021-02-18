@@ -105,6 +105,9 @@
     <ClCompile Include="..\..\..\..\PadHandling.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\PadAdvanceSettingsScreen.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\ASL4321_Display_Demo_resources.h">
