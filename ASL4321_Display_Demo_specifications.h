@@ -6,7 +6,7 @@
 /*  www.expresslogic.com.                                                      */
 /*                                                                             */
 /*  GUIX Studio Revision 5.4.2.9                                               */
-/*  Date (dd.mm.yyyy): 17. 2.2021   Time (hh:mm): 16:46                        */
+/*  Date (dd.mm.yyyy): 18. 2.2021   Time (hh:mm): 11:35                        */
 /*******************************************************************************/
 
 
@@ -594,6 +594,7 @@ typedef struct SETPADDIRECTIONSCREEN_CONTROL_BLOCK_STRUCT
     GX_ICON SetPadDirectionScreen_DeviceType_icon;
     GX_PIXELMAP_BUTTON SetPadDirectionScreen_ReversePad_Off_Button;
     GX_PIXELMAP_BUTTON SetPadDirectionScreen_ForwardPad_Off_Button;
+    GX_ICON SetPadDirectionScreen_icon_3;
 } SETPADDIRECTIONSCREEN_CONTROL_BLOCK;
 
 typedef struct PADOPTIONSSETTINGSSCREEN_CONTROL_BLOCK_STRUCT

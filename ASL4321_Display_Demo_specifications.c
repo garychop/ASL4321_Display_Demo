@@ -6,7 +6,7 @@
 /*  www.expresslogic.com.                                                      */
 /*                                                                             */
 /*  GUIX Studio Revision 5.4.2.9                                               */
-/*  Date (dd.mm.yyyy): 17. 2.2021   Time (hh:mm): 16:46                        */
+/*  Date (dd.mm.yyyy): 18. 2.2021   Time (hh:mm): 11:35                        */
 /*******************************************************************************/
 
 
@@ -4944,7 +4944,7 @@ GX_CONST GX_STUDIO_WIDGET VeerAdjustScreen_VeerSlider_define =
     gx_studio_pixelmap_slider_create,        /* create function                */
     (VOID (*)(GX_WIDGET *)) Slider_Draw_Function, /* drawing function override */
     (UINT (*)(GX_WIDGET *, GX_EVENT *)) VeerSlider_event_function, /* event function override */
-    {11, 99, 310, 158},                      /* widget size                    */
+    {35, 100, 434, 159},                     /* widget size                    */
     &VeerAdjustScreen_OK_Button_define,      /* next widget definition         */
     GX_NULL,                                 /* no child widgets               */ 
     offsetof(VEERADJUSTSCREEN_CONTROL_BLOCK, VeerAdjustScreen_VeerSlider), /* control block */
@@ -5711,6 +5711,35 @@ GX_PIXELMAP_BUTTON_PROPERTIES SetPadDirectionScreen_ForwardPad_Off_Button_proper
     0,                                       /* selected pixelmap id           */
     0                                        /* disabled pixelmap id           */
 };
+GX_ICON_PROPERTIES SetPadDirectionScreen_icon_3_properties =
+{
+    GX_PIXELMAP_ID_CYLCE_20X20,              /* normal pixelmap id             */
+    0                                        /* selected pixelmap id           */
+};
+
+GX_CONST GX_STUDIO_WIDGET SetPadDirectionScreen_icon_3_define =
+{
+    "icon_3",
+    GX_TYPE_ICON,                            /* widget type                    */
+    GX_ID_NONE,                              /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_ENABLED|GX_STYLE_HALIGN_LEFT|GX_STYLE_VALIGN_TOP,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_ICON),                         /* control block size             */
+    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_icon_create,                   /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {58, 24, 81, 47},                        /* widget size                    */
+    GX_NULL,                                 /* no next widget                 */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(SETPADDIRECTIONSCREEN_CONTROL_BLOCK, SetPadDirectionScreen_icon_3), /* control block */
+    (void *) &SetPadDirectionScreen_icon_3_properties /* extended properties   */
+};
 
 GX_CONST GX_STUDIO_WIDGET SetPadDirectionScreen_ForwardPad_Off_Button_define =
 {
@@ -5730,7 +5759,7 @@ GX_CONST GX_STUDIO_WIDGET SetPadDirectionScreen_ForwardPad_Off_Button_define =
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
     {154, 50, 241, 119},                     /* widget size                    */
-    GX_NULL,                                 /* no next widget                 */
+    &SetPadDirectionScreen_icon_3_define,    /* next widget definition         */
     GX_NULL,                                 /* no child widgets               */ 
     offsetof(SETPADDIRECTIONSCREEN_CONTROL_BLOCK, SetPadDirectionScreen_ForwardPad_Off_Button), /* control block */
     (void *) &SetPadDirectionScreen_ForwardPad_Off_Button_properties /* extended properties */
@@ -5825,7 +5854,7 @@ GX_CONST GX_STUDIO_WIDGET SetPadDirectionScreen_SettingPadPrompt_2_define =
     gx_studio_prompt_create,                 /* create function                */
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
-    {54, 27, 363, 50},                       /* widget size                    */
+    {54, 26, 363, 49},                       /* widget size                    */
     &SetPadDirectionScreen_GroupIconButton_define, /* next widget definition   */
     GX_NULL,                                 /* no child widgets               */ 
     offsetof(SETPADDIRECTIONSCREEN_CONTROL_BLOCK, SetPadDirectionScreen_SettingPadPrompt_2), /* control block */
@@ -6479,7 +6508,7 @@ GX_CONST GX_STUDIO_WIDGET UserSettingsScreen_ModeSwitchSchema_ToggleBtn_define =
     gx_studio_checkbox_create,               /* create function                */
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
-    {148, 176, 210, 212},                    /* widget size                    */
+    {146, 176, 208, 212},                    /* widget size                    */
     GX_NULL,                                 /* no next widget                 */
     GX_NULL,                                 /* no child widgets               */ 
     offsetof(USERSETTINGSSCREEN_CONTROL_BLOCK, UserSettingsScreen_ModeSwitchSchema_ToggleBtn), /* control block */
@@ -6623,7 +6652,7 @@ GX_CONST GX_STUDIO_WIDGET UserSettingsScreen_Timeout_Button_define =
     gx_studio_text_button_create,            /* create function                */
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
-    {230, 48, 309, 111},                     /* widget size                    */
+    {334, 16, 413, 79},                      /* widget size                    */
     &UserSettingsScreen_RNetActive_Prompt_define, /* next widget definition    */
     GX_NULL,                                 /* no child widgets               */ 
     offsetof(USERSETTINGSSCREEN_CONTROL_BLOCK, UserSettingsScreen_Timeout_Button), /* control block */
@@ -6671,7 +6700,7 @@ GX_CONST GX_STUDIO_WIDGET UserSettingsScreen_TImeoutPrompt_define =
     gx_studio_prompt_create,                 /* create function                */
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
-    {228, 14, 312, 54},                      /* widget size                    */
+    {246, 28, 330, 68},                      /* widget size                    */
     &UserSettingsScreen_PowerUpIdle_Prompt_define, /* next widget definition   */
     GX_NULL,                                 /* no child widgets               */ 
     offsetof(USERSETTINGSSCREEN_CONTROL_BLOCK, UserSettingsScreen_TImeoutPrompt), /* control block */

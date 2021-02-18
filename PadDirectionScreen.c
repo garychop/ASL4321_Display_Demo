@@ -19,6 +19,7 @@
 //*************************************************************************************
 
 extern GX_RECTANGLE g_HiddenRectangle;
+PHYSICAL_PAD_ENUM g_CyclePad;
 
 //*************************************************************************************
 // Local/Global variables
@@ -58,6 +59,9 @@ UINT GetDirectionIcon (PAD_DIRECTION_ENUM direction)
 			break;
 		case REVERSE_DIRECTION:
 			return GX_PIXELMAP_ID_DOWNWHITEARROW;
+			break;
+		case CYCLE_DIRECTION:
+			return GX_PIXELMAP_ID_CYCLEBUTTON;
 			break;
 		default:
 		case OFF_DIRECTION:
@@ -193,71 +197,34 @@ UINT SetPadDirectionScreen_event_process (GX_WINDOW *window, GX_EVENT *event_ptr
 		pixelID = GetDirectionIcon (g_PadSettings[REVERSE_PAD].m_PadDirection);
 		gx_pixelmap_button_pixelmap_set (&SetPadDirectionScreen.SetPadDirectionScreen_ReversePad_Off_Button, pixelID, pixelID, pixelID);
 		break;
-#if 0
-		// Process LEFT button pushes
-	case GX_SIGNAL(LEFT_PAD_OFF_BTN_ID, GX_EVENT_CLICKED):
-		myErr = gx_widget_resize ((GX_WIDGET*) g_PadSettings[LEFT_PAD].m_DirectionIcons[OFF_DIRECTION], &g_HiddenRectangle);
-		myErr = gx_widget_resize ((GX_WIDGET*) g_PadSettings[LEFT_PAD].m_DirectionIcons[LEFT_DIRECTION], &g_PadDirectionLocation[LEFT_PAD]);
-		g_PadSettings[LEFT_PAD].m_PadDirection = LEFT_DIRECTION;
+
+	case GX_EVENT_PEN_DOWN:	// We are going to determine if the PAD button is pressed and start a timer to increment the 
+							// ... long time (2 seconds) and goto Programming if so.
+		g_CyclePad = OFF_DIRECTION;
+		if ((event_ptr->gx_event_target->gx_widget_name == "ForwardPad_Off_Button") && (g_PadSettings[FORWARD_PAD].m_PadDirection == CYCLE_DIRECTION))
+			g_CyclePad = FORWARD_PAD;
+		else if ((event_ptr->gx_event_target->gx_widget_name == "LeftPad_Off_Button") && (g_PadSettings[LEFT_PAD].m_PadDirection == CYCLE_DIRECTION))
+			g_CyclePad = LEFT_PAD;
+		else if ((event_ptr->gx_event_target->gx_widget_name == "RightPad_Off_Button") && (g_PadSettings[RIGHT_PAD].m_PadDirection == CYCLE_DIRECTION))
+			g_CyclePad = RIGHT_PAD;
+		else if ((event_ptr->gx_event_target->gx_widget_name == "ReversePad_Off_Button") && (g_PadSettings[REVERSE_PAD].m_PadDirection == CYCLE_DIRECTION))
+			g_CyclePad = REVERSE_PAD;
+		if (g_CyclePad != OFF_DIRECTION)
+		{
+			gx_system_timer_start(window, ARROW_PUSHED_TIMER_ID, 50, 0);
+		}
 		break;
-	case GX_SIGNAL(LEFT_PAD_LEFT_ARROW_BTN_ID, GX_EVENT_CLICKED):
-		myErr = gx_widget_resize ((GX_WIDGET*) g_PadSettings[LEFT_PAD].m_DirectionIcons[LEFT_DIRECTION], &g_HiddenRectangle);
-		myErr = gx_widget_resize ((GX_WIDGET*) g_PadSettings[LEFT_PAD].m_DirectionIcons[FORWARD_DIRECTION], &g_PadDirectionLocation[LEFT_PAD]);
-		g_PadSettings[LEFT_PAD].m_PadDirection = FORWARD_DIRECTION;
+
+    case GX_EVENT_TIMER:
+        if (event_ptr->gx_event_payload.gx_event_timer_id == ARROW_PUSHED_TIMER_ID)
+		{
+	        screen_toggle((GX_WINDOW *)&HHP_Start_Screen, window);
+		}
 		break;
-	case GX_SIGNAL(LEFT_PAD_FORWARD_ARROW_BTN_ID, GX_EVENT_CLICKED):
-		myErr = gx_widget_resize ((GX_WIDGET*) g_PadSettings[LEFT_PAD].m_DirectionIcons[FORWARD_DIRECTION], &g_HiddenRectangle);
-		myErr = gx_widget_resize ((GX_WIDGET*) g_PadSettings[LEFT_PAD].m_DirectionIcons[RIGHT_DIRECTION], &g_PadDirectionLocation[LEFT_PAD]);
-		g_PadSettings[LEFT_PAD].m_PadDirection = RIGHT_DIRECTION;
+
+	case GX_EVENT_PEN_UP:
+		gx_system_timer_stop(window, ARROW_PUSHED_TIMER_ID);
 		break;
-	case GX_SIGNAL(LEFT_PAD_RIGHT_ARROW_BTN_ID, GX_EVENT_CLICKED):
-		myErr = gx_widget_resize ((GX_WIDGET*) g_PadSettings[LEFT_PAD].m_DirectionIcons[RIGHT_DIRECTION], &g_HiddenRectangle);
-		myErr = gx_widget_resize ((GX_WIDGET*) g_PadSettings[LEFT_PAD].m_DirectionIcons[OFF_DIRECTION], &g_PadDirectionLocation[LEFT_PAD]);
-		g_PadSettings[LEFT_PAD].m_PadDirection = OFF_DIRECTION;
-		break;
-	// Process RIGHT button pushes
-	case GX_SIGNAL(RIGHT_PAD_OFF_BTN_ID, GX_EVENT_CLICKED):
-		myErr = gx_widget_resize ((GX_WIDGET*) g_PadSettings[RIGHT_PAD].m_DirectionIcons[OFF_DIRECTION], &g_HiddenRectangle);
-		myErr = gx_widget_resize ((GX_WIDGET*) g_PadSettings[RIGHT_PAD].m_DirectionIcons[LEFT_DIRECTION], &g_PadDirectionLocation[RIGHT_PAD]);
-		g_PadSettings[RIGHT_PAD].m_PadDirection = LEFT_DIRECTION;
-		break;
-	case GX_SIGNAL(RIGHT_PAD_LEFT_ARROW_BTN_ID, GX_EVENT_CLICKED):
-		myErr = gx_widget_resize ((GX_WIDGET*) g_PadSettings[RIGHT_PAD].m_DirectionIcons[LEFT_DIRECTION], &g_HiddenRectangle);
-		myErr = gx_widget_resize ((GX_WIDGET*) g_PadSettings[RIGHT_PAD].m_DirectionIcons[FORWARD_DIRECTION], &g_PadDirectionLocation[RIGHT_PAD]);
-		g_PadSettings[RIGHT_PAD].m_PadDirection = FORWARD_DIRECTION;
-		break;
-	case GX_SIGNAL(RIGHT_PAD_FORWARD_ARROW_BTN_ID, GX_EVENT_CLICKED):
-		myErr = gx_widget_resize ((GX_WIDGET*) g_PadSettings[RIGHT_PAD].m_DirectionIcons[FORWARD_DIRECTION], &g_HiddenRectangle);
-		myErr = gx_widget_resize ((GX_WIDGET*) g_PadSettings[RIGHT_PAD].m_DirectionIcons[RIGHT_DIRECTION], &g_PadDirectionLocation[RIGHT_PAD]);
-		g_PadSettings[RIGHT_PAD].m_PadDirection = RIGHT_DIRECTION;
-		break;
-	case GX_SIGNAL(RIGHT_PAD_RIGHT_ARROW_BTN_ID, GX_EVENT_CLICKED):
-		myErr = gx_widget_resize ((GX_WIDGET*) g_PadSettings[RIGHT_PAD].m_DirectionIcons[RIGHT_DIRECTION], &g_HiddenRectangle);
-		myErr = gx_widget_resize ((GX_WIDGET*) g_PadSettings[RIGHT_PAD].m_DirectionIcons[OFF_DIRECTION], &g_PadDirectionLocation[RIGHT_PAD]);
-		g_PadSettings[RIGHT_PAD].m_PadDirection = OFF_DIRECTION;
-		break;
-	// Process CENTER PAD button pushes
-	case GX_SIGNAL(CENTER_PAD_OFF_BTN_ID, GX_EVENT_CLICKED):
-		myErr = gx_widget_resize ((GX_WIDGET*) g_PadSettings[CENTER_PAD].m_DirectionIcons[OFF_DIRECTION], &g_HiddenRectangle);
-		myErr = gx_widget_resize ((GX_WIDGET*) g_PadSettings[CENTER_PAD].m_DirectionIcons[LEFT_DIRECTION], &g_PadDirectionLocation[CENTER_PAD]);
-		g_PadSettings[CENTER_PAD].m_PadDirection = LEFT_DIRECTION;
-		break;
-	case GX_SIGNAL(CENTER_PAD_LEFT_ARROW_BTN_ID, GX_EVENT_CLICKED):
-		myErr = gx_widget_resize ((GX_WIDGET*) g_PadSettings[CENTER_PAD].m_DirectionIcons[LEFT_DIRECTION], &g_HiddenRectangle);
-		myErr = gx_widget_resize ((GX_WIDGET*) g_PadSettings[CENTER_PAD].m_DirectionIcons[FORWARD_DIRECTION], &g_PadDirectionLocation[CENTER_PAD]);
-		g_PadSettings[CENTER_PAD].m_PadDirection = FORWARD_DIRECTION;
-		break;
-	case GX_SIGNAL(CENTER_PAD_FORWARD_ARROW_BTN_ID, GX_EVENT_CLICKED):
-		myErr = gx_widget_resize ((GX_WIDGET*) g_PadSettings[CENTER_PAD].m_DirectionIcons[FORWARD_DIRECTION], &g_HiddenRectangle);
-		myErr = gx_widget_resize ((GX_WIDGET*) g_PadSettings[CENTER_PAD].m_DirectionIcons[RIGHT_DIRECTION], &g_PadDirectionLocation[CENTER_PAD]);
-		g_PadSettings[CENTER_PAD].m_PadDirection = RIGHT_DIRECTION;
-		break;
-	case GX_SIGNAL(CENTER_PAD_RIGHT_ARROW_BTN_ID, GX_EVENT_CLICKED):
-		myErr = gx_widget_resize ((GX_WIDGET*) g_PadSettings[CENTER_PAD].m_DirectionIcons[RIGHT_DIRECTION], &g_HiddenRectangle);
-		myErr = gx_widget_resize ((GX_WIDGET*) g_PadSettings[CENTER_PAD].m_DirectionIcons[OFF_DIRECTION], &g_PadDirectionLocation[CENTER_PAD]);
-		g_PadSettings[CENTER_PAD].m_PadDirection = OFF_DIRECTION;
-		break;
-#endif 
 
 	} // end switch on event
 
