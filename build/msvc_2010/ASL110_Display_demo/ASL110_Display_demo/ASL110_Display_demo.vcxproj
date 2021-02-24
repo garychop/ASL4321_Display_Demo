@@ -109,6 +109,7 @@
     <ClCompile Include="..\..\..\..\StartupScreen.c" />
     <ClCompile Include="..\..\..\..\Tecla_E_Screen.c" />
     <ClCompile Include="..\..\..\..\UserMainScreen.c" />
+    <ClCompile Include="..\..\..\..\UserScanScreen.c" />
     <ClCompile Include="..\..\..\..\UserSelectionScreen.c" />
     <ClCompile Include="..\..\..\..\UserSettingsScreen.c" />
     <ClCompile Include="..\..\..\..\VeerAdjustScreen.c" />

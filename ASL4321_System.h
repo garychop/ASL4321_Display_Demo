@@ -53,9 +53,10 @@ typedef enum FEATURE_ID {
 	NUM_FEATURES} FEATURE_ID_ENUM; // NUM_FEATURES must be last enum
 
 
-typedef enum ENUM_TIMER_IDS {ARROW_PUSHED_TIMER_ID = 1, CALIBRATION_TIMER_ID, PAD_ACTIVE_TIMER_ID, USER_PORT_PUSHED_TIMER_ID} ENUM_TIMER_IDS_ENUM;
+typedef enum ENUM_TIMER_IDS {ARROW_PUSHED_TIMER_ID = 1, CALIBRATION_TIMER_ID, PAD_ACTIVE_TIMER_ID, USER_PORT_PUSHED_TIMER_ID, SCAN_TIMER_ID} ENUM_TIMER_IDS_ENUM;
 typedef enum ENUM_MODE_SWITCH_SCHEMA {MODE_SWITCH_PIN5, MODE_SWITCH_REVERSE} MODE_SWITCH_SCHEMA_ENUM;
 typedef enum ENUM_DEVICE_TYPE {DEVICE_TYPE_HEAD_ARRAY, DEVICE_TYPE_PROPORTIONAL_JOYSTICK, DEVICE_TYPE_DIGITAL_JOYSTICK, END_OF_DEVICE_TYPES} DEVICE_TYPE_ENUM;
+typedef enum SCAN_DIRECTION {SCAN_FORWARD, SCAN_LEFT, SCAN_RIGHT, SCAN_REVERSE, SCAN_VEER_FORWARD_LEFT, SCAN_VEER_FORWARD_RIGHT, SCAN_USER_PORT, SCAN_MAX} SCAN_DIRECTION_ENUM;
 
 typedef struct MAIN_SCREEN_FEATURE_STRUCT
 {
@@ -121,6 +122,8 @@ extern int g_ActiveSeatingGroup;
 extern int g_BluetoothGroup;
 extern int g_TeclaGroup;
 
+extern SCAN_DIRECTION_ENUM gActiveScanDirection;
+
 //*****************************************************************************
 // EXTERNAL, GLOBALLY available functions
 //*****************************************************************************
@@ -139,5 +142,8 @@ VOID SelectNextDevice (VOID);
 VOID InitializeGroupInformation (VOID);
 VOID AdvanceToNextTeclaGroup (VOID);
 UINT GetTeclaGroup (VOID);
+
+VOID AdvanceToNextFeature (VOID);
+VOID AdvanceToPreviousFeature(VOID);
 
 #endif // ASL165_SYSTEM_H

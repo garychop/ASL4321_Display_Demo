@@ -64,6 +64,8 @@ int g_ActiveSpeakerGroup = 0;
 int g_ActiveSeatingGroup = 0;
 int g_BluetoothGroup = 0;
 
+SCAN_DIRECTION_ENUM gActiveScanDirection = SCAN_FORWARD;
+
 //*************************************************************************************
 // GLOBAL VARIABLES
 //*************************************************************************************
@@ -148,6 +150,7 @@ VOID  start_guix(VOID)
 	myError = gx_studio_named_widget_create("JoystickThrowScreen", GX_NULL, GX_NULL);
 	//myError = gx_studio_named_widget_create("MainUserScreen", , GX_NULL, GX_NULL);
 	myError = gx_studio_named_widget_create("MainUserScreen", (GX_WIDGET *)root, GX_NULL);
+	myError = gx_studio_named_widget_create("MainUserScreen_3", (GX_WIDGET *)GX_NULL, GX_NULL);
 	myError = gx_studio_named_widget_create("ManageSoundScreen", GX_NULL, GX_NULL);
 	myError = gx_studio_named_widget_create("MinimumDriveScreen", GX_NULL, GX_NULL);
 	myError = gx_studio_named_widget_create("NeutralWindowScreen", GX_NULL, GX_NULL);
@@ -165,6 +168,7 @@ VOID  start_guix(VOID)
 	myError = gx_studio_named_widget_create("SetPadTypeScreen", GX_NULL, GX_NULL);
 	myError = gx_studio_named_widget_create("SoundOptionScreen", GX_NULL, GX_NULL);
 	myError = gx_studio_named_widget_create("SoundSetupScreen", GX_NULL, GX_NULL);
+	myError = gx_studio_named_widget_create("UserScanScreen", GX_NULL, GX_NULL);
 	myError = gx_studio_named_widget_create("UserSettingsScreen", GX_NULL, GX_NULL);
 	myError = gx_studio_named_widget_create("UserSelectionScreen", GX_NULL, GX_NULL);
 	myError = gx_studio_named_widget_create("VeerAdjustScreen", GX_NULL, GX_NULL);
