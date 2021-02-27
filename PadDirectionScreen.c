@@ -8,6 +8,7 @@
 //*****************************************************************************
 
 #include "ASL4321_System.h"
+#include "DataDictionary.h"
 #include "PadInfo.h"
 
 //*************************************************************************************
@@ -80,7 +81,7 @@ static VOID ShowPads (VOID)
 {
 	GX_RECTANGLE rectangle;
 
-	if (GetGroupDeviceType() == DEVICE_TYPE_HEAD_ARRAY)
+	if (dd_Get_USHORT (dd_Get_USHORT (0, DD_GROUP), DD_DEVICE_TYPE) == DEVICE_TYPE_HEAD_ARRAY)
 	{
 		// Move device icon
 		gx_utility_rectangle_define (&rectangle, 154, 90, 154+88, 90+70);	// Left, top, right, bottom
@@ -175,25 +176,25 @@ UINT SetPadDirectionScreen_event_process (GX_WINDOW *window, GX_EVENT *event_ptr
 		// Process LEFT button pushes
 
 	case GX_SIGNAL(LEFT_PAD_OFF_BTN_ID, GX_EVENT_CLICKED):
-		SetNextPadDirection (GetActiveGroup(), LEFT_PAD);
+		SetNextPadDirection (dd_Get_USHORT (0, DD_GROUP), LEFT_PAD);
 		pixelID = GetDirectionIcon (g_PadSettings[LEFT_PAD].m_PadDirection);
 		gx_pixelmap_button_pixelmap_set (&SetPadDirectionScreen.SetPadDirectionScreen_LeftPad_Off_Button, pixelID, pixelID, pixelID);
 		break;
 
 	case GX_SIGNAL(RIGHT_PAD_OFF_BTN_ID, GX_EVENT_CLICKED):
-		SetNextPadDirection (GetActiveGroup(), RIGHT_PAD);
+		SetNextPadDirection (dd_Get_USHORT (0, DD_GROUP), RIGHT_PAD);
 		pixelID = GetDirectionIcon (g_PadSettings[RIGHT_PAD].m_PadDirection);
 		gx_pixelmap_button_pixelmap_set (&SetPadDirectionScreen.SetPadDirectionScreen_RightPad_Off_Button, pixelID, pixelID, pixelID);
 		break;
 
 	case GX_SIGNAL(FORWARD_PAD_OFF_BTN_ID, GX_EVENT_CLICKED):
-		SetNextPadDirection (GetActiveGroup(), FORWARD_PAD);
+		SetNextPadDirection (dd_Get_USHORT (0, DD_GROUP), FORWARD_PAD);
 		pixelID = GetDirectionIcon (g_PadSettings[FORWARD_PAD].m_PadDirection);
 		gx_pixelmap_button_pixelmap_set (&SetPadDirectionScreen.SetPadDirectionScreen_ForwardPad_Off_Button, pixelID, pixelID, pixelID);
 		break;
 
 	case GX_SIGNAL(REVERSE_PAD_OFF_BTN_ID, GX_EVENT_CLICKED):
-		SetNextPadDirection (GetActiveGroup(), REVERSE_PAD);
+		SetNextPadDirection (dd_Get_USHORT (0, DD_GROUP), REVERSE_PAD);
 		pixelID = GetDirectionIcon (g_PadSettings[REVERSE_PAD].m_PadDirection);
 		gx_pixelmap_button_pixelmap_set (&SetPadDirectionScreen.SetPadDirectionScreen_ReversePad_Off_Button, pixelID, pixelID, pixelID);
 		break;

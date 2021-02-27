@@ -85,6 +85,7 @@
     <ClCompile Include="..\..\..\..\ASL4321_Display_Demo_specifications.c" />
     <ClCompile Include="..\..\..\..\ASL4321_Simulator_Main.c" />
     <ClCompile Include="..\..\..\..\custom_checkbox.c" />
+    <ClCompile Include="..\..\..\..\DataDictionaly.c" />
     <ClCompile Include="..\..\..\..\DiagnosticScreen.c" />
     <ClCompile Include="..\..\..\..\FeatureSettingScreen.c" />
     <ClCompile Include="..\..\..\..\GroupHandling.c" />
@@ -120,6 +121,7 @@
     <ClInclude Include="..\..\..\..\ASL4321_Simulator_Main.h" />
     <ClInclude Include="..\..\..\..\ASL4321_System.h" />
     <ClInclude Include="..\..\..\..\custom_checkbox.h" />
+    <ClInclude Include="..\..\..\..\DataDictionary.h" />
     <ClInclude Include="..\..\..\..\PadInfo.h" />
     <ClInclude Include="..\..\..\..\UserMainScreen.h" />
   </ItemGroup>

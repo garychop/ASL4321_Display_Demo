@@ -17,8 +17,6 @@
 #include "custom_checkbox.h"
 #include "PadInfo.h"
 
-#define MAX_GROUPS (4)
-
 #define MAXIMUM_DRIVE_SPEED (40)
 
 #define FEATURE_TOGGLE_BUTTON_ID 1000	// this is used as the dynamically created buttons in the feature list.
@@ -42,8 +40,10 @@ typedef enum BUTTON_IDS {
 typedef enum FEATURE_ID {
 	POWER_ONOFF_ID,
 	BLUETOOTH_ID,
-	NEXT_FUNCTION_OR_TOGGLE_ID,
-	NEXT_PROFILE_OR_USER_MENU_ID,
+	NEXT_FUNCTION_ID,
+	NEXT_PROFILE_ID,
+	RNET_TOGGLE_ID,
+	RNET_USER_MENU_ID,
 	RNET_SEATING_ID,
 	RNET_SLEEP_FEATURE_ID,
 	NEXT_GROUP_ID,
@@ -52,11 +52,54 @@ typedef enum FEATURE_ID {
 	TECLA_E_FEATURE_ID,
 	NUM_FEATURES} FEATURE_ID_ENUM; // NUM_FEATURES must be last enum
 
-
+typedef enum GROUP_E {GROUP_A, GROUP_B, GROUP_C, GROUP_D, MAX_GROUPS} GROUP_ENUM;
 typedef enum ENUM_TIMER_IDS {ARROW_PUSHED_TIMER_ID = 1, CALIBRATION_TIMER_ID, PAD_ACTIVE_TIMER_ID, USER_PORT_PUSHED_TIMER_ID, SCAN_TIMER_ID} ENUM_TIMER_IDS_ENUM;
 typedef enum ENUM_MODE_SWITCH_SCHEMA {MODE_SWITCH_PIN5, MODE_SWITCH_REVERSE} MODE_SWITCH_SCHEMA_ENUM;
 typedef enum ENUM_DEVICE_TYPE {DEVICE_TYPE_HEAD_ARRAY, DEVICE_TYPE_PROPORTIONAL_JOYSTICK, DEVICE_TYPE_DIGITAL_JOYSTICK, END_OF_DEVICE_TYPES} DEVICE_TYPE_ENUM;
 typedef enum SCAN_DIRECTION {SCAN_FORWARD, SCAN_LEFT, SCAN_RIGHT, SCAN_REVERSE, SCAN_VEER_FORWARD_LEFT, SCAN_VEER_FORWARD_RIGHT, SCAN_USER_PORT, SCAN_MAX} SCAN_DIRECTION_ENUM;
+
+typedef struct CUSTOM_MENU_BUTTON_STRUCT{
+//    GX_BUTTON_MEMBERS_DECLARE
+    GX_WIDGET m_MenuWidget;
+	GX_PROMPT m_PromptWidget;
+	GX_TEXT_BUTTON m_ButtonWidget;
+	USHORT m_ButtonID;
+	GX_RESOURCE_ID m_TextID;
+	USHORT m_Enabled;
+	//INT start_offset;
+ //   INT end_offset;
+ //   INT cur_offset;
+} CUSTOM_MENU_BUTTON;
+
+typedef struct FEATURE_STRUCTURE {
+	USHORT m_Available;		// This is TRUE if this feature is available for enabling.
+	USHORT m_Enabled;
+	USHORT m_Order;
+	union FEATURE_SUBSET {
+		int myA;
+		int myB;
+	} m_Subset;
+} FEATURE_STRUCT;
+
+typedef struct //GROUP_STRUCT_DEFINE
+{
+	DEVICE_TYPE_ENUM m_DeviceType;
+	PAD_INFO_STRUCT m_GroupPadInfo[MAX_PHYSICAL_PADS];
+	FEATURE_STRUCT m_PowerOnOff_Feature;
+	FEATURE_STRUCT m_NextFunction_Feature;
+	FEATURE_STRUCT m_NextProfile_Feature;
+	FEATURE_STRUCT m_RNet_Toggle_Feature;
+	FEATURE_STRUCT m_RNet_UserMenu_Feature;
+	FEATURE_STRUCT m_RNet_Seating_Feature;
+	FEATURE_STRUCT m_RNet_Sleep_Feature;
+	FEATURE_STRUCT m_Bluetooth_Feature;
+	FEATURE_STRUCT m_MouseEmulation_Feature;
+	FEATURE_STRUCT m_Seating_Feature;
+	FEATURE_STRUCT m_Audible_Feature;
+	FEATURE_STRUCT m_NextGroup_Feature;
+	FEATURE_STRUCT m_TeclaE_Feature;
+} GROUP_STRUCT;
+extern GROUP_STRUCT g_GroupInfo[MAX_GROUPS];
 
 typedef struct MAIN_SCREEN_FEATURE_STRUCT
 {
@@ -74,33 +117,6 @@ typedef struct MAIN_SCREEN_FEATURE_STRUCT
     CUSTOM_CHECKBOX m_Checkbox;
 } MAIN_SCREEN_FEATURE;
 
-typedef struct CUSTOM_MENU_BUTTON_STRUCT{
-//    GX_BUTTON_MEMBERS_DECLARE
-    GX_WIDGET m_MenuWidget;
-	GX_PROMPT m_PromptWidget;
-	GX_TEXT_BUTTON m_ButtonWidget;
-	USHORT m_ButtonID;
-	GX_RESOURCE_ID m_TextID;
-	USHORT m_Enabled;
-	//INT start_offset;
- //   INT end_offset;
- //   INT cur_offset;
-} CUSTOM_MENU_BUTTON;
-
-//typedef struct //DEVICE_STRUCT_DEFINE
-//{
-//	DEVICE_TYPE_ENUM m_DeviceType;
-//	GX_RESOURCE_ID m_DeviceIcon;
-//} DEVICE_STRUCT;
-
-typedef struct //GROUP_STRUCT_DEFINE
-{
-	DEVICE_TYPE_ENUM m_DeviceType;
-	PAD_INFO_STRUCT m_GroupPadInfo[MAX_PHYSICAL_PADS];
-} GROUP_STRUCT;
-extern GROUP_STRUCT g_GroupInfo[MAX_GROUPS];
-
-
 //*****************************************************************************
 // GLOBAL VARIABLES
 //*****************************************************************************
@@ -111,12 +127,10 @@ extern int g_CalibrationPadNumber;
 extern int g_ClicksActive;
 extern int g_PowerUpInIdle;
 extern int g_TimeoutValue;
-extern int g_RNet_Active;
 extern MODE_SWITCH_SCHEMA_ENUM g_Mode_Switch_Schema;
 
 extern MAIN_SCREEN_FEATURE g_MainScreenFeatureInfo[];
 extern FEATURE_ID_ENUM g_ActiveFeature;
-extern int g_ActiveGroup;
 extern int g_ActiveSpeakerGroup;
 extern int g_ActiveSeatingGroup;
 extern int g_BluetoothGroup;
@@ -132,14 +146,12 @@ VOID screen_toggle(GX_WINDOW *new_win, GX_WINDOW *old_win);
 VOID screen_switch(GX_WIDGET *parent, GX_WIDGET *new_screen);
 
 // Group Handling Function Prototypes
-UINT GetActiveGroup (VOID);
+VOID InitializeGroupInformation (VOID);
 VOID SelectNextGroup(VOID);
 VOID SetGroupIcon (GX_ICON_BUTTON *icon_button);
-DEVICE_TYPE_ENUM GetGroupDeviceType (VOID);
 
 VOID SetDeviceIcon (GX_ICON *icon);
 VOID SelectNextDevice (VOID);
-VOID InitializeGroupInformation (VOID);
 VOID AdvanceToNextTeclaGroup (VOID);
 UINT GetTeclaGroup (VOID);
 

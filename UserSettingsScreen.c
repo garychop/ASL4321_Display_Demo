@@ -8,12 +8,14 @@
 //*****************************************************************************
 
 #include "ASL4321_System.h"
+#include "DataDictionary.h"
 
 //*************************************************************************************
 // Local/Global variables
 //*************************************************************************************
 
 char g_TimeoutValueString[8] = "OFF";
+BOOL rnet_active;
 
 //*************************************************************************************
 // This function handles the callbacks that support the User Selection Screen.
@@ -24,10 +26,11 @@ UINT UserSettingsScreen_event_process (GX_WINDOW *window, GX_EVENT *event_ptr)
 	UINT myErr = -1;
     char tmpChar[8];
 	USHORT lineNumber, featureCount;
-
+	
 	switch (event_ptr->gx_event_type)
 	{
 	case GX_EVENT_SHOW:
+		rnet_active = (dd_Get_USHORT(0, DD_RNET_ENABLE));
 		if (g_ClicksActive)
 		{
 			gx_button_select ((GX_BUTTON*) &UserSettingsScreen.UserSettingsScreen_ClicksToggleBtn);
@@ -38,7 +41,7 @@ UINT UserSettingsScreen_event_process (GX_WINDOW *window, GX_EVENT *event_ptr)
 			gx_button_select ((GX_BUTTON*) &UserSettingsScreen.UserSettingsScreen_PowerUpToggleBtn);
 		}
 		// RNet Enabled setting
-		if (g_RNet_Active)
+		if (rnet_active)
 		{
 			gx_button_select ((GX_BUTTON*) &UserSettingsScreen.UserSettingsScreen_RNET_ToggleBtn);
 		}
@@ -65,7 +68,7 @@ UINT UserSettingsScreen_event_process (GX_WINDOW *window, GX_EVENT *event_ptr)
 	case GX_SIGNAL(OK_BTN_ID, GX_EVENT_CLICKED):
         screen_toggle((GX_WINDOW *)&HHP_Start_Screen, window);
 		// Adjust available features based upon RNet setting.
-		if (g_RNet_Active)
+		if (rnet_active)
 		{
 		    g_MainScreenFeatureInfo[RNET_SLEEP_FEATURE_ID].m_Available = TRUE;
 		    g_MainScreenFeatureInfo[RNET_SEATING_ID].m_Available = TRUE;
@@ -98,10 +101,10 @@ UINT UserSettingsScreen_event_process (GX_WINDOW *window, GX_EVENT *event_ptr)
 	//----------------------------------------------------------
 	// RNet Enable toggle button
 	case GX_SIGNAL(RNET_TOGGLE_BTN, GX_EVENT_TOGGLE_ON):
-		g_RNet_Active = TRUE;
+		rnet_active = TRUE;
 		break;
 	case GX_SIGNAL(RNET_TOGGLE_BTN, GX_EVENT_TOGGLE_OFF):
-		g_RNet_Active = FALSE;
+		rnet_active = FALSE;
 		break;
 
 	//----------------------------------------------------------
@@ -143,7 +146,7 @@ UINT UserSettingsScreen_event_process (GX_WINDOW *window, GX_EVENT *event_ptr)
 	}
 
 	    // Adjust available features based upon RNet setting.
-    if (g_RNet_Active)
+    if (rnet_active)
     {
         g_MainScreenFeatureInfo[RNET_SLEEP_FEATURE_ID].m_Available = TRUE;
         g_MainScreenFeatureInfo[RNET_SEATING_ID].m_Available = TRUE;

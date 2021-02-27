@@ -17,6 +17,7 @@
 #include "time.h"			// Windows supported timed functions.
 #include "ASL4321_Simulator_Main.h"
 #include "ASL4321_System.h"
+#include "DataDictionary.h"
 #include "UserMainScreen.h"
 #include "PadInfo.h"
 
@@ -55,11 +56,9 @@ int g_DeltaValue;
 int g_ClicksActive = FALSE;
 int g_PowerUpInIdle = FALSE;
 int g_TimeoutValue = 20;
-int g_RNet_Active = FALSE;
 MODE_SWITCH_SCHEMA_ENUM g_Mode_Switch_Schema = MODE_SWITCH_PIN5;
 
 FEATURE_ID_ENUM g_ActiveFeature = POWER_ONOFF_ID;
-int g_ActiveGroup = 0;
 int g_ActiveSpeakerGroup = 0;
 int g_ActiveSeatingGroup = 0;
 int g_BluetoothGroup = 0;
@@ -137,9 +136,9 @@ VOID  start_guix(VOID)
     myError = gx_studio_display_configure(PRIMARYDISPLAY, win32_graphics_driver_setup_24xrgb, 
         LANGUAGE_ENGLISH, PRIMARYDISPLAY_THEME_1, &root);
 
-	Initialize_MainScreenInfo();
-
 	InitializeGroupInformation();
+
+	Initialize_MainScreenInfo();
 
 	InitializePadInformation();
 
@@ -202,7 +201,7 @@ VOID screen_toggle(GX_WINDOW *new_win, GX_WINDOW *old_win)
 
 VOID SetGroupIcon (GX_ICON_BUTTON *icon_button)
 {
-	switch (g_ActiveGroup)
+	switch (dd_Get_USHORT (0, DD_GROUP))
 	{
 	case 0:
 		gx_icon_button_pixelmap_set (icon_button, GX_PIXELMAP_ID_GROUPA_64X64);
@@ -225,7 +224,7 @@ VOID SetGroupIcon (GX_ICON_BUTTON *icon_button)
 
 VOID SetDeviceIcon (GX_ICON *icon)
 {
-	switch (g_GroupInfo[g_ActiveGroup].m_DeviceType)
+	switch (dd_Get_USHORT (dd_Get_USHORT (0, DD_GROUP), DD_DEVICE_TYPE))
 	{
 	case DEVICE_TYPE_HEAD_ARRAY:
 		gx_icon_pixelmap_set (icon, GX_PIXELMAP_ID_DEVICETYPE_HEADARRAY_88X70, GX_PIXELMAP_ID_DEVICETYPE_HEADARRAY_88X70);
@@ -247,9 +246,13 @@ VOID SetDeviceIcon (GX_ICON *icon)
 
 VOID SelectNextDevice (VOID)
 {
-	++g_GroupInfo[g_ActiveGroup].m_DeviceType;
-	if (g_GroupInfo[g_ActiveGroup].m_DeviceType == END_OF_DEVICE_TYPES)
-		g_GroupInfo[g_ActiveGroup].m_DeviceType = (DEVICE_TYPE_ENUM) 0;
+	USHORT device;
+
+	device = dd_Get_USHORT (0, DD_DEVICE_TYPE);
+	++device;
+	if (device == END_OF_DEVICE_TYPES)
+		device = 0;
+	dd_Set_USHORT (0, DD_DEVICE_TYPE, device);
 }
 
 //******************************************************************************************

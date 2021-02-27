@@ -8,6 +8,7 @@
 //*****************************************************************************
 
 #include "ASL4321_System.h"
+#include "DataDictionary.h"
 #include "PadInfo.h"
 
 //*************************************************************************************
@@ -20,7 +21,7 @@ static VOID ShowPads (VOID)
 {
 	GX_RECTANGLE rectangle;
 
-	if (GetGroupDeviceType() == DEVICE_TYPE_HEAD_ARRAY)
+	if (dd_Get_USHORT (dd_Get_USHORT (0, DD_GROUP), DD_DEVICE_TYPE) == DEVICE_TYPE_HEAD_ARRAY)
 	{
 		// Move device icon
 		gx_utility_rectangle_define (&rectangle, 154, 90, 154+88, 90+70);	// Left, top, right, bottom

@@ -9,6 +9,7 @@
 
 #include "ASL4321_System.h"
 #include "custom_checkbox.h"
+#include "DataDictionary.h"
 
 CUSTOM_CHECKBOX_INFO checkbox_info =
 {
@@ -176,20 +177,20 @@ void CreateFeatureWidgets (GX_VERTICAL_LIST *list)
  	int index;
 	int activeFeatureCount;
 
-	if (g_RNet_Active)
-	{
-		// Display as "RNet TOGGLE"
-		g_MainScreenFeatureInfo[NEXT_FUNCTION_OR_TOGGLE_ID].m_LargeDescriptionID = GX_STRING_ID_RNET_TOGGLE;
-		// Display as "RNET USER MENU"
-		g_MainScreenFeatureInfo[NEXT_PROFILE_OR_USER_MENU_ID].m_LargeDescriptionID = GX_STRING_ID_RNET_MENU;
-	}
-	else
-	{
-		// Display as NEXT FUNCTION
-		g_MainScreenFeatureInfo[NEXT_FUNCTION_OR_TOGGLE_ID].m_LargeDescriptionID = GX_STRING_ID_NEXT_FUNCTION;
-		// Display as NEXT PROFILE
-		g_MainScreenFeatureInfo[NEXT_PROFILE_OR_USER_MENU_ID].m_LargeDescriptionID = GX_STRING_ID_NEXT_PROFILE;
-	}
+	//if (dd_Get_BOOL(DD_RNET_ENABLE))
+	//{
+	//	// Display as "RNet TOGGLE"
+	//	g_MainScreenFeatureInfo[NEXT_FUNCTION_ID].m_LargeDescriptionID = GX_STRING_ID_RNET_TOGGLE;
+	//	// Display as "RNET USER MENU"
+	//	g_MainScreenFeatureInfo[NEXT_PROFILE_ID].m_LargeDescriptionID = GX_STRING_ID_RNET_MENU;
+	//}
+	//else
+	//{
+	//	// Display as NEXT FUNCTION
+	//	g_MainScreenFeatureInfo[NEXT_FUNCTION_OR_TOGGLE_ID].m_LargeDescriptionID = GX_STRING_ID_NEXT_FUNCTION;
+	//	// Display as NEXT PROFILE
+	//	g_MainScreenFeatureInfo[NEXT_PROFILE_OR_USER_MENU_ID].m_LargeDescriptionID = GX_STRING_ID_NEXT_PROFILE;
+	//}
 
 	activeFeatureCount = 0;
 	for (index = 0; index < NUM_FEATURES; ++index)

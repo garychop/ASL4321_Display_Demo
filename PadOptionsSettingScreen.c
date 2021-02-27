@@ -8,6 +8,7 @@
 //*****************************************************************************
 
 #include "ASL4321_System.h"
+#include "DataDictionary.h"
 #include "PadInfo.h"
 
 typedef enum PAD_OPTIONS_MENU_POSITION_E
@@ -74,7 +75,7 @@ static void Populate_PadOptions_MenuItems(void)
 	g_PadOptions_MenuItems[END_OF_PAD_OPTIONS_MENU_POS].m_TextID = GX_STRING_ID_BLANK;
 	g_PadOptions_MenuItems[END_OF_PAD_OPTIONS_MENU_POS].m_Enabled = FALSE;
 
-	switch (g_GroupInfo[g_ActiveGroup].m_DeviceType)
+	switch (dd_Get_USHORT (dd_Get_USHORT (0, DD_GROUP), DD_DEVICE_TYPE))
 	{
 	case DEVICE_TYPE_HEAD_ARRAY:
 		g_PadOptions_MenuItems[PAD_OPTIONS_SET_PAD_TYPE].m_Enabled = TRUE;
