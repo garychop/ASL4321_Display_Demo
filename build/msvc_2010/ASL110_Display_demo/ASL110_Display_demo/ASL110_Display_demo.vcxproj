@@ -87,6 +87,7 @@
     <ClCompile Include="..\..\..\..\custom_checkbox.c" />
     <ClCompile Include="..\..\..\..\DataDictionaly.c" />
     <ClCompile Include="..\..\..\..\DiagnosticScreen.c" />
+    <ClCompile Include="..\..\..\..\FeatureHandling.c" />
     <ClCompile Include="..\..\..\..\FeatureSettingScreen.c" />
     <ClCompile Include="..\..\..\..\GroupHandling.c" />
     <ClCompile Include="..\..\..\..\HHP_StartScreen.c" />
@@ -122,6 +123,7 @@
     <ClInclude Include="..\..\..\..\ASL4321_System.h" />
     <ClInclude Include="..\..\..\..\custom_checkbox.h" />
     <ClInclude Include="..\..\..\..\DataDictionary.h" />
+    <ClInclude Include="..\..\..\..\FeatureHandling.h" />
     <ClInclude Include="..\..\..\..\PadInfo.h" />
     <ClInclude Include="..\..\..\..\UserMainScreen.h" />
   </ItemGroup>

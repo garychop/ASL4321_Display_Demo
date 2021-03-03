@@ -58,7 +58,6 @@ int g_PowerUpInIdle = FALSE;
 int g_TimeoutValue = 20;
 MODE_SWITCH_SCHEMA_ENUM g_Mode_Switch_Schema = MODE_SWITCH_PIN5;
 
-FEATURE_ID_ENUM g_ActiveFeature = POWER_ONOFF_ID;
 int g_ActiveSpeakerGroup = 0;
 int g_ActiveSeatingGroup = 0;
 int g_BluetoothGroup = 0;
@@ -72,8 +71,7 @@ SCAN_DIRECTION_ENUM gActiveScanDirection = SCAN_FORWARD;
 int g_MinimumDriveValue = 20;		// Percentage, Minimum Drive value
 char g_MinimuDriveString[8] = "20%";
 unsigned char g_HA_Version_Major, g_HA_Version_Minor, g_HA_Version_Build, g_HA_EEPROM_Version = 5;
-
-MAIN_SCREEN_FEATURE g_MainScreenFeatureInfo[NUM_FEATURES];
+extern VOID Initialize_MainScreenInfo();
 
 //*************************************************************************************
 // Provided by GUIX to support Windows environment.
@@ -138,7 +136,11 @@ VOID  start_guix(VOID)
 
 	InitializeGroupInformation();
 
+	dd_Set_USHORT (0, DD_ACTIVE_FEATURE, 0);
+
 	Initialize_MainScreenInfo();
+
+	InitializeFeature_GUI_Info();
 
 	InitializePadInformation();
 
@@ -235,6 +237,12 @@ VOID SetDeviceIcon (GX_ICON *icon)
 	case DEVICE_TYPE_DIGITAL_JOYSTICK:
 		gx_icon_pixelmap_set (icon, GX_PIXELMAP_ID_DEVICETYPE_DIGITALJOYSTICK_88X70, GX_PIXELMAP_ID_DEVICETYPE_DIGITALJOYSTICK_88X70);
 		break;
+	case DEVICE_TYPE_SINGLE_SWITCH:
+		gx_icon_pixelmap_set (icon, GX_PIXELMAP_ID_DEVICETYPE_SINGLESWITCH_88X70, GX_PIXELMAP_ID_DEVICETYPE_SINGLESWITCH_88X70);
+		break;
+	case DEVICE_TYPE_TWO_SWITCH:
+		gx_icon_pixelmap_set (icon, GX_PIXELMAP_ID_DEVICETYPE_TWOSWITCH_88X70, GX_PIXELMAP_ID_DEVICETYPE_TWOSWITCH_88X70);
+		break;
 	case END_OF_DEVICE_TYPES:
 	default:
 		gx_icon_pixelmap_set (icon, GX_PIXELMAP_ID_BLANK_60X50, GX_PIXELMAP_ID_BLANK_60X50);
@@ -247,8 +255,10 @@ VOID SetDeviceIcon (GX_ICON *icon)
 VOID SelectNextDevice (VOID)
 {
 	USHORT device;
+	USHORT group;
 
-	device = dd_Get_USHORT (0, DD_DEVICE_TYPE);
+	group = dd_Get_USHORT (0, DD_GROUP);
+	device = dd_Get_USHORT (group, DD_DEVICE_TYPE);
 	++device;
 	if (device == END_OF_DEVICE_TYPES)
 		device = 0;

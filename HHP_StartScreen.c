@@ -35,6 +35,7 @@ VOID MenuItem_draw(GX_BUTTON *checkbox);
 UINT MenuItem_event_process(GX_BUTTON *checkbox, GX_EVENT *event_ptr);
 VOID MenuItem_select(GX_BUTTON *checkbox);
 
+VOID Initialize_MainScreenInfo();
 
 //*************************************************************************************
 #if 0
@@ -296,6 +297,7 @@ UINT HHP_Start_Screen_event_process_new (GX_WINDOW *window, GX_EVENT *event_ptr)
 
 	case GX_SIGNAL(OK_BTN_ID, GX_EVENT_CLICKED):
 		gx_window_event_process(window, event_ptr);
+		Initialize_MainScreenInfo();
         screen_toggle((GX_WINDOW *)&MainUserScreen, window);
 		break;
 

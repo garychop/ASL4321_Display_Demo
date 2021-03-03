@@ -100,7 +100,30 @@ static void Populate_PadOptions_MenuItems(void)
 		g_PadOptions_MenuItems[PAD_OPTIONS_SET_NEUTRAL_WINDOW].m_Enabled = FALSE;
 		g_PadOptions_MenuItems[PAD_OPTIONS_SET_JOYSTICK_THROW_MAX].m_Enabled = FALSE;
 		break;
-
+	case DEVICE_TYPE_SINGLE_SWITCH:
+		g_PadOptions_MenuItems[PAD_OPTIONS_SET_PAD_TYPE].m_Enabled = FALSE;
+		g_PadOptions_MenuItems[PAD_OPTIONS_SET_PAD_DIRECTION].m_Enabled = FALSE;
+		g_PadOptions_MenuItems[PAD_OPTIONS_SET_MINIMUM_SPEED].m_Enabled = TRUE;
+		g_PadOptions_MenuItems[PAD_OPTIONS_SET_NEUTRAL_WINDOW].m_Enabled = FALSE;
+		g_PadOptions_MenuItems[PAD_OPTIONS_SET_JOYSTICK_THROW_MAX].m_Enabled = FALSE;
+		g_PadOptions_MenuItems[PAD_OPTIONS_SET_VEER_ADJUSTMENT].m_Enabled = TRUE;
+		break;
+	case DEVICE_TYPE_TWO_SWITCH:
+		g_PadOptions_MenuItems[PAD_OPTIONS_SET_PAD_TYPE].m_Enabled = FALSE;
+		g_PadOptions_MenuItems[PAD_OPTIONS_SET_PAD_DIRECTION].m_Enabled = FALSE;
+		g_PadOptions_MenuItems[PAD_OPTIONS_SET_MINIMUM_SPEED].m_Enabled = FALSE;
+		g_PadOptions_MenuItems[PAD_OPTIONS_SET_NEUTRAL_WINDOW].m_Enabled = FALSE;
+		g_PadOptions_MenuItems[PAD_OPTIONS_SET_JOYSTICK_THROW_MAX].m_Enabled = FALSE;
+		g_PadOptions_MenuItems[PAD_OPTIONS_SET_VEER_ADJUSTMENT].m_Enabled = TRUE;
+		break;
+	default:
+		g_PadOptions_MenuItems[PAD_OPTIONS_SET_PAD_TYPE].m_Enabled = TRUE;
+		g_PadOptions_MenuItems[PAD_OPTIONS_SET_PAD_DIRECTION].m_Enabled = TRUE;
+		g_PadOptions_MenuItems[PAD_OPTIONS_SET_MINIMUM_SPEED].m_Enabled = TRUE;
+		g_PadOptions_MenuItems[PAD_OPTIONS_SET_NEUTRAL_WINDOW].m_Enabled = FALSE;
+		g_PadOptions_MenuItems[PAD_OPTIONS_SET_JOYSTICK_THROW_MAX].m_Enabled = FALSE;
+		g_PadOptions_MenuItems[PAD_OPTIONS_SET_VEER_ADJUSTMENT].m_Enabled = TRUE;
+		break;
 	} // end switch
 }
 

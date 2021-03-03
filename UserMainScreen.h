@@ -10,7 +10,7 @@
 #ifndef USER_MAIN_SCREEN_H
 #define USER_MAIN_SCREEN_H
 
-VOID Initialize_MainScreenInfo();
+//VOID Initialize_MainScreenInfo();
 
 #endif // USER_MAIN_SCREEN_H
 

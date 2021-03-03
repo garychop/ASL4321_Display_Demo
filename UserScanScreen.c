@@ -8,54 +8,21 @@
 #include "ASL4321_Display_Demo_specifications.h"
 #include "ASL4321_System.h"
 #include "DataDictionary.h"
+#include "FeatureHandling.h"
 
 extern unsigned char g_Inhibit_UpButtonResponse;
 
 static UINT DisplayScanScreenActiveFeatures ()
 {
 	int enabledCount;
-	int feature;
 	UINT myErr = GX_SUCCESS;
-
-	// Adjust the displayed information based upon the RNet setting.
-	// .. If RNet is enabled, the NEXT FUNCTION feature becomes RNet TOGGLE
-	// .. and NEXT PROFILE feature become RNet MENU.
-    //if (g_RNet_Active)
-	//if (dd_Get_USHORT(0, DD_RNET_ENABLE))
-	//{
-	//	// Display as "RNet TOGGLE"
-	//	g_MainScreenFeatureInfo[NEXT_FUNCTION_OR_TOGGLE_ID].m_LargeDescriptionID = GX_STRING_ID_RNET_TOGGLE;
-	//	g_MainScreenFeatureInfo[NEXT_FUNCTION_OR_TOGGLE_ID].m_SmallDescriptionID = GX_STRING_ID_RNET_TOGGLE;
-	//	g_MainScreenFeatureInfo[NEXT_FUNCTION_OR_TOGGLE_ID].m_SmallIcon = GX_PIXELMAP_ID_RNET_TOGGLEFR_30X30;
-	//	g_MainScreenFeatureInfo[NEXT_FUNCTION_OR_TOGGLE_ID].m_LargeIcon = GX_PIXELMAP_ID_RNET_TOGGLEFR_70X70;
-
-	//	// Display as "RNet MENU"
-	//	g_MainScreenFeatureInfo[NEXT_PROFILE_OR_USER_MENU_ID].m_LargeDescriptionID = GX_STRING_ID_RNET_MENU;
-	//	g_MainScreenFeatureInfo[NEXT_PROFILE_OR_USER_MENU_ID].m_SmallDescriptionID = GX_STRING_ID_RNET_MENU;
-	//	g_MainScreenFeatureInfo[NEXT_PROFILE_OR_USER_MENU_ID].m_SmallIcon = GX_PIXELMAP_ID_RNET_MENU_30X30;
-	//	g_MainScreenFeatureInfo[NEXT_PROFILE_OR_USER_MENU_ID].m_LargeIcon = GX_PIXELMAP_ID_RNET_MENU_70X70;
-	//}
-	//else
-	//{
-	//	// Display as NEXT FUNCTION
-	//	g_MainScreenFeatureInfo[NEXT_FUNCTION_OR_TOGGLE_ID].m_LargeDescriptionID = GX_STRING_ID_NEXT_FUNCTION; // "NEXT FUNCTION")
-	//	g_MainScreenFeatureInfo[NEXT_FUNCTION_OR_TOGGLE_ID].m_SmallDescriptionID = GX_STRING_ID_NEXT_FUNCTION;
-	//	g_MainScreenFeatureInfo[NEXT_FUNCTION_OR_TOGGLE_ID].m_SmallIcon = GX_PIXELMAP_ID_FUNCTIONNEXT_30X30;
-	//	g_MainScreenFeatureInfo[NEXT_FUNCTION_OR_TOGGLE_ID].m_LargeIcon = GX_PIXELMAP_ID_FUNCTIONNEXT_70X70;
-
-	//	// Display as NEXT PROFILE
-	//	g_MainScreenFeatureInfo[NEXT_PROFILE_OR_USER_MENU_ID].m_LargeDescriptionID = GX_STRING_ID_NEXT_PROFILE; // "NEXT PROFILE"
-	//	g_MainScreenFeatureInfo[NEXT_PROFILE_OR_USER_MENU_ID].m_SmallDescriptionID = GX_STRING_ID_NEXT_PROFILE;
-	//	g_MainScreenFeatureInfo[NEXT_PROFILE_OR_USER_MENU_ID].m_SmallIcon = GX_PIXELMAP_ID_PROFILENEXT_30X30;
-	//	g_MainScreenFeatureInfo[NEXT_PROFILE_OR_USER_MENU_ID].m_LargeIcon = GX_PIXELMAP_ID_PROFILENEXT_70X70;
-	//}
-
+#if 0
     // Count the number of active items so we can populate appropriately.
 	// Hide the Non-Active features.
     enabledCount = 0;
 
     // Locate the first feature to display
-    for (feature = 0; feature < NUM_FEATURES; ++feature)
+    for (feature = 0; feature < MAX_FEATURES; ++feature)
     {
 		if (g_MainScreenFeatureInfo[feature].m_Enabled && g_MainScreenFeatureInfo[feature].m_Available)
         {
@@ -78,16 +45,16 @@ static UINT DisplayScanScreenActiveFeatures ()
 				}
                 break;
             case 1: // Show second line item
-                myErr = gx_icon_button_pixelmap_set (&UserScanScreen.UserScanScreen_Function1_IconButton, g_MainScreenFeatureInfo[feature].m_SmallIcon);
+                myErr = gx_icon_button_pixelmap_set (&UserScanScreen.UserScanScreen_Function1_IconButton, g_Feature_GUI[feature].m_SmallIcon);
                 break;
             case 2: // Show third line item
-                myErr = gx_icon_button_pixelmap_set (&UserScanScreen.UserScanScreen_Function2_IconButton, g_MainScreenFeatureInfo[feature].m_SmallIcon);
+                myErr = gx_icon_button_pixelmap_set (&UserScanScreen.UserScanScreen_Function2_IconButton, g_Feature_GUI[feature].m_SmallIcon);
                 break;
             case 3: // Show fourth line item
-                myErr = gx_icon_button_pixelmap_set (&UserScanScreen.UserScanScreen_Function3_IconButton, g_MainScreenFeatureInfo[feature].m_SmallIcon);
+                myErr = gx_icon_button_pixelmap_set (&UserScanScreen.UserScanScreen_Function3_IconButton, g_Feature_GUI[feature].m_SmallIcon);
                 break;
             case 4: // Show fifth line item
-                myErr = gx_icon_button_pixelmap_set (&UserScanScreen.UserScanScreen_Function4_IconButton, g_MainScreenFeatureInfo[feature].m_SmallIcon);
+                myErr = gx_icon_button_pixelmap_set (&UserScanScreen.UserScanScreen_Function4_IconButton, g_Feature_GUI[feature].m_SmallIcon);
                 break;
             }
         }
@@ -103,7 +70,7 @@ static UINT DisplayScanScreenActiveFeatures ()
 		UserScanScreen.UserScanScreen_Fusion_Button.gx_widget_size.gx_rectangle_left = 500;
 
 	// Now blank any unused items.
-    for ( ; enabledCount < NUM_FEATURES; ++enabledCount)   // Start with the number of items that are enabled.
+    for ( ; enabledCount < MAX_FEATURES; ++enabledCount)   // Start with the number of items that are enabled.
     {
         switch (enabledCount)
         {
@@ -154,7 +121,7 @@ static UINT DisplayScanScreenActiveFeatures ()
 	} // end of switch
 
 //	DisplayPadFeatures();
-
+#endif
     return myErr;
 }
 
@@ -272,7 +239,7 @@ UINT UserScanScreen_EventFunction (GX_WINDOW *window, GX_EVENT *event_ptr)
 			}
 			else if (event_ptr->gx_event_target->gx_widget_name == "UserPortButton")
 			{
-				switch (g_ActiveFeature)
+				switch (dd_Get_USHORT (0, DD_ACTIVE_FEATURE))
 				{
 				case POWER_ONOFF_ID:
 					screen_toggle((GX_WINDOW *)&ReadyScreen, window);

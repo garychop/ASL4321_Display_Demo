@@ -65,7 +65,7 @@ UINT DisplayMainScreenActiveFeatures ()
     enabledCount = 0;
 
     // Locate the first feature to display
-    for (feature = 0; feature < NUM_FEATURES; ++feature)
+    for (feature = 0; feature < MAX_FEATURES; ++feature)
     {
 		if (g_MainScreenFeatureInfo[feature].m_Enabled && g_MainScreenFeatureInfo[feature].m_Available)
         {
@@ -106,7 +106,7 @@ UINT DisplayMainScreenActiveFeatures ()
 		MainUserScreen.MainUserScreen_Fusion_Button.gx_widget_size.gx_rectangle_left = 400;
 
 	// Now blank any unused items.
-    for ( ; enabledCount < NUM_FEATURES; ++enabledCount)   // Start with the number of items that are enabled.
+    for ( ; enabledCount < MAX_FEATURES; ++enabledCount)   // Start with the number of items that are enabled.
     {
         switch (enabledCount)
         {
@@ -160,6 +160,7 @@ VOID MainUserScreen_draw_function(GX_WINDOW *window)
 //*************************************************************************************
 UINT MainUserScreen_event_process (GX_WINDOW *window, GX_EVENT *event_ptr)
 {
+#if 0
 	UINT myErr = -1;
 	UINT feature;
 	int activeCount;
@@ -206,13 +207,13 @@ UINT MainUserScreen_event_process (GX_WINDOW *window, GX_EVENT *event_ptr)
         }
         // Count the number of active features to set a limit on location
         activeCount = 0;
-        for (feature = 0; feature < NUM_FEATURES; ++feature)
+        for (feature = 0; feature < MAX_FEATURES; ++feature)
         {
 	        if ((g_MainScreenFeatureInfo[feature].m_Enabled) && (g_MainScreenFeatureInfo[feature].m_Available))
                 ++activeCount;
         }
         // Move Top Feature to Bottom and move Bottom upward.
-        for (feature = 0; feature < NUM_FEATURES; ++feature)
+        for (feature = 0; feature < MAX_FEATURES; ++feature)
         {
 	        if ((g_MainScreenFeatureInfo[feature].m_Enabled) && (g_MainScreenFeatureInfo[feature].m_Available))
             {
@@ -245,7 +246,7 @@ UINT MainUserScreen_event_process (GX_WINDOW *window, GX_EVENT *event_ptr)
         }
         // Count the number of active features to set a limit on location
         activeCount = 0;
-        for (feature = 0; feature < NUM_FEATURES; ++feature)
+        for (feature = 0; feature < MAX_FEATURES; ++feature)
         {
             if (g_MainScreenFeatureInfo[feature].m_Enabled)
                 ++activeCount;
@@ -253,7 +254,7 @@ UINT MainUserScreen_event_process (GX_WINDOW *window, GX_EVENT *event_ptr)
         --activeCount;  // Translate the Number of items to Based Zero line number.
 
         // Move the features downward, limiting the movement by the number of Active Features.
-        for (feature = 0; feature < NUM_FEATURES; ++feature)
+        for (feature = 0; feature < MAX_FEATURES; ++feature)
         {
 	        if ((g_MainScreenFeatureInfo[feature].m_Enabled) && (g_MainScreenFeatureInfo[feature].m_Available))
             {
@@ -280,8 +281,8 @@ UINT MainUserScreen_event_process (GX_WINDOW *window, GX_EVENT *event_ptr)
 	}
 
     myErr = gx_window_event_process(window, event_ptr);
-
-	return myErr;
+#endif
+	return 0;
 }
 
 #ifdef USE_OLD_SCHOOL

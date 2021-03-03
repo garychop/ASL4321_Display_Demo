@@ -41,6 +41,7 @@ void CreateFeatureWidgets (GX_VERTICAL_LIST *list);
 
 VOID FeatureList_callback(GX_VERTICAL_LIST *list, GX_WIDGET *widget, INT index)
 {
+#if NEED_TO_FIX
     GX_RECTANGLE childsize;
     MAIN_SCREEN_FEATURE *feature = (MAIN_SCREEN_FEATURE *)widget;
     GX_BOOL result;
@@ -65,7 +66,7 @@ VOID FeatureList_callback(GX_VERTICAL_LIST *list, GX_WIDGET *widget, INT index)
         gx_prompt_text_color_set(&feature->m_PromptWidget, GX_COLOR_ID_WHITE, GX_COLOR_ID_WHITE, GX_COLOR_ID_WHITE);
 		gx_prompt_text_id_set(&feature->m_PromptWidget, feature->m_LargeDescriptionID);
 	}
-
+#endif
 }
 
 //*************************************************************************************
@@ -78,9 +79,9 @@ void UpdateFeatureSettings ()
 {
 	int feature;
 	int numActive;
-
+#if NEED_TO_FIX
 	numActive = 0;
-	for (feature = 0; feature < NUM_FEATURES; ++feature)
+	for (feature = 0; feature < MAX_FEATURES; ++feature)
 	{
 		if (g_MainScreenFeatureInfo[feature].m_Available)
 		{
@@ -96,6 +97,7 @@ void UpdateFeatureSettings ()
 			}
 		}
 	}
+#endif
 }
 
 //*************************************************************************************
@@ -136,7 +138,8 @@ UINT FeatureSettingsScreen_event_process (GX_WINDOW *window, GX_EVENT *event_ptr
 			UpdateFeatureSettings();
 			// Delete all widgets so each time this screen gets accessed, we must re-establish the list becuase it might change
 			// due to RNet Enabled/Disabled.
-			for (feature = 0; feature < NUM_FEATURES; ++feature)
+#if NEED_TO_FIX
+			for (feature = 0; feature < MAX_FEATURES; ++feature)
 			{
 				if (&g_MainScreenFeatureInfo[feature].m_PromptWidget != NULL)
 				{
@@ -151,6 +154,7 @@ UINT FeatureSettingsScreen_event_process (GX_WINDOW *window, GX_EVENT *event_ptr
 					myErr = gx_widget_delete((GX_WIDGET*) &g_MainScreenFeatureInfo[feature].m_ItemWidget);
 				}
 			}
+#endif 
 			FeatureWindowPtr->FeatureSettingsScreen_FeatureListBox.gx_vertical_list_child_count = 0;
 			//{
 			//	//myChildWidget = &FeatureWindowPtr->FeatureSettingsScreen_FeatureListBox.gx_widget_first_child;
@@ -191,9 +195,9 @@ void CreateFeatureWidgets (GX_VERTICAL_LIST *list)
 	//	// Display as NEXT PROFILE
 	//	g_MainScreenFeatureInfo[NEXT_PROFILE_OR_USER_MENU_ID].m_LargeDescriptionID = GX_STRING_ID_NEXT_PROFILE;
 	//}
-
+#if NEED_TO_FIX
 	activeFeatureCount = 0;
-	for (index = 0; index < NUM_FEATURES; ++index)
+	for (index = 0; index < MAX_FEATURES; ++index)
 	{
 		if (g_MainScreenFeatureInfo[index].m_Available)
 		{
@@ -202,6 +206,7 @@ void CreateFeatureWidgets (GX_VERTICAL_LIST *list)
 		}
  	}
 	list->gx_vertical_list_total_rows = activeFeatureCount;
+#endif
 }
 
 

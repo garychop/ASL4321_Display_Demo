@@ -68,16 +68,16 @@ UINT UserSettingsScreen_event_process (GX_WINDOW *window, GX_EVENT *event_ptr)
 	case GX_SIGNAL(OK_BTN_ID, GX_EVENT_CLICKED):
         screen_toggle((GX_WINDOW *)&HHP_Start_Screen, window);
 		// Adjust available features based upon RNet setting.
-		if (rnet_active)
-		{
-		    g_MainScreenFeatureInfo[RNET_SLEEP_FEATURE_ID].m_Available = TRUE;
-		    g_MainScreenFeatureInfo[RNET_SEATING_ID].m_Available = TRUE;
-		}
-		else
-		{
-		    g_MainScreenFeatureInfo[RNET_SLEEP_FEATURE_ID].m_Available = FALSE;
-		    g_MainScreenFeatureInfo[RNET_SEATING_ID].m_Available = FALSE;
-		}
+		//if (rnet_active)
+		//{
+		//    g_MainScreenFeatureInfo[RNET_SLEEP_FEATURE_ID].m_Available = TRUE;
+		//    g_MainScreenFeatureInfo[RNET_SEATING_ID].m_Available = TRUE;
+		//}
+		//else
+		//{
+		//    g_MainScreenFeatureInfo[RNET_SLEEP_FEATURE_ID].m_Available = FALSE;
+		//    g_MainScreenFeatureInfo[RNET_SEATING_ID].m_Available = FALSE;
+		//}
 		break;
 
 	//----------------------------------------------------------
@@ -144,7 +144,7 @@ UINT UserSettingsScreen_event_process (GX_WINDOW *window, GX_EVENT *event_ptr)
 		gx_text_button_text_set (&UserSettingsScreen.UserSettingsScreen_Timeout_Button, g_TimeoutValueString);
 		break;
 	}
-
+#if NEED_TO_FIX
 	    // Adjust available features based upon RNet setting.
     if (rnet_active)
     {
@@ -158,7 +158,7 @@ UINT UserSettingsScreen_event_process (GX_WINDOW *window, GX_EVENT *event_ptr)
     }
 
     lineNumber = 0;                     // Need to keep track of which line is next.
-    for (featureCount = 0; featureCount < NUM_FEATURES; ++featureCount)
+    for (featureCount = 0; featureCount < MAX_FEATURES; ++featureCount)
     {
         if ((g_MainScreenFeatureInfo[featureCount].m_Enabled) && (g_MainScreenFeatureInfo[featureCount].m_Available))
         {
@@ -170,6 +170,7 @@ UINT UserSettingsScreen_event_process (GX_WINDOW *window, GX_EVENT *event_ptr)
             g_MainScreenFeatureInfo[featureCount].m_Location = -1;
         }
     }
+#endif 
 
     myErr = gx_window_event_process(window, event_ptr);
 
