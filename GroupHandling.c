@@ -88,14 +88,15 @@ VOID InitializeGroupInformation (VOID)
 {
 	InitializeIndividualGroup (0);
 	g_GroupInfo[0].m_DeviceType = DEVICE_TYPE_HEAD_ARRAY;
+	g_GroupInfo[0].m_GroupFeature[BLUETOOTH_ID].m_Enabled = FALSE;
 
 	InitializeIndividualGroup (1);
 	g_GroupInfo[1].m_DeviceType = DEVICE_TYPE_HEAD_ARRAY;
-	g_GroupInfo[1].m_GroupFeature[POWER_ONOFF_ID].m_Available = FALSE;
-	g_GroupInfo[1].m_GroupFeature[NEXT_FUNCTION_ID].m_Available = FALSE;
-	g_GroupInfo[1].m_GroupFeature[NEXT_PROFILE_ID].m_Available = FALSE;
-	g_GroupInfo[1].m_GroupFeature[TECLA_E_FEATURE_ID].m_Available = FALSE;
-	g_GroupInfo[1].m_GroupFeature[SEATING_FEATURE_ID].m_Available = FALSE;
+	g_GroupInfo[1].m_GroupFeature[POWER_ONOFF_ID].m_Enabled = FALSE;
+	g_GroupInfo[1].m_GroupFeature[NEXT_FUNCTION_ID].m_Enabled = FALSE;
+	g_GroupInfo[1].m_GroupFeature[NEXT_PROFILE_ID].m_Enabled = FALSE;
+	g_GroupInfo[1].m_GroupFeature[TECLA_E_FEATURE_ID].m_Enabled = FALSE;
+	g_GroupInfo[1].m_GroupFeature[SEATING_FEATURE_ID].m_Enabled = FALSE;
 
 	InitializeIndividualGroup (2);
 	g_GroupInfo[2].m_DeviceType = DEVICE_TYPE_PROPORTIONAL_JOYSTICK;

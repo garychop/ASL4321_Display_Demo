@@ -80,7 +80,7 @@ typedef struct //GROUP_STRUCT_DEFINE
 {
 	DEVICE_TYPE_ENUM m_DeviceType;
 	PAD_INFO_STRUCT m_GroupPadInfo[MAX_PHYSICAL_PADS];
-	FEATURE_GROUP_STRUCT m_GroupFeature[MAX_FEATURES];
+	FEATURE_GROUP_STRUCT m_GroupFeature[MAX_FEATURES];		// This contains the features and enabled/disabled settings.
 	//FEATURE_GROUP_STRUCT m_PowerOnOff_Feature;
 	//FEATURE_GROUP_STRUCT m_NextFunction_Feature;
 	//FEATURE_GROUP_STRUCT m_NextProfile_Feature;

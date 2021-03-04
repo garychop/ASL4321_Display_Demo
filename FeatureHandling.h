@@ -37,10 +37,11 @@ typedef struct FEATURE_GUI_STRUCTURE {
     GX_RESOURCE_ID m_SmallDescriptionID;
     GX_RESOURCE_ID m_LargeDescriptionID;
     GX_RESOURCE_ID m_FeatureIconID;
-	//union FEATURE_SUBSET {
-	//	int myA;
-	//	int myB;
-	//} m_Subset;
+	GX_RESOURCE_ID m_StringID;
+	GX_WIDGET m_ItemWidget;
+	GX_PROMPT m_PromptWidget;
+	GX_CHECKBOX m_ButtonWidget;
+    CUSTOM_CHECKBOX m_Checkbox;
 } FEATURE_GUI_STRUCT;
 
 //*****************************************************************************
