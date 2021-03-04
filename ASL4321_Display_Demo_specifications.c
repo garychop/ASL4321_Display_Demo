@@ -6,7 +6,7 @@
 /*  www.expresslogic.com.                                                      */
 /*                                                                             */
 /*  GUIX Studio Revision 5.4.2.9                                               */
-/*  Date (dd.mm.yyyy):  2. 3.2021   Time (hh:mm): 10:15                        */
+/*  Date (dd.mm.yyyy):  4. 3.2021   Time (hh:mm): 18:22                        */
 /*******************************************************************************/
 
 
@@ -2492,22 +2492,6 @@ GX_PIXELMAP_PROMPT_PROPERTIES MainUserScreen_prompt_1_properties =
     0,                                       /* selected fill pixelmap id      */
     0                                        /* selected right pixelmap id     */
 };
-GX_ICON_BUTTON_PROPERTIES MainUserScreen_LeftPad_Button_properties =
-{
-    GX_PIXELMAP_ID_TILTDOWN_88X70            /* pixelmap id                    */
-};
-GX_ICON_BUTTON_PROPERTIES MainUserScreen_ForwardPad_Button_properties =
-{
-    GX_PIXELMAP_ID_UPWHITEARROW              /* pixelmap id                    */
-};
-GX_ICON_BUTTON_PROPERTIES MainUserScreen_RightPad_Button_properties =
-{
-    GX_PIXELMAP_ID_RIGHTWHITEARROW           /* pixelmap id                    */
-};
-GX_ICON_BUTTON_PROPERTIES MainUserScreen_ReversePad_Button_properties =
-{
-    GX_PIXELMAP_ID_PADDOWNARROW_ENABLED      /* pixelmap id                    */
-};
 GX_WINDOW_PROPERTIES MainUserScreen_FunctionWindow_properties =
 {
     0                                        /* wallpaper pixelmap id          */
@@ -2578,6 +2562,36 @@ GX_PIXELMAP_PROMPT_PROPERTIES MainUserScreen_TeclaMain_Prompt_properties =
     0,                                       /* selected left pixelmap id      */
     0,                                       /* selected fill pixelmap id      */
     0                                        /* selected right pixelmap id     */
+};
+GX_ICON_PROPERTIES MainUserScreen_TargetOrangeIcon_properties =
+{
+    GX_PIXELMAP_ID_TARGETORANGE_100X100,     /* normal pixelmap id             */
+    0                                        /* selected pixelmap id           */
+};
+GX_ICON_PROPERTIES MainUserScreen_UserPortIcon_properties =
+{
+    GX_PIXELMAP_ID_USERPORTICON_88X70,       /* normal pixelmap id             */
+    0                                        /* selected pixelmap id           */
+};
+GX_ICON_PROPERTIES MainUserScreen_Forward_Icon_properties =
+{
+    GX_PIXELMAP_ID_UPWHITEARROW,             /* normal pixelmap id             */
+    0                                        /* selected pixelmap id           */
+};
+GX_ICON_PROPERTIES MainUserScreen_Left_Icon_properties =
+{
+    GX_PIXELMAP_ID_LEFTWHITEARROW,           /* normal pixelmap id             */
+    0                                        /* selected pixelmap id           */
+};
+GX_ICON_PROPERTIES MainUserScreen_Right_Icon_properties =
+{
+    GX_PIXELMAP_ID_RIGHTWHITEARROW,          /* normal pixelmap id             */
+    0                                        /* selected pixelmap id           */
+};
+GX_ICON_PROPERTIES MainUserScreen_Reverse_Icon_properties =
+{
+    GX_PIXELMAP_ID_DOWNWHITEARROW,           /* normal pixelmap id             */
+    0                                        /* selected pixelmap id           */
 };
 
 GX_CONST GX_STUDIO_WIDGET MainUserScreen_prompt_1_define =
@@ -2796,6 +2810,150 @@ GX_CONST GX_STUDIO_WIDGET MainUserScreen_Function1_IconButton_define =
     (void *) &MainUserScreen_Function1_IconButton_properties /* extended properties */
 };
 
+GX_CONST GX_STUDIO_WIDGET MainUserScreen_Reverse_Icon_define =
+{
+    "Reverse_Icon",
+    GX_TYPE_ICON,                            /* widget type                    */
+    REVERSE_ICON_ID,                         /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_HALIGN_LEFT|GX_STYLE_VALIGN_TOP,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_ICON),                         /* control block size             */
+    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_icon_create,                   /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {150, 176, 237, 245},                    /* widget size                    */
+    GX_NULL,                                 /* no next widget                 */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(MAINUSERSCREEN_CONTROL_BLOCK, MainUserScreen_Reverse_Icon), /* control block */
+    (void *) &MainUserScreen_Reverse_Icon_properties /* extended properties    */
+};
+
+GX_CONST GX_STUDIO_WIDGET MainUserScreen_Right_Icon_define =
+{
+    "Right_Icon",
+    GX_TYPE_ICON,                            /* widget type                    */
+    RIGHT_ICON_ID,                           /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_HALIGN_LEFT|GX_STYLE_VALIGN_TOP,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_ICON),                         /* control block size             */
+    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_icon_create,                   /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {244, 100, 331, 169},                    /* widget size                    */
+    &MainUserScreen_Reverse_Icon_define,     /* next widget definition         */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(MAINUSERSCREEN_CONTROL_BLOCK, MainUserScreen_Right_Icon), /* control block */
+    (void *) &MainUserScreen_Right_Icon_properties /* extended properties      */
+};
+
+GX_CONST GX_STUDIO_WIDGET MainUserScreen_Left_Icon_define =
+{
+    "Left_Icon",
+    GX_TYPE_ICON,                            /* widget type                    */
+    LEFT_ICON_ID,                            /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_HALIGN_LEFT|GX_STYLE_VALIGN_TOP,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_ICON),                         /* control block size             */
+    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_icon_create,                   /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {54, 100, 141, 169},                     /* widget size                    */
+    &MainUserScreen_Right_Icon_define,       /* next widget definition         */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(MAINUSERSCREEN_CONTROL_BLOCK, MainUserScreen_Left_Icon), /* control block */
+    (void *) &MainUserScreen_Left_Icon_properties /* extended properties       */
+};
+
+GX_CONST GX_STUDIO_WIDGET MainUserScreen_Forward_Icon_define =
+{
+    "Forward_Icon",
+    GX_TYPE_ICON,                            /* widget type                    */
+    FORWARD_ICON_ID,                         /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_HALIGN_LEFT|GX_STYLE_VALIGN_TOP,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_ICON),                         /* control block size             */
+    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_icon_create,                   /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {150, 24, 237, 93},                      /* widget size                    */
+    &MainUserScreen_Left_Icon_define,        /* next widget definition         */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(MAINUSERSCREEN_CONTROL_BLOCK, MainUserScreen_Forward_Icon), /* control block */
+    (void *) &MainUserScreen_Forward_Icon_properties /* extended properties    */
+};
+
+GX_CONST GX_STUDIO_WIDGET MainUserScreen_UserPortIcon_define =
+{
+    "UserPortIcon",
+    GX_TYPE_ICON,                            /* widget type                    */
+    USER_PORT_ICON,                          /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_HALIGN_LEFT|GX_STYLE_VALIGN_TOP,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_ICON),                         /* control block size             */
+    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_icon_create,                   /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {288, 188, 375, 257},                    /* widget size                    */
+    &MainUserScreen_Forward_Icon_define,     /* next widget definition         */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(MAINUSERSCREEN_CONTROL_BLOCK, MainUserScreen_UserPortIcon), /* control block */
+    (void *) &MainUserScreen_UserPortIcon_properties /* extended properties    */
+};
+
+GX_CONST GX_STUDIO_WIDGET MainUserScreen_TargetOrangeIcon_define =
+{
+    "TargetOrangeIcon",
+    GX_TYPE_ICON,                            /* widget type                    */
+    GX_ID_NONE,                              /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_HALIGN_LEFT|GX_STYLE_VALIGN_TOP,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_ICON),                         /* control block size             */
+    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_icon_create,                   /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {537, 84, 636, 183},                     /* widget size                    */
+    &MainUserScreen_UserPortIcon_define,     /* next widget definition         */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(MAINUSERSCREEN_CONTROL_BLOCK, MainUserScreen_TargetOrangeIcon), /* control block */
+    (void *) &MainUserScreen_TargetOrangeIcon_properties /* extended properties */
+};
+
 GX_CONST GX_STUDIO_WIDGET MainUserScreen_TeclaMain_Prompt_define =
 {
     "TeclaMain_Prompt",
@@ -2814,7 +2972,7 @@ GX_CONST GX_STUDIO_WIDGET MainUserScreen_TeclaMain_Prompt_define =
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
     {132, 86, 281, 263},                     /* widget size                    */
-    GX_NULL,                                 /* no next widget                 */
+    &MainUserScreen_TargetOrangeIcon_define, /* next widget definition         */
     GX_NULL,                                 /* no child widgets               */ 
     offsetof(MAINUSERSCREEN_CONTROL_BLOCK, MainUserScreen_TeclaMain_Prompt), /* control block */
     (void *) &MainUserScreen_TeclaMain_Prompt_properties /* extended properties */
@@ -2940,102 +3098,6 @@ GX_CONST GX_STUDIO_WIDGET MainUserScreen_FunctionWindow_define =
     (void *) &MainUserScreen_FunctionWindow_properties /* extended properties  */
 };
 
-GX_CONST GX_STUDIO_WIDGET MainUserScreen_ReversePad_Button_define =
-{
-    "ReversePad_Button",
-    GX_TYPE_ICON_BUTTON,                     /* widget type                    */
-    REVERSE_PAD_BUTTON,                      /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_HALIGN_CENTER|GX_STYLE_VALIGN_CENTER,   /* style flags */
-    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
-    sizeof(GX_ICON_BUTTON),                  /* control block size             */
-    GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
-    GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_icon_button_create,            /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {150, 176, 237, 245},                    /* widget size                    */
-    &MainUserScreen_FunctionWindow_define,   /* next widget definition         */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(MAINUSERSCREEN_CONTROL_BLOCK, MainUserScreen_ReversePad_Button), /* control block */
-    (void *) &MainUserScreen_ReversePad_Button_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET MainUserScreen_RightPad_Button_define =
-{
-    "RightPad_Button",
-    GX_TYPE_ICON_BUTTON,                     /* widget type                    */
-    RIGHT_PAD_BUTTON,                        /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_HALIGN_CENTER|GX_STYLE_VALIGN_CENTER,   /* style flags */
-    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
-    sizeof(GX_ICON_BUTTON),                  /* control block size             */
-    GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
-    GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_icon_button_create,            /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {244, 100, 331, 169},                    /* widget size                    */
-    &MainUserScreen_ReversePad_Button_define, /* next widget definition        */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(MAINUSERSCREEN_CONTROL_BLOCK, MainUserScreen_RightPad_Button), /* control block */
-    (void *) &MainUserScreen_RightPad_Button_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET MainUserScreen_ForwardPad_Button_define =
-{
-    "ForwardPad_Button",
-    GX_TYPE_ICON_BUTTON,                     /* widget type                    */
-    FORWARD_PAD_BUTTON,                      /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_HALIGN_CENTER|GX_STYLE_VALIGN_CENTER,   /* style flags */
-    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
-    sizeof(GX_ICON_BUTTON),                  /* control block size             */
-    GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
-    GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_icon_button_create,            /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {150, 24, 237, 93},                      /* widget size                    */
-    &MainUserScreen_RightPad_Button_define,  /* next widget definition         */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(MAINUSERSCREEN_CONTROL_BLOCK, MainUserScreen_ForwardPad_Button), /* control block */
-    (void *) &MainUserScreen_ForwardPad_Button_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET MainUserScreen_LeftPad_Button_define =
-{
-    "LeftPad_Button",
-    GX_TYPE_ICON_BUTTON,                     /* widget type                    */
-    LEFT_PAD_BUTTON,                         /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_HALIGN_CENTER|GX_STYLE_VALIGN_CENTER,   /* style flags */
-    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
-    sizeof(GX_ICON_BUTTON),                  /* control block size             */
-    GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
-    GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_icon_button_create,            /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {54, 100, 141, 169},                     /* widget size                    */
-    &MainUserScreen_ForwardPad_Button_define, /* next widget definition        */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(MAINUSERSCREEN_CONTROL_BLOCK, MainUserScreen_LeftPad_Button), /* control block */
-    (void *) &MainUserScreen_LeftPad_Button_properties /* extended properties  */
-};
-
 GX_CONST GX_STUDIO_WIDGET MainUserScreen_ModePortWindow_define =
 {
     "ModePortWindow",
@@ -3054,7 +3116,7 @@ GX_CONST GX_STUDIO_WIDGET MainUserScreen_ModePortWindow_define =
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
     {500, 184, 569, 253},                    /* widget size                    */
-    &MainUserScreen_LeftPad_Button_define,   /* next widget definition         */
+    &MainUserScreen_FunctionWindow_define,   /* next widget definition         */
     &MainUserScreen_ModePrompt_define,       /* child widget definition        */
     offsetof(MAINUSERSCREEN_CONTROL_BLOCK, MainUserScreen_ModePortWindow), /* control block */
     (void *) &MainUserScreen_ModePortWindow_properties /* extended properties  */

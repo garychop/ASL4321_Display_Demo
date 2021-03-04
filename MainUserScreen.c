@@ -16,24 +16,23 @@ typedef struct MAIN_SCREEN_FEATURE_STRUCT
 {
 	FEATURE_ID_ENUM m_FeatureID;
     int m_Location;     // This indicates the Main Screen location, 0=Top most, 3=bottom most
-//	int m_Available;	// This is true if this feature should be displayed for Enabling/Disabling. Typically based upon RNet setting.
-//	int m_Enabled;      // Indicates if this feature is active.
-//    GX_RESOURCE_ID m_SmallIcon;
- //   GX_RESOURCE_ID m_LargeIcon;
- //   GX_RESOURCE_ID m_SmallDescriptionID;
- //   GX_RESOURCE_ID m_LargeDescriptionID;
- //   GX_RESOURCE_ID m_FeatureIconID;
-	//GX_WIDGET m_ItemWidget;
-	//GX_PROMPT m_PromptWidget;
-	//GX_CHECKBOX m_ButtonWidget;
- //   CUSTOM_CHECKBOX m_Checkbox;
 } MAIN_SCREEN_FEATURE;
 
 //*****************************************************************************
 
 unsigned char g_Inhibit_UpButtonResponse = FALSE;
 static int g_GroupIcon = 0;
+static DEVICE_TYPE_ENUM g_DeviceType;
+static SCAN_MODE_ENUM g_ScanType;
 MAIN_SCREEN_FEATURE g_MainScreenFeatureInfo[MAX_FEATURES];
+int g_ScanState = 0;
+SCAN_DIRECTION_ENUM g_ScanPosition;
+
+//*****************************************************************************
+// Forawrd Declaration, Prototypes
+
+VOID StartScanning (BOOL atStart);
+VOID NextScan (BOOL increment);
 
 //*****************************************************************************
 
@@ -43,8 +42,8 @@ VOID Initialize_MainScreenInfo()
 	USHORT rnet_active;
 	USHORT group;
 
-	rnet_active = (dd_Get_USHORT(0, DD_RNET_ENABLE));
-	group = dd_Get_USHORT (0, DD_GROUP);
+	rnet_active = (dd_Get_USHORT(MAX_GROUPS, DD_RNET_ENABLE));
+	group = dd_Get_USHORT (MAX_GROUPS, DD_GROUP);
 
     // Populate the screen stuff.
 	priority = 0;
@@ -61,7 +60,7 @@ VOID Initialize_MainScreenInfo()
 				if (g_GroupInfo[group].m_GroupFeature[subFeature].m_Priority == priority)
 				{
 					if (priority == 0)	// Is this the active feature?
-						dd_Set_USHORT (0, DD_ACTIVE_FEATURE, g_GroupInfo[group].m_GroupFeature[subFeature].m_FeatureID);
+						dd_Set_USHORT (MAX_GROUPS, DD_ACTIVE_FEATURE, g_GroupInfo[group].m_GroupFeature[subFeature].m_FeatureID);
 					g_MainScreenFeatureInfo[featureCount].m_FeatureID = g_GroupInfo[group].m_GroupFeature[subFeature].m_FeatureID;
 					g_MainScreenFeatureInfo[featureCount].m_Location = featureCount;
 					++featureCount;
@@ -102,7 +101,7 @@ VOID AdvanceToNextFeature (VOID)
 		{
 			g_MainScreenFeatureInfo[selectedFeature].m_Location = lineNumber;
 			if (lineNumber == 0)
-				dd_Set_USHORT (0, DD_ACTIVE_FEATURE, g_MainScreenFeatureInfo[selectedFeature].m_FeatureID);
+				dd_Set_USHORT (MAX_GROUPS, DD_ACTIVE_FEATURE, g_MainScreenFeatureInfo[selectedFeature].m_FeatureID);
 			++lineNumber;
 			// Set to look at the next feature
 		}
@@ -145,7 +144,7 @@ VOID AdvanceToPreviousFeature(VOID)
 		{
 			g_MainScreenFeatureInfo[selectedFeature].m_Location = lineNumber;
 			if (lineNumber == 0)
-				dd_Set_USHORT (0, DD_ACTIVE_FEATURE, g_MainScreenFeatureInfo[selectedFeature].m_FeatureID);
+				dd_Set_USHORT (MAX_GROUPS, DD_ACTIVE_FEATURE, g_MainScreenFeatureInfo[selectedFeature].m_FeatureID);
 			++lineNumber;
 		}
 		// Set to look at the next feature
@@ -191,6 +190,16 @@ VOID SetToNextGroupFeature (VOID)
 
 //*****************************************************************************
 
+VOID SetPadFeaturesIDs (GX_RESOURCE_ID forwardID, GX_RESOURCE_ID reverseID, GX_RESOURCE_ID leftID, GX_RESOURCE_ID rightID)
+{
+	gx_icon_pixelmap_set (&MainUserScreen.MainUserScreen_Forward_Icon, forwardID, forwardID);
+	gx_icon_pixelmap_set (&MainUserScreen.MainUserScreen_Reverse_Icon, reverseID, reverseID);
+	gx_icon_pixelmap_set (&MainUserScreen.MainUserScreen_Left_Icon, leftID, leftID);
+	gx_icon_pixelmap_set (&MainUserScreen.MainUserScreen_Right_Icon, rightID, rightID);
+}
+
+//*****************************************************************************
+
 void DisplayPadFeatures()
 {
 	UINT err;
@@ -208,92 +217,65 @@ void DisplayPadFeatures()
 	switch (featureID)
 	{
 	case AUDIBLE_OUT_FEATURE_ID:
-		gx_widget_show (&MainUserScreen.MainUserScreen_ForwardPad_Button);
-		gx_widget_show (&MainUserScreen.MainUserScreen_ReversePad_Button);
-		gx_widget_show (&MainUserScreen.MainUserScreen_LeftPad_Button);
-		gx_widget_show (&MainUserScreen.MainUserScreen_RightPad_Button);
+		gx_widget_show (&MainUserScreen.MainUserScreen_Forward_Icon);
+		gx_widget_show (&MainUserScreen.MainUserScreen_Reverse_Icon);
+		gx_widget_show (&MainUserScreen.MainUserScreen_Left_Icon);
+		gx_widget_show (&MainUserScreen.MainUserScreen_Right_Icon);
 		switch (g_ActiveSpeakerGroup)
 		{
 		default:
 		case 0:
-			gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_ForwardPad_Button, GX_PIXELMAP_ID_SPEAKER_A_88X70);
-			gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_ReversePad_Button, GX_PIXELMAP_ID_PADDOWNARROW_DISABLED);
-			gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_LeftPad_Button, GX_PIXELMAP_ID_SPEAKER_B_88X70);
-			gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_RightPad_Button, GX_PIXELMAP_ID_SPEAKER_F_88X70);
+			SetPadFeaturesIDs (GX_PIXELMAP_ID_SPEAKER_A_88X70, GX_PIXELMAP_ID_PADDOWNARROW_DISABLED, GX_PIXELMAP_ID_SPEAKER_B_88X70, GX_PIXELMAP_ID_SPEAKER_F_88X70);
 			break;
 		case 1:
-			gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_ForwardPad_Button, GX_PIXELMAP_ID_PADUPARROW_DISABLED);
-			gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_ReversePad_Button, GX_PIXELMAP_ID_PADDOWNARROW_DISABLED);
-			gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_LeftPad_Button, GX_PIXELMAP_ID_SPEAKER_B_88X70);
-			gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_RightPad_Button, GX_PIXELMAP_ID_SPEAKER_F_88X70);
+			SetPadFeaturesIDs (GX_PIXELMAP_ID_PADUPARROW_DISABLED, GX_PIXELMAP_ID_PADDOWNARROW_DISABLED, GX_PIXELMAP_ID_SPEAKER_B_88X70, GX_PIXELMAP_ID_SPEAKER_F_88X70);
 			break;
 		case 2:
-			gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_ForwardPad_Button, GX_PIXELMAP_ID_PADUPARROW_DISABLED);
-			gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_ReversePad_Button, GX_PIXELMAP_ID_PADDOWNARROW_DISABLED);
-			gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_LeftPad_Button, GX_PIXELMAP_ID_SPEAKER_D_88X70);
-			gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_RightPad_Button, GX_PIXELMAP_ID_SPEAKER_E_88X70);
+			SetPadFeaturesIDs (GX_PIXELMAP_ID_PADUPARROW_DISABLED, GX_PIXELMAP_ID_PADDOWNARROW_DISABLED, GX_PIXELMAP_ID_SPEAKER_D_88X70, GX_PIXELMAP_ID_SPEAKER_E_88X70);
 			break;
 		case 3:
-			gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_ForwardPad_Button, GX_PIXELMAP_ID_PADUPARROW_DISABLED);
-			gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_ReversePad_Button, GX_PIXELMAP_ID_PADDOWNARROW_DISABLED);
-			gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_LeftPad_Button, GX_PIXELMAP_ID_SPEAKER_YES_88X70);
-			gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_RightPad_Button, GX_PIXELMAP_ID_SPEAKER_NO_88X70);
+			SetPadFeaturesIDs (GX_PIXELMAP_ID_PADUPARROW_DISABLED, GX_PIXELMAP_ID_PADDOWNARROW_DISABLED, GX_PIXELMAP_ID_SPEAKER_YES_88X70, GX_PIXELMAP_ID_SPEAKER_NO_88X70);
 			break;
 		} // end switch
 		break;
 	case SEATING_FEATURE_ID:
-		gx_widget_show (&MainUserScreen.MainUserScreen_ForwardPad_Button);
-		gx_widget_show (&MainUserScreen.MainUserScreen_ReversePad_Button);
-		gx_widget_show (&MainUserScreen.MainUserScreen_LeftPad_Button);
-		gx_widget_show (&MainUserScreen.MainUserScreen_RightPad_Button);
+		gx_widget_show (&MainUserScreen.MainUserScreen_Forward_Icon);
+		gx_widget_show (&MainUserScreen.MainUserScreen_Reverse_Icon);
+		gx_widget_show (&MainUserScreen.MainUserScreen_Left_Icon);
+		gx_widget_show (&MainUserScreen.MainUserScreen_Right_Icon);
 		switch (g_ActiveSeatingGroup)
 		{
 		case 0:
-			gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_ForwardPad_Button, GX_PIXELMAP_ID_PADUPARROW_DISABLED);
-			gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_ReversePad_Button, GX_PIXELMAP_ID_PADDOWNARROW_DISABLED);
-			gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_LeftPad_Button, GX_PIXELMAP_ID_TILTDOWN_88X70);
-			gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_RightPad_Button, GX_PIXELMAP_ID_TILTUP_88X70);
+			SetPadFeaturesIDs (GX_PIXELMAP_ID_PADUPARROW_DISABLED, GX_PIXELMAP_ID_PADDOWNARROW_DISABLED, GX_PIXELMAP_ID_TILTDOWN_88X70, GX_PIXELMAP_ID_TILTUP_88X70);
 			break;
 		case 1:
-			gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_ForwardPad_Button, GX_PIXELMAP_ID_PADUPARROW_DISABLED);
-			gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_ReversePad_Button, GX_PIXELMAP_ID_PADDOWNARROW_DISABLED);
-			gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_LeftPad_Button, GX_PIXELMAP_ID_RECLINEDOWN_88X70);
-			gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_RightPad_Button, GX_PIXELMAP_ID_RECLINEUP_88X70);
+			SetPadFeaturesIDs (GX_PIXELMAP_ID_PADUPARROW_DISABLED, GX_PIXELMAP_ID_PADDOWNARROW_DISABLED, GX_PIXELMAP_ID_RECLINEDOWN_88X70, GX_PIXELMAP_ID_RECLINEUP_88X70);
 			break;
 		case 2:
-			gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_ForwardPad_Button, GX_PIXELMAP_ID_PADUPARROW_DISABLED);
-			gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_ReversePad_Button, GX_PIXELMAP_ID_PADDOWNARROW_DISABLED);
-			gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_LeftPad_Button, GX_PIXELMAP_ID_SEATING_ELEVATE_DOWN_88X70);
-			gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_RightPad_Button, GX_PIXELMAP_ID_SEATING_ELEVATE_UP_88X70);
+			SetPadFeaturesIDs (GX_PIXELMAP_ID_PADUPARROW_DISABLED, GX_PIXELMAP_ID_PADDOWNARROW_DISABLED, GX_PIXELMAP_ID_SEATING_ELEVATE_DOWN_88X70, GX_PIXELMAP_ID_SEATING_ELEVATE_UP_88X70);
 			break;
 		} // end switch 
 		break;
 	case BLUETOOTH_ID:
-		gx_widget_show (&MainUserScreen.MainUserScreen_ForwardPad_Button);
-		gx_widget_show (&MainUserScreen.MainUserScreen_ReversePad_Button);
-		gx_widget_show (&MainUserScreen.MainUserScreen_LeftPad_Button);
-		gx_widget_show (&MainUserScreen.MainUserScreen_RightPad_Button);
+		gx_widget_show (&MainUserScreen.MainUserScreen_Forward_Icon);
+		gx_widget_show (&MainUserScreen.MainUserScreen_Reverse_Icon);
+		gx_widget_show (&MainUserScreen.MainUserScreen_Left_Icon);
+		gx_widget_show (&MainUserScreen.MainUserScreen_Right_Icon);
 		switch (g_BluetoothGroup)
 		{
 		case 0:
-			gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_ForwardPad_Button, GX_PIXELMAP_ID_MOUSEUPDOWN_88X70);
-			gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_ReversePad_Button, GX_PIXELMAP_ID_PADDOWNARROW_DISABLED);
-			gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_LeftPad_Button, GX_PIXELMAP_ID_MOUSELEFTCLICK_88X70);
-			gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_RightPad_Button, GX_PIXELMAP_ID_MOUSELEFT_88X70);
+			SetPadFeaturesIDs (GX_PIXELMAP_ID_MOUSEUPDOWN_88X70, GX_PIXELMAP_ID_PADDOWNARROW_DISABLED, GX_PIXELMAP_ID_MOUSELEFTCLICK_88X70, GX_PIXELMAP_ID_MOUSELEFT_88X70);
 			break;
 		case 1:
-			gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_ForwardPad_Button, GX_PIXELMAP_ID_PADUPARROW_DISABLED);
-			gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_ReversePad_Button, GX_PIXELMAP_ID_PADDOWNARROW_DISABLED);
-			gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_LeftPad_Button, GX_PIXELMAP_ID_LEFTWHITEARROW);
-			gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_RightPad_Button, GX_PIXELMAP_ID_RIGHTWHITEARROW);
+			SetPadFeaturesIDs (GX_PIXELMAP_ID_PADUPARROW_DISABLED, GX_PIXELMAP_ID_PADDOWNARROW_DISABLED, GX_PIXELMAP_ID_LEFTWHITEARROW, GX_PIXELMAP_ID_RIGHTWHITEARROW);
 			break;
 		} // end switch on Bluetooth group.
 		break;
 	case TECLA_E_FEATURE_ID:
-		gx_widget_hide (&MainUserScreen.MainUserScreen_ForwardPad_Button);
-		gx_widget_hide (&MainUserScreen.MainUserScreen_ReversePad_Button);
-		gx_widget_hide (&MainUserScreen.MainUserScreen_LeftPad_Button);
-		gx_widget_hide (&MainUserScreen.MainUserScreen_RightPad_Button);
+		gx_widget_hide (&MainUserScreen.MainUserScreen_Forward_Icon);
+		gx_widget_hide (&MainUserScreen.MainUserScreen_Reverse_Icon);
+		gx_widget_hide (&MainUserScreen.MainUserScreen_Left_Icon);
+		gx_widget_hide (&MainUserScreen.MainUserScreen_Right_Icon);
 		switch (GetTeclaGroup())
 		{
 		case 0:
@@ -308,14 +290,11 @@ void DisplayPadFeatures()
 		} // end swtich
 		break;
 	default:
-		gx_widget_show (&MainUserScreen.MainUserScreen_ForwardPad_Button);
-		gx_widget_show (&MainUserScreen.MainUserScreen_ReversePad_Button);
-		gx_widget_show (&MainUserScreen.MainUserScreen_LeftPad_Button);
-		gx_widget_show (&MainUserScreen.MainUserScreen_RightPad_Button);
-		gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_ForwardPad_Button, GX_PIXELMAP_ID_UPWHITEARROW);
-		gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_ReversePad_Button, GX_PIXELMAP_ID_PADDOWNARROW_ENABLED);
-		gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_LeftPad_Button, GX_PIXELMAP_ID_LEFTWHITEARROW);
-		gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_RightPad_Button, GX_PIXELMAP_ID_RIGHTWHITEARROW);
+		gx_widget_show (&MainUserScreen.MainUserScreen_Forward_Icon);
+		gx_widget_show (&MainUserScreen.MainUserScreen_Reverse_Icon);
+		gx_widget_show (&MainUserScreen.MainUserScreen_Left_Icon);
+		gx_widget_show (&MainUserScreen.MainUserScreen_Right_Icon);
+		SetPadFeaturesIDs (GX_PIXELMAP_ID_UPWHITEARROW, GX_PIXELMAP_ID_PADDOWNARROW_ENABLED, GX_PIXELMAP_ID_LEFTWHITEARROW, GX_PIXELMAP_ID_RIGHTWHITEARROW);
 		break;
 	}
 }
@@ -431,37 +410,40 @@ UINT DisplayMainScreenActiveFeatures ()
 UINT MainUserScreen_EventFunction (GX_WINDOW *window, GX_EVENT *event_ptr)
 {
 	UINT myErr;
+	GX_RECTANGLE myRect;
 
 	switch (event_ptr->gx_event_type)
 	{
 	case GX_EVENT_SHOW:
 		DisplayMainScreenActiveFeatures();
+
+		// Determine if scanning is active.
+		g_DeviceType = (DEVICE_TYPE_ENUM) dd_Get_USHORT (MAX_GROUPS, DD_DEVICE_TYPE);
+		if ((g_DeviceType == DEVICE_TYPE_SINGLE_SWITCH) || (g_DeviceType == DEVICE_TYPE_TWO_SWITCH))
+		{
+			g_ScanType = (SCAN_MODE_ENUM) dd_Get_USHORT (MAX_GROUPS, DD_SCAN_MODE);
+			gx_system_timer_start(window, SCAN_TIMER_ID, 120, 0);	// re-arm timer
+			g_ScanState = 0;		// We are scanning.
+			//gx_widget_show ((GX_WIDGET*) &MainUserScreen.MainUserScreen_TargetOrangeIcon);
+			//gx_widget_show ((GX_WIDGET*) &MainUserScreen.MainUserScreen_UserPortIcon);
+	        gx_utility_rectangle_define(&myRect, 288, 188, 288+88, 188+70);
+			//gx_widget_resize ((GX_WIDGET*) &MainUserScreen.MainUserScreen_TargetOrangeIcon, &myRect);
+			gx_widget_resize ((GX_WIDGET*) &MainUserScreen.MainUserScreen_UserPortIcon, &myRect);
+			StartScanning (TRUE);
+		}
+		else
+		{
+	        gx_utility_rectangle_define(&myRect, 500,300,600,400);
+//			gx_widget_hide ((GX_WIDGET*) &MainUserScreen.MainUserScreen_TargetOrangeIcon);
+//			gx_widget_hide ((GX_WIDGET*) &MainUserScreen.MainUserScreen_UserPortIcon);
+			gx_widget_resize ((GX_WIDGET*) &MainUserScreen.MainUserScreen_TargetOrangeIcon, &myRect);
+			gx_widget_resize ((GX_WIDGET*) &MainUserScreen.MainUserScreen_UserPortIcon, &myRect);
+			gx_system_timer_stop(window, SCAN_TIMER_ID);
+		}
 		break;
 
 	case GX_SIGNAL (CHANGE_SCREEN_BTN_ID, GX_EVENT_CLICKED):
 		screen_toggle((GX_WINDOW *)&MainUserScreen_3, window);
-		
-		//screen_toggle((GX_WINDOW *)&UserScanScreen, window);
-
-		//++g_GroupIcon;
-		//if (g_GroupIcon > 2)	// Only 3 selections.
-		//	g_GroupIcon = 0;
-		//switch (g_GroupIcon)
-		//{
-		//case 1:
-		//	g_MainScreenFeatureInfo[NEXT_GROUP_ID].m_SmallIcon = GX_PIXELMAP_ID_NEXTGROUP_30X30;
-		//	g_MainScreenFeatureInfo[NEXT_GROUP_ID].m_LargeIcon = GX_PIXELMAP_ID_NEXTGROUP_70X70;
-		//	break;
-		//case 2:
-		//	g_MainScreenFeatureInfo[NEXT_GROUP_ID].m_SmallIcon = GX_PIXELMAP_ID_NEXTGROUP_30X30_C;
-		//	g_MainScreenFeatureInfo[NEXT_GROUP_ID].m_LargeIcon = GX_PIXELMAP_ID_NEXTGROUP_70X70_C;
-		//	break;
-		//default:
-		//	g_MainScreenFeatureInfo[NEXT_GROUP_ID].m_SmallIcon = GX_PIXELMAP_ID_NEXTGROUP_30X30_E2;
-		//	g_MainScreenFeatureInfo[NEXT_GROUP_ID].m_LargeIcon = GX_PIXELMAP_ID_NEXTGROUP_70X70_E2;
-		//	break;
-		//} // end switch g_GroupIcon
-		//DisplayMainScreenActiveFeatures();
 		break;
 
 	case GX_SIGNAL (RIGHT_PAD_BUTTON, GX_EVENT_CLICKED):
@@ -488,6 +470,20 @@ UINT MainUserScreen_EventFunction (GX_WINDOW *window, GX_EVENT *event_ptr)
 			AdvanceToNextFeature();
 			DisplayMainScreenActiveFeatures();
 			g_Inhibit_UpButtonResponse = TRUE;
+		}
+        else if (event_ptr->gx_event_payload.gx_event_timer_id == SCAN_TIMER_ID)
+		{
+			if (g_ScanState == 0)	// we are scanning for the next operation
+			{
+				gx_system_timer_start(window, SCAN_TIMER_ID, 60, 0);	// re-arm timer
+				NextScan(TRUE);
+			}
+			else	// we have timed out of the operation, change back to scanning
+			{
+				gx_icon_pixelmap_set (&MainUserScreen.MainUserScreen_TargetOrangeIcon , GX_PIXELMAP_ID_TARGETORANGE_100X100, GX_PIXELMAP_ID_TARGETORANGE_100X100);
+				gx_system_timer_start(window, SCAN_TIMER_ID, 120, 0);	// re-arm timer
+				g_ScanState = 0;
+			}
 		}
 		break;
 
@@ -555,9 +551,119 @@ UINT MainUserScreen_EventFunction (GX_WINDOW *window, GX_EVENT *event_ptr)
 	case GX_SIGNAL (USER_PORT_BUTTON_ID, GX_EVENT_CLICKED):
 		gx_system_timer_stop(window, USER_PORT_PUSHED_TIMER_ID);
 		break;
+
+	case GX_SIGNAL (MODE_PORT_BTN_ID, GX_EVENT_CLICKED):
+		if (g_ScanState == 0)
+		{
+			gx_icon_pixelmap_set (&MainUserScreen.MainUserScreen_TargetOrangeIcon , GX_PIXELMAP_ID_TARGETGREEN_100X100, GX_PIXELMAP_ID_TARGETGREEN_100X100);
+			gx_system_timer_stop(window, SCAN_TIMER_ID);
+			gx_system_timer_start(window, SCAN_TIMER_ID, 180, 0);	// re-arm timer
+			g_ScanState = 1;
+		}
+		else
+		{
+			gx_system_timer_start(window, SCAN_TIMER_ID, 120, 0);	// re-arm timer
+		} // end switch (g_ScanState)
+		break;
 	}
 
     myErr = gx_window_event_process(window, event_ptr);
 
 	return myErr;
 }
+
+//*************************************************************************************
+//*************************************************************************************
+//							SCANNING ROUTINES
+//*************************************************************************************
+//*************************************************************************************
+
+VOID DisplayScanningIcon (SCAN_DIRECTION_ENUM scanPosition)
+{
+	GX_RECTANGLE myRect;
+
+
+	switch (scanPosition)
+	{
+	case SCAN_FORWARD:		// Left, Top, Right, Bottom
+		//gx_widget_client_get ((GX_WIDGET*) &MainUserScreen.MainUserScreen_Forward_Icon, 0, &myRect);
+		gx_widget_client_get ((GX_WIDGET*) &MainUserScreen.MainUserScreen_Forward_Icon, 0, &myRect);
+		myRect.gx_rectangle_left -= 6;
+		myRect.gx_rectangle_top -= 12;
+		myRect.gx_rectangle_right = myRect.gx_rectangle_left + 100;
+		myRect.gx_rectangle_bottom = myRect.gx_rectangle_top + 100;
+        //gx_utility_rectangle_define(&myRect, 128, 10, 228, 110);
+		break;
+	case SCAN_LEFT:		// Left, Top, Right, Bottom
+		gx_widget_client_get ((GX_WIDGET*) &MainUserScreen.MainUserScreen_Left_Icon, 0, &myRect);
+		myRect.gx_rectangle_left -= 9;
+		myRect.gx_rectangle_top -= 14;
+		myRect.gx_rectangle_right = myRect.gx_rectangle_left + 100;
+		myRect.gx_rectangle_bottom = myRect.gx_rectangle_top + 100;
+        //gx_utility_rectangle_define(&myRect, 28, 88, 128, 188);
+		break;
+	case SCAN_RIGHT:		// Left, Top, Right, Bottom
+		gx_widget_client_get ((GX_WIDGET*) &MainUserScreen.MainUserScreen_Right_Icon, 0, &myRect);
+		myRect.gx_rectangle_left -= 9;
+		myRect.gx_rectangle_top -= 14;
+		myRect.gx_rectangle_right = myRect.gx_rectangle_left + 100;
+		myRect.gx_rectangle_bottom = myRect.gx_rectangle_top + 100;
+        //gx_utility_rectangle_define(&myRect, 228, 88, 328, 188);
+		break;
+	case SCAN_REVERSE:
+		gx_widget_client_get ((GX_WIDGET*) &MainUserScreen.MainUserScreen_Reverse_Icon, 0, &myRect);
+		myRect.gx_rectangle_left -= 6;
+		myRect.gx_rectangle_top -= 12;
+		myRect.gx_rectangle_right = myRect.gx_rectangle_left + 100;
+		myRect.gx_rectangle_bottom = myRect.gx_rectangle_top + 100;
+        //gx_utility_rectangle_define(&myRect, 128, 166, 228, 266);
+		break;
+	//case SCAN_VEER_FORWARD_LEFT:
+	//	//gx_widget_client_get ((GX_WIDGET*) &MainUserScreen.MainUserScreen_Forward_Icon, 0, &myRect);
+ //       gx_utility_rectangle_define(&myRect, 48, 16, 148, 116);
+	//	break;
+	//case SCAN_VEER_FORWARD_RIGHT:
+	//	//gx_widget_client_get ((GX_WIDGET*) &MainUserScreen.MainUserScreen_Forward_Icon, 0, &myRect);
+ //       gx_utility_rectangle_define(&myRect, 208, 16, 308, 116);
+	//	break;
+	case SCAN_USER_PORT:
+		gx_widget_client_get ((GX_WIDGET*) &MainUserScreen.MainUserScreen_UserPortIcon, 0, &myRect);
+		myRect.gx_rectangle_left -= 6;
+		myRect.gx_rectangle_top -= 12;
+		myRect.gx_rectangle_right = myRect.gx_rectangle_left + 100;
+		myRect.gx_rectangle_bottom = myRect.gx_rectangle_top + 100;
+        //gx_utility_rectangle_define(&myRect, 282, 172, 382, 272);
+		break;
+	default:
+        gx_utility_rectangle_define(&myRect, 0, 0, 100, 100);
+		break;
+	} // end switch
+	gx_widget_resize ((GX_WIDGET*) &MainUserScreen.MainUserScreen_TargetOrangeIcon, &myRect);
+
+}
+
+//*************************************************************************************
+
+VOID StartScanning (BOOL atStart)
+{
+	gx_icon_pixelmap_set (&MainUserScreen.MainUserScreen_TargetOrangeIcon , GX_PIXELMAP_ID_TARGETORANGE_100X100, GX_PIXELMAP_ID_TARGETORANGE_100X100);
+
+	if (atStart)
+	{
+		g_ScanPosition = SCAN_FORWARD;
+		DisplayScanningIcon (g_ScanPosition);
+	}
+}
+
+//*************************************************************************************
+// Advances to the next scan item.
+VOID NextScan (BOOL increment)
+{
+	if (increment)
+		++g_ScanPosition;
+	if (g_ScanPosition >= SCAN_MAX)
+		g_ScanPosition = (SCAN_DIRECTION_ENUM) 0;
+
+	DisplayScanningIcon (g_ScanPosition);
+}
+

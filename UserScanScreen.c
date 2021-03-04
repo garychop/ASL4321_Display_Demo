@@ -14,9 +14,9 @@ extern unsigned char g_Inhibit_UpButtonResponse;
 
 static UINT DisplayScanScreenActiveFeatures ()
 {
+#if 0
 	int enabledCount;
 	UINT myErr = GX_SUCCESS;
-#if 0
     // Count the number of active items so we can populate appropriately.
 	// Hide the Non-Active features.
     enabledCount = 0;
@@ -122,13 +122,14 @@ static UINT DisplayScanScreenActiveFeatures ()
 
 //	DisplayPadFeatures();
 #endif
-    return myErr;
+    return 0;
 }
 
 //-----------------------------------------------------------------------------
 
 VOID ShowPadAndAdvance(BOOL advance)
 {
+#ifdef NEED_TO_FIX
 	gx_icon_button_pixelmap_set (&UserScanScreen.UserScanScreen_ForwardPad_Button, GX_PIXELMAP_ID_UPSHORTARROW_104X53);
 	gx_icon_button_pixelmap_set (&UserScanScreen.UserScanScreen_LeftPad_Button, GX_PIXELMAP_ID_LEFTSHORTARROW_104X53);
 	gx_icon_button_pixelmap_set (&UserScanScreen.UserScanScreen_RightPad_Button, GX_PIXELMAP_ID_RIGHTSHORTARROW_104X53);
@@ -186,6 +187,7 @@ VOID ShowPadAndAdvance(BOOL advance)
 		break;
 
 	} // end switch g_ActivePad
+#endif
 }
 
 //-----------------------------------------------------------------------------

@@ -49,19 +49,17 @@ typedef enum ENUM_DEVICE_TYPE {
 	DEVICE_TYPE_TWO_SWITCH,
 	END_OF_DEVICE_TYPES
 } DEVICE_TYPE_ENUM;
-typedef enum SCAN_DIRECTION {SCAN_FORWARD, SCAN_LEFT, SCAN_RIGHT, SCAN_REVERSE, SCAN_VEER_FORWARD_LEFT, SCAN_VEER_FORWARD_RIGHT, SCAN_USER_PORT, SCAN_MAX} SCAN_DIRECTION_ENUM;
+typedef enum SCAN_DIRECTION {SCAN_FORWARD, SCAN_LEFT, SCAN_RIGHT, SCAN_REVERSE, SCAN_USER_PORT, SCAN_MAX} SCAN_DIRECTION_ENUM;
+//typedef enum SCAN_DIRECTION {SCAN_FORWARD, SCAN_LEFT, SCAN_RIGHT, SCAN_REVERSE, SCAN_VEER_FORWARD_LEFT, SCAN_VEER_FORWARD_RIGHT, SCAN_USER_PORT, SCAN_MAX} SCAN_DIRECTION_ENUM;
+typedef enum SCAN_MODE {SCAN_OFF, AUTO_SCAN, MANUAL_SCAN} SCAN_MODE_ENUM;
 
 typedef struct CUSTOM_MENU_BUTTON_STRUCT{
-//    GX_BUTTON_MEMBERS_DECLARE
     GX_WIDGET m_MenuWidget;
 	GX_PROMPT m_PromptWidget;
 	GX_TEXT_BUTTON m_ButtonWidget;
 	USHORT m_ButtonID;
 	GX_RESOURCE_ID m_TextID;
 	USHORT m_Enabled;
-	//INT start_offset;
- //   INT end_offset;
- //   INT cur_offset;
 } CUSTOM_MENU_BUTTON;
 
 typedef struct FEATURE_GROUP_STRUCTURE {
@@ -69,31 +67,15 @@ typedef struct FEATURE_GROUP_STRUCTURE {
 	USHORT m_Available;		// This is TRUE if this feature is available for enabling.
 	USHORT m_Enabled;
 	USHORT m_Priority;			// This is a zero-based number priority
-	//union FEATURE_SUBSET {
-	//	int myA;
-	//	int myB;
-	//} m_Subset;
 } FEATURE_GROUP_STRUCT;
 
 
 typedef struct //GROUP_STRUCT_DEFINE
 {
 	DEVICE_TYPE_ENUM m_DeviceType;
+	SCAN_MODE_ENUM m_ScanMode;
 	PAD_INFO_STRUCT m_GroupPadInfo[MAX_PHYSICAL_PADS];
 	FEATURE_GROUP_STRUCT m_GroupFeature[MAX_FEATURES];		// This contains the features and enabled/disabled settings.
-	//FEATURE_GROUP_STRUCT m_PowerOnOff_Feature;
-	//FEATURE_GROUP_STRUCT m_NextFunction_Feature;
-	//FEATURE_GROUP_STRUCT m_NextProfile_Feature;
-	//FEATURE_GROUP_STRUCT m_RNet_Toggle_Feature;
-	//FEATURE_GROUP_STRUCT m_RNet_UserMenu_Feature;
-	//FEATURE_GROUP_STRUCT m_RNet_Seating_Feature;
-	//FEATURE_GROUP_STRUCT m_RNet_Sleep_Feature;
-	//FEATURE_GROUP_STRUCT m_Bluetooth_Feature;
-	////FEATURE_STRUCT m_MouseEmulation_Feature;	I don't think we need a separate item here.
-	//FEATURE_GROUP_STRUCT m_Seating_Feature;
-	//FEATURE_GROUP_STRUCT m_Audible_Feature;
-	//FEATURE_GROUP_STRUCT m_NextGroup_Feature;
-	//FEATURE_GROUP_STRUCT m_TeclaE_Feature;
 } GROUP_STRUCT;
 extern GROUP_STRUCT g_GroupInfo[MAX_GROUPS];
 
@@ -109,7 +91,6 @@ extern int g_PowerUpInIdle;
 extern int g_TimeoutValue;
 extern MODE_SWITCH_SCHEMA_ENUM g_Mode_Switch_Schema;
 
-//extern MAIN_SCREEN_FEATURE g_MainScreenFeatureInfo[];
 extern int g_ActiveSpeakerGroup;
 extern int g_ActiveSeatingGroup;
 extern int g_BluetoothGroup;

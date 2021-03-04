@@ -62,8 +62,6 @@ int g_ActiveSpeakerGroup = 0;
 int g_ActiveSeatingGroup = 0;
 int g_BluetoothGroup = 0;
 
-SCAN_DIRECTION_ENUM gActiveScanDirection = SCAN_FORWARD;
-
 //*************************************************************************************
 // GLOBAL VARIABLES
 //*************************************************************************************
@@ -255,14 +253,12 @@ VOID SetDeviceIcon (GX_ICON *icon)
 VOID SelectNextDevice (VOID)
 {
 	USHORT device;
-	USHORT group;
 
-	group = dd_Get_USHORT (0, DD_GROUP);
-	device = dd_Get_USHORT (group, DD_DEVICE_TYPE);
+	device = dd_Get_USHORT (MAX_GROUPS, DD_DEVICE_TYPE);
 	++device;
 	if (device == END_OF_DEVICE_TYPES)
 		device = 0;
-	dd_Set_USHORT (0, DD_DEVICE_TYPE, device);
+	dd_Set_USHORT (MAX_GROUPS, DD_DEVICE_TYPE, device);
 }
 
 //******************************************************************************************

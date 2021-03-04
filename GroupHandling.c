@@ -20,6 +20,7 @@ GROUP_STRUCT g_GroupInfo[MAX_GROUPS];
 static VOID InitializeIndividualGroup (USHORT group)
 {
 	g_GroupInfo[group].m_DeviceType = DEVICE_TYPE_HEAD_ARRAY;
+	g_GroupInfo[group].m_ScanMode = SCAN_OFF;
 
 	g_GroupInfo[group].m_GroupFeature[POWER_ONOFF_ID].m_FeatureID = POWER_ONOFF_ID;
 	g_GroupInfo[group].m_GroupFeature[POWER_ONOFF_ID].m_Available = TRUE;

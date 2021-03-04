@@ -7,11 +7,13 @@
 #define MAX_SCAN_POSITION (8)
 
 //static int mycounter=0;
-int g_ScanState = 0;
+static int g_ScanState = 0;
+static SCAN_DIRECTION_ENUM gActiveScanDirection = SCAN_FORWARD;
+
 
 //-----------------------------------------------------------------------------
 
-VOID NextScan (BOOL increment)
+static VOID NextScan (BOOL increment)
 {
 	GX_RECTANGLE myRect;
 
@@ -35,12 +37,12 @@ VOID NextScan (BOOL increment)
 	case SCAN_REVERSE:
         gx_utility_rectangle_define(&myRect, 128, 166, 228, 266);
 		break;
-	case SCAN_VEER_FORWARD_LEFT:
-        gx_utility_rectangle_define(&myRect, 48, 16, 148, 116);
-		break;
-	case SCAN_VEER_FORWARD_RIGHT:
-        gx_utility_rectangle_define(&myRect, 208, 16, 308, 116);
-		break;
+	//case SCAN_VEER_FORWARD_LEFT:
+ //       gx_utility_rectangle_define(&myRect, 48, 16, 148, 116);
+	//	break;
+	//case SCAN_VEER_FORWARD_RIGHT:
+ //       gx_utility_rectangle_define(&myRect, 208, 16, 308, 116);
+	//	break;
 	case SCAN_USER_PORT:
         gx_utility_rectangle_define(&myRect, 282, 172, 382, 272);
 		break;
