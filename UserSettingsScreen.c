@@ -25,7 +25,7 @@ UINT UserSettingsScreen_event_process (GX_WINDOW *window, GX_EVENT *event_ptr)
 {
 	UINT myErr = -1;
     char tmpChar[8];
-	USHORT lineNumber, featureCount;
+//	USHORT lineNumber, featureCount;
 	
 	switch (event_ptr->gx_event_type)
 	{

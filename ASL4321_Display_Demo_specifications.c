@@ -6,7 +6,7 @@
 /*  www.expresslogic.com.                                                      */
 /*                                                                             */
 /*  GUIX Studio Revision 5.4.2.9                                               */
-/*  Date (dd.mm.yyyy):  4. 3.2021   Time (hh:mm): 18:22                        */
+/*  Date (dd.mm.yyyy): 12. 3.2021   Time (hh:mm): 14:51                        */
 /*******************************************************************************/
 
 
@@ -48,7 +48,7 @@ DIAGNOSTICSCREEN_CONTROL_BLOCK DiagnosticScreen;
 GX_DISPLAY PrimaryDisplay_control_block;
 GX_WINDOW_ROOT PrimaryDisplay_root_window;
 GX_CANVAS  PrimaryDisplay_canvas_control_block;
-ULONG      PrimaryDisplay_canvas_memory[192000];
+ULONG      PrimaryDisplay_canvas_memory[240000];
 
 
 UINT gx_studio_button_create(GX_CONST GX_STUDIO_WIDGET *info, GX_WIDGET *control_block, GX_WIDGET *parent)
@@ -347,7 +347,7 @@ GX_WINDOW_PROPERTIES PrimaryTemplate_properties =
 {
     0                                        /* wallpaper pixelmap id          */
 };
-GX_WINDOW_PROPERTIES PrimaryTemplate_window_properties =
+GX_WINDOW_PROPERTIES PrimaryTemplate_UserWindow_properties =
 {
     0                                        /* wallpaper pixelmap id          */
 };
@@ -379,6 +379,26 @@ GX_TEXT_BUTTON_PROPERTIES PrimaryTemplate_UserPortButton_properties =
     GX_COLOR_ID_BTN_TEXT,                    /* selected text color            */
     GX_COLOR_ID_DISABLED_TEXT                /* disabled text color            */
 };
+GX_ICON_BUTTON_PROPERTIES PrimaryTemplate_JS_Left_button_properties =
+{
+    GX_PIXELMAP_ID_LEFTSHORTARROW_104X53     /* pixelmap id                    */
+};
+GX_ICON_BUTTON_PROPERTIES PrimaryTemplate_JS_Right_button_properties =
+{
+    GX_PIXELMAP_ID_RIGHTSHORTARROW_104X53    /* pixelmap id                    */
+};
+GX_ICON_BUTTON_PROPERTIES PrimaryTemplate_JS_Up_button_properties =
+{
+    GX_PIXELMAP_ID_UPSHORTARROW_104X53       /* pixelmap id                    */
+};
+GX_ICON_BUTTON_PROPERTIES PrimaryTemplate_JS_Down_button_properties =
+{
+    GX_PIXELMAP_ID_DOWNSHORTARROW_104X53     /* pixelmap id                    */
+};
+GX_WINDOW_PROPERTIES PrimaryTemplate_SpecialControlsWindow_properties =
+{
+    0                                        /* wallpaper pixelmap id          */
+};
 GX_TEXT_BUTTON_PROPERTIES PrimaryTemplate_ChangeScreenButton_properties =
 {
     GX_STRING_ID_STRING_113,                 /* string id                      */
@@ -387,61 +407,109 @@ GX_TEXT_BUTTON_PROPERTIES PrimaryTemplate_ChangeScreenButton_properties =
     GX_COLOR_ID_GREEN_ISH,                   /* selected text color            */
     GX_COLOR_ID_DISABLED_TEXT                /* disabled text color            */
 };
-GX_TEXT_BUTTON_PROPERTIES PrimaryTemplate_ScanButton_properties =
+GX_PROMPT_PROPERTIES PrimaryTemplate_StatusMessage_properties =
 {
-    GX_STRING_ID_STRING_22,                  /* string id                      */
-    GX_FONT_ID_BUTTON,                       /* font id                        */
-    GX_COLOR_ID_BTN_TEXT,                    /* normal text color              */
-    GX_COLOR_ID_GREEN_ISH,                   /* selected text color            */
+    GX_STRING_ID_STRING_25,                  /* string id                      */
+    GX_FONT_ID_PROMPT,                       /* font id                        */
+    GX_COLOR_ID_TEXT,                        /* normal text color              */
+    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
     GX_COLOR_ID_DISABLED_TEXT                /* disabled text color            */
 };
 
-GX_CONST GX_STUDIO_WIDGET PrimaryTemplate_ScanButton_define =
+GX_CONST GX_STUDIO_WIDGET PrimaryTemplate_JS_Down_button_define =
 {
-    "ScanButton",
-    GX_TYPE_TEXT_BUTTON,                     /* widget type                    */
-    SCAN_BTN_ID,                             /* widget id                      */
+    "JS_Down_button",
+    GX_TYPE_ICON_BUTTON,                     /* widget type                    */
+    JS_DOWN_BUTTON,                          /* widget id                      */
     #if defined(GX_WIDGET_USER_DATA)
     0,                                       /* user data                      */
     #endif
-    GX_STYLE_BORDER_RAISED|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_HALIGN_CENTER|GX_STYLE_VALIGN_BOTTOM,   /* style flags */
     GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
-    sizeof(GX_TEXT_BUTTON),                  /* control block size             */
-    GX_COLOR_ID_SLIDER_GROOVE_BOTTOM,        /* normal color id                */
-    GX_COLOR_ID_SLIDER_GROOVE_TOP,           /* selected color id              */
+    sizeof(GX_ICON_BUTTON),                  /* control block size             */
+    GX_COLOR_ID_BLACK,                       /* normal color id                */
+    GX_COLOR_ID_BLACK,                       /* selected color id              */
     GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_text_button_create,            /* create function                */
+    gx_studio_icon_button_create,            /* create function                */
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
-    {382, 336, 469, 375},                    /* widget size                    */
+    {233, 351, 286, 410},                    /* widget size                    */
     GX_NULL,                                 /* no next widget                 */
     GX_NULL,                                 /* no child widgets               */ 
-    offsetof(PRIMARYTEMPLATE_CONTROL_BLOCK, PrimaryTemplate_ScanButton), /* control block */
-    (void *) &PrimaryTemplate_ScanButton_properties /* extended properties     */
+    offsetof(PRIMARYTEMPLATE_CONTROL_BLOCK, PrimaryTemplate_JS_Down_button), /* control block */
+    (void *) &PrimaryTemplate_JS_Down_button_properties /* extended properties */
 };
 
-GX_CONST GX_STUDIO_WIDGET PrimaryTemplate_ChangeScreenButton_define =
+GX_CONST GX_STUDIO_WIDGET PrimaryTemplate_JS_Up_button_define =
 {
-    "ChangeScreenButton",
-    GX_TYPE_TEXT_BUTTON,                     /* widget type                    */
-    CHANGE_SCREEN_BTN_ID,                    /* widget id                      */
+    "JS_Up_button",
+    GX_TYPE_ICON_BUTTON,                     /* widget type                    */
+    JS_UP_BUTTON,                            /* widget id                      */
     #if defined(GX_WIDGET_USER_DATA)
     0,                                       /* user data                      */
     #endif
-    GX_STYLE_BORDER_RAISED|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_HALIGN_CENTER|GX_STYLE_VALIGN_TOP,   /* style flags */
     GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
-    sizeof(GX_TEXT_BUTTON),                  /* control block size             */
-    GX_COLOR_ID_SLIDER_GROOVE_BOTTOM,        /* normal color id                */
-    GX_COLOR_ID_SLIDER_GROOVE_TOP,           /* selected color id              */
+    sizeof(GX_ICON_BUTTON),                  /* control block size             */
+    GX_COLOR_ID_BLACK,                       /* normal color id                */
+    GX_COLOR_ID_BLACK,                       /* selected color id              */
     GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_text_button_create,            /* create function                */
+    gx_studio_icon_button_create,            /* create function                */
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
-    {382, 286, 469, 325},                    /* widget size                    */
-    &PrimaryTemplate_ScanButton_define,      /* next widget definition         */
+    {233, 283, 286, 342},                    /* widget size                    */
+    &PrimaryTemplate_JS_Down_button_define,  /* next widget definition         */
     GX_NULL,                                 /* no child widgets               */ 
-    offsetof(PRIMARYTEMPLATE_CONTROL_BLOCK, PrimaryTemplate_ChangeScreenButton), /* control block */
-    (void *) &PrimaryTemplate_ChangeScreenButton_properties /* extended properties */
+    offsetof(PRIMARYTEMPLATE_CONTROL_BLOCK, PrimaryTemplate_JS_Up_button), /* control block */
+    (void *) &PrimaryTemplate_JS_Up_button_properties /* extended properties   */
+};
+
+GX_CONST GX_STUDIO_WIDGET PrimaryTemplate_JS_Right_button_define =
+{
+    "JS_Right_button",
+    GX_TYPE_ICON_BUTTON,                     /* widget type                    */
+    JS_RIGHT_BUTTON,                         /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_HALIGN_RIGHT|GX_STYLE_VALIGN_CENTER,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_ICON_BUTTON),                  /* control block size             */
+    GX_COLOR_ID_BLACK,                       /* normal color id                */
+    GX_COLOR_ID_BLACK,                       /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_icon_button_create,            /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {288, 319, 351, 378},                    /* widget size                    */
+    &PrimaryTemplate_JS_Up_button_define,    /* next widget definition         */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(PRIMARYTEMPLATE_CONTROL_BLOCK, PrimaryTemplate_JS_Right_button), /* control block */
+    (void *) &PrimaryTemplate_JS_Right_button_properties /* extended properties */
+};
+
+GX_CONST GX_STUDIO_WIDGET PrimaryTemplate_JS_Left_button_define =
+{
+    "JS_Left_button",
+    GX_TYPE_ICON_BUTTON,                     /* widget type                    */
+    JS_LEFT_BUTTON,                          /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_HALIGN_LEFT|GX_STYLE_VALIGN_CENTER,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_ICON_BUTTON),                  /* control block size             */
+    GX_COLOR_ID_BLACK,                       /* normal color id                */
+    GX_COLOR_ID_BLACK,                       /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_icon_button_create,            /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {173, 317, 236, 376},                    /* widget size                    */
+    &PrimaryTemplate_JS_Right_button_define, /* next widget definition         */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(PRIMARYTEMPLATE_CONTROL_BLOCK, PrimaryTemplate_JS_Left_button), /* control block */
+    (void *) &PrimaryTemplate_JS_Left_button_properties /* extended properties */
 };
 
 GX_CONST GX_STUDIO_WIDGET PrimaryTemplate_UserPortButton_define =
@@ -461,8 +529,8 @@ GX_CONST GX_STUDIO_WIDGET PrimaryTemplate_UserPortButton_define =
     gx_studio_text_button_create,            /* create function                */
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
-    {27, 285, 136, 324},                     /* widget size                    */
-    &PrimaryTemplate_ChangeScreenButton_define, /* next widget definition      */
+    {25, 295, 134, 334},                     /* widget size                    */
+    &PrimaryTemplate_JS_Left_button_define,  /* next widget definition         */
     GX_NULL,                                 /* no child widgets               */ 
     offsetof(PRIMARYTEMPLATE_CONTROL_BLOCK, PrimaryTemplate_UserPortButton), /* control block */
     (void *) &PrimaryTemplate_UserPortButton_properties /* extended properties */
@@ -485,7 +553,7 @@ GX_CONST GX_STUDIO_WIDGET PrimaryTemplate_ModePortButton_define =
     gx_studio_text_button_create,            /* create function                */
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
-    {28, 336, 137, 375},                     /* widget size                    */
+    {25, 350, 134, 389},                     /* widget size                    */
     &PrimaryTemplate_UserPortButton_define,  /* next widget definition         */
     GX_NULL,                                 /* no child widgets               */ 
     offsetof(PRIMARYTEMPLATE_CONTROL_BLOCK, PrimaryTemplate_ModePortButton), /* control block */
@@ -509,7 +577,7 @@ GX_CONST GX_STUDIO_WIDGET PrimaryTemplate_UpArrowButton_define =
     gx_studio_pixelmap_button_create,        /* create function                */
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
-    {283, 300, 352, 369},                    /* widget size                    */
+    {402, 279, 471, 348},                    /* widget size                    */
     &PrimaryTemplate_ModePortButton_define,  /* next widget definition         */
     GX_NULL,                                 /* no child widgets               */ 
     offsetof(PRIMARYTEMPLATE_CONTROL_BLOCK, PrimaryTemplate_UpArrowButton), /* control block */
@@ -533,35 +601,107 @@ GX_CONST GX_STUDIO_WIDGET PrimaryTemplate_DownArrowButton_define =
     gx_studio_pixelmap_button_create,        /* create function                */
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
-    {190, 301, 259, 370},                    /* widget size                    */
+    {402, 348, 471, 417},                    /* widget size                    */
     &PrimaryTemplate_UpArrowButton_define,   /* next widget definition         */
     GX_NULL,                                 /* no child widgets               */ 
     offsetof(PRIMARYTEMPLATE_CONTROL_BLOCK, PrimaryTemplate_DownArrowButton), /* control block */
     (void *) &PrimaryTemplate_DownArrowButton_properties /* extended properties */
 };
 
-GX_CONST GX_STUDIO_WIDGET PrimaryTemplate_window_define =
+GX_CONST GX_STUDIO_WIDGET PrimaryTemplate_StatusMessage_define =
 {
-    "window",
+    "StatusMessage",
+    GX_TYPE_PROMPT,                          /* widget type                    */
+    GX_ID_NONE,                              /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_PROMPT),                       /* control block size             */
+    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_prompt_create,                 /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {150, 440, 429, 469},                    /* widget size                    */
+    GX_NULL,                                 /* no next widget                 */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(PRIMARYTEMPLATE_CONTROL_BLOCK, PrimaryTemplate_StatusMessage), /* control block */
+    (void *) &PrimaryTemplate_StatusMessage_properties /* extended properties  */
+};
+
+GX_CONST GX_STUDIO_WIDGET PrimaryTemplate_ChangeScreenButton_define =
+{
+    "ChangeScreenButton",
+    GX_TYPE_TEXT_BUTTON,                     /* widget type                    */
+    CHANGE_SCREEN_BTN_ID,                    /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_RAISED|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_TEXT_BUTTON),                  /* control block size             */
+    GX_COLOR_ID_SLIDER_GROOVE_BOTTOM,        /* normal color id                */
+    GX_COLOR_ID_SLIDER_GROOVE_TOP,           /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_text_button_create,            /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {36, 437, 123, 476},                     /* widget size                    */
+    &PrimaryTemplate_StatusMessage_define,   /* next widget definition         */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(PRIMARYTEMPLATE_CONTROL_BLOCK, PrimaryTemplate_ChangeScreenButton), /* control block */
+    (void *) &PrimaryTemplate_ChangeScreenButton_properties /* extended properties */
+};
+
+GX_CONST GX_STUDIO_WIDGET PrimaryTemplate_SpecialControlsWindow_define =
+{
+    "SpecialControlsWindow",
     GX_TYPE_WINDOW,                          /* widget type                    */
     GX_ID_NONE,                              /* widget id                      */
     #if defined(GX_WIDGET_USER_DATA)
     0,                                       /* user data                      */
     #endif
-    GX_STYLE_BORDER_THIN|GX_STYLE_ENABLED,   /* style flags                    */
+    GX_STYLE_BORDER_THICK|GX_STYLE_ENABLED,   /* style flags                   */
     GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
     sizeof(GX_WINDOW),                       /* control block size             */
-    GX_COLOR_ID_DARK_GRAY,                   /* normal color id                */
-    GX_COLOR_ID_CANVAS,                      /* selected color id              */
+    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
+    GX_COLOR_ID_WIDGET_FILL,                 /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_window_create,                 /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {0, 420, 479, 499},                      /* widget size                    */
+    GX_NULL,                                 /* no next widget                 */
+    &PrimaryTemplate_ChangeScreenButton_define, /* child widget definition     */
+    offsetof(PRIMARYTEMPLATE_CONTROL_BLOCK, PrimaryTemplate_SpecialControlsWindow), /* control block */
+    (void *) &PrimaryTemplate_SpecialControlsWindow_properties /* extended properties */
+};
+
+GX_CONST GX_STUDIO_WIDGET PrimaryTemplate_UserWindow_define =
+{
+    "UserWindow",
+    GX_TYPE_WINDOW,                          /* widget type                    */
+    GX_ID_NONE,                              /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_THICK|GX_STYLE_ENABLED,   /* style flags                   */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_WINDOW),                       /* control block size             */
+    GX_COLOR_ID_SLIDER_NEEDLE_LINE1,         /* normal color id                */
+    GX_COLOR_ID_SLIDER_NEEDLE_LINE1,         /* selected color id              */
     GX_COLOR_ID_CANVAS,                      /* disabled color id              */
     gx_studio_window_create,                 /* create function                */
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
-    {1, 274, 478, 401},                      /* widget size                    */
-    GX_NULL,                                 /* no next widget                 */
+    {1, 274, 478, 421},                      /* widget size                    */
+    &PrimaryTemplate_SpecialControlsWindow_define, /* next widget definition   */
     &PrimaryTemplate_DownArrowButton_define, /* child widget definition        */
-    offsetof(PRIMARYTEMPLATE_CONTROL_BLOCK, PrimaryTemplate_window), /* control block */
-    (void *) &PrimaryTemplate_window_properties /* extended properties         */
+    offsetof(PRIMARYTEMPLATE_CONTROL_BLOCK, PrimaryTemplate_UserWindow), /* control block */
+    (void *) &PrimaryTemplate_UserWindow_properties /* extended properties     */
 };
 
 GX_CONST GX_STUDIO_WIDGET PrimaryTemplate_define =
@@ -581,9 +721,9 @@ GX_CONST GX_STUDIO_WIDGET PrimaryTemplate_define =
     gx_studio_window_create,                 /* create function                */
     GX_NULL,                                 /* drawing function override      */
     (UINT (*)(GX_WIDGET *, GX_EVENT *)) Template_event_function, /* event function override */
-    {0, 0, 479, 399},                        /* widget size                    */
+    {0, 0, 479, 499},                        /* widget size                    */
     GX_NULL,                                 /* next widget                    */
-    &PrimaryTemplate_window_define,          /* child widget                   */
+    &PrimaryTemplate_UserWindow_define,      /* child widget                   */
     0,                                       /* control block                  */
     (void *) &PrimaryTemplate_properties     /* extended properties            */
 };
@@ -591,7 +731,7 @@ GX_TEMPLATE_PROPERTIES UserScanScreen_properties =
 {
     &PrimaryTemplate_define,                 /* base info                      */
     gx_studio_window_create,                 /* base create function           */
-    {0, 0, 479, 399}                         /* widget size                    */
+    {0, 0, 479, 499}                         /* widget size                    */
 };
 GX_WINDOW_PROPERTIES UserScanScreen_UserScanScreen_WindowName_properties =
 {
@@ -1293,7 +1433,7 @@ GX_CONST GX_STUDIO_WIDGET UserScanScreen_define =
     gx_studio_template_create,               /* create function                */
     GX_NULL,                                 /* drawing function override      */
     (UINT (*)(GX_WIDGET *, GX_EVENT *)) UserScanScreen_EventFunction, /* event function override */
-    {0, 0, 479, 399},                        /* widget size                    */
+    {0, 0, 479, 499},                        /* widget size                    */
     GX_NULL,                                 /* next widget                    */
     &UserScanScreen_UserScanScreen_WindowName_define, /* child widget          */
     0,                                       /* control block                  */
@@ -1303,7 +1443,7 @@ GX_TEMPLATE_PROPERTIES PadAdvancedScreen_properties =
 {
     &PrimaryTemplate_define,                 /* base info                      */
     gx_studio_window_create,                 /* base create function           */
-    {0, 0, 479, 399}                         /* widget size                    */
+    {0, 0, 479, 499}                         /* widget size                    */
 };
 GX_WINDOW_PROPERTIES PadAdvancedScreen_PadAdvanceScreenBackdrop_properties =
 {
@@ -1512,7 +1652,7 @@ GX_CONST GX_STUDIO_WIDGET PadAdvancedScreen_define =
     gx_studio_template_create,               /* create function                */
     GX_NULL,                                 /* drawing function override      */
     (UINT (*)(GX_WIDGET *, GX_EVENT *)) PadAdvanceScreen_event_process, /* event function override */
-    {0, 0, 479, 399},                        /* widget size                    */
+    {0, 0, 479, 499},                        /* widget size                    */
     GX_NULL,                                 /* next widget                    */
     &PadAdvancedScreen_PadAdvanceScreenBackdrop_define, /* child widget        */
     0,                                       /* control block                  */
@@ -1522,7 +1662,7 @@ GX_TEMPLATE_PROPERTIES Tecla_E_Screen_properties =
 {
     &PrimaryTemplate_define,                 /* base info                      */
     gx_studio_window_create,                 /* base create function           */
-    {0, 0, 479, 399}                         /* widget size                    */
+    {0, 0, 479, 499}                         /* widget size                    */
 };
 GX_WINDOW_PROPERTIES Tecla_E_Screen_Tecla_E_Window_properties =
 {
@@ -1570,7 +1710,7 @@ GX_CONST GX_STUDIO_WIDGET Tecla_E_Screen_define =
     gx_studio_template_create,               /* create function                */
     GX_NULL,                                 /* drawing function override      */
     (UINT (*)(GX_WIDGET *, GX_EVENT *)) Tecla_E_Screen_event_function, /* event function override */
-    {0, 0, 479, 399},                        /* widget size                    */
+    {0, 0, 479, 499},                        /* widget size                    */
     GX_NULL,                                 /* next widget                    */
     &Tecla_E_Screen_Tecla_E_Window_define,   /* child widget                   */
     0,                                       /* control block                  */
@@ -1580,7 +1720,7 @@ GX_TEMPLATE_PROPERTIES JoystickThrowScreen_properties =
 {
     &PrimaryTemplate_define,                 /* base info                      */
     gx_studio_window_create,                 /* base create function           */
-    {0, 0, 479, 399}                         /* widget size                    */
+    {0, 0, 479, 499}                         /* widget size                    */
 };
 GX_WINDOW_PROPERTIES JoystickThrowScreen_JoystickThrowScreen_window_properties =
 {
@@ -1807,7 +1947,7 @@ GX_CONST GX_STUDIO_WIDGET JoystickThrowScreen_define =
     gx_studio_template_create,               /* create function                */
     GX_NULL,                                 /* drawing function override      */
     (UINT (*)(GX_WIDGET *, GX_EVENT *)) JoystickThrow_event_function, /* event function override */
-    {0, 0, 479, 399},                        /* widget size                    */
+    {0, 0, 479, 499},                        /* widget size                    */
     GX_NULL,                                 /* next widget                    */
     &JoystickThrowScreen_JoystickThrowScreen_window_define, /* child widget    */
     0,                                       /* control block                  */
@@ -1817,7 +1957,7 @@ GX_TEMPLATE_PROPERTIES NeutralWindowScreen_properties =
 {
     &PrimaryTemplate_define,                 /* base info                      */
     gx_studio_window_create,                 /* base create function           */
-    {0, 0, 479, 399}                         /* widget size                    */
+    {0, 0, 479, 499}                         /* widget size                    */
 };
 GX_WINDOW_PROPERTIES NeutralWindowScreen_NeutralWindowScreen_window_properties =
 {
@@ -2018,7 +2158,7 @@ GX_CONST GX_STUDIO_WIDGET NeutralWindowScreen_define =
     gx_studio_template_create,               /* create function                */
     GX_NULL,                                 /* drawing function override      */
     (UINT (*)(GX_WIDGET *, GX_EVENT *)) NeutralWindow_event_function, /* event function override */
-    {0, 0, 479, 399},                        /* widget size                    */
+    {0, 0, 479, 499},                        /* widget size                    */
     GX_NULL,                                 /* next widget                    */
     &NeutralWindowScreen_NeutralWindowScreen_window_define, /* child widget    */
     0,                                       /* control block                  */
@@ -2028,7 +2168,7 @@ GX_TEMPLATE_PROPERTIES SoundSetupScreen_properties =
 {
     &PrimaryTemplate_define,                 /* base info                      */
     gx_studio_window_create,                 /* base create function           */
-    {0, 0, 479, 399}                         /* widget size                    */
+    {0, 0, 479, 499}                         /* widget size                    */
 };
 GX_WINDOW_PROPERTIES SoundSetupScreen_SoundSetupScreenBackdrop_properties =
 {
@@ -2140,7 +2280,7 @@ GX_CONST GX_STUDIO_WIDGET SoundSetupScreen_define =
     gx_studio_template_create,               /* create function                */
     GX_NULL,                                 /* drawing function override      */
     (UINT (*)(GX_WIDGET *, GX_EVENT *)) SoundSetupScreen_event_process, /* event function override */
-    {0, 0, 479, 399},                        /* widget size                    */
+    {0, 0, 479, 499},                        /* widget size                    */
     GX_NULL,                                 /* next widget                    */
     &SoundSetupScreen_SoundSetupScreenBackdrop_define, /* child widget         */
     0,                                       /* control block                  */
@@ -2150,9 +2290,9 @@ GX_TEMPLATE_PROPERTIES ManageSoundScreen_properties =
 {
     &PrimaryTemplate_define,                 /* base info                      */
     gx_studio_window_create,                 /* base create function           */
-    {0, 0, 479, 399}                         /* widget size                    */
+    {0, 0, 479, 499}                         /* widget size                    */
 };
-GX_WINDOW_PROPERTIES ManageSoundScreen_PadSettingsScreenBackdrop_properties =
+GX_WINDOW_PROPERTIES ManageSoundScreen_ManageSoundScreenBackdrop_properties =
 {
     GX_PIXELMAP_ID_BACKGROUND_480X272        /* wallpaper pixelmap id          */
 };
@@ -2164,24 +2304,69 @@ GX_TEXT_BUTTON_PROPERTIES ManageSoundScreen_OK_Button_properties =
     GX_COLOR_ID_BTN_TEXT,                    /* selected text color            */
     GX_COLOR_ID_DISABLED_TEXT                /* disabled text color            */
 };
-GX_PROMPT_PROPERTIES ManageSoundScreen_prompt_2_properties =
+GX_VERTICAL_LIST_PROPERTIES ManageSoundScreen_SoundVerticalList_properties =
 {
-    GX_STRING_ID_STRING_119,                 /* string id                      */
+    0,                                       /* wallpaper id                   */
+    MenuItem_Callback,                       /* callback function              */
+    10                                       /* total rows                     */
+};
+GX_SCROLLBAR_APPEARANCE  ManageSoundScreen_FeatureList_vertical_scroll_properties =
+{
+    20,                                      /* scroll width                   */
+    10,                                      /* thumb width                    */
+    0,                                       /* thumb travel min               */
+    0,                                       /* thumb travel max               */
+    4,                                       /* thumb border style             */
+    0,                                       /* scroll fill pixelmap           */
+    0,                                       /* scroll thumb pixelmap          */
+    0,                                       /* scroll up pixelmap             */
+    0,                                       /* scroll down pixelmap           */
+    GX_COLOR_ID_SHINE,                       /* scroll thumb color             */
+    GX_COLOR_ID_SHINE,                       /* scroll thumb border color      */
+    GX_COLOR_ID_WINDOW_BORDER,               /* scroll button color            */
+};
+GX_PROMPT_PROPERTIES ManageSoundScreen_ManageSound_Prompt_properties =
+{
+    GX_STRING_ID_STRING_54,                  /* string id                      */
     GX_FONT_ID_PROMPT,                       /* font id                        */
     GX_COLOR_ID_WHITE,                       /* normal text color              */
     GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
     GX_COLOR_ID_DISABLED_TEXT                /* disabled text color            */
 };
 
-GX_CONST GX_STUDIO_WIDGET ManageSoundScreen_prompt_2_define =
+GX_CONST GX_STUDIO_WIDGET ManageSoundScreen_FeatureList_vertical_scroll_define =
 {
-    "prompt_2",
+    "FeatureList_vertical_scroll",
+    GX_TYPE_VERTICAL_SCROLL,                 /* widget type                    */
+    GX_ID_NONE,                              /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_THIN|GX_STYLE_TRANSPARENT|GX_SCROLLBAR_RELATIVE_THUMB|GX_SCROLLBAR_VERTICAL,   /* style flags */
+    0,                                       /* status flags                   */
+    sizeof(GX_SCROLLBAR),                    /* control block size             */
+    GX_COLOR_ID_BLACK,                       /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_BLACK,                       /* disabled color id              */
+    gx_studio_vertical_scrollbar_create,     /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {319, 41, 338, 256},                     /* widget size                    */
+    GX_NULL,                                 /* no next widget                 */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(MANAGESOUNDSCREEN_CONTROL_BLOCK, ManageSoundScreen_FeatureList_vertical_scroll), /* control block */
+    (void *) &ManageSoundScreen_FeatureList_vertical_scroll_properties /* extended properties */
+};
+
+GX_CONST GX_STUDIO_WIDGET ManageSoundScreen_ManageSound_Prompt_define =
+{
+    "ManageSound_Prompt",
     GX_TYPE_PROMPT,                          /* widget type                    */
     GX_ID_NONE,                              /* widget id                      */
     #if defined(GX_WIDGET_USER_DATA)
     0,                                       /* user data                      */
     #endif
-    GX_STYLE_BORDER_THIN|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
     GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
     sizeof(GX_PROMPT),                       /* control block size             */
     GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
@@ -2190,11 +2375,35 @@ GX_CONST GX_STUDIO_WIDGET ManageSoundScreen_prompt_2_define =
     gx_studio_prompt_create,                 /* create function                */
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
-    {23, 42, 435, 153},                      /* widget size                    */
+    {58, 13, 335, 36},                       /* widget size                    */
     GX_NULL,                                 /* no next widget                 */
     GX_NULL,                                 /* no child widgets               */ 
-    offsetof(MANAGESOUNDSCREEN_CONTROL_BLOCK, ManageSoundScreen_prompt_2), /* control block */
-    (void *) &ManageSoundScreen_prompt_2_properties /* extended properties     */
+    offsetof(MANAGESOUNDSCREEN_CONTROL_BLOCK, ManageSoundScreen_ManageSound_Prompt), /* control block */
+    (void *) &ManageSoundScreen_ManageSound_Prompt_properties /* extended properties */
+};
+
+GX_CONST GX_STUDIO_WIDGET ManageSoundScreen_SoundVerticalList_define =
+{
+    "SoundVerticalList",
+    GX_TYPE_VERTICAL_LIST,                   /* widget type                    */
+    SOUND_VERTICAL_LIST_ID,                  /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_THIN|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_VERTICAL_LIST),                /* control block size             */
+    GX_COLOR_ID_WINDOW_FILL,                 /* normal color id                */
+    GX_COLOR_ID_WINDOW_FILL,                 /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_vertical_list_create,          /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {50, 40, 339, 257},                      /* widget size                    */
+    &ManageSoundScreen_ManageSound_Prompt_define, /* next widget definition    */
+    &ManageSoundScreen_FeatureList_vertical_scroll_define, /* child widget definition */
+    offsetof(MANAGESOUNDSCREEN_CONTROL_BLOCK, ManageSoundScreen_SoundVerticalList), /* control block */
+    (void *) &ManageSoundScreen_SoundVerticalList_properties /* extended properties */
 };
 
 GX_CONST GX_STUDIO_WIDGET ManageSoundScreen_OK_Button_define =
@@ -2215,15 +2424,15 @@ GX_CONST GX_STUDIO_WIDGET ManageSoundScreen_OK_Button_define =
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
     {380, 188, 459, 251},                    /* widget size                    */
-    &ManageSoundScreen_prompt_2_define,      /* next widget definition         */
+    &ManageSoundScreen_SoundVerticalList_define, /* next widget definition     */
     GX_NULL,                                 /* no child widgets               */ 
     offsetof(MANAGESOUNDSCREEN_CONTROL_BLOCK, ManageSoundScreen_OK_Button), /* control block */
     (void *) &ManageSoundScreen_OK_Button_properties /* extended properties    */
 };
 
-GX_CONST GX_STUDIO_WIDGET ManageSoundScreen_PadSettingsScreenBackdrop_define =
+GX_CONST GX_STUDIO_WIDGET ManageSoundScreen_ManageSoundScreenBackdrop_define =
 {
-    "PadSettingsScreenBackdrop",
+    "ManageSoundScreenBackdrop",
     GX_TYPE_WINDOW,                          /* widget type                    */
     GX_ID_NONE,                              /* widget id                      */
     #if defined(GX_WIDGET_USER_DATA)
@@ -2241,8 +2450,8 @@ GX_CONST GX_STUDIO_WIDGET ManageSoundScreen_PadSettingsScreenBackdrop_define =
     {0, 0, 479, 271},                        /* widget size                    */
     GX_NULL,                                 /* no next widget                 */
     &ManageSoundScreen_OK_Button_define,     /* child widget definition        */
-    offsetof(MANAGESOUNDSCREEN_CONTROL_BLOCK, ManageSoundScreen_PadSettingsScreenBackdrop), /* control block */
-    (void *) &ManageSoundScreen_PadSettingsScreenBackdrop_properties /* extended properties */
+    offsetof(MANAGESOUNDSCREEN_CONTROL_BLOCK, ManageSoundScreen_ManageSoundScreenBackdrop), /* control block */
+    (void *) &ManageSoundScreen_ManageSoundScreenBackdrop_properties /* extended properties */
 };
 
 GX_CONST GX_STUDIO_WIDGET ManageSoundScreen_define =
@@ -2262,9 +2471,9 @@ GX_CONST GX_STUDIO_WIDGET ManageSoundScreen_define =
     gx_studio_template_create,               /* create function                */
     GX_NULL,                                 /* drawing function override      */
     (UINT (*)(GX_WIDGET *, GX_EVENT *)) ManageSoundScreen_event_process, /* event function override */
-    {0, 0, 479, 399},                        /* widget size                    */
+    {0, 0, 479, 499},                        /* widget size                    */
     GX_NULL,                                 /* next widget                    */
-    &ManageSoundScreen_PadSettingsScreenBackdrop_define, /* child widget       */
+    &ManageSoundScreen_ManageSoundScreenBackdrop_define, /* child widget       */
     0,                                       /* control block                  */
     (void *) &ManageSoundScreen_properties   /* extended properties            */
 };
@@ -2272,7 +2481,7 @@ GX_TEMPLATE_PROPERTIES SoundOptionScreen_properties =
 {
     &PrimaryTemplate_define,                 /* base info                      */
     gx_studio_window_create,                 /* base create function           */
-    {0, 0, 479, 399}                         /* widget size                    */
+    {0, 0, 479, 499}                         /* widget size                    */
 };
 GX_WINDOW_PROPERTIES SoundOptionScreen_PadSettingsScreenBackdrop_properties =
 {
@@ -2444,7 +2653,7 @@ GX_CONST GX_STUDIO_WIDGET SoundOptionScreen_define =
     gx_studio_template_create,               /* create function                */
     GX_NULL,                                 /* drawing function override      */
     (UINT (*)(GX_WIDGET *, GX_EVENT *)) SoundOptionScreen_event_process, /* event function override */
-    {0, 0, 479, 399},                        /* widget size                    */
+    {0, 0, 479, 499},                        /* widget size                    */
     GX_NULL,                                 /* next widget                    */
     &SoundOptionScreen_PadSettingsScreenBackdrop_define, /* child widget       */
     0,                                       /* control block                  */
@@ -2454,7 +2663,7 @@ GX_TEMPLATE_PROPERTIES MainUserScreen_properties =
 {
     &PrimaryTemplate_define,                 /* base info                      */
     gx_studio_window_create,                 /* base create function           */
-    {0, 0, 479, 399}                         /* widget size                    */
+    {0, 0, 479, 499}                         /* widget size                    */
 };
 GX_WINDOW_PROPERTIES MainUserScreen_MainUserScreen_WindowName_properties =
 {
@@ -3163,7 +3372,7 @@ GX_CONST GX_STUDIO_WIDGET MainUserScreen_define =
     gx_studio_template_create,               /* create function                */
     GX_NULL,                                 /* drawing function override      */
     (UINT (*)(GX_WIDGET *, GX_EVENT *)) MainUserScreen_EventFunction, /* event function override */
-    {0, 0, 479, 399},                        /* widget size                    */
+    {0, 0, 479, 499},                        /* widget size                    */
     GX_NULL,                                 /* next widget                    */
     &MainUserScreen_MainUserScreen_WindowName_define, /* child widget          */
     0,                                       /* control block                  */
@@ -3173,7 +3382,7 @@ GX_TEMPLATE_PROPERTIES FeatureSettingsScreen_properties =
 {
     &PrimaryTemplate_define,                 /* base info                      */
     gx_studio_window_create,                 /* base create function           */
-    {0, 0, 479, 399}                         /* widget size                    */
+    {0, 0, 479, 499}                         /* widget size                    */
 };
 GX_WINDOW_PROPERTIES FeatureSettingsScreen_UserSettingsScreenBackdrop_properties =
 {
@@ -3382,7 +3591,7 @@ GX_CONST GX_STUDIO_WIDGET FeatureSettingsScreen_define =
     gx_studio_template_create,               /* create function                */
     GX_NULL,                                 /* drawing function override      */
     (UINT (*)(GX_WIDGET *, GX_EVENT *)) FeatureSettingsScreen_event_process, /* event function override */
-    {0, 0, 479, 399},                        /* widget size                    */
+    {0, 0, 479, 499},                        /* widget size                    */
     GX_NULL,                                 /* next widget                    */
     &FeatureSettingsScreen_UserSettingsScreenBackdrop_define, /* child widget  */
     0,                                       /* control block                  */
@@ -3392,7 +3601,7 @@ GX_TEMPLATE_PROPERTIES HHP_Start_Screen_properties =
 {
     &PrimaryTemplate_define,                 /* base info                      */
     gx_studio_window_create,                 /* base create function           */
-    {0, 0, 479, 399}                         /* widget size                    */
+    {0, 0, 479, 499}                         /* widget size                    */
 };
 GX_WINDOW_PROPERTIES HHP_Start_Screen_HHP_Start_Backdrop_properties =
 {
@@ -3401,7 +3610,7 @@ GX_WINDOW_PROPERTIES HHP_Start_Screen_HHP_Start_Backdrop_properties =
 GX_VERTICAL_LIST_PROPERTIES HHP_Start_Screen_FeatureList_properties =
 {
     0,                                       /* wallpaper id                   */
-    MenuItem_Callback,                       /* callback function              */
+    GX_NULL,                                 /* callback function              */
     10                                       /* total rows                     */
 };
 GX_SCROLLBAR_APPEARANCE  HHP_Start_Screen_FeatureList_vertical_scroll_properties =
@@ -3569,7 +3778,7 @@ GX_CONST GX_STUDIO_WIDGET HHP_Start_Screen_define =
     gx_studio_template_create,               /* create function                */
     GX_NULL,                                 /* drawing function override      */
     (UINT (*)(GX_WIDGET *, GX_EVENT *)) HHP_Start_Screen_event_process_new, /* event function override */
-    {0, 0, 479, 399},                        /* widget size                    */
+    {0, 0, 479, 499},                        /* widget size                    */
     GX_NULL,                                 /* next widget                    */
     &HHP_Start_Screen_HHP_Start_Backdrop_define, /* child widget               */
     0,                                       /* control block                  */
@@ -3579,7 +3788,7 @@ GX_TEMPLATE_PROPERTIES MainUserScreen_3_properties =
 {
     &PrimaryTemplate_define,                 /* base info                      */
     gx_studio_window_create,                 /* base create function           */
-    {0, 0, 479, 399}                         /* widget size                    */
+    {0, 0, 479, 499}                         /* widget size                    */
 };
 GX_WINDOW_PROPERTIES MainUserScreen_3_MainUserScreen_1_WindowName_properties =
 {
@@ -4089,7 +4298,7 @@ GX_CONST GX_STUDIO_WIDGET MainUserScreen_3_define =
     gx_studio_template_create,               /* create function                */
     GX_NULL,                                 /* drawing function override      */
     (UINT (*)(GX_WIDGET *, GX_EVENT *)) MainUserScreen_3_EventFunction, /* event function override */
-    {0, 0, 479, 399},                        /* widget size                    */
+    {0, 0, 479, 499},                        /* widget size                    */
     GX_NULL,                                 /* next widget                    */
     &MainUserScreen_3_MainUserScreen_1_WindowName_define, /* child widget      */
     0,                                       /* control block                  */
@@ -4099,7 +4308,7 @@ GX_TEMPLATE_PROPERTIES MainUserScreen_old_properties =
 {
     &PrimaryTemplate_define,                 /* base info                      */
     gx_studio_window_create,                 /* base create function           */
-    {0, 0, 479, 399}                         /* widget size                    */
+    {0, 0, 479, 499}                         /* widget size                    */
 };
 GX_WINDOW_PROPERTIES MainUserScreen_old_MainUserScreen_Screen_properties =
 {
@@ -4501,7 +4710,7 @@ GX_CONST GX_STUDIO_WIDGET MainUserScreen_old_define =
     gx_studio_template_create,               /* create function                */
     (VOID (*)(GX_WIDGET *)) MainUserScreen_draw_function, /* drawing function override */
     (UINT (*)(GX_WIDGET *, GX_EVENT *)) MainUserScreen_event_process, /* event function override */
-    {0, 0, 479, 399},                        /* widget size                    */
+    {0, 0, 479, 499},                        /* widget size                    */
     GX_NULL,                                 /* next widget                    */
     &MainUserScreen_old_MainUserScreen_Screen_define, /* child widget          */
     0,                                       /* control block                  */
@@ -4511,7 +4720,7 @@ GX_TEMPLATE_PROPERTIES ResetScreen_properties =
 {
     &PrimaryTemplate_define,                 /* base info                      */
     gx_studio_window_create,                 /* base create function           */
-    {0, 0, 479, 399}                         /* widget size                    */
+    {0, 0, 479, 499}                         /* widget size                    */
 };
 GX_WINDOW_PROPERTIES ResetScreen_ResetScreenBackdrop_properties =
 {
@@ -4780,7 +4989,7 @@ GX_CONST GX_STUDIO_WIDGET ResetScreen_define =
     gx_studio_template_create,               /* create function                */
     GX_NULL,                                 /* drawing function override      */
     (UINT (*)(GX_WIDGET *, GX_EVENT *)) ResetScreen_event_process, /* event function override */
-    {0, 0, 479, 399},                        /* widget size                    */
+    {0, 0, 479, 499},                        /* widget size                    */
     GX_NULL,                                 /* next widget                    */
     &ResetScreen_ResetScreenBackdrop_define, /* child widget                   */
     0,                                       /* control block                  */
@@ -4790,7 +4999,7 @@ GX_TEMPLATE_PROPERTIES MinimumDriveScreen_properties =
 {
     &PrimaryTemplate_define,                 /* base info                      */
     gx_studio_window_create,                 /* base create function           */
-    {0, 0, 479, 399}                         /* widget size                    */
+    {0, 0, 479, 499}                         /* widget size                    */
 };
 GX_WINDOW_PROPERTIES MinimumDriveScreen_MinimumDriveScreenBackdrop_properties =
 {
@@ -5119,7 +5328,7 @@ GX_CONST GX_STUDIO_WIDGET MinimumDriveScreen_define =
     gx_studio_template_create,               /* create function                */
     GX_NULL,                                 /* drawing function override      */
     (UINT (*)(GX_WIDGET *, GX_EVENT *)) MinimumDriveScreen_event_process, /* event function override */
-    {0, 0, 479, 399},                        /* widget size                    */
+    {0, 0, 479, 499},                        /* widget size                    */
     GX_NULL,                                 /* next widget                    */
     &MinimumDriveScreen_MinimumDriveScreenBackdrop_define, /* child widget     */
     0,                                       /* control block                  */
@@ -5129,7 +5338,7 @@ GX_TEMPLATE_PROPERTIES PerformanceSelectionScreen_properties =
 {
     &PrimaryTemplate_define,                 /* base info                      */
     gx_studio_window_create,                 /* base create function           */
-    {0, 0, 479, 399}                         /* widget size                    */
+    {0, 0, 479, 499}                         /* widget size                    */
 };
 GX_WINDOW_PROPERTIES PerformanceSelectionScreen_NextPadScreenBackdrop_properties =
 {
@@ -5269,7 +5478,7 @@ GX_CONST GX_STUDIO_WIDGET PerformanceSelectionScreen_define =
     gx_studio_template_create,               /* create function                */
     GX_NULL,                                 /* drawing function override      */
     (UINT (*)(GX_WIDGET *, GX_EVENT *)) PerformanceSelectionScreen_event_process, /* event function override */
-    {0, 0, 479, 399},                        /* widget size                    */
+    {0, 0, 479, 499},                        /* widget size                    */
     GX_NULL,                                 /* next widget                    */
     &PerformanceSelectionScreen_NextPadScreenBackdrop_define, /* child widget  */
     0,                                       /* control block                  */
@@ -5279,7 +5488,7 @@ GX_TEMPLATE_PROPERTIES ResetFinishScreen_properties =
 {
     &PrimaryTemplate_define,                 /* base info                      */
     gx_studio_window_create,                 /* base create function           */
-    {0, 0, 479, 399}                         /* widget size                    */
+    {0, 0, 479, 499}                         /* widget size                    */
 };
 GX_WINDOW_PROPERTIES ResetFinishScreen_ResetFinishScreenBackdrop_properties =
 {
@@ -5391,7 +5600,7 @@ GX_CONST GX_STUDIO_WIDGET ResetFinishScreen_define =
     gx_studio_template_create,               /* create function                */
     GX_NULL,                                 /* drawing function override      */
     (UINT (*)(GX_WIDGET *, GX_EVENT *)) ResetFinishScreen_event_process, /* event function override */
-    {0, 0, 479, 399},                        /* widget size                    */
+    {0, 0, 479, 499},                        /* widget size                    */
     GX_NULL,                                 /* next widget                    */
     &ResetFinishScreen_ResetFinishScreenBackdrop_define, /* child widget       */
     0,                                       /* control block                  */
@@ -5401,7 +5610,7 @@ GX_TEMPLATE_PROPERTIES MoreSelectionScreen_properties =
 {
     &PrimaryTemplate_define,                 /* base info                      */
     gx_studio_window_create,                 /* base create function           */
-    {0, 0, 479, 399}                         /* widget size                    */
+    {0, 0, 479, 499}                         /* widget size                    */
 };
 GX_WINDOW_PROPERTIES MoreSelectionScreen_UserSelectionScreenBackdrop_properties =
 {
@@ -5609,7 +5818,7 @@ GX_CONST GX_STUDIO_WIDGET MoreSelectionScreen_define =
     gx_studio_template_create,               /* create function                */
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
-    {0, 0, 479, 399},                        /* widget size                    */
+    {0, 0, 479, 499},                        /* widget size                    */
     GX_NULL,                                 /* next widget                    */
     &MoreSelectionScreen_UserSelectionScreenBackdrop_define, /* child widget   */
     0,                                       /* control block                  */
@@ -5619,7 +5828,7 @@ GX_TEMPLATE_PROPERTIES UserSelectionScreen_properties =
 {
     &PrimaryTemplate_define,                 /* base info                      */
     gx_studio_window_create,                 /* base create function           */
-    {0, 0, 479, 399}                         /* widget size                    */
+    {0, 0, 479, 499}                         /* widget size                    */
 };
 GX_WINDOW_PROPERTIES UserSelectionScreen_UserSelectionScreenBackdrop_properties =
 {
@@ -5823,7 +6032,7 @@ GX_CONST GX_STUDIO_WIDGET UserSelectionScreen_define =
     gx_studio_template_create,               /* create function                */
     GX_NULL,                                 /* drawing function override      */
     (UINT (*)(GX_WIDGET *, GX_EVENT *)) UserSelectionScreen_event_process, /* event function override */
-    {0, 0, 479, 399},                        /* widget size                    */
+    {0, 0, 479, 499},                        /* widget size                    */
     GX_NULL,                                 /* next widget                    */
     &UserSelectionScreen_UserSelectionScreenBackdrop_define, /* child widget   */
     0,                                       /* control block                  */
@@ -5833,7 +6042,7 @@ GX_TEMPLATE_PROPERTIES VeerAdjustScreen_properties =
 {
     &PrimaryTemplate_define,                 /* base info                      */
     gx_studio_window_create,                 /* base create function           */
-    {0, 0, 479, 399}                         /* widget size                    */
+    {0, 0, 479, 499}                         /* widget size                    */
 };
 GX_WINDOW_PROPERTIES VeerAdjustScreen_VeerAdjustScreenBackdrop_properties =
 {
@@ -6077,7 +6286,7 @@ GX_CONST GX_STUDIO_WIDGET VeerAdjustScreen_define =
     gx_studio_template_create,               /* create function                */
     (VOID (*)(GX_WIDGET *)) VeerAdjust_Screen_draw_function, /* drawing function override */
     (UINT (*)(GX_WIDGET *, GX_EVENT *)) VeerAdjust_Screen_event_handler, /* event function override */
-    {0, 0, 479, 399},                        /* widget size                    */
+    {0, 0, 479, 499},                        /* widget size                    */
     GX_NULL,                                 /* next widget                    */
     &VeerAdjustScreen_VeerAdjustScreenBackdrop_define, /* child widget         */
     0,                                       /* control block                  */
@@ -6087,7 +6296,7 @@ GX_TEMPLATE_PROPERTIES OON_Screen_properties =
 {
     &PrimaryTemplate_define,                 /* base info                      */
     gx_studio_window_create,                 /* base create function           */
-    {0, 0, 479, 399}                         /* widget size                    */
+    {0, 0, 479, 499}                         /* widget size                    */
 };
 GX_WINDOW_PROPERTIES OON_Screen_OON_Screen_Background_properties =
 {
@@ -6167,7 +6376,7 @@ GX_CONST GX_STUDIO_WIDGET OON_Screen_define =
     gx_studio_template_create,               /* create function                */
     GX_NULL,                                 /* drawing function override      */
     (UINT (*)(GX_WIDGET *, GX_EVENT *)) OON_Window_event_function, /* event function override */
-    {0, 0, 479, 399},                        /* widget size                    */
+    {0, 0, 479, 499},                        /* widget size                    */
     GX_NULL,                                 /* next widget                    */
     &OON_Screen_OON_Screen_Background_define, /* child widget                  */
     0,                                       /* control block                  */
@@ -6177,7 +6386,7 @@ GX_TEMPLATE_PROPERTIES ReadyScreen_properties =
 {
     &PrimaryTemplate_define,                 /* base info                      */
     gx_studio_window_create,                 /* base create function           */
-    {0, 0, 479, 399}                         /* widget size                    */
+    {0, 0, 479, 499}                         /* widget size                    */
 };
 GX_WINDOW_PROPERTIES ReadyScreen_ReadyScreen_Window_properties =
 {
@@ -6295,7 +6504,7 @@ GX_CONST GX_STUDIO_WIDGET ReadyScreen_define =
     gx_studio_template_create,               /* create function                */
     GX_NULL,                                 /* drawing function override      */
     (UINT (*)(GX_WIDGET *, GX_EVENT *)) ReadyScreen_event_function, /* event function override */
-    {0, 0, 479, 399},                        /* widget size                    */
+    {0, 0, 479, 499},                        /* widget size                    */
     GX_NULL,                                 /* next widget                    */
     &ReadyScreen_ReadyScreen_Window_define,  /* child widget                   */
     0,                                       /* control block                  */
@@ -6305,7 +6514,7 @@ GX_TEMPLATE_PROPERTIES StartupScreen_properties =
 {
     &PrimaryTemplate_define,                 /* base info                      */
     gx_studio_window_create,                 /* base create function           */
-    {0, 0, 479, 399}                         /* widget size                    */
+    {0, 0, 479, 499}                         /* widget size                    */
 };
 GX_WINDOW_PROPERTIES StartupScreen_StartupSplashScreen_properties =
 {
@@ -6383,7 +6592,7 @@ GX_CONST GX_STUDIO_WIDGET StartupScreen_define =
     gx_studio_template_create,               /* create function                */
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
-    {0, 0, 479, 399},                        /* widget size                    */
+    {0, 0, 479, 499},                        /* widget size                    */
     GX_NULL,                                 /* next widget                    */
     &StartupScreen_StartupSplashScreen_define, /* child widget                 */
     0,                                       /* control block                  */
@@ -6393,7 +6602,7 @@ GX_TEMPLATE_PROPERTIES PadCalibrationScreen_properties =
 {
     &PrimaryTemplate_define,                 /* base info                      */
     gx_studio_window_create,                 /* base create function           */
-    {0, 0, 479, 399}                         /* widget size                    */
+    {0, 0, 479, 499}                         /* widget size                    */
 };
 GX_WINDOW_PROPERTIES PadCalibrationScreen_PadScreenBackdrop_properties =
 {
@@ -6723,7 +6932,7 @@ GX_CONST GX_STUDIO_WIDGET PadCalibrationScreen_define =
     gx_studio_template_create,               /* create function                */
     (VOID (*)(GX_WIDGET *)) CalibrationScreen_draw, /* drawing function override */
     (UINT (*)(GX_WIDGET *, GX_EVENT *)) CalibrationScreen_event_process, /* event function override */
-    {0, 0, 479, 399},                        /* widget size                    */
+    {0, 0, 479, 499},                        /* widget size                    */
     GX_NULL,                                 /* next widget                    */
     &PadCalibrationScreen_PadScreenBackdrop_define, /* child widget            */
     0,                                       /* control block                  */
@@ -6733,7 +6942,7 @@ GX_TEMPLATE_PROPERTIES SetPadDirectionScreen_properties =
 {
     &PrimaryTemplate_define,                 /* base info                      */
     gx_studio_window_create,                 /* base create function           */
-    {0, 0, 479, 399}                         /* widget size                    */
+    {0, 0, 479, 499}                         /* widget size                    */
 };
 GX_WINDOW_PROPERTIES SetPadDirectionScreen_SetPadScreenBackdrop_properties =
 {
@@ -7083,7 +7292,7 @@ GX_CONST GX_STUDIO_WIDGET SetPadDirectionScreen_define =
     gx_studio_template_create,               /* create function                */
     GX_NULL,                                 /* drawing function override      */
     (UINT (*)(GX_WIDGET *, GX_EVENT *)) SetPadDirectionScreen_event_process, /* event function override */
-    {0, 0, 479, 399},                        /* widget size                    */
+    {0, 0, 479, 499},                        /* widget size                    */
     GX_NULL,                                 /* next widget                    */
     &SetPadDirectionScreen_SetPadScreenBackdrop_define, /* child widget        */
     0,                                       /* control block                  */
@@ -7093,7 +7302,7 @@ GX_TEMPLATE_PROPERTIES PadOptionsSettingsScreen_properties =
 {
     &PrimaryTemplate_define,                 /* base info                      */
     gx_studio_window_create,                 /* base create function           */
-    {0, 0, 479, 399}                         /* widget size                    */
+    {0, 0, 479, 499}                         /* widget size                    */
 };
 GX_WINDOW_PROPERTIES PadOptionsSettingsScreen_PadSettingsScreenBackdrop_properties =
 {
@@ -7455,7 +7664,7 @@ GX_CONST GX_STUDIO_WIDGET PadOptionsSettingsScreen_define =
     gx_studio_template_create,               /* create function                */
     GX_NULL,                                 /* drawing function override      */
     (UINT (*)(GX_WIDGET *, GX_EVENT *)) PadOptionsSettingsScreen_event_process, /* event function override */
-    {0, 0, 479, 399},                        /* widget size                    */
+    {0, 0, 479, 499},                        /* widget size                    */
     GX_NULL,                                 /* next widget                    */
     &PadOptionsSettingsScreen_PadSettingsScreenBackdrop_define, /* child widget */
     0,                                       /* control block                  */
@@ -7465,7 +7674,7 @@ GX_TEMPLATE_PROPERTIES UserSettingsScreen_properties =
 {
     &PrimaryTemplate_define,                 /* base info                      */
     gx_studio_window_create,                 /* base create function           */
-    {0, 0, 479, 399}                         /* widget size                    */
+    {0, 0, 479, 499}                         /* widget size                    */
 };
 GX_WINDOW_PROPERTIES UserSettingsScreen_UserSettingsScreenBackdrop_properties =
 {
@@ -7881,7 +8090,7 @@ GX_CONST GX_STUDIO_WIDGET UserSettingsScreen_define =
     gx_studio_template_create,               /* create function                */
     GX_NULL,                                 /* drawing function override      */
     (UINT (*)(GX_WIDGET *, GX_EVENT *)) UserSettingsScreen_event_process, /* event function override */
-    {0, 0, 479, 399},                        /* widget size                    */
+    {0, 0, 479, 499},                        /* widget size                    */
     GX_NULL,                                 /* next widget                    */
     &UserSettingsScreen_UserSettingsScreenBackdrop_define, /* child widget     */
     0,                                       /* control block                  */
@@ -7891,7 +8100,7 @@ GX_TEMPLATE_PROPERTIES SetPadTypeScreen_properties =
 {
     &PrimaryTemplate_define,                 /* base info                      */
     gx_studio_window_create,                 /* base create function           */
-    {0, 0, 479, 399}                         /* widget size                    */
+    {0, 0, 479, 499}                         /* widget size                    */
 };
 GX_WINDOW_PROPERTIES SetPadTypeScreen_SetPadScreenBackdrop_properties =
 {
@@ -8182,7 +8391,7 @@ GX_CONST GX_STUDIO_WIDGET SetPadTypeScreen_define =
     gx_studio_template_create,               /* create function                */
     GX_NULL,                                 /* drawing function override      */
     (UINT (*)(GX_WIDGET *, GX_EVENT *)) SetPadTypeScreen_event_process, /* event function override */
-    {0, 0, 479, 399},                        /* widget size                    */
+    {0, 0, 479, 499},                        /* widget size                    */
     GX_NULL,                                 /* next widget                    */
     &SetPadTypeScreen_SetPadScreenBackdrop_define, /* child widget             */
     0,                                       /* control block                  */
@@ -8192,7 +8401,7 @@ GX_TEMPLATE_PROPERTIES DiagnosticScreen_properties =
 {
     &PrimaryTemplate_define,                 /* base info                      */
     gx_studio_window_create,                 /* base create function           */
-    {0, 0, 479, 399}                         /* widget size                    */
+    {0, 0, 479, 499}                         /* widget size                    */
 };
 GX_WINDOW_PROPERTIES DiagnosticScreen_DiagnosticScreenBackdrop_properties =
 {
@@ -8886,7 +9095,7 @@ GX_CONST GX_STUDIO_WIDGET DiagnosticScreen_define =
     gx_studio_template_create,               /* create function                */
     GX_NULL,                                 /* drawing function override      */
     (UINT (*)(GX_WIDGET *, GX_EVENT *)) DiagnosticScreen_event_handler, /* event function override */
-    {0, 0, 479, 399},                        /* widget size                    */
+    {0, 0, 479, 499},                        /* widget size                    */
     GX_NULL,                                 /* next widget                    */
     &DiagnosticScreen_DiagnosticScreenBackdrop_define, /* child widget         */
     0,                                       /* control block                  */
@@ -9061,12 +9270,12 @@ GX_STUDIO_DISPLAY_INFO ASL4321_Display_Demo_display_table[1] =
     PRIMARYDISPLAY_LANGUAGE_TABLE_SIZE,
     PRIMARYDISPLAY_STRING_TABLE_SIZE,
     480,                                     /* x resolution                   */
-    400,                                     /* y resolution                   */
+    500,                                     /* y resolution                   */
     &PrimaryDisplay_control_block,
     &PrimaryDisplay_canvas_control_block,
     &PrimaryDisplay_root_window,
     PrimaryDisplay_canvas_memory,            /* canvas memory area             */
-    768000                                   /* canvas memory size in bytes    */
+    960000                                   /* canvas memory size in bytes    */
     }
 };
 

@@ -9,6 +9,8 @@
 //*****************************************************************************
 
 #include "ASL4321_System.h"
+#include "asl4321_display_demo_resources.h"
+#include "custom_checkbox.h"
 
 //*************************************************************************************
 
@@ -121,6 +123,7 @@ static void Populate_HHPStart_MenuItems(void)
 	g_HHP_InitialMenuItems[END_OF_HHP_INITIAL_MENU_POS].m_Enabled = FALSE;
 }
 
+#if 0
 //*************************************************************************************
 
 UINT MenuItem_event_function (GX_WINDOW *window, GX_EVENT *event_ptr)
@@ -131,7 +134,6 @@ UINT MenuItem_event_function (GX_WINDOW *window, GX_EVENT *event_ptr)
 }
 
 //*************************************************************************************
-#if 0
 int myInt;
 
 UINT List_event_function (GX_VERTICAL_LIST *list, GX_EVENT *event_ptr)

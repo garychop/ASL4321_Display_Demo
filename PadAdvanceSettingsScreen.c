@@ -8,6 +8,7 @@
 //*****************************************************************************
 
 #include "ASL4321_System.h"
+#include "asl4321_display_demo_resources.h"
 #include "custom_checkbox.h"
 
 extern CUSTOM_CHECKBOX_INFO checkbox_info;

@@ -20,6 +20,8 @@
 #include "DataDictionary.h"
 #include "UserMainScreen.h"
 #include "PadInfo.h"
+#include "HUB.h"
+#include "FeatureHandling.h"
 
 #define SCREEN_STACK_SIZE  5
 #define SCRATCHPAD_PIXELS  (PRIMARYDISPLAY_X_RESOLUTION * PRIMARYDISPLAY_Y_RESOLUTION * 2)
@@ -58,7 +60,6 @@ int g_PowerUpInIdle = FALSE;
 int g_TimeoutValue = 20;
 MODE_SWITCH_SCHEMA_ENUM g_Mode_Switch_Schema = MODE_SWITCH_PIN5;
 
-int g_ActiveSpeakerGroup = 0;
 int g_ActiveSeatingGroup = 0;
 int g_BluetoothGroup = 0;
 
@@ -66,10 +67,11 @@ int g_BluetoothGroup = 0;
 // GLOBAL VARIABLES
 //*************************************************************************************
 
-int g_MinimumDriveValue = 20;		// Percentage, Minimum Drive value
-char g_MinimuDriveString[8] = "20%";
 unsigned char g_HA_Version_Major, g_HA_Version_Minor, g_HA_Version_Build, g_HA_EEPROM_Version = 5;
 extern VOID Initialize_MainScreenInfo();
+char g_StatusMessage[64];
+
+VOID ProcessDrivingFeature (GX_RESOURCE_ID gx_widget_id);
 
 //*************************************************************************************
 // Provided by GUIX to support Windows environment.
@@ -136,13 +138,13 @@ VOID  start_guix(VOID)
 
 	dd_Set_USHORT (0, DD_ACTIVE_FEATURE, 0);
 
-	Initialize_MainScreenInfo();
+	//Initialize_MainScreenInfo();
 
-	InitializeFeature_GUI_Info();
+	//InitializeFeature_GUI_Info();
 
 	InitializePadInformation();
 
-//    myError = gx_studio_named_widget_create("PrimaryTemplate", (GX_WIDGET *)root, GX_NULL);
+    //myError = gx_studio_named_widget_create("PrimaryTemplate", (GX_WIDGET *)GX_NULL, GX_NULL);
 	myError = gx_studio_named_widget_create("DiagnosticScreen", GX_NULL, GX_NULL);
 	myError = gx_studio_named_widget_create("FeatureSettingsScreen", GX_NULL, GX_NULL);
 	myError = gx_studio_named_widget_create("HHP_Start_Screen", GX_NULL, GX_NULL);
@@ -262,6 +264,81 @@ VOID SelectNextDevice (VOID)
 }
 
 //******************************************************************************************
+// StartJoystickOperation
+//	This function starts a timer to determine the appropriate action to effect when 
+//	the joystick demand is initiated.
+//******************************************************************************************
+VOID StartJoystickOperation (GX_RESOURCE_ID gx_widget_id)
+{
+	//USHORT group;
+	USHORT activeFeature;
+
+	//group = dd_Get_USHORT (MAX_GROUPS, DD_GROUP);
+	activeFeature = dd_Get_USHORT (MAX_GROUPS, DD_ACTIVE_FEATURE);
+
+	switch (activeFeature)
+	{
+	case POWER_ONOFF_ID:
+	case NEXT_FUNCTION_ID:
+	case NEXT_PROFILE_ID:
+	case NEXT_GROUP_ID:
+		ProcessDrivingFeature (gx_widget_id);
+		break;
+	case BLUETOOTH_ID:
+		break;
+	}
+}
+
+//******************************************************************************************
+
+VOID StopJoystickOperation (USHORT gx_widget_id)
+{
+	USHORT activeFeature;
+
+	//group = dd_Get_USHORT (MAX_GROUPS, DD_GROUP);
+	activeFeature = dd_Get_USHORT (MAX_GROUPS, DD_ACTIVE_FEATURE);
+
+	switch (activeFeature)
+	{
+	case POWER_ONOFF_ID:
+	case NEXT_FUNCTION_ID:
+	case NEXT_PROFILE_ID:
+	case NEXT_GROUP_ID:
+		strcpy_s (g_StatusMessage, sizeof (g_StatusMessage), "Ready");
+		gx_prompt_text_set (&MainUserScreen.base.PrimaryTemplate_StatusMessage, g_StatusMessage);
+		break;
+	case BLUETOOTH_ID:
+		break;
+	} // end switch
+}
+
+//******************************************************************************************
+// Select next audio level
+USHORT SelectNextAudioLevel (VOID)
+{
+	USHORT activeSubitem;
+	USHORT counter;
+	USHORT sounds;
+
+	activeSubitem = dd_GetSubItem_USHORT (0, DD_ACTIVE_FEATURE_SUBITEM, (USHORT) AUDIBLE_OUT_FEATURE_ID);		// Get the active feature
+	for (counter = 0; counter < MAX_AUDIBLE_SUBITEMS; ++counter)		// We need to find the next level (subitem) that has any sounds programmed for use.
+	{
+		++activeSubitem;		// Next level
+		if (activeSubitem >= MAX_AUDIBLE_SUBITEMS)	// Rollover
+			activeSubitem = 0;
+		sounds = dd_GetSubItem_USHORT (MAX_GROUPS, DD_ACTIVE_SPEAKER_SUBITEM_FORWARD, activeSubitem);	// Get all 4 pads
+		sounds += dd_GetSubItem_USHORT (MAX_GROUPS, DD_ACTIVE_SPEAKER_SUBITEM_REVERSE, activeSubitem);
+		sounds += dd_GetSubItem_USHORT (MAX_GROUPS, DD_ACTIVE_SPEAKER_SUBITEM_LEFT, activeSubitem);
+		sounds += dd_GetSubItem_USHORT (MAX_GROUPS, DD_ACTIVE_SPEAKER_SUBITEM_RIGHT, activeSubitem);
+		if (sounds)	// Is any pad programmed for something?
+			break;	// Yes? Then we are done looking.
+	}
+	dd_SetSubItem_USHORT (0, DD_ACTIVE_FEATURE_SUBITEM, (USHORT) AUDIBLE_OUT_FEATURE_ID, activeSubitem);		// save the active feature.
+
+	return activeSubitem;
+}
+
+//******************************************************************************************
 //VOID screen_switch(GX_WIDGET *parent, GX_WIDGET *new_screen)
 //{
 //    gx_widget_detach(current_screen);
@@ -277,93 +354,43 @@ VOID SelectNextDevice (VOID)
 
 UINT Template_event_function (GX_WINDOW *window, GX_EVENT *event_ptr)
 {
-#ifdef THIS_IS_USEFUL	// The following is not called when a button is pushed, So I'm 
-						// commenting it out to reduce confusion as to it's usefullness.
-	UINT myErr = -1;
-
+	UINT myErr = GX_SUCCESS;
+#if 0
 	switch (event_ptr->gx_event_type)
 	{
-	case GX_SIGNAL(DOWN_ARROW_BTN_ID, GX_EVENT_CLICKED):
-		if (window->gx_widget_name == "PadCalibrationScreen")
-		{
-			if (g_CalibrationStepNumber == 0)		// We are doing minimum
-			{
-				if (g_PadSettings[g_CalibrationPadNumber].m_PadMinimumCalibrationValue > 4)
-					g_PadSettings[g_CalibrationPadNumber].m_PadMinimumCalibrationValue -= 5;
-				myErr = gx_numeric_prompt_value_set (&PadCalibrationScreen.PadCalibrationScreen_Value_Prompt, g_PadSettings[g_CalibrationPadNumber].m_PadMinimumCalibrationValue);
-			}
-			else if (g_CalibrationStepNumber == 1)	// Doing maximum
-			{
-				if (g_PadSettings[g_CalibrationPadNumber].m_PadMaximumCalibrationValue > 4)
-					g_PadSettings[g_CalibrationPadNumber].m_PadMaximumCalibrationValue -= 5;
-				myErr = gx_numeric_prompt_value_set (&PadCalibrationScreen.PadCalibrationScreen_Value_Prompt, g_PadSettings[g_CalibrationPadNumber].m_PadMaximumCalibrationValue);
-			}
-			gx_system_dirty_mark(g_CalibrationScreen);		// This forces the gauge to be updated and redrawn
-		}
-		break;
-	case GX_SIGNAL(UP_ARROW_BTN_ID, GX_EVENT_CLICKED):
-		if (window->gx_widget_name == "PadCalibrationScreen")
-		{
-			if (g_CalibrationStepNumber == 0)		// We are doing minimum
-			{
-				if (g_PadSettings[g_CalibrationPadNumber].m_PadMinimumCalibrationValue < 100)
-					g_PadSettings[g_CalibrationPadNumber].m_PadMinimumCalibrationValue += 5;
-				myErr = gx_numeric_prompt_value_set (&PadCalibrationScreen.PadCalibrationScreen_Value_Prompt, g_PadSettings[g_CalibrationPadNumber].m_PadMinimumCalibrationValue);
-			}
-			else if (g_CalibrationStepNumber == 1)	// Doing maximum
-			{
-				if (g_PadSettings[g_CalibrationPadNumber].m_PadMaximumCalibrationValue < 100)
-					g_PadSettings[g_CalibrationPadNumber].m_PadMaximumCalibrationValue += 5;
-				myErr = gx_numeric_prompt_value_set (&PadCalibrationScreen.PadCalibrationScreen_Value_Prompt, g_PadSettings[g_CalibrationPadNumber].m_PadMaximumCalibrationValue);
-			}
-			gx_system_dirty_mark(g_CalibrationScreen);		// This forces the gauge to be updated and redrawn
-		}
-//		else if (window->gx_widget_name == "StartupScreen")
-//		{
-//	        screen_toggle((GX_WINDOW *)&Main_User_Screen, window);
-//		}
-		break;
-	case GX_EVENT_PEN_DOWN:	// We are going to determine if the PAD button is pressed and start a timer to increment the 
-							// ... long time (2 seconds) and goto Programming if so.
-		if (event_ptr->gx_event_target->gx_widget_name == "PadActiveButton")
-		{
-			g_DeltaValue = +5;
-			gx_system_timer_start(window, PAD_ACTIVE_TIMER_ID, 8, 8);
-			//myErr = gx_slider_value_set((GX_SLIDER*)&PadCalibrationScreen.PadCalibrationScreen_PadValue_Slider, &PadCalibrationScreen.PadCalibrationScreen_PadValue_Slider.gx_slider_info, g_PadValue);
-		}
-		break;
-    case GX_EVENT_TIMER:
-        if (event_ptr->gx_event_payload.gx_event_timer_id == PAD_ACTIVE_TIMER_ID)
-		{
-			g_PadValue += g_DeltaValue;
-			if (g_PadValue > 100)
-				g_PadValue = 100;
-			if (g_PadValue <= 0)
-				gx_system_timer_stop(window, PAD_ACTIVE_TIMER_ID);
-			if (g_PadValue > 0)
-			{
-				myErr = gx_widget_resize ((GX_WIDGET*) &PadCalibrationScreen.PadCalibrationScreen_PadValue_Prompt, &g_CalibrationPromptLocations[1]);
-				myErr = gx_numeric_prompt_value_set (&PadCalibrationScreen.PadCalibrationScreen_PadValue_Prompt, g_PadValue);
-			}
-			else
-			{
-				myErr = gx_widget_resize ((GX_WIDGET*) &PadCalibrationScreen.PadCalibrationScreen_PadValue_Prompt, &g_HiddenRectangle);
-				myErr = gx_numeric_prompt_value_set (&PadCalibrationScreen.PadCalibrationScreen_PadValue_Prompt, g_PadValue);
-			}
-			gx_system_dirty_mark(g_CalibrationScreen);		// This forces the gauge to be updated and redrawn
-		}
-		break;
 	case GX_EVENT_PEN_UP:
 		{
 			g_DeltaValue = -5;
 		}
 		break;
 	} // end switch
-
     myErr = gx_window_event_process(window, event_ptr);
+#endif 
 	return myErr;
-
-#endif // 
-	return (GX_SUCCESS);
 }
 
+//*************************************************************************************
+
+VOID ProcessDrivingFeature (GX_RESOURCE_ID gx_widget_id)
+{
+	switch (gx_widget_id)
+	{
+		case JS_UP_BUTTON:
+			strcpy_s (g_StatusMessage, sizeof (g_StatusMessage), "Driving Forward");
+			break;
+		case JS_LEFT_BUTTON:
+			strcpy_s (g_StatusMessage, sizeof (g_StatusMessage), "Driving Left");
+			break;
+		case JS_DOWN_BUTTON:
+			strcpy_s (g_StatusMessage, sizeof (g_StatusMessage), "Driving in Reverse");
+			break;
+		case JS_RIGHT_BUTTON:
+			strcpy_s (g_StatusMessage, sizeof (g_StatusMessage), "Driving Right");
+			break;
+		default:
+			strcpy_s (g_StatusMessage, sizeof (g_StatusMessage), "Ready");
+			break;
+	}
+
+	gx_prompt_text_set (&MainUserScreen.base.PrimaryTemplate_StatusMessage, g_StatusMessage);
+}

@@ -8,12 +8,20 @@
 //*****************************************************************************
 
 #include "ASL4321_System.h"
+#include "asl4321_display_demo_resources.h"
 #include "PadInfo.h"
 
 //*************************************************************************************
 // Local/Global variables
 //*************************************************************************************
 
+//*************************************************************************************
+
+VOID GetPadSettings (VOID)
+{
+}
+
+//*************************************************************************************
 VOID DisplayPadType (VOID)
 {
 	if (g_PadSettings[LEFT_PAD].m_PadType)	// Digital?
@@ -56,8 +64,8 @@ UINT SetPadTypeScreen_event_process (GX_WINDOW *window, GX_EVENT *event_ptr)
 	switch (event_ptr->gx_event_type)
 	{
 	case GX_EVENT_SHOW:
-		// Display the active group.
-		SetGroupIcon (&SetPadTypeScreen.SetPadTypeScreen_GroupIconButton);
+		SetGroupIcon (&SetPadTypeScreen.SetPadTypeScreen_GroupIconButton);		// Display the active group.
+		GetPadSettings ();
 		DisplayPadType();
 		g_ChangeScreen_WIP = FALSE;
 		break;

@@ -26,9 +26,7 @@ typedef struct PAD_INFO_STRUCT_NAME
 	PAD_DIRECTION_ENUM m_PadDirection;
 	PAD_CYCLE_OPERATIONS_ENUM m_LongPadOperations[MAX_ADVANCE_PAD_OPERATIONS];
 	unsigned short m_MinimumDriveValue;
-	char m_MinimuDriveString[8];
 	unsigned short m_NeutralWindowValue;
-	char m_NeutralWindowString[8];
 	int m_PadMinimumCalibrationValue;
 	int m_PadMaximumCalibrationValue;
 	int m_Speed_Offset;					// This is an adjustment for Neutral offset a.k.a "Y offset"

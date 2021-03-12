@@ -13,22 +13,9 @@
 #include <stdio.h>
 
 #include "asl4321_display_demo_resources.h"
-#include "asl4321_display_demo_specifications.h"
-
-typedef enum FEATURE_ID {
-	POWER_ONOFF_ID,
-	BLUETOOTH_ID,
-	NEXT_FUNCTION_ID,
-	NEXT_PROFILE_ID,
-	NEXT_GROUP_ID,
-	RNET_TOGGLE_ID,
-	RNET_USER_MENU_ID,
-	RNET_SEATING_ID,
-	RNET_SLEEP_FEATURE_ID,
-	AUDIBLE_OUT_FEATURE_ID,
-	SEATING_FEATURE_ID,
-	TECLA_E_FEATURE_ID,
-	MAX_FEATURES} FEATURE_ID_ENUM; // NUM_FEATURES must be last enum
+//#include "asl4321_display_demo_specifications.h"
+//#include "ASL4321_System.h"
+#include "custom_checkbox.h"
 
 typedef struct FEATURE_GUI_STRUCTURE {
 	FEATURE_ID_ENUM m_FeatureID;

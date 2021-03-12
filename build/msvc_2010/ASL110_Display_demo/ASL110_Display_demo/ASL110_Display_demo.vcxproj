@@ -91,6 +91,7 @@
     <ClCompile Include="..\..\..\..\FeatureSettingScreen.c" />
     <ClCompile Include="..\..\..\..\GroupHandling.c" />
     <ClCompile Include="..\..\..\..\HHP_StartScreen.c" />
+    <ClCompile Include="..\..\..\..\HUB.c" />
     <ClCompile Include="..\..\..\..\JoystickThrowScreen.c" />
     <ClCompile Include="..\..\..\..\MainUserScreen.c" />
     <ClCompile Include="..\..\..\..\MainUserScreen_3.c" />
@@ -124,8 +125,8 @@
     <ClInclude Include="..\..\..\..\custom_checkbox.h" />
     <ClInclude Include="..\..\..\..\DataDictionary.h" />
     <ClInclude Include="..\..\..\..\FeatureHandling.h" />
+    <ClInclude Include="..\..\..\..\HUB.h" />
     <ClInclude Include="..\..\..\..\PadInfo.h" />
-    <ClInclude Include="..\..\..\..\UserMainScreen.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

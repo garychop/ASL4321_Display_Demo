@@ -117,6 +117,9 @@
     <ClCompile Include="..\..\..\..\FeatureHandling.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\HUB.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\ASL4321_Display_Demo_resources.h">
@@ -137,13 +140,13 @@
     <ClInclude Include="..\..\..\..\PadInfo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\UserMainScreen.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\DataDictionary.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\FeatureHandling.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\HUB.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

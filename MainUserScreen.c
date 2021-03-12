@@ -9,8 +9,23 @@
 #include "ASL4321_Display_Demo_specifications.h"
 #include "ASL4321_System.h"
 #include "DataDictionary.h"
+#include "FeatureHandling.h"
 
 //*****************************************************************************
+typedef struct FEATURE_GROUP_STRUCTURE {
+	FEATURE_ID_ENUM m_FeatureID;
+	USHORT m_Available;		// This is TRUE if this feature is available for enabling.
+	USHORT m_Enabled;
+	USHORT m_Priority;			// This is a zero-based number priority
+} GUI_FEATURE_GROUP_STRUCT;
+
+typedef struct //GROUP_STRUCT_DEFINE
+{
+	DEVICE_TYPE_ENUM m_DeviceType;
+	SCAN_MODE_ENUM m_ScanMode;
+	PAD_INFO_STRUCT m_GroupPadInfo[MAX_PHYSICAL_PADS];
+	GUI_FEATURE_GROUP_STRUCT m_GroupFeature[MAX_FEATURES];		// This contains the features and enabled/disabled settings.
+} GUI_GROUP_STRUCT;
 
 typedef struct MAIN_SCREEN_FEATURE_STRUCT
 {
@@ -27,6 +42,7 @@ static SCAN_MODE_ENUM g_ScanType;
 MAIN_SCREEN_FEATURE g_MainScreenFeatureInfo[MAX_FEATURES];
 int g_ScanState = 0;
 SCAN_DIRECTION_ENUM g_ScanPosition;
+USHORT g_Group;
 
 //*****************************************************************************
 // Forawrd Declaration, Prototypes
@@ -38,12 +54,14 @@ VOID NextScan (BOOL increment);
 
 VOID Initialize_MainScreenInfo()
 {
-	int feature, subFeature, priority, featureCount;
+	int feature, featureIndex, priority, featureCount;
 	USHORT rnet_active;
-	USHORT group;
+	USHORT featureAttribute;
+	USHORT tempFeatureID;
 
 	rnet_active = (dd_Get_USHORT(MAX_GROUPS, DD_RNET_ENABLE));
-	group = dd_Get_USHORT (MAX_GROUPS, DD_GROUP);
+	g_Group = dd_Get_USHORT (MAX_GROUPS, DD_GROUP);
+	dd_SetSubItem_USHORT (0, DD_ACTIVE_FEATURE_SUBITEM, (USHORT) AUDIBLE_OUT_FEATURE_ID, 0);		// Set the active feature to zero.
 
     // Populate the screen stuff.
 	priority = 0;
@@ -53,15 +71,17 @@ VOID Initialize_MainScreenInfo()
 		g_MainScreenFeatureInfo[feature].m_FeatureID = MAX_FEATURES;
 		g_MainScreenFeatureInfo[feature].m_Location = 0;
 
-		for (subFeature = 0; subFeature < MAX_FEATURES; ++ subFeature)
+		for (featureIndex = 0; featureIndex < MAX_FEATURES; ++ featureIndex)
 		{
-			if ((g_GroupInfo[group].m_GroupFeature[subFeature].m_Available) && (g_GroupInfo[group].m_GroupFeature[subFeature].m_Enabled))
+			featureAttribute = dd_GetSubItem_USHORT (g_Group, DD_GROUP_FEATURE_ATTRIBUTE, featureIndex);
+			if ((featureAttribute & 0x0f) == (FEATURE_AVAILABLE | FEATURE_ENABLED))
 			{
-				if (g_GroupInfo[group].m_GroupFeature[subFeature].m_Priority == priority)
+				if ((featureAttribute & FEATURE_PRIORITY_MASK) == (priority << 4))
 				{
+					tempFeatureID = dd_GetSubItem_USHORT (g_Group, DD_GROUP_FEATURE_ID, featureIndex);
 					if (priority == 0)	// Is this the active feature?
-						dd_Set_USHORT (MAX_GROUPS, DD_ACTIVE_FEATURE, g_GroupInfo[group].m_GroupFeature[subFeature].m_FeatureID);
-					g_MainScreenFeatureInfo[featureCount].m_FeatureID = g_GroupInfo[group].m_GroupFeature[subFeature].m_FeatureID;
+						dd_Set_USHORT (MAX_GROUPS, DD_ACTIVE_FEATURE, (featureAttribute & FEATURE_PRIORITY_MASK) >> 4);	// Store in Data Dictionary
+					g_MainScreenFeatureInfo[featureCount].m_FeatureID = (FEATURE_ID_ENUM) tempFeatureID;
 					g_MainScreenFeatureInfo[featureCount].m_Location = featureCount;
 					++featureCount;
 					break;
@@ -70,6 +90,34 @@ VOID Initialize_MainScreenInfo()
 		}
 		++priority;
 	}
+}
+
+//*************************************************************************************
+
+UINT GetPadIcon (PAD_DIRECTION_ENUM direction)
+{
+	switch (direction)
+	{
+		case FORWARD_DIRECTION:
+			return GX_PIXELMAP_ID_UPWHITEARROW;
+			break;
+		case LEFT_DIRECTION:
+			return GX_PIXELMAP_ID_LEFTWHITEARROW;
+			break;
+		case RIGHT_DIRECTION:
+			return GX_PIXELMAP_ID_RIGHTWHITEARROW;
+			break;
+		case REVERSE_DIRECTION:
+			return GX_PIXELMAP_ID_DOWNWHITEARROW;
+			break;
+		case CYCLE_DIRECTION:
+			return GX_PIXELMAP_ID_CYCLEBUTTON;
+			break;
+		default:
+		case OFF_DIRECTION:
+			return GX_PIXELMAP_ID_PAD_OFF;
+			break;
+	} // end switch
 }
 
 //*************************************************************************************
@@ -188,14 +236,177 @@ VOID SetToNextGroupFeature (VOID)
 	}
 }
 
+//*************************************************************************************
+
+static VOID PositionPads (VOID)
+{
+	GX_RECTANGLE rectangle;
+
+	if (dd_Get_USHORT (g_Group, DD_DEVICE_TYPE) == DEVICE_TYPE_HEAD_ARRAY)
+	{
+		// Feature Icon
+		gx_utility_rectangle_define (&rectangle, 164, 98, 164+88, 98+70);	// Left, top, right, bottom
+		gx_widget_resize (&MainUserScreen.MainUserScreen_FeatureIcon, &rectangle);
+		// Left Button
+		gx_utility_rectangle_define (&rectangle, 64, 90, 64+88, 90+70);	// Left, top, right, bottom
+		gx_widget_resize (&MainUserScreen.MainUserScreen_Left_Icon, &rectangle);
+		// Right Button
+		gx_utility_rectangle_define (&rectangle, 242, 90, 242+88, 90+70);	// Left, top, right, bottom
+		gx_widget_resize (&MainUserScreen.MainUserScreen_Right_Icon, &rectangle);
+		// Center/Forward Pad
+		gx_utility_rectangle_define (&rectangle, 154, 160, 152+88, 160+70);	// Left, top, right, bottom
+		gx_widget_resize (&MainUserScreen.MainUserScreen_Forward_Icon, &rectangle);
+		// Hide the revese button
+		gx_widget_hide (&MainUserScreen.MainUserScreen_Reverse_Icon);
+	}
+	else	// Must be a joystick, show all 4 pads.
+	{
+		// Feature Icon
+		gx_utility_rectangle_define (&rectangle, 164, 128, 164+88, 128+70);	// Left, top, right, bottom
+		gx_widget_resize (&MainUserScreen.MainUserScreen_FeatureIcon, &rectangle);
+		// Left Button
+		gx_utility_rectangle_define (&rectangle, 64, 120, 64+88, 120+70);	// Left, top, right, bottom
+		gx_widget_resize (&MainUserScreen.MainUserScreen_Left_Icon, &rectangle);
+		// Right Button
+		gx_utility_rectangle_define (&rectangle, 242, 120, 242+88, 120+70);	// Left, top, right, bottom
+		gx_widget_resize (&MainUserScreen.MainUserScreen_Right_Icon, &rectangle);
+		// Center/Forward Pad
+		gx_utility_rectangle_define (&rectangle, 154, 50, 154+88, 50+70);	// Left, top, right, bottom
+		gx_widget_resize (&MainUserScreen.MainUserScreen_Forward_Icon, &rectangle);
+		// Reverse Button
+		gx_utility_rectangle_define (&rectangle, 154, 190, 154+88, 190+70);	// Left, top, right, bottom
+		gx_widget_resize (&MainUserScreen.MainUserScreen_Reverse_Icon, &rectangle);
+		gx_widget_show (&MainUserScreen.MainUserScreen_Reverse_Icon);
+	}
+
+}
+
 //*****************************************************************************
 
 VOID SetPadFeaturesIDs (GX_RESOURCE_ID forwardID, GX_RESOURCE_ID reverseID, GX_RESOURCE_ID leftID, GX_RESOURCE_ID rightID)
 {
+	if (forwardID == 0)
+	{
+		forwardID = GX_PIXELMAP_ID_BLANKBOXA_88X70;
+	}
+	if (reverseID == 0)
+	{
+		reverseID = GX_PIXELMAP_ID_BLANKBOXA_88X70;
+	}
+	if (leftID == 0)
+	{
+		leftID = GX_PIXELMAP_ID_BLANKBOXA_88X70;
+	}
+	if (rightID == 0)
+	{
+		rightID = GX_PIXELMAP_ID_BLANKBOXA_88X70;
+	}
 	gx_icon_pixelmap_set (&MainUserScreen.MainUserScreen_Forward_Icon, forwardID, forwardID);
 	gx_icon_pixelmap_set (&MainUserScreen.MainUserScreen_Reverse_Icon, reverseID, reverseID);
 	gx_icon_pixelmap_set (&MainUserScreen.MainUserScreen_Left_Icon, leftID, leftID);
 	gx_icon_pixelmap_set (&MainUserScreen.MainUserScreen_Right_Icon, rightID, rightID);
+
+	PositionPads();	// This positions the pads based upon 3 or 4 quadrant operation.
+}
+
+//*****************************************************************************
+// DisplayDrivingPads displays the pads when driving.
+//*****************************************************************************
+
+VOID DisplayDrivingPads (VOID)
+{
+	PAD_DIRECTION_ENUM padDirection;
+	USHORT forwardID, reverseID, leftID, rightID;
+
+	gx_widget_show (&MainUserScreen.MainUserScreen_Forward_Icon);
+	gx_widget_show (&MainUserScreen.MainUserScreen_Reverse_Icon);
+	gx_widget_show (&MainUserScreen.MainUserScreen_Left_Icon);
+	gx_widget_show (&MainUserScreen.MainUserScreen_Right_Icon);
+
+	padDirection = (PAD_DIRECTION_ENUM) dd_GetSubItem_USHORT (g_Group, DD_PAD_DIRECTION, FORWARD_PAD);
+	forwardID = GetPadIcon (padDirection);
+	padDirection = (PAD_DIRECTION_ENUM) dd_GetSubItem_USHORT (g_Group, DD_PAD_DIRECTION, REVERSE_PAD);
+	reverseID = GetPadIcon (padDirection);
+	padDirection = (PAD_DIRECTION_ENUM) dd_GetSubItem_USHORT (g_Group, DD_PAD_DIRECTION, LEFT_PAD);
+	leftID = GetPadIcon (padDirection);
+	padDirection = (PAD_DIRECTION_ENUM) dd_GetSubItem_USHORT (g_Group, DD_PAD_DIRECTION, RIGHT_PAD);
+	rightID = GetPadIcon (padDirection);
+
+	SetPadFeaturesIDs (forwardID, reverseID, leftID, rightID);
+}
+
+//*****************************************************************************
+// DisplayDrivingPads displays the pads when driving.
+//*****************************************************************************
+USHORT g_SoundResourceArray[MAX_SOUND_BITES][2] = {
+	{0, 0},
+	{1, GX_PIXELMAP_ID_SPEAKER_A_88X70},
+	{2, GX_PIXELMAP_ID_SPEAKER_B_88X70},
+	{3, GX_PIXELMAP_ID_SPEAKER_D_88X70},
+	{4, GX_PIXELMAP_ID_SPEAKER_E_88X70},
+	{5, GX_PIXELMAP_ID_SPEAKER_YES_88X70},
+	{6, GX_PIXELMAP_ID_SPEAKER_NO_88X70},
+	{7, GX_PIXELMAP_ID_SPEAKER_F_88X70},
+	{8, GX_PIXELMAP_ID_SPEAKER_G_88X70},
+	{9, GX_PIXELMAP_ID_SPEAKER_88X70},
+	{10, GX_PIXELMAP_ID_SPEAKER_88X70},
+	{11, GX_PIXELMAP_ID_SPEAKER_88X70},
+	{0, 0},
+	{0, 0},
+	{0, 0},
+	{0, 0},
+	{0, 0},
+	{0, 0},
+	{0, 0},
+	{0, 0},
+	{0, 0},
+	{0, 0},
+	{0, 0},
+	{0, 0},
+	{0, 0},
+	{0, 0},
+	{0, 0},
+	{0, 0},
+	{0, 0},
+	{0, 0},
+	{0, 0},
+	{0, 0}
+};
+
+USHORT GetSoundResourceID (USHORT soundNumber)
+{
+	return (g_SoundResourceArray[soundNumber][1]);
+}
+
+VOID DisplayAudibleOutPads (VOID)
+{
+	USHORT activeSpeakerSubitem;
+	USHORT soundNumber, forwardSoundID, reverseSoundID, leftSoundID, rightSoundID;
+
+	gx_widget_show (&MainUserScreen.MainUserScreen_Forward_Icon);
+	gx_widget_show (&MainUserScreen.MainUserScreen_Reverse_Icon);
+	gx_widget_show (&MainUserScreen.MainUserScreen_Left_Icon);
+	gx_widget_show (&MainUserScreen.MainUserScreen_Right_Icon);
+
+	activeSpeakerSubitem = dd_GetSubItem_USHORT (g_Group, DD_ACTIVE_FEATURE_SUBITEM, AUDIBLE_OUT_FEATURE_ID);
+	
+	// Set Forward Pad Icon
+	soundNumber = dd_GetSubItem_USHORT (g_Group, DD_ACTIVE_SPEAKER_SUBITEM_FORWARD, activeSpeakerSubitem);
+	forwardSoundID = GetSoundResourceID (soundNumber); 
+	
+	// Set Reverse Pad Icon
+	soundNumber = dd_GetSubItem_USHORT (g_Group, DD_ACTIVE_SPEAKER_SUBITEM_REVERSE, activeSpeakerSubitem);
+	reverseSoundID = GetSoundResourceID (soundNumber); 
+	
+	// Set Left Pad Icon
+	soundNumber = dd_GetSubItem_USHORT (g_Group, DD_ACTIVE_SPEAKER_SUBITEM_LEFT, activeSpeakerSubitem);
+	leftSoundID = GetSoundResourceID (soundNumber); 
+	
+	// Set Right Pad Icon
+	soundNumber = dd_GetSubItem_USHORT (g_Group, DD_ACTIVE_SPEAKER_SUBITEM_RIGHT, activeSpeakerSubitem);
+	rightSoundID = GetSoundResourceID (soundNumber); 
+
+	SetPadFeaturesIDs (forwardSoundID, reverseSoundID, leftSoundID, rightSoundID);
 }
 
 //*****************************************************************************
@@ -203,40 +414,22 @@ VOID SetPadFeaturesIDs (GX_RESOURCE_ID forwardID, GX_RESOURCE_ID reverseID, GX_R
 void DisplayPadFeatures()
 {
 	UINT err;
-	SHORT featureCount;
+	//SHORT featureCount;
 	FEATURE_ID_ENUM featureID;
 
-	featureID = MAX_FEATURES;
-	for (featureCount = 0; featureCount < MAX_FEATURES; ++featureCount)
-	{
-		if (g_MainScreenFeatureInfo[featureCount].m_FeatureID != MAX_FEATURES)
-			if (g_MainScreenFeatureInfo[featureCount].m_Location == 0)
-				featureID = g_MainScreenFeatureInfo[featureCount].m_FeatureID;	// abreviated variable
-	}
+	//featureID = MAX_FEATURES;
+	//for (featureCount = 0; featureCount < MAX_FEATURES; ++featureCount)
+	//{
+	//	if (g_MainScreenFeatureInfo[featureCount].m_FeatureID != MAX_FEATURES)
+	//		if (g_MainScreenFeatureInfo[featureCount].m_Location == 0)
+	//			featureID = g_MainScreenFeatureInfo[featureCount].m_FeatureID;	// use "featureID" as an abreviated variable
+	//}
+	featureID = (FEATURE_ID_ENUM) dd_Get_USHORT (g_Group, DD_ACTIVE_FEATURE);	// Get currently active feature
 
 	switch (featureID)
 	{
 	case AUDIBLE_OUT_FEATURE_ID:
-		gx_widget_show (&MainUserScreen.MainUserScreen_Forward_Icon);
-		gx_widget_show (&MainUserScreen.MainUserScreen_Reverse_Icon);
-		gx_widget_show (&MainUserScreen.MainUserScreen_Left_Icon);
-		gx_widget_show (&MainUserScreen.MainUserScreen_Right_Icon);
-		switch (g_ActiveSpeakerGroup)
-		{
-		default:
-		case 0:
-			SetPadFeaturesIDs (GX_PIXELMAP_ID_SPEAKER_A_88X70, GX_PIXELMAP_ID_PADDOWNARROW_DISABLED, GX_PIXELMAP_ID_SPEAKER_B_88X70, GX_PIXELMAP_ID_SPEAKER_F_88X70);
-			break;
-		case 1:
-			SetPadFeaturesIDs (GX_PIXELMAP_ID_PADUPARROW_DISABLED, GX_PIXELMAP_ID_PADDOWNARROW_DISABLED, GX_PIXELMAP_ID_SPEAKER_B_88X70, GX_PIXELMAP_ID_SPEAKER_F_88X70);
-			break;
-		case 2:
-			SetPadFeaturesIDs (GX_PIXELMAP_ID_PADUPARROW_DISABLED, GX_PIXELMAP_ID_PADDOWNARROW_DISABLED, GX_PIXELMAP_ID_SPEAKER_D_88X70, GX_PIXELMAP_ID_SPEAKER_E_88X70);
-			break;
-		case 3:
-			SetPadFeaturesIDs (GX_PIXELMAP_ID_PADUPARROW_DISABLED, GX_PIXELMAP_ID_PADDOWNARROW_DISABLED, GX_PIXELMAP_ID_SPEAKER_YES_88X70, GX_PIXELMAP_ID_SPEAKER_NO_88X70);
-			break;
-		} // end switch
+		DisplayAudibleOutPads();
 		break;
 	case SEATING_FEATURE_ID:
 		gx_widget_show (&MainUserScreen.MainUserScreen_Forward_Icon);
@@ -290,11 +483,7 @@ void DisplayPadFeatures()
 		} // end swtich
 		break;
 	default:
-		gx_widget_show (&MainUserScreen.MainUserScreen_Forward_Icon);
-		gx_widget_show (&MainUserScreen.MainUserScreen_Reverse_Icon);
-		gx_widget_show (&MainUserScreen.MainUserScreen_Left_Icon);
-		gx_widget_show (&MainUserScreen.MainUserScreen_Right_Icon);
-		SetPadFeaturesIDs (GX_PIXELMAP_ID_UPWHITEARROW, GX_PIXELMAP_ID_PADDOWNARROW_ENABLED, GX_PIXELMAP_ID_LEFTWHITEARROW, GX_PIXELMAP_ID_RIGHTWHITEARROW);
+		DisplayDrivingPads();
 		break;
 	}
 }
@@ -382,7 +571,7 @@ UINT DisplayMainScreenActiveFeatures ()
 	
 	// Display the group icon and set the function box color
 	SetGroupIcon (&MainUserScreen.MainUserScreen_GroupIconButton);
-	switch (dd_Get_USHORT (0, DD_GROUP))
+	switch (g_Group)
 	{
 	case 0:
 		gx_widget_fill_color_set (&MainUserScreen.MainUserScreen_FunctionWindow, GX_COLOR_ID_GREEN_ISH, GX_COLOR_ID_GREEN_ISH, GX_COLOR_ID_GREEN_ISH);
@@ -415,6 +604,8 @@ UINT MainUserScreen_EventFunction (GX_WINDOW *window, GX_EVENT *event_ptr)
 	switch (event_ptr->gx_event_type)
 	{
 	case GX_EVENT_SHOW:
+		Initialize_MainScreenInfo();
+		InitializeFeature_GUI_Info();
 		DisplayMainScreenActiveFeatures();
 
 		// Determine if scanning is active.
@@ -446,18 +637,31 @@ UINT MainUserScreen_EventFunction (GX_WINDOW *window, GX_EVENT *event_ptr)
 		screen_toggle((GX_WINDOW *)&MainUserScreen_3, window);
 		break;
 
-	case GX_SIGNAL (RIGHT_PAD_BUTTON, GX_EVENT_CLICKED):
+	case GX_SIGNAL (GROUP_ICON_BUTTON, GX_EVENT_CLICKED):
+		SelectNextGroup();
+		g_Group = dd_Get_USHORT (0, DD_GROUP);
+		Initialize_MainScreenInfo();
+		SetToNextGroupFeature();
+		DisplayMainScreenActiveFeatures();
 		break;
 
 	case GX_EVENT_PEN_DOWN:	// We are going to determine if the PAD button is pressed and start a timer to increment the 
 							// ... long time (2 seconds) and goto Programming if so.
-		if ( (event_ptr->gx_event_target->gx_widget_name == "DownArrowButton") || (event_ptr->gx_event_target->gx_widget_name == "UpArrowButton"))
+		switch (event_ptr->gx_event_target->gx_widget_id)
 		{
+		case UP_ARROW_BTN_ID:
+		case DOWN_ARROW_BTN_ID:
 			gx_system_timer_start(window, ARROW_PUSHED_TIMER_ID, 50, 0);
-		}
-		else if (event_ptr->gx_event_target->gx_widget_name == "UserPortButton")
-		{
+			break;
+		case USER_PORT_BUTTON_ID:
 			gx_system_timer_start(window, USER_PORT_PUSHED_TIMER_ID, 40, 0);
+			break;
+		case JS_UP_BUTTON:
+		case JS_LEFT_BUTTON:
+		case JS_DOWN_BUTTON:
+		case JS_RIGHT_BUTTON:
+			StartJoystickOperation (event_ptr->gx_event_target->gx_widget_id);
+			break;
 		}
 		break;
     case GX_EVENT_TIMER:
@@ -496,42 +700,52 @@ UINT MainUserScreen_EventFunction (GX_WINDOW *window, GX_EVENT *event_ptr)
 			{
 				g_Inhibit_UpButtonResponse = FALSE;
 			}
-			else if (event_ptr->gx_event_target->gx_widget_name == "UserPortButton")
+			else
 			{
-				switch (dd_Get_USHORT (0, DD_ACTIVE_FEATURE))
+				switch (event_ptr->gx_event_target->gx_widget_id)
 				{
-				case POWER_ONOFF_ID:
-					screen_toggle((GX_WINDOW *)&ReadyScreen, window);
+				case USER_PORT_BUTTON_ID:
+					switch (dd_Get_USHORT (0, DD_ACTIVE_FEATURE))
+					{
+					case POWER_ONOFF_ID:
+						screen_toggle((GX_WINDOW *)&ReadyScreen, window);
+						break;
+					case NEXT_GROUP_ID:
+						SelectNextGroup();
+						g_Group = dd_Get_USHORT (0, DD_GROUP);
+						Initialize_MainScreenInfo();
+						SetToNextGroupFeature();
+						DisplayMainScreenActiveFeatures();
+						break;
+					case AUDIBLE_OUT_FEATURE_ID:
+						SelectNextAudioLevel();
+						DisplayMainScreenActiveFeatures();
+						break;
+					case SEATING_FEATURE_ID:
+						++g_ActiveSeatingGroup;
+						if (g_ActiveSeatingGroup > 2)
+							g_ActiveSeatingGroup = 0;
+						DisplayMainScreenActiveFeatures();
+						break;
+					case BLUETOOTH_ID:
+						++g_BluetoothGroup;
+						if (g_BluetoothGroup > 1)
+							g_BluetoothGroup = 0;
+						DisplayMainScreenActiveFeatures();
+						break;
+					case TECLA_E_FEATURE_ID:
+						AdvanceToNextTeclaGroup();
+						DisplayMainScreenActiveFeatures();
+						break;
+					default:
+						break;
+					} // end switch
 					break;
-				case NEXT_GROUP_ID:
-					SelectNextGroup();
-					Initialize_MainScreenInfo();
-					SetToNextGroupFeature();
-					DisplayMainScreenActiveFeatures();
-					break;
-				case AUDIBLE_OUT_FEATURE_ID:
-					++g_ActiveSpeakerGroup;
-					if (g_ActiveSpeakerGroup > 3)
-						g_ActiveSpeakerGroup = 0;
-					DisplayMainScreenActiveFeatures();
-					break;
-				case SEATING_FEATURE_ID:
-					++g_ActiveSeatingGroup;
-					if (g_ActiveSeatingGroup > 2)
-						g_ActiveSeatingGroup = 0;
-					DisplayMainScreenActiveFeatures();
-					break;
-				case BLUETOOTH_ID:
-					++g_BluetoothGroup;
-					if (g_BluetoothGroup > 1)
-						g_BluetoothGroup = 0;
-					DisplayMainScreenActiveFeatures();
-					break;
-				case TECLA_E_FEATURE_ID:
-					AdvanceToNextTeclaGroup();
-					DisplayMainScreenActiveFeatures();
-					break;
-				default:
+				case JS_UP_BUTTON:
+				case JS_LEFT_BUTTON:
+				case JS_DOWN_BUTTON:
+				case JS_RIGHT_BUTTON:
+					StopJoystickOperation (event_ptr->gx_event_target->gx_widget_id);
 					break;
 				} // end switch
 			}
@@ -553,17 +767,20 @@ UINT MainUserScreen_EventFunction (GX_WINDOW *window, GX_EVENT *event_ptr)
 		break;
 
 	case GX_SIGNAL (MODE_PORT_BTN_ID, GX_EVENT_CLICKED):
-		if (g_ScanState == 0)
+		if (g_ScanType != SCAN_OFF)
 		{
-			gx_icon_pixelmap_set (&MainUserScreen.MainUserScreen_TargetOrangeIcon , GX_PIXELMAP_ID_TARGETGREEN_100X100, GX_PIXELMAP_ID_TARGETGREEN_100X100);
-			gx_system_timer_stop(window, SCAN_TIMER_ID);
-			gx_system_timer_start(window, SCAN_TIMER_ID, 180, 0);	// re-arm timer
-			g_ScanState = 1;
+			if (g_ScanState == 0)
+			{
+				gx_icon_pixelmap_set (&MainUserScreen.MainUserScreen_TargetOrangeIcon , GX_PIXELMAP_ID_TARGETGREEN_100X100, GX_PIXELMAP_ID_TARGETGREEN_100X100);
+				gx_system_timer_stop(window, SCAN_TIMER_ID);
+				gx_system_timer_start(window, SCAN_TIMER_ID, 180, 0);	// re-arm timer
+				g_ScanState = 1;
+			}
+			else
+			{
+				gx_system_timer_start(window, SCAN_TIMER_ID, 120, 0);	// re-arm timer
+			} // end switch (g_ScanState)
 		}
-		else
-		{
-			gx_system_timer_start(window, SCAN_TIMER_ID, 120, 0);	// re-arm timer
-		} // end switch (g_ScanState)
 		break;
 	}
 

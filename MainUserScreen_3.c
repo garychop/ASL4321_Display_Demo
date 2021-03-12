@@ -86,10 +86,6 @@ UINT MainUserScreen_3_EventFunction (GX_WINDOW *window, GX_EVENT *event_ptr)
 		}
 		break;
 
-	case GX_SIGNAL (SCAN_BTN_ID, GX_EVENT_CLICKED):
-		NextScan(TRUE);
-		break;
-
 	case GX_SIGNAL (MODE_PORT_BTN_ID, GX_EVENT_CLICKED):
 		switch (g_ScanState)
 		{

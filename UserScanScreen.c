@@ -195,6 +195,7 @@ VOID ShowPadAndAdvance(BOOL advance)
 UINT UserScanScreen_EventFunction (GX_WINDOW *window, GX_EVENT *event_ptr)
 {
 	UINT myErr;
+	USHORT activeSubitem;
 
 	switch (event_ptr->gx_event_type)
 	{
@@ -251,9 +252,11 @@ UINT UserScanScreen_EventFunction (GX_WINDOW *window, GX_EVENT *event_ptr)
 					DisplayScanScreenActiveFeatures();
 					break;
 				case AUDIBLE_OUT_FEATURE_ID:
-					++g_ActiveSpeakerGroup;
-					if (g_ActiveSpeakerGroup > 3)
-						g_ActiveSpeakerGroup = 0;
+					activeSubitem = dd_GetSubItem_USHORT (0, DD_ACTIVE_FEATURE_SUBITEM, (USHORT) AUDIBLE_OUT_FEATURE_ID);		// Get the active feature
+					++activeSubitem;
+					if (activeSubitem > 3)
+						activeSubitem = 0;
+					dd_SetSubItem_USHORT (0, DD_ACTIVE_FEATURE_SUBITEM, (USHORT) AUDIBLE_OUT_FEATURE_ID, activeSubitem);		// save the active feature.
 					DisplayScanScreenActiveFeatures();
 					break;
 				case SEATING_FEATURE_ID:

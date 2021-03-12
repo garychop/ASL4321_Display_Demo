@@ -8,8 +8,10 @@
 //*****************************************************************************
 
 #include "ASL4321_System.h"
+#include "asl4321_display_demo_resources.h"
 #include "DataDictionary.h"
 #include "PadInfo.h"
+#include "custom_checkbox.h"
 
 typedef enum PAD_OPTIONS_MENU_POSITION_E
 {
@@ -34,11 +36,6 @@ CUSTOM_MENU_BUTTON g_PadOptions_MenuItems[END_OF_PAD_OPTIONS_MENU_POS + 1];
 //*************************************************************************************
 VOID DrawOptionsScreen (GX_WINDOW *window);
 VOID DeleteOptionsList (GX_WINDOW *window);
-
-//*************************************************************************************
-// InitializePadInformation
-//*************************************************************************************
-
 
 //*************************************************************************************
 //

@@ -10,6 +10,8 @@
 #include "ASL4321_System.h"
 #include "custom_checkbox.h"
 #include "DataDictionary.h"
+#include "asl4321_display_demo_resources.h"
+#include "FeatureHandling.h"
 
 CUSTOM_CHECKBOX_INFO checkbox_info =
 {
@@ -105,27 +107,33 @@ VOID UpdateFeatureSettings (VOID)
 	int featureIndex;
 	USHORT group;
 	int groupFeatureIndex;
+	USHORT featureAttribute;
+	USHORT tempFeatureID;
 
 	group = dd_Get_USHORT (0, DD_GROUP);
 
 	// For each feature in the group
 	for (groupFeatureIndex = 0; groupFeatureIndex < MAX_FEATURES; ++groupFeatureIndex)
 	{
-		if (g_GroupInfo[group].m_GroupFeature[groupFeatureIndex].m_Available)
+		featureAttribute = dd_GetSubItem_USHORT (group, DD_GROUP_FEATURE_ATTRIBUTE, groupFeatureIndex);
+		if ((featureAttribute & FEATURE_AVAILABLE) == FEATURE_AVAILABLE)
+		//if (g_GroupInfo[group].m_GroupFeature[groupFeatureIndex].m_Available)
 		{
+			tempFeatureID = dd_GetSubItem_USHORT (group, DD_GROUP_FEATURE_ID, groupFeatureIndex);
 			// Now locate the correct widget storage structure for this Feature. Search via Feature ID
 			for (featureIndex = 0; featureIndex < MAX_FEATURES; ++featureIndex)
 			{
-				if (g_Feature_GUI[featureIndex].m_FeatureID == g_GroupInfo[group].m_GroupFeature[groupFeatureIndex].m_FeatureID)
+				if (g_Feature_GUI[featureIndex].m_FeatureID == tempFeatureID)
 				{
 					if (g_Feature_GUI[featureIndex].m_Checkbox.gx_widget_style & GX_STYLE_BUTTON_PUSHED)
 					{
-						g_GroupInfo[group].m_GroupFeature[groupFeatureIndex].m_Enabled = TRUE;
+						featureAttribute |= FEATURE_ENABLED;
 					}
 					else
 					{
-						g_GroupInfo[group].m_GroupFeature[groupFeatureIndex].m_Enabled = FALSE;
+						featureAttribute ^= FEATURE_ENABLED;
 					}
+					dd_SetSubItem_USHORT (group, DD_GROUP_FEATURE_ATTRIBUTE, featureIndex, featureAttribute);
 					break;
 				}
 			}
@@ -144,7 +152,7 @@ VOID UpdateFeatureSettings (VOID)
 VOID FeatureList_callback(GX_VERTICAL_LIST *list, GX_WIDGET *widget, INT featureID)
 {
     GX_RECTANGLE childsize;
-    FEATURE_GROUP_STRUCT *feature = (FEATURE_GROUP_STRUCT *)widget;
+    FEATURE_GUI_STRUCT *feature = (FEATURE_GUI_STRUCT *)widget;
     GX_BOOL result;
 	int featureIndex;
 
@@ -169,7 +177,7 @@ VOID FeatureList_callback(GX_VERTICAL_LIST *list, GX_WIDGET *widget, INT feature
 			childsize.gx_rectangle_top = (52-27)/2;
 			childsize.gx_rectangle_right = childsize.gx_rectangle_left + 58;	// "58" is width of background pic
 			childsize.gx_rectangle_bottom = 47;
-			custom_checkbox_create(&g_Feature_GUI[featureIndex].m_Checkbox, &g_Feature_GUI[featureIndex].m_ItemWidget, &checkbox_info, &childsize, feature->m_Enabled);
+			custom_checkbox_create(&g_Feature_GUI[featureIndex].m_Checkbox, &g_Feature_GUI[featureIndex].m_ItemWidget, &checkbox_info, &childsize, TRUE);
 
 			gx_utility_rectangle_define(&childsize, 0, 0, g_Feature_GUI[featureIndex].m_ItemWidget.gx_widget_size.gx_rectangle_right - 58, 52);
 			gx_prompt_create(&g_Feature_GUI[featureIndex].m_PromptWidget, NULL, &g_Feature_GUI[featureIndex].m_ItemWidget, 0, GX_STYLE_TEXT_RIGHT | GX_STYLE_TRANSPARENT | GX_STYLE_BORDER_NONE | GX_STYLE_ENABLED, 0, &childsize);
@@ -190,18 +198,22 @@ VOID FeatureList_callback(GX_VERTICAL_LIST *list, GX_WIDGET *widget, INT feature
 
 void CreateFeatureWidgets (GX_VERTICAL_LIST *list)
 {
- 	int index;
-	USHORT group;
+ 	int featureIndex;
+	USHORT group, featureAttribute;
 	int activeFeatureCount;
+	USHORT tempFeatureID;
 
 	group = dd_Get_USHORT (0, DD_GROUP);
 
+	featureIndex = 0;
 	activeFeatureCount = 0;
-	for (index = 0; index < MAX_FEATURES; ++index)
+	for (featureIndex = 0; featureIndex < MAX_FEATURES; ++featureIndex)
 	{
-		if (g_GroupInfo[group].m_GroupFeature[index].m_Available == TRUE)
+		featureAttribute = dd_GetSubItem_USHORT (group, DD_GROUP_FEATURE_ATTRIBUTE, featureIndex);
+		if (featureAttribute & FEATURE_AVAILABLE)
 		{
-			FeatureList_callback (list, (GX_WIDGET*) &g_GroupInfo[group].m_GroupFeature[index], g_GroupInfo[group].m_GroupFeature[index].m_FeatureID);
+			tempFeatureID = dd_GetSubItem_USHORT (group, DD_GROUP_FEATURE_ID, featureIndex);
+			FeatureList_callback (list, (GX_WIDGET*) &g_Feature_GUI[featureIndex], tempFeatureID);
 			++activeFeatureCount;
 		}
  	}

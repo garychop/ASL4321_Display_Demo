@@ -39,7 +39,7 @@ UINT ShowHidePad (GX_EVENT *event_ptr);
 
 UINT DiagnosticScreen_event_handler(GX_WINDOW *window, GX_EVENT *event_ptr)
 {
-	UINT myError;
+//	UINT myError;
 	int pads;
 
     switch (event_ptr->gx_event_type)
@@ -84,7 +84,7 @@ int gFound = 0;
 UINT ShowHidePad (GX_EVENT *event_ptr)
 {
 	UINT myError = GX_SUCCESS;
-	int pad;
+//	int pad;
 //	GX_WIDGET *myWidget;
 	GX_VALUE xPos, yPos;
 

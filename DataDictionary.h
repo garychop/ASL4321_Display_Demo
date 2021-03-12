@@ -13,7 +13,16 @@ typedef enum DATA_DICTIONARY_IDS_ENUM {
 	DD_DEVICE_TYPE,
 	DD_RNET_ENABLE,
 	DD_ACTIVE_FEATURE,
+	DD_ACTIVE_FEATURE_SUBITEM,
+	DD_ACTIVE_SPEAKER_SUBITEM_FORWARD,
+	DD_ACTIVE_SPEAKER_SUBITEM_REVERSE,
+	DD_ACTIVE_SPEAKER_SUBITEM_LEFT,
+	DD_ACTIVE_SPEAKER_SUBITEM_RIGHT,
 	DD_SCAN_MODE,
+	DD_GROUP_FEATURE_ID,		// Requires subscript parameter
+	DD_GROUP_FEATURE_ATTRIBUTE,	// Requires subscript parameter
+	DD_PAD_MINIMUM_DRIVE_SPEED,	// Requires subscript parameter
+	DD_PAD_DIRECTION			// Requires subscript parameter
 } DD_ITEM_ID;
 
 //*****************************************************************************
@@ -22,5 +31,7 @@ typedef enum DATA_DICTIONARY_IDS_ENUM {
 
 USHORT dd_Get_USHORT (USHORT, DD_ITEM_ID);
 VOID dd_Set_USHORT (USHORT, DD_ITEM_ID, USHORT value);
+USHORT dd_GetSubItem_USHORT (USHORT group, DD_ITEM_ID item_ID, USHORT subItem);
+VOID dd_SetSubItem_USHORT (USHORT group, DD_ITEM_ID item_ID, USHORT subItem, USHORT value);
 
 

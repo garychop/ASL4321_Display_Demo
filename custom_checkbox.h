@@ -9,7 +9,6 @@
 // with GUIX.
 //
 //*****************************************************************************
-/* This is a small demo of the high-performance GUIX graphics framework. */
 
 #ifndef CUSTOM_CHECKBOX_H
 #define CUSTOM_CHECKBOX_H
@@ -35,6 +34,15 @@ typedef struct CUSTOM_CHECKBOX_INFO_STRUCT{
     INT start_offset;
     INT end_offset;
 }CUSTOM_CHECKBOX_INFO;
+
+typedef struct CUSTOM_MENU_BUTTON_STRUCT{
+    GX_WIDGET m_MenuWidget;
+	GX_PROMPT m_PromptWidget;
+	GX_TEXT_BUTTON m_ButtonWidget;
+	USHORT m_ButtonID;
+	GX_RESOURCE_ID m_TextID;
+	USHORT m_Enabled;
+} CUSTOM_MENU_BUTTON;
 
 VOID custom_checkbox_create(CUSTOM_CHECKBOX *button, GX_WIDGET *parent, CUSTOM_CHECKBOX_INFO *info, GX_RECTANGLE *size, int enabled);
 
