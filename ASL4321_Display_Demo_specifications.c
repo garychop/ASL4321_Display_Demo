@@ -6,7 +6,7 @@
 /*  www.expresslogic.com.                                                      */
 /*                                                                             */
 /*  GUIX Studio Revision 5.4.2.9                                               */
-/*  Date (dd.mm.yyyy): 12. 3.2021   Time (hh:mm): 14:51                        */
+/*  Date (dd.mm.yyyy): 22. 3.2021   Time (hh:mm): 11:00                        */
 /*******************************************************************************/
 
 
@@ -16,6 +16,8 @@
 #include "ASL4321_Display_Demo_specifications.h"
 
 static GX_WIDGET *gx_studio_nested_widget_create(GX_BYTE *control, GX_CONST GX_STUDIO_WIDGET *definition, GX_WIDGET *parent);
+KEYBOARDSCREEN_CONTROL_BLOCK KeyboardScreen;
+EDITSOUNDSCREEN_CONTROL_BLOCK EditSoundScreen;
 USERSCANSCREEN_CONTROL_BLOCK UserScanScreen;
 PADADVANCEDSCREEN_CONTROL_BLOCK PadAdvancedScreen;
 TECLA_E_SCREEN_CONTROL_BLOCK Tecla_E_Screen;
@@ -276,6 +278,34 @@ UINT gx_studio_vertical_list_create(GX_CONST GX_STUDIO_WIDGET *info, GX_WIDGET *
         if (props->wallpaper_id)
         {
             gx_window_wallpaper_set((GX_WINDOW *) list, props->wallpaper_id, info->style & GX_STYLE_TILE_WALLPAPER);
+        }
+    }
+    return status;
+}
+
+UINT gx_studio_text_input_create(GX_CONST GX_STUDIO_WIDGET *info, GX_WIDGET *control_block, GX_WIDGET *parent)
+{
+    UINT status;
+    GX_CONST GX_CHAR *text;
+    GX_SINGLE_LINE_TEXT_INPUT *input = (GX_SINGLE_LINE_TEXT_INPUT *) control_block;
+    GX_PROMPT *prompt = (GX_PROMPT *) input;
+    GX_SINGLE_LINE_TEXT_INPUT_PROPERTIES *props = (GX_SINGLE_LINE_TEXT_INPUT_PROPERTIES *) info->properties;
+    status = gx_single_line_text_input_create(input, info->widget_name, parent, props->buffer, props->buffer_size, info->style, info->widget_id, &info->size);
+    if (status == GX_SUCCESS)
+    {
+        gx_prompt_font_set(prompt, props->font_id);
+        gx_single_line_text_input_text_color_set(input, props->normal_text_color_id, props->selected_text_color_id,
+                                                 props->disabled_text_color_id, props->readonly_text_color_id);
+        gx_single_line_text_input_fill_color_set(input, input->gx_widget_normal_fill_color, input->gx_widget_selected_fill_color,
+                                                 input->gx_widget_disabled_fill_color, props->readonly_fill_color_id);
+        if (props->buffer && props->buffer_size > 0 && props->string_id)
+        {
+             gx_system_string_get(props->string_id, &text);
+
+             if (text)
+             {
+                 gx_single_line_text_input_text_set(input, text);
+             }
         }
     }
     return status;
@@ -726,6 +756,1853 @@ GX_CONST GX_STUDIO_WIDGET PrimaryTemplate_define =
     &PrimaryTemplate_UserWindow_define,      /* child widget                   */
     0,                                       /* control block                  */
     (void *) &PrimaryTemplate_properties     /* extended properties            */
+};
+GX_TEMPLATE_PROPERTIES KeyboardScreen_properties =
+{
+    &PrimaryTemplate_define,                 /* base info                      */
+    gx_studio_window_create,                 /* base create function           */
+    {0, 0, 479, 499}                         /* widget size                    */
+};
+GX_WINDOW_PROPERTIES KeyboardScreen_KeyboardScreenBackdrop_properties =
+{
+    GX_PIXELMAP_ID_BACKGROUND_480X272        /* wallpaper pixelmap id          */
+};
+GX_TEXT_BUTTON_PROPERTIES KeyboardScreen_OK_Button_properties =
+{
+    GX_STRING_ID_STRING_24,                  /* string id                      */
+    GX_FONT_ID_ASC24PT,                      /* font id                        */
+    GX_COLOR_ID_BTN_TEXT,                    /* normal text color              */
+    GX_COLOR_ID_BTN_TEXT,                    /* selected text color            */
+    GX_COLOR_ID_DISABLED_TEXT                /* disabled text color            */
+};
+GX_CHAR KeyboardScreen_Keyboard_InputField_buffer[100];
+GX_SINGLE_LINE_TEXT_INPUT_PROPERTIES KeyboardScreen_Keyboard_InputField_properties =
+{
+    GX_STRING_ID_STRING_172,                 /* string id                      */
+    GX_FONT_ID_LARGESIZE,                    /* font id                        */
+    GX_COLOR_ID_BLACK,                       /* normal text color              */
+    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
+    GX_COLOR_ID_DISABLED_TEXT,               /* disabled text color            */
+    GX_COLOR_ID_READONLY_FILL,               /* readonly fill color            */
+    GX_COLOR_ID_READONLY_TEXT,               /* readonly text color            */
+    KeyboardScreen_Keyboard_InputField_buffer, /* buffer                       */
+    100,                                     /* buffer size                    */
+};
+GX_PIXELMAP_BUTTON_PROPERTIES KeyboardScreen_backspace_button_properties =
+{
+    GX_PIXELMAP_ID_B_BACKSPACE_1,            /* normal pixelmap id             */
+    GX_PIXELMAP_ID_B_BACKSPACE_H_1,          /* selected pixelmap id           */
+    0                                        /* disabled pixelmap id           */
+};
+GX_PIXELMAP_PROMPT_PROPERTIES KeyboardScreen_Key_Q_properties =
+{
+    GX_STRING_ID_STRING_137,                 /* string id                      */
+    GX_FONT_ID_LARGESIZE,                    /* font id                        */
+    GX_COLOR_ID_WHITE,                       /* normal text color              */
+    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
+    GX_COLOR_ID_DISABLED_TEXT,               /* disabled text color            */
+    GX_PIXELMAP_ID_KEY_46X46,                /* left pixelmap id               */
+    0,                                       /* fill pixelmap id               */
+    0,                                       /* right pixelmap id              */
+    0,                                       /* selected left pixelmap id      */
+    0,                                       /* selected fill pixelmap id      */
+    0                                        /* selected right pixelmap id     */
+};
+GX_PIXELMAP_PROMPT_PROPERTIES KeyboardScreen_Key_E_properties =
+{
+    GX_STRING_ID_STRING_139,                 /* string id                      */
+    GX_FONT_ID_LARGESIZE,                    /* font id                        */
+    GX_COLOR_ID_WHITE,                       /* normal text color              */
+    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
+    GX_COLOR_ID_DISABLED_TEXT,               /* disabled text color            */
+    GX_PIXELMAP_ID_KEY_46X46,                /* left pixelmap id               */
+    0,                                       /* fill pixelmap id               */
+    0,                                       /* right pixelmap id              */
+    0,                                       /* selected left pixelmap id      */
+    0,                                       /* selected fill pixelmap id      */
+    0                                        /* selected right pixelmap id     */
+};
+GX_PIXELMAP_PROMPT_PROPERTIES KeyboardScreen_Key_R_properties =
+{
+    GX_STRING_ID_STRING_140,                 /* string id                      */
+    GX_FONT_ID_LARGESIZE,                    /* font id                        */
+    GX_COLOR_ID_WHITE,                       /* normal text color              */
+    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
+    GX_COLOR_ID_DISABLED_TEXT,               /* disabled text color            */
+    GX_PIXELMAP_ID_KEY_46X46,                /* left pixelmap id               */
+    0,                                       /* fill pixelmap id               */
+    0,                                       /* right pixelmap id              */
+    0,                                       /* selected left pixelmap id      */
+    0,                                       /* selected fill pixelmap id      */
+    0                                        /* selected right pixelmap id     */
+};
+GX_PIXELMAP_PROMPT_PROPERTIES KeyboardScreen_Key_W_properties =
+{
+    GX_STRING_ID_STRING_138,                 /* string id                      */
+    GX_FONT_ID_LARGESIZE,                    /* font id                        */
+    GX_COLOR_ID_WHITE,                       /* normal text color              */
+    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
+    GX_COLOR_ID_DISABLED_TEXT,               /* disabled text color            */
+    GX_PIXELMAP_ID_KEY_46X46,                /* left pixelmap id               */
+    0,                                       /* fill pixelmap id               */
+    0,                                       /* right pixelmap id              */
+    0,                                       /* selected left pixelmap id      */
+    0,                                       /* selected fill pixelmap id      */
+    0                                        /* selected right pixelmap id     */
+};
+GX_PIXELMAP_PROMPT_PROPERTIES KeyboardScreen_Key_T_properties =
+{
+    GX_STRING_ID_STRING_141,                 /* string id                      */
+    GX_FONT_ID_LARGESIZE,                    /* font id                        */
+    GX_COLOR_ID_WHITE,                       /* normal text color              */
+    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
+    GX_COLOR_ID_DISABLED_TEXT,               /* disabled text color            */
+    GX_PIXELMAP_ID_KEY_46X46,                /* left pixelmap id               */
+    0,                                       /* fill pixelmap id               */
+    0,                                       /* right pixelmap id              */
+    0,                                       /* selected left pixelmap id      */
+    0,                                       /* selected fill pixelmap id      */
+    0                                        /* selected right pixelmap id     */
+};
+GX_PIXELMAP_PROMPT_PROPERTIES KeyboardScreen_Key_6_properties =
+{
+    GX_STRING_ID_STRING_147,                 /* string id                      */
+    GX_FONT_ID_LARGESIZE,                    /* font id                        */
+    GX_COLOR_ID_WHITE,                       /* normal text color              */
+    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
+    GX_COLOR_ID_DISABLED_TEXT,               /* disabled text color            */
+    GX_PIXELMAP_ID_KEY_46X46,                /* left pixelmap id               */
+    0,                                       /* fill pixelmap id               */
+    0,                                       /* right pixelmap id              */
+    0,                                       /* selected left pixelmap id      */
+    0,                                       /* selected fill pixelmap id      */
+    0                                        /* selected right pixelmap id     */
+};
+GX_PIXELMAP_PROMPT_PROPERTIES KeyboardScreen_Key_7_properties =
+{
+    GX_STRING_ID_STRING_148,                 /* string id                      */
+    GX_FONT_ID_LARGESIZE,                    /* font id                        */
+    GX_COLOR_ID_WHITE,                       /* normal text color              */
+    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
+    GX_COLOR_ID_DISABLED_TEXT,               /* disabled text color            */
+    GX_PIXELMAP_ID_KEY_46X46,                /* left pixelmap id               */
+    0,                                       /* fill pixelmap id               */
+    0,                                       /* right pixelmap id              */
+    0,                                       /* selected left pixelmap id      */
+    0,                                       /* selected fill pixelmap id      */
+    0                                        /* selected right pixelmap id     */
+};
+GX_PIXELMAP_PROMPT_PROPERTIES KeyboardScreen_Key_Y_1_properties =
+{
+    GX_STRING_ID_STRING_142,                 /* string id                      */
+    GX_FONT_ID_LARGESIZE,                    /* font id                        */
+    GX_COLOR_ID_WHITE,                       /* normal text color              */
+    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
+    GX_COLOR_ID_DISABLED_TEXT,               /* disabled text color            */
+    GX_PIXELMAP_ID_KEY_46X46,                /* left pixelmap id               */
+    0,                                       /* fill pixelmap id               */
+    0,                                       /* right pixelmap id              */
+    0,                                       /* selected left pixelmap id      */
+    0,                                       /* selected fill pixelmap id      */
+    0                                        /* selected right pixelmap id     */
+};
+GX_PIXELMAP_PROMPT_PROPERTIES KeyboardScreen_Key_U_properties =
+{
+    GX_STRING_ID_STRING_143,                 /* string id                      */
+    GX_FONT_ID_LARGESIZE,                    /* font id                        */
+    GX_COLOR_ID_WHITE,                       /* normal text color              */
+    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
+    GX_COLOR_ID_DISABLED_TEXT,               /* disabled text color            */
+    GX_PIXELMAP_ID_KEY_46X46,                /* left pixelmap id               */
+    0,                                       /* fill pixelmap id               */
+    0,                                       /* right pixelmap id              */
+    0,                                       /* selected left pixelmap id      */
+    0,                                       /* selected fill pixelmap id      */
+    0                                        /* selected right pixelmap id     */
+};
+GX_PIXELMAP_PROMPT_PROPERTIES KeyboardScreen_Key_1_properties =
+{
+    GX_STRING_ID_STRING_144,                 /* string id                      */
+    GX_FONT_ID_LARGESIZE,                    /* font id                        */
+    GX_COLOR_ID_WHITE,                       /* normal text color              */
+    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
+    GX_COLOR_ID_DISABLED_TEXT,               /* disabled text color            */
+    GX_PIXELMAP_ID_KEY_46X46,                /* left pixelmap id               */
+    0,                                       /* fill pixelmap id               */
+    0,                                       /* right pixelmap id              */
+    0,                                       /* selected left pixelmap id      */
+    0,                                       /* selected fill pixelmap id      */
+    0                                        /* selected right pixelmap id     */
+};
+GX_PIXELMAP_PROMPT_PROPERTIES KeyboardScreen_Key_2_properties =
+{
+    GX_STRING_ID_STRING_90,                  /* string id                      */
+    GX_FONT_ID_LARGESIZE,                    /* font id                        */
+    GX_COLOR_ID_WHITE,                       /* normal text color              */
+    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
+    GX_COLOR_ID_DISABLED_TEXT,               /* disabled text color            */
+    GX_PIXELMAP_ID_KEY_46X46,                /* left pixelmap id               */
+    0,                                       /* fill pixelmap id               */
+    0,                                       /* right pixelmap id              */
+    0,                                       /* selected left pixelmap id      */
+    0,                                       /* selected fill pixelmap id      */
+    0                                        /* selected right pixelmap id     */
+};
+GX_PIXELMAP_PROMPT_PROPERTIES KeyboardScreen_Key_3_properties =
+{
+    GX_STRING_ID_STRING_145,                 /* string id                      */
+    GX_FONT_ID_LARGESIZE,                    /* font id                        */
+    GX_COLOR_ID_WHITE,                       /* normal text color              */
+    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
+    GX_COLOR_ID_DISABLED_TEXT,               /* disabled text color            */
+    GX_PIXELMAP_ID_KEY_46X46,                /* left pixelmap id               */
+    0,                                       /* fill pixelmap id               */
+    0,                                       /* right pixelmap id              */
+    0,                                       /* selected left pixelmap id      */
+    0,                                       /* selected fill pixelmap id      */
+    0                                        /* selected right pixelmap id     */
+};
+GX_PIXELMAP_PROMPT_PROPERTIES KeyboardScreen_Key_4_properties =
+{
+    GX_STRING_ID_STRING_146,                 /* string id                      */
+    GX_FONT_ID_LARGESIZE,                    /* font id                        */
+    GX_COLOR_ID_WHITE,                       /* normal text color              */
+    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
+    GX_COLOR_ID_DISABLED_TEXT,               /* disabled text color            */
+    GX_PIXELMAP_ID_KEY_46X46,                /* left pixelmap id               */
+    0,                                       /* fill pixelmap id               */
+    0,                                       /* right pixelmap id              */
+    0,                                       /* selected left pixelmap id      */
+    0,                                       /* selected fill pixelmap id      */
+    0                                        /* selected right pixelmap id     */
+};
+GX_PIXELMAP_PROMPT_PROPERTIES KeyboardScreen_Key_5_properties =
+{
+    GX_STRING_ID_STRING_91,                  /* string id                      */
+    GX_FONT_ID_LARGESIZE,                    /* font id                        */
+    GX_COLOR_ID_WHITE,                       /* normal text color              */
+    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
+    GX_COLOR_ID_DISABLED_TEXT,               /* disabled text color            */
+    GX_PIXELMAP_ID_KEY_46X46,                /* left pixelmap id               */
+    0,                                       /* fill pixelmap id               */
+    0,                                       /* right pixelmap id              */
+    0,                                       /* selected left pixelmap id      */
+    0,                                       /* selected fill pixelmap id      */
+    0                                        /* selected right pixelmap id     */
+};
+GX_PIXELMAP_PROMPT_PROPERTIES KeyboardScreen_Key_8_properties =
+{
+    GX_STRING_ID_STRING_149,                 /* string id                      */
+    GX_FONT_ID_LARGESIZE,                    /* font id                        */
+    GX_COLOR_ID_WHITE,                       /* normal text color              */
+    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
+    GX_COLOR_ID_DISABLED_TEXT,               /* disabled text color            */
+    GX_PIXELMAP_ID_KEY_46X46,                /* left pixelmap id               */
+    0,                                       /* fill pixelmap id               */
+    0,                                       /* right pixelmap id              */
+    0,                                       /* selected left pixelmap id      */
+    0,                                       /* selected fill pixelmap id      */
+    0                                        /* selected right pixelmap id     */
+};
+GX_PIXELMAP_PROMPT_PROPERTIES KeyboardScreen_Key_9_properties =
+{
+    GX_STRING_ID_STRING_150,                 /* string id                      */
+    GX_FONT_ID_LARGESIZE,                    /* font id                        */
+    GX_COLOR_ID_WHITE,                       /* normal text color              */
+    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
+    GX_COLOR_ID_DISABLED_TEXT,               /* disabled text color            */
+    GX_PIXELMAP_ID_KEY_46X46,                /* left pixelmap id               */
+    0,                                       /* fill pixelmap id               */
+    0,                                       /* right pixelmap id              */
+    0,                                       /* selected left pixelmap id      */
+    0,                                       /* selected fill pixelmap id      */
+    0                                        /* selected right pixelmap id     */
+};
+GX_PIXELMAP_PROMPT_PROPERTIES KeyboardScreen_Key_0_properties =
+{
+    GX_STRING_ID_STRING_151,                 /* string id                      */
+    GX_FONT_ID_LARGESIZE,                    /* font id                        */
+    GX_COLOR_ID_WHITE,                       /* normal text color              */
+    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
+    GX_COLOR_ID_DISABLED_TEXT,               /* disabled text color            */
+    GX_PIXELMAP_ID_KEY_46X46,                /* left pixelmap id               */
+    0,                                       /* fill pixelmap id               */
+    0,                                       /* right pixelmap id              */
+    0,                                       /* selected left pixelmap id      */
+    0,                                       /* selected fill pixelmap id      */
+    0                                        /* selected right pixelmap id     */
+};
+GX_PIXELMAP_PROMPT_PROPERTIES KeyboardScreen_Key_I_properties =
+{
+    GX_STRING_ID_STRING_152,                 /* string id                      */
+    GX_FONT_ID_LARGESIZE,                    /* font id                        */
+    GX_COLOR_ID_WHITE,                       /* normal text color              */
+    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
+    GX_COLOR_ID_DISABLED_TEXT,               /* disabled text color            */
+    GX_PIXELMAP_ID_KEY_46X46,                /* left pixelmap id               */
+    0,                                       /* fill pixelmap id               */
+    0,                                       /* right pixelmap id              */
+    0,                                       /* selected left pixelmap id      */
+    0,                                       /* selected fill pixelmap id      */
+    0                                        /* selected right pixelmap id     */
+};
+GX_PIXELMAP_PROMPT_PROPERTIES KeyboardScreen_Key_O_properties =
+{
+    GX_STRING_ID_STRING_153,                 /* string id                      */
+    GX_FONT_ID_LARGESIZE,                    /* font id                        */
+    GX_COLOR_ID_WHITE,                       /* normal text color              */
+    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
+    GX_COLOR_ID_DISABLED_TEXT,               /* disabled text color            */
+    GX_PIXELMAP_ID_KEY_46X46,                /* left pixelmap id               */
+    0,                                       /* fill pixelmap id               */
+    0,                                       /* right pixelmap id              */
+    0,                                       /* selected left pixelmap id      */
+    0,                                       /* selected fill pixelmap id      */
+    0                                        /* selected right pixelmap id     */
+};
+GX_PIXELMAP_PROMPT_PROPERTIES KeyboardScreen_Key_P_properties =
+{
+    GX_STRING_ID_STRING_154,                 /* string id                      */
+    GX_FONT_ID_LARGESIZE,                    /* font id                        */
+    GX_COLOR_ID_WHITE,                       /* normal text color              */
+    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
+    GX_COLOR_ID_DISABLED_TEXT,               /* disabled text color            */
+    GX_PIXELMAP_ID_KEY_46X46,                /* left pixelmap id               */
+    0,                                       /* fill pixelmap id               */
+    0,                                       /* right pixelmap id              */
+    0,                                       /* selected left pixelmap id      */
+    0,                                       /* selected fill pixelmap id      */
+    0                                        /* selected right pixelmap id     */
+};
+GX_PIXELMAP_PROMPT_PROPERTIES KeyboardScreen_Key_A_properties =
+{
+    GX_STRING_ID_STRING_135,                 /* string id                      */
+    GX_FONT_ID_LARGESIZE,                    /* font id                        */
+    GX_COLOR_ID_WHITE,                       /* normal text color              */
+    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
+    GX_COLOR_ID_DISABLED_TEXT,               /* disabled text color            */
+    GX_PIXELMAP_ID_KEY_46X46,                /* left pixelmap id               */
+    0,                                       /* fill pixelmap id               */
+    0,                                       /* right pixelmap id              */
+    0,                                       /* selected left pixelmap id      */
+    0,                                       /* selected fill pixelmap id      */
+    0                                        /* selected right pixelmap id     */
+};
+GX_PIXELMAP_PROMPT_PROPERTIES KeyboardScreen_Key_S_properties =
+{
+    GX_STRING_ID_STRING_155,                 /* string id                      */
+    GX_FONT_ID_LARGESIZE,                    /* font id                        */
+    GX_COLOR_ID_WHITE,                       /* normal text color              */
+    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
+    GX_COLOR_ID_DISABLED_TEXT,               /* disabled text color            */
+    GX_PIXELMAP_ID_KEY_46X46,                /* left pixelmap id               */
+    0,                                       /* fill pixelmap id               */
+    0,                                       /* right pixelmap id              */
+    0,                                       /* selected left pixelmap id      */
+    0,                                       /* selected fill pixelmap id      */
+    0                                        /* selected right pixelmap id     */
+};
+GX_PIXELMAP_PROMPT_PROPERTIES KeyboardScreen_Key_D_properties =
+{
+    GX_STRING_ID_STRING_156,                 /* string id                      */
+    GX_FONT_ID_LARGESIZE,                    /* font id                        */
+    GX_COLOR_ID_WHITE,                       /* normal text color              */
+    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
+    GX_COLOR_ID_DISABLED_TEXT,               /* disabled text color            */
+    GX_PIXELMAP_ID_KEY_46X46,                /* left pixelmap id               */
+    0,                                       /* fill pixelmap id               */
+    0,                                       /* right pixelmap id              */
+    0,                                       /* selected left pixelmap id      */
+    0,                                       /* selected fill pixelmap id      */
+    0                                        /* selected right pixelmap id     */
+};
+GX_PIXELMAP_PROMPT_PROPERTIES KeyboardScreen_Key_F_properties =
+{
+    GX_STRING_ID_STRING_157,                 /* string id                      */
+    GX_FONT_ID_LARGESIZE,                    /* font id                        */
+    GX_COLOR_ID_WHITE,                       /* normal text color              */
+    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
+    GX_COLOR_ID_DISABLED_TEXT,               /* disabled text color            */
+    GX_PIXELMAP_ID_KEY_46X46,                /* left pixelmap id               */
+    0,                                       /* fill pixelmap id               */
+    0,                                       /* right pixelmap id              */
+    0,                                       /* selected left pixelmap id      */
+    0,                                       /* selected fill pixelmap id      */
+    0                                        /* selected right pixelmap id     */
+};
+GX_PIXELMAP_PROMPT_PROPERTIES KeyboardScreen_Key_G_properties =
+{
+    GX_STRING_ID_STRING_158,                 /* string id                      */
+    GX_FONT_ID_LARGESIZE,                    /* font id                        */
+    GX_COLOR_ID_WHITE,                       /* normal text color              */
+    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
+    GX_COLOR_ID_DISABLED_TEXT,               /* disabled text color            */
+    GX_PIXELMAP_ID_KEY_46X46,                /* left pixelmap id               */
+    0,                                       /* fill pixelmap id               */
+    0,                                       /* right pixelmap id              */
+    0,                                       /* selected left pixelmap id      */
+    0,                                       /* selected fill pixelmap id      */
+    0                                        /* selected right pixelmap id     */
+};
+GX_PIXELMAP_PROMPT_PROPERTIES KeyboardScreen_Key_H_properties =
+{
+    GX_STRING_ID_STRING_159,                 /* string id                      */
+    GX_FONT_ID_LARGESIZE,                    /* font id                        */
+    GX_COLOR_ID_WHITE,                       /* normal text color              */
+    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
+    GX_COLOR_ID_DISABLED_TEXT,               /* disabled text color            */
+    GX_PIXELMAP_ID_KEY_46X46,                /* left pixelmap id               */
+    0,                                       /* fill pixelmap id               */
+    0,                                       /* right pixelmap id              */
+    0,                                       /* selected left pixelmap id      */
+    0,                                       /* selected fill pixelmap id      */
+    0                                        /* selected right pixelmap id     */
+};
+GX_PIXELMAP_PROMPT_PROPERTIES KeyboardScreen_Key_J_properties =
+{
+    GX_STRING_ID_STRING_160,                 /* string id                      */
+    GX_FONT_ID_LARGESIZE,                    /* font id                        */
+    GX_COLOR_ID_WHITE,                       /* normal text color              */
+    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
+    GX_COLOR_ID_DISABLED_TEXT,               /* disabled text color            */
+    GX_PIXELMAP_ID_KEY_46X46,                /* left pixelmap id               */
+    0,                                       /* fill pixelmap id               */
+    0,                                       /* right pixelmap id              */
+    0,                                       /* selected left pixelmap id      */
+    0,                                       /* selected fill pixelmap id      */
+    0                                        /* selected right pixelmap id     */
+};
+GX_PIXELMAP_PROMPT_PROPERTIES KeyboardScreen_Key_K_properties =
+{
+    GX_STRING_ID_STRING_161,                 /* string id                      */
+    GX_FONT_ID_LARGESIZE,                    /* font id                        */
+    GX_COLOR_ID_WHITE,                       /* normal text color              */
+    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
+    GX_COLOR_ID_DISABLED_TEXT,               /* disabled text color            */
+    GX_PIXELMAP_ID_KEY_46X46,                /* left pixelmap id               */
+    0,                                       /* fill pixelmap id               */
+    0,                                       /* right pixelmap id              */
+    0,                                       /* selected left pixelmap id      */
+    0,                                       /* selected fill pixelmap id      */
+    0                                        /* selected right pixelmap id     */
+};
+GX_PIXELMAP_PROMPT_PROPERTIES KeyboardScreen_Key_L_properties =
+{
+    GX_STRING_ID_STRING_162,                 /* string id                      */
+    GX_FONT_ID_LARGESIZE,                    /* font id                        */
+    GX_COLOR_ID_WHITE,                       /* normal text color              */
+    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
+    GX_COLOR_ID_DISABLED_TEXT,               /* disabled text color            */
+    GX_PIXELMAP_ID_KEY_46X46,                /* left pixelmap id               */
+    0,                                       /* fill pixelmap id               */
+    0,                                       /* right pixelmap id              */
+    0,                                       /* selected left pixelmap id      */
+    0,                                       /* selected fill pixelmap id      */
+    0                                        /* selected right pixelmap id     */
+};
+GX_PIXELMAP_PROMPT_PROPERTIES KeyboardScreen_Key_Space_properties =
+{
+    GX_STRING_ID_STRING_163,                 /* string id                      */
+    GX_FONT_ID_LARGESIZE,                    /* font id                        */
+    GX_COLOR_ID_WHITE,                       /* normal text color              */
+    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
+    GX_COLOR_ID_DISABLED_TEXT,               /* disabled text color            */
+    GX_PIXELMAP_ID_KEY_46X46,                /* left pixelmap id               */
+    0,                                       /* fill pixelmap id               */
+    0,                                       /* right pixelmap id              */
+    0,                                       /* selected left pixelmap id      */
+    0,                                       /* selected fill pixelmap id      */
+    0                                        /* selected right pixelmap id     */
+};
+GX_PIXELMAP_PROMPT_PROPERTIES KeyboardScreen_Key_Z_properties =
+{
+    GX_STRING_ID_STRING_164,                 /* string id                      */
+    GX_FONT_ID_LARGESIZE,                    /* font id                        */
+    GX_COLOR_ID_WHITE,                       /* normal text color              */
+    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
+    GX_COLOR_ID_DISABLED_TEXT,               /* disabled text color            */
+    GX_PIXELMAP_ID_KEY_46X46,                /* left pixelmap id               */
+    0,                                       /* fill pixelmap id               */
+    0,                                       /* right pixelmap id              */
+    0,                                       /* selected left pixelmap id      */
+    0,                                       /* selected fill pixelmap id      */
+    0                                        /* selected right pixelmap id     */
+};
+GX_PIXELMAP_PROMPT_PROPERTIES KeyboardScreen_Key_X_properties =
+{
+    GX_STRING_ID_STRING_165,                 /* string id                      */
+    GX_FONT_ID_LARGESIZE,                    /* font id                        */
+    GX_COLOR_ID_WHITE,                       /* normal text color              */
+    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
+    GX_COLOR_ID_DISABLED_TEXT,               /* disabled text color            */
+    GX_PIXELMAP_ID_KEY_46X46,                /* left pixelmap id               */
+    0,                                       /* fill pixelmap id               */
+    0,                                       /* right pixelmap id              */
+    0,                                       /* selected left pixelmap id      */
+    0,                                       /* selected fill pixelmap id      */
+    0                                        /* selected right pixelmap id     */
+};
+GX_PIXELMAP_PROMPT_PROPERTIES KeyboardScreen_Key_C_properties =
+{
+    GX_STRING_ID_STRING_166,                 /* string id                      */
+    GX_FONT_ID_LARGESIZE,                    /* font id                        */
+    GX_COLOR_ID_WHITE,                       /* normal text color              */
+    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
+    GX_COLOR_ID_DISABLED_TEXT,               /* disabled text color            */
+    GX_PIXELMAP_ID_KEY_46X46,                /* left pixelmap id               */
+    0,                                       /* fill pixelmap id               */
+    0,                                       /* right pixelmap id              */
+    0,                                       /* selected left pixelmap id      */
+    0,                                       /* selected fill pixelmap id      */
+    0                                        /* selected right pixelmap id     */
+};
+GX_PIXELMAP_PROMPT_PROPERTIES KeyboardScreen_Key_V_properties =
+{
+    GX_STRING_ID_STRING_167,                 /* string id                      */
+    GX_FONT_ID_LARGESIZE,                    /* font id                        */
+    GX_COLOR_ID_WHITE,                       /* normal text color              */
+    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
+    GX_COLOR_ID_DISABLED_TEXT,               /* disabled text color            */
+    GX_PIXELMAP_ID_KEY_46X46,                /* left pixelmap id               */
+    0,                                       /* fill pixelmap id               */
+    0,                                       /* right pixelmap id              */
+    0,                                       /* selected left pixelmap id      */
+    0,                                       /* selected fill pixelmap id      */
+    0                                        /* selected right pixelmap id     */
+};
+GX_PIXELMAP_PROMPT_PROPERTIES KeyboardScreen_Key_B_properties =
+{
+    GX_STRING_ID_STRING_168,                 /* string id                      */
+    GX_FONT_ID_LARGESIZE,                    /* font id                        */
+    GX_COLOR_ID_WHITE,                       /* normal text color              */
+    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
+    GX_COLOR_ID_DISABLED_TEXT,               /* disabled text color            */
+    GX_PIXELMAP_ID_KEY_46X46,                /* left pixelmap id               */
+    0,                                       /* fill pixelmap id               */
+    0,                                       /* right pixelmap id              */
+    0,                                       /* selected left pixelmap id      */
+    0,                                       /* selected fill pixelmap id      */
+    0                                        /* selected right pixelmap id     */
+};
+GX_PIXELMAP_PROMPT_PROPERTIES KeyboardScreen_Key_N_properties =
+{
+    GX_STRING_ID_STRING_169,                 /* string id                      */
+    GX_FONT_ID_LARGESIZE,                    /* font id                        */
+    GX_COLOR_ID_WHITE,                       /* normal text color              */
+    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
+    GX_COLOR_ID_DISABLED_TEXT,               /* disabled text color            */
+    GX_PIXELMAP_ID_KEY_46X46,                /* left pixelmap id               */
+    0,                                       /* fill pixelmap id               */
+    0,                                       /* right pixelmap id              */
+    0,                                       /* selected left pixelmap id      */
+    0,                                       /* selected fill pixelmap id      */
+    0                                        /* selected right pixelmap id     */
+};
+GX_PIXELMAP_PROMPT_PROPERTIES KeyboardScreen_Key_M_properties =
+{
+    GX_STRING_ID_STRING_170,                 /* string id                      */
+    GX_FONT_ID_LARGESIZE,                    /* font id                        */
+    GX_COLOR_ID_WHITE,                       /* normal text color              */
+    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
+    GX_COLOR_ID_DISABLED_TEXT,               /* disabled text color            */
+    GX_PIXELMAP_ID_KEY_46X46,                /* left pixelmap id               */
+    0,                                       /* fill pixelmap id               */
+    0,                                       /* right pixelmap id              */
+    0,                                       /* selected left pixelmap id      */
+    0,                                       /* selected fill pixelmap id      */
+    0                                        /* selected right pixelmap id     */
+};
+
+GX_CONST GX_STUDIO_WIDGET KeyboardScreen_Key_M_define =
+{
+    "Key_M",
+    GX_TYPE_PIXELMAP_PROMPT,                 /* widget type                    */
+    KEY_M_BTN_ID,                            /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_PIXELMAP_PROMPT),              /* control block size             */
+    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_pixelmap_prompt_create,        /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {302, 188, 343, 229},                    /* widget size                    */
+    GX_NULL,                                 /* no next widget                 */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(KEYBOARDSCREEN_CONTROL_BLOCK, KeyboardScreen_Key_M), /* control block */
+    (void *) &KeyboardScreen_Key_M_properties /* extended properties           */
+};
+
+GX_CONST GX_STUDIO_WIDGET KeyboardScreen_Key_N_define =
+{
+    "Key_N",
+    GX_TYPE_PIXELMAP_PROMPT,                 /* widget type                    */
+    KEY_N_BTN_ID,                            /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_PIXELMAP_PROMPT),              /* control block size             */
+    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_pixelmap_prompt_create,        /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {258, 188, 299, 229},                    /* widget size                    */
+    &KeyboardScreen_Key_M_define,            /* next widget definition         */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(KEYBOARDSCREEN_CONTROL_BLOCK, KeyboardScreen_Key_N), /* control block */
+    (void *) &KeyboardScreen_Key_N_properties /* extended properties           */
+};
+
+GX_CONST GX_STUDIO_WIDGET KeyboardScreen_Key_B_define =
+{
+    "Key_B",
+    GX_TYPE_PIXELMAP_PROMPT,                 /* widget type                    */
+    KEY_B_BTN_ID,                            /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_PIXELMAP_PROMPT),              /* control block size             */
+    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_pixelmap_prompt_create,        /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {214, 188, 255, 229},                    /* widget size                    */
+    &KeyboardScreen_Key_N_define,            /* next widget definition         */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(KEYBOARDSCREEN_CONTROL_BLOCK, KeyboardScreen_Key_B), /* control block */
+    (void *) &KeyboardScreen_Key_B_properties /* extended properties           */
+};
+
+GX_CONST GX_STUDIO_WIDGET KeyboardScreen_Key_V_define =
+{
+    "Key_V",
+    GX_TYPE_PIXELMAP_PROMPT,                 /* widget type                    */
+    KEY_V_BTN_ID,                            /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_PIXELMAP_PROMPT),              /* control block size             */
+    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_pixelmap_prompt_create,        /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {170, 188, 211, 229},                    /* widget size                    */
+    &KeyboardScreen_Key_B_define,            /* next widget definition         */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(KEYBOARDSCREEN_CONTROL_BLOCK, KeyboardScreen_Key_V), /* control block */
+    (void *) &KeyboardScreen_Key_V_properties /* extended properties           */
+};
+
+GX_CONST GX_STUDIO_WIDGET KeyboardScreen_Key_C_define =
+{
+    "Key_C",
+    GX_TYPE_PIXELMAP_PROMPT,                 /* widget type                    */
+    KEY_C_BTN_ID,                            /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_PIXELMAP_PROMPT),              /* control block size             */
+    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_pixelmap_prompt_create,        /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {126, 188, 167, 229},                    /* widget size                    */
+    &KeyboardScreen_Key_V_define,            /* next widget definition         */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(KEYBOARDSCREEN_CONTROL_BLOCK, KeyboardScreen_Key_C), /* control block */
+    (void *) &KeyboardScreen_Key_C_properties /* extended properties           */
+};
+
+GX_CONST GX_STUDIO_WIDGET KeyboardScreen_Key_X_define =
+{
+    "Key_X",
+    GX_TYPE_PIXELMAP_PROMPT,                 /* widget type                    */
+    KEY_X_BTN_ID,                            /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_PIXELMAP_PROMPT),              /* control block size             */
+    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_pixelmap_prompt_create,        /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {82, 188, 123, 229},                     /* widget size                    */
+    &KeyboardScreen_Key_C_define,            /* next widget definition         */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(KEYBOARDSCREEN_CONTROL_BLOCK, KeyboardScreen_Key_X), /* control block */
+    (void *) &KeyboardScreen_Key_X_properties /* extended properties           */
+};
+
+GX_CONST GX_STUDIO_WIDGET KeyboardScreen_Key_Z_define =
+{
+    "Key_Z",
+    GX_TYPE_PIXELMAP_PROMPT,                 /* widget type                    */
+    KEY_Z_BTN_ID,                            /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_PIXELMAP_PROMPT),              /* control block size             */
+    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_pixelmap_prompt_create,        /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {38, 188, 79, 229},                      /* widget size                    */
+    &KeyboardScreen_Key_X_define,            /* next widget definition         */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(KEYBOARDSCREEN_CONTROL_BLOCK, KeyboardScreen_Key_Z), /* control block */
+    (void *) &KeyboardScreen_Key_Z_properties /* extended properties           */
+};
+
+GX_CONST GX_STUDIO_WIDGET KeyboardScreen_Key_Space_define =
+{
+    "Key_Space",
+    GX_TYPE_PIXELMAP_PROMPT,                 /* widget type                    */
+    KEY_SPACE_BTN_ID,                        /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_PIXELMAP_PROMPT),              /* control block size             */
+    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_pixelmap_prompt_create,        /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {410, 144, 451, 185},                    /* widget size                    */
+    &KeyboardScreen_Key_Z_define,            /* next widget definition         */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(KEYBOARDSCREEN_CONTROL_BLOCK, KeyboardScreen_Key_Space), /* control block */
+    (void *) &KeyboardScreen_Key_Space_properties /* extended properties       */
+};
+
+GX_CONST GX_STUDIO_WIDGET KeyboardScreen_Key_L_define =
+{
+    "Key_L",
+    GX_TYPE_PIXELMAP_PROMPT,                 /* widget type                    */
+    KEY_L_BTN_ID,                            /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_PIXELMAP_PROMPT),              /* control block size             */
+    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_pixelmap_prompt_create,        /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {366, 144, 407, 185},                    /* widget size                    */
+    &KeyboardScreen_Key_Space_define,        /* next widget definition         */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(KEYBOARDSCREEN_CONTROL_BLOCK, KeyboardScreen_Key_L), /* control block */
+    (void *) &KeyboardScreen_Key_L_properties /* extended properties           */
+};
+
+GX_CONST GX_STUDIO_WIDGET KeyboardScreen_Key_K_define =
+{
+    "Key_K",
+    GX_TYPE_PIXELMAP_PROMPT,                 /* widget type                    */
+    KEY_K_BTN_ID,                            /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_PIXELMAP_PROMPT),              /* control block size             */
+    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_pixelmap_prompt_create,        /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {322, 144, 363, 185},                    /* widget size                    */
+    &KeyboardScreen_Key_L_define,            /* next widget definition         */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(KEYBOARDSCREEN_CONTROL_BLOCK, KeyboardScreen_Key_K), /* control block */
+    (void *) &KeyboardScreen_Key_K_properties /* extended properties           */
+};
+
+GX_CONST GX_STUDIO_WIDGET KeyboardScreen_Key_J_define =
+{
+    "Key_J",
+    GX_TYPE_PIXELMAP_PROMPT,                 /* widget type                    */
+    KEY_J_BTN_ID,                            /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_PIXELMAP_PROMPT),              /* control block size             */
+    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_pixelmap_prompt_create,        /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {278, 144, 319, 185},                    /* widget size                    */
+    &KeyboardScreen_Key_K_define,            /* next widget definition         */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(KEYBOARDSCREEN_CONTROL_BLOCK, KeyboardScreen_Key_J), /* control block */
+    (void *) &KeyboardScreen_Key_J_properties /* extended properties           */
+};
+
+GX_CONST GX_STUDIO_WIDGET KeyboardScreen_Key_H_define =
+{
+    "Key_H",
+    GX_TYPE_PIXELMAP_PROMPT,                 /* widget type                    */
+    KEY_H_BTN_ID,                            /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_PIXELMAP_PROMPT),              /* control block size             */
+    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_pixelmap_prompt_create,        /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {234, 144, 275, 185},                    /* widget size                    */
+    &KeyboardScreen_Key_J_define,            /* next widget definition         */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(KEYBOARDSCREEN_CONTROL_BLOCK, KeyboardScreen_Key_H), /* control block */
+    (void *) &KeyboardScreen_Key_H_properties /* extended properties           */
+};
+
+GX_CONST GX_STUDIO_WIDGET KeyboardScreen_Key_G_define =
+{
+    "Key_G",
+    GX_TYPE_PIXELMAP_PROMPT,                 /* widget type                    */
+    KEY_G_BTN_ID,                            /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_PIXELMAP_PROMPT),              /* control block size             */
+    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_pixelmap_prompt_create,        /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {190, 144, 231, 185},                    /* widget size                    */
+    &KeyboardScreen_Key_H_define,            /* next widget definition         */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(KEYBOARDSCREEN_CONTROL_BLOCK, KeyboardScreen_Key_G), /* control block */
+    (void *) &KeyboardScreen_Key_G_properties /* extended properties           */
+};
+
+GX_CONST GX_STUDIO_WIDGET KeyboardScreen_Key_F_define =
+{
+    "Key_F",
+    GX_TYPE_PIXELMAP_PROMPT,                 /* widget type                    */
+    KEY_F_BTN_ID,                            /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_PIXELMAP_PROMPT),              /* control block size             */
+    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_pixelmap_prompt_create,        /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {146, 144, 187, 185},                    /* widget size                    */
+    &KeyboardScreen_Key_G_define,            /* next widget definition         */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(KEYBOARDSCREEN_CONTROL_BLOCK, KeyboardScreen_Key_F), /* control block */
+    (void *) &KeyboardScreen_Key_F_properties /* extended properties           */
+};
+
+GX_CONST GX_STUDIO_WIDGET KeyboardScreen_Key_D_define =
+{
+    "Key_D",
+    GX_TYPE_PIXELMAP_PROMPT,                 /* widget type                    */
+    KEY_D_BTN_ID,                            /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_PIXELMAP_PROMPT),              /* control block size             */
+    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_pixelmap_prompt_create,        /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {102, 144, 143, 185},                    /* widget size                    */
+    &KeyboardScreen_Key_F_define,            /* next widget definition         */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(KEYBOARDSCREEN_CONTROL_BLOCK, KeyboardScreen_Key_D), /* control block */
+    (void *) &KeyboardScreen_Key_D_properties /* extended properties           */
+};
+
+GX_CONST GX_STUDIO_WIDGET KeyboardScreen_Key_S_define =
+{
+    "Key_S",
+    GX_TYPE_PIXELMAP_PROMPT,                 /* widget type                    */
+    KEY_S_BTN_ID,                            /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_PIXELMAP_PROMPT),              /* control block size             */
+    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_pixelmap_prompt_create,        /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {58, 144, 99, 185},                      /* widget size                    */
+    &KeyboardScreen_Key_D_define,            /* next widget definition         */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(KEYBOARDSCREEN_CONTROL_BLOCK, KeyboardScreen_Key_S), /* control block */
+    (void *) &KeyboardScreen_Key_S_properties /* extended properties           */
+};
+
+GX_CONST GX_STUDIO_WIDGET KeyboardScreen_Key_A_define =
+{
+    "Key_A",
+    GX_TYPE_PIXELMAP_PROMPT,                 /* widget type                    */
+    KEY_A_BTN_ID,                            /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_PIXELMAP_PROMPT),              /* control block size             */
+    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_pixelmap_prompt_create,        /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {14, 144, 55, 185},                      /* widget size                    */
+    &KeyboardScreen_Key_S_define,            /* next widget definition         */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(KEYBOARDSCREEN_CONTROL_BLOCK, KeyboardScreen_Key_A), /* control block */
+    (void *) &KeyboardScreen_Key_A_properties /* extended properties           */
+};
+
+GX_CONST GX_STUDIO_WIDGET KeyboardScreen_Key_P_define =
+{
+    "Key_P",
+    GX_TYPE_PIXELMAP_PROMPT,                 /* widget type                    */
+    KEY_P_BTN_ID,                            /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_PIXELMAP_PROMPT),              /* control block size             */
+    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_pixelmap_prompt_create,        /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {410, 100, 451, 141},                    /* widget size                    */
+    &KeyboardScreen_Key_A_define,            /* next widget definition         */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(KEYBOARDSCREEN_CONTROL_BLOCK, KeyboardScreen_Key_P), /* control block */
+    (void *) &KeyboardScreen_Key_P_properties /* extended properties           */
+};
+
+GX_CONST GX_STUDIO_WIDGET KeyboardScreen_Key_O_define =
+{
+    "Key_O",
+    GX_TYPE_PIXELMAP_PROMPT,                 /* widget type                    */
+    KEY_O_BTN_ID,                            /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_PIXELMAP_PROMPT),              /* control block size             */
+    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_pixelmap_prompt_create,        /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {366, 100, 407, 141},                    /* widget size                    */
+    &KeyboardScreen_Key_P_define,            /* next widget definition         */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(KEYBOARDSCREEN_CONTROL_BLOCK, KeyboardScreen_Key_O), /* control block */
+    (void *) &KeyboardScreen_Key_O_properties /* extended properties           */
+};
+
+GX_CONST GX_STUDIO_WIDGET KeyboardScreen_Key_I_define =
+{
+    "Key_I",
+    GX_TYPE_PIXELMAP_PROMPT,                 /* widget type                    */
+    KEY_I_BTN_ID,                            /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_PIXELMAP_PROMPT),              /* control block size             */
+    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_pixelmap_prompt_create,        /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {322, 100, 363, 141},                    /* widget size                    */
+    &KeyboardScreen_Key_O_define,            /* next widget definition         */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(KEYBOARDSCREEN_CONTROL_BLOCK, KeyboardScreen_Key_I), /* control block */
+    (void *) &KeyboardScreen_Key_I_properties /* extended properties           */
+};
+
+GX_CONST GX_STUDIO_WIDGET KeyboardScreen_Key_0_define =
+{
+    "Key_0",
+    GX_TYPE_PIXELMAP_PROMPT,                 /* widget type                    */
+    KEY_0_BTN_ID,                            /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_PIXELMAP_PROMPT),              /* control block size             */
+    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_pixelmap_prompt_create,        /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {410, 56, 451, 97},                      /* widget size                    */
+    &KeyboardScreen_Key_I_define,            /* next widget definition         */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(KEYBOARDSCREEN_CONTROL_BLOCK, KeyboardScreen_Key_0), /* control block */
+    (void *) &KeyboardScreen_Key_0_properties /* extended properties           */
+};
+
+GX_CONST GX_STUDIO_WIDGET KeyboardScreen_Key_9_define =
+{
+    "Key_9",
+    GX_TYPE_PIXELMAP_PROMPT,                 /* widget type                    */
+    KEY_9_BTN_ID,                            /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_PIXELMAP_PROMPT),              /* control block size             */
+    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_pixelmap_prompt_create,        /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {366, 56, 407, 97},                      /* widget size                    */
+    &KeyboardScreen_Key_0_define,            /* next widget definition         */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(KEYBOARDSCREEN_CONTROL_BLOCK, KeyboardScreen_Key_9), /* control block */
+    (void *) &KeyboardScreen_Key_9_properties /* extended properties           */
+};
+
+GX_CONST GX_STUDIO_WIDGET KeyboardScreen_Key_8_define =
+{
+    "Key_8",
+    GX_TYPE_PIXELMAP_PROMPT,                 /* widget type                    */
+    KEY_8_BTN_ID,                            /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_PIXELMAP_PROMPT),              /* control block size             */
+    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_pixelmap_prompt_create,        /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {322, 56, 363, 97},                      /* widget size                    */
+    &KeyboardScreen_Key_9_define,            /* next widget definition         */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(KEYBOARDSCREEN_CONTROL_BLOCK, KeyboardScreen_Key_8), /* control block */
+    (void *) &KeyboardScreen_Key_8_properties /* extended properties           */
+};
+
+GX_CONST GX_STUDIO_WIDGET KeyboardScreen_Key_5_define =
+{
+    "Key_5",
+    GX_TYPE_PIXELMAP_PROMPT,                 /* widget type                    */
+    KEY_5_BTN_ID,                            /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_PIXELMAP_PROMPT),              /* control block size             */
+    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_pixelmap_prompt_create,        /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {190, 56, 231, 97},                      /* widget size                    */
+    &KeyboardScreen_Key_8_define,            /* next widget definition         */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(KEYBOARDSCREEN_CONTROL_BLOCK, KeyboardScreen_Key_5), /* control block */
+    (void *) &KeyboardScreen_Key_5_properties /* extended properties           */
+};
+
+GX_CONST GX_STUDIO_WIDGET KeyboardScreen_Key_4_define =
+{
+    "Key_4",
+    GX_TYPE_PIXELMAP_PROMPT,                 /* widget type                    */
+    KEY_4_BTN_ID,                            /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_PIXELMAP_PROMPT),              /* control block size             */
+    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_pixelmap_prompt_create,        /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {146, 56, 187, 97},                      /* widget size                    */
+    &KeyboardScreen_Key_5_define,            /* next widget definition         */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(KEYBOARDSCREEN_CONTROL_BLOCK, KeyboardScreen_Key_4), /* control block */
+    (void *) &KeyboardScreen_Key_4_properties /* extended properties           */
+};
+
+GX_CONST GX_STUDIO_WIDGET KeyboardScreen_Key_3_define =
+{
+    "Key_3",
+    GX_TYPE_PIXELMAP_PROMPT,                 /* widget type                    */
+    KEY_3_BTN_ID,                            /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_PIXELMAP_PROMPT),              /* control block size             */
+    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_pixelmap_prompt_create,        /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {102, 56, 143, 97},                      /* widget size                    */
+    &KeyboardScreen_Key_4_define,            /* next widget definition         */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(KEYBOARDSCREEN_CONTROL_BLOCK, KeyboardScreen_Key_3), /* control block */
+    (void *) &KeyboardScreen_Key_3_properties /* extended properties           */
+};
+
+GX_CONST GX_STUDIO_WIDGET KeyboardScreen_Key_2_define =
+{
+    "Key_2",
+    GX_TYPE_PIXELMAP_PROMPT,                 /* widget type                    */
+    KEY_2_BTN_ID,                            /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_PIXELMAP_PROMPT),              /* control block size             */
+    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_pixelmap_prompt_create,        /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {58, 56, 99, 97},                        /* widget size                    */
+    &KeyboardScreen_Key_3_define,            /* next widget definition         */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(KEYBOARDSCREEN_CONTROL_BLOCK, KeyboardScreen_Key_2), /* control block */
+    (void *) &KeyboardScreen_Key_2_properties /* extended properties           */
+};
+
+GX_CONST GX_STUDIO_WIDGET KeyboardScreen_Key_1_define =
+{
+    "Key_1",
+    GX_TYPE_PIXELMAP_PROMPT,                 /* widget type                    */
+    KEY_1_BTN_ID,                            /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_PIXELMAP_PROMPT),              /* control block size             */
+    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_pixelmap_prompt_create,        /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {14, 56, 55, 97},                        /* widget size                    */
+    &KeyboardScreen_Key_2_define,            /* next widget definition         */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(KEYBOARDSCREEN_CONTROL_BLOCK, KeyboardScreen_Key_1), /* control block */
+    (void *) &KeyboardScreen_Key_1_properties /* extended properties           */
+};
+
+GX_CONST GX_STUDIO_WIDGET KeyboardScreen_Key_U_define =
+{
+    "Key_U",
+    GX_TYPE_PIXELMAP_PROMPT,                 /* widget type                    */
+    KEY_U_BTN_ID,                            /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_PIXELMAP_PROMPT),              /* control block size             */
+    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_pixelmap_prompt_create,        /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {278, 100, 319, 141},                    /* widget size                    */
+    &KeyboardScreen_Key_1_define,            /* next widget definition         */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(KEYBOARDSCREEN_CONTROL_BLOCK, KeyboardScreen_Key_U), /* control block */
+    (void *) &KeyboardScreen_Key_U_properties /* extended properties           */
+};
+
+GX_CONST GX_STUDIO_WIDGET KeyboardScreen_Key_Y_1_define =
+{
+    "Key_Y_1",
+    GX_TYPE_PIXELMAP_PROMPT,                 /* widget type                    */
+    KEY_Y_BTN_ID,                            /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_PIXELMAP_PROMPT),              /* control block size             */
+    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_pixelmap_prompt_create,        /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {234, 100, 275, 141},                    /* widget size                    */
+    &KeyboardScreen_Key_U_define,            /* next widget definition         */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(KEYBOARDSCREEN_CONTROL_BLOCK, KeyboardScreen_Key_Y_1), /* control block */
+    (void *) &KeyboardScreen_Key_Y_1_properties /* extended properties         */
+};
+
+GX_CONST GX_STUDIO_WIDGET KeyboardScreen_Key_7_define =
+{
+    "Key_7",
+    GX_TYPE_PIXELMAP_PROMPT,                 /* widget type                    */
+    KEY_7_BTN_ID,                            /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_PIXELMAP_PROMPT),              /* control block size             */
+    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_pixelmap_prompt_create,        /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {278, 56, 319, 97},                      /* widget size                    */
+    &KeyboardScreen_Key_Y_1_define,          /* next widget definition         */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(KEYBOARDSCREEN_CONTROL_BLOCK, KeyboardScreen_Key_7), /* control block */
+    (void *) &KeyboardScreen_Key_7_properties /* extended properties           */
+};
+
+GX_CONST GX_STUDIO_WIDGET KeyboardScreen_Key_6_define =
+{
+    "Key_6",
+    GX_TYPE_PIXELMAP_PROMPT,                 /* widget type                    */
+    KEY_6_BTN_ID,                            /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_PIXELMAP_PROMPT),              /* control block size             */
+    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_pixelmap_prompt_create,        /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {234, 56, 275, 97},                      /* widget size                    */
+    &KeyboardScreen_Key_7_define,            /* next widget definition         */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(KEYBOARDSCREEN_CONTROL_BLOCK, KeyboardScreen_Key_6), /* control block */
+    (void *) &KeyboardScreen_Key_6_properties /* extended properties           */
+};
+
+GX_CONST GX_STUDIO_WIDGET KeyboardScreen_Key_T_define =
+{
+    "Key_T",
+    GX_TYPE_PIXELMAP_PROMPT,                 /* widget type                    */
+    KEY_T_BTN_ID,                            /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_PIXELMAP_PROMPT),              /* control block size             */
+    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_pixelmap_prompt_create,        /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {190, 100, 231, 141},                    /* widget size                    */
+    &KeyboardScreen_Key_6_define,            /* next widget definition         */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(KEYBOARDSCREEN_CONTROL_BLOCK, KeyboardScreen_Key_T), /* control block */
+    (void *) &KeyboardScreen_Key_T_properties /* extended properties           */
+};
+
+GX_CONST GX_STUDIO_WIDGET KeyboardScreen_Key_W_define =
+{
+    "Key_W",
+    GX_TYPE_PIXELMAP_PROMPT,                 /* widget type                    */
+    KEY_W_BTN_ID,                            /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_PIXELMAP_PROMPT),              /* control block size             */
+    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_pixelmap_prompt_create,        /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {58, 100, 99, 141},                      /* widget size                    */
+    &KeyboardScreen_Key_T_define,            /* next widget definition         */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(KEYBOARDSCREEN_CONTROL_BLOCK, KeyboardScreen_Key_W), /* control block */
+    (void *) &KeyboardScreen_Key_W_properties /* extended properties           */
+};
+
+GX_CONST GX_STUDIO_WIDGET KeyboardScreen_Key_R_define =
+{
+    "Key_R",
+    GX_TYPE_PIXELMAP_PROMPT,                 /* widget type                    */
+    KEY_R_BTN_ID,                            /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_PIXELMAP_PROMPT),              /* control block size             */
+    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_pixelmap_prompt_create,        /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {146, 100, 187, 141},                    /* widget size                    */
+    &KeyboardScreen_Key_W_define,            /* next widget definition         */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(KEYBOARDSCREEN_CONTROL_BLOCK, KeyboardScreen_Key_R), /* control block */
+    (void *) &KeyboardScreen_Key_R_properties /* extended properties           */
+};
+
+GX_CONST GX_STUDIO_WIDGET KeyboardScreen_Key_E_define =
+{
+    "Key_E",
+    GX_TYPE_PIXELMAP_PROMPT,                 /* widget type                    */
+    KEY_E_BTN_ID,                            /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_PIXELMAP_PROMPT),              /* control block size             */
+    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_pixelmap_prompt_create,        /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {102, 100, 143, 141},                    /* widget size                    */
+    &KeyboardScreen_Key_R_define,            /* next widget definition         */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(KEYBOARDSCREEN_CONTROL_BLOCK, KeyboardScreen_Key_E), /* control block */
+    (void *) &KeyboardScreen_Key_E_properties /* extended properties           */
+};
+
+GX_CONST GX_STUDIO_WIDGET KeyboardScreen_Key_Q_define =
+{
+    "Key_Q",
+    GX_TYPE_PIXELMAP_PROMPT,                 /* widget type                    */
+    KEY_Q_BTN_ID,                            /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_PIXELMAP_PROMPT),              /* control block size             */
+    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_pixelmap_prompt_create,        /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {14, 100, 55, 141},                      /* widget size                    */
+    &KeyboardScreen_Key_E_define,            /* next widget definition         */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(KEYBOARDSCREEN_CONTROL_BLOCK, KeyboardScreen_Key_Q), /* control block */
+    (void *) &KeyboardScreen_Key_Q_properties /* extended properties           */
+};
+
+GX_CONST GX_STUDIO_WIDGET KeyboardScreen_backspace_button_define =
+{
+    "backspace_button",
+    GX_TYPE_PIXELMAP_BUTTON,                 /* widget type                    */
+    BACKSPACE_BTN_ID,                        /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_ENABLED,   /* style flags                    */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_PIXELMAP_BUTTON),              /* control block size             */
+    GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
+    GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_pixelmap_button_create,        /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {398, 18, 464, 41},                      /* widget size                    */
+    &KeyboardScreen_Key_Q_define,            /* next widget definition         */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(KEYBOARDSCREEN_CONTROL_BLOCK, KeyboardScreen_backspace_button), /* control block */
+    (void *) &KeyboardScreen_backspace_button_properties /* extended properties */
+};
+
+GX_CONST GX_STUDIO_WIDGET KeyboardScreen_Keyboard_InputField_define =
+{
+    "Keyboard_InputField",
+    GX_TYPE_SINGLE_LINE_TEXT_INPUT,          /* widget type                    */
+    KEYBOARD_INPUT_FIELD_ID,                 /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_THIN|GX_STYLE_ENABLED|GX_STYLE_TEXT_INPUT_READONLY|GX_STYLE_TEXT_LEFT,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_SINGLE_LINE_TEXT_INPUT),       /* control block size             */
+    GX_COLOR_ID_TEXT_INPUT_FILL,             /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_text_input_create,             /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {107, 11, 356, 44},                      /* widget size                    */
+    &KeyboardScreen_backspace_button_define, /* next widget definition         */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(KEYBOARDSCREEN_CONTROL_BLOCK, KeyboardScreen_Keyboard_InputField), /* control block */
+    (void *) &KeyboardScreen_Keyboard_InputField_properties /* extended properties */
+};
+
+GX_CONST GX_STUDIO_WIDGET KeyboardScreen_OK_Button_define =
+{
+    "OK_Button",
+    GX_TYPE_TEXT_BUTTON,                     /* widget type                    */
+    OK_BTN_ID,                               /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_THIN|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    0,                                       /* status flags                   */
+    sizeof(GX_TEXT_BUTTON),                  /* control block size             */
+    GX_COLOR_ID_TEXT_INPUT_FILL,             /* normal color id                */
+    GX_COLOR_ID_TEXT_INPUT_TEXT,             /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_text_button_create,            /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {371, 195, 450, 258},                    /* widget size                    */
+    &KeyboardScreen_Keyboard_InputField_define, /* next widget definition      */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(KEYBOARDSCREEN_CONTROL_BLOCK, KeyboardScreen_OK_Button), /* control block */
+    (void *) &KeyboardScreen_OK_Button_properties /* extended properties       */
+};
+
+GX_CONST GX_STUDIO_WIDGET KeyboardScreen_KeyboardScreenBackdrop_define =
+{
+    "KeyboardScreenBackdrop",
+    GX_TYPE_WINDOW,                          /* widget type                    */
+    GX_ID_NONE,                              /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE,                    /* style flags                    */
+    0,                                       /* status flags                   */
+    sizeof(GX_WINDOW),                       /* control block size             */
+    GX_COLOR_ID_SCROLL_BUTTON,               /* normal color id                */
+    GX_COLOR_ID_WINDOW_FILL,                 /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_window_create,                 /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {0, -1, 479, 270},                       /* widget size                    */
+    GX_NULL,                                 /* no next widget                 */
+    &KeyboardScreen_OK_Button_define,        /* child widget definition        */
+    offsetof(KEYBOARDSCREEN_CONTROL_BLOCK, KeyboardScreen_KeyboardScreenBackdrop), /* control block */
+    (void *) &KeyboardScreen_KeyboardScreenBackdrop_properties /* extended properties */
+};
+
+GX_CONST GX_STUDIO_WIDGET KeyboardScreen_define =
+{
+    "KeyboardScreen",
+    GX_TYPE_TEMPLATE,                        /* widget type                    */
+    KEYBOARD_SCREEN_ID,                      /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_THIN,                    /* style flags                    */
+    0,                                       /* status flags                   */
+    sizeof(KEYBOARDSCREEN_CONTROL_BLOCK),    /* control block size             */
+    GX_COLOR_ID_WINDOW_FILL,                 /* normal color id                */
+    GX_COLOR_ID_WINDOW_FILL,                 /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_template_create,               /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    (UINT (*)(GX_WIDGET *, GX_EVENT *)) KeyboardScreen_event_function, /* event function override */
+    {0, 0, 479, 499},                        /* widget size                    */
+    GX_NULL,                                 /* next widget                    */
+    &KeyboardScreen_KeyboardScreenBackdrop_define, /* child widget             */
+    0,                                       /* control block                  */
+    (void *) &KeyboardScreen_properties      /* extended properties            */
+};
+GX_TEMPLATE_PROPERTIES EditSoundScreen_properties =
+{
+    &PrimaryTemplate_define,                 /* base info                      */
+    gx_studio_window_create,                 /* base create function           */
+    {0, 0, 479, 499}                         /* widget size                    */
+};
+GX_WINDOW_PROPERTIES EditSoundScreen_EditSoundScreenBackdrop_properties =
+{
+    GX_PIXELMAP_ID_BACKGROUND_480X272        /* wallpaper pixelmap id          */
+};
+GX_TEXT_BUTTON_PROPERTIES EditSoundScreen_OK_Button_properties =
+{
+    GX_STRING_ID_STRING_24,                  /* string id                      */
+    GX_FONT_ID_ASC24PT,                      /* font id                        */
+    GX_COLOR_ID_BTN_TEXT,                    /* normal text color              */
+    GX_COLOR_ID_BTN_TEXT,                    /* selected text color            */
+    GX_COLOR_ID_DISABLED_TEXT                /* disabled text color            */
+};
+GX_NUMERIC_PROMPT_PROPERTIES EditSoundScreen_SoundNumber_Prompt_properties =
+{
+    0,                                       /* string id                      */
+    GX_FONT_ID_PROMPT,                       /* font id                        */
+    GX_COLOR_ID_WHITE,                       /* normal text color              */
+    GX_COLOR_ID_WHITE,                       /* selected text color            */
+    GX_COLOR_ID_WHITE,                       /* disabled text color            */
+    GX_NULL,                                 /* format function                */
+    0                                        /* numeric prompt value           */
+};
+GX_PROMPT_PROPERTIES EditSoundScreen_SoundNumberLabel_properties =
+{
+    GX_STRING_ID_STRING_118,                 /* string id                      */
+    GX_FONT_ID_PROMPT,                       /* font id                        */
+    GX_COLOR_ID_WHITE,                       /* normal text color              */
+    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
+    GX_COLOR_ID_DISABLED_TEXT                /* disabled text color            */
+};
+GX_TEXT_BUTTON_PROPERTIES EditSoundScreen_ChangeName_Button_properties =
+{
+    GX_STRING_ID_STRING_131,                 /* string id                      */
+    GX_FONT_ID_BUTTON,                       /* font id                        */
+    GX_COLOR_ID_BTN_TEXT,                    /* normal text color              */
+    GX_COLOR_ID_BTN_TEXT,                    /* selected text color            */
+    GX_COLOR_ID_DISABLED_TEXT                /* disabled text color            */
+};
+GX_PROMPT_PROPERTIES EditSoundScreen_SoundName_properties =
+{
+    GX_STRING_ID_STRING_132,                 /* string id                      */
+    GX_FONT_ID_LARGESIZE,                    /* font id                        */
+    GX_COLOR_ID_WHITE,                       /* normal text color              */
+    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
+    GX_COLOR_ID_DISABLED_TEXT                /* disabled text color            */
+};
+GX_TEXT_BUTTON_PROPERTIES EditSoundScreen_ChangeSoundBite_Button_properties =
+{
+    GX_STRING_ID_STRING_133,                 /* string id                      */
+    GX_FONT_ID_BUTTON,                       /* font id                        */
+    GX_COLOR_ID_BTN_TEXT,                    /* normal text color              */
+    GX_COLOR_ID_BTN_TEXT,                    /* selected text color            */
+    GX_COLOR_ID_DISABLED_TEXT                /* disabled text color            */
+};
+GX_PROMPT_PROPERTIES EditSoundScreen_SoundBite_Prompt_properties =
+{
+    GX_STRING_ID_STRING_134,                 /* string id                      */
+    GX_FONT_ID_LARGESIZE,                    /* font id                        */
+    GX_COLOR_ID_WHITE,                       /* normal text color              */
+    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
+    GX_COLOR_ID_DISABLED_TEXT                /* disabled text color            */
+};
+
+GX_CONST GX_STUDIO_WIDGET EditSoundScreen_SoundBite_Prompt_define =
+{
+    "SoundBite_Prompt",
+    GX_TYPE_PROMPT,                          /* widget type                    */
+    SOUND_BITE_PROMPT_ID,                    /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_PROMPT),                       /* control block size             */
+    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_prompt_create,                 /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {48, 108, 213, 151},                     /* widget size                    */
+    GX_NULL,                                 /* no next widget                 */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(EDITSOUNDSCREEN_CONTROL_BLOCK, EditSoundScreen_SoundBite_Prompt), /* control block */
+    (void *) &EditSoundScreen_SoundBite_Prompt_properties /* extended properties */
+};
+
+GX_CONST GX_STUDIO_WIDGET EditSoundScreen_ChangeSoundBite_Button_define =
+{
+    "ChangeSoundBite_Button",
+    GX_TYPE_TEXT_BUTTON,                     /* widget type                    */
+    CHANGE_SOUND_BITE_BTN_ID,                /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_THIN|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_TEXT_BUTTON),                  /* control block size             */
+    GX_COLOR_ID_TEXT_INPUT_FILL,             /* normal color id                */
+    GX_COLOR_ID_TEXT_INPUT_TEXT,             /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_text_button_create,            /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {219, 99, 398, 162},                     /* widget size                    */
+    &EditSoundScreen_SoundBite_Prompt_define, /* next widget definition        */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(EDITSOUNDSCREEN_CONTROL_BLOCK, EditSoundScreen_ChangeSoundBite_Button), /* control block */
+    (void *) &EditSoundScreen_ChangeSoundBite_Button_properties /* extended properties */
+};
+
+GX_CONST GX_STUDIO_WIDGET EditSoundScreen_SoundName_define =
+{
+    "SoundName",
+    GX_TYPE_PROMPT,                          /* widget type                    */
+    SOUND_NAME_PROMPT_ID,                    /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_PROMPT),                       /* control block size             */
+    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_prompt_create,                 /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {48, 26, 213, 69},                       /* widget size                    */
+    &EditSoundScreen_ChangeSoundBite_Button_define, /* next widget definition  */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(EDITSOUNDSCREEN_CONTROL_BLOCK, EditSoundScreen_SoundName), /* control block */
+    (void *) &EditSoundScreen_SoundName_properties /* extended properties      */
+};
+
+GX_CONST GX_STUDIO_WIDGET EditSoundScreen_ChangeName_Button_define =
+{
+    "ChangeName_Button",
+    GX_TYPE_TEXT_BUTTON,                     /* widget type                    */
+    CHANGE_NAME_BTN_ID,                      /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_THIN|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_TEXT_BUTTON),                  /* control block size             */
+    GX_COLOR_ID_TEXT_INPUT_FILL,             /* normal color id                */
+    GX_COLOR_ID_TEXT_INPUT_TEXT,             /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_text_button_create,            /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {218, 20, 397, 83},                      /* widget size                    */
+    &EditSoundScreen_SoundName_define,       /* next widget definition         */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(EDITSOUNDSCREEN_CONTROL_BLOCK, EditSoundScreen_ChangeName_Button), /* control block */
+    (void *) &EditSoundScreen_ChangeName_Button_properties /* extended properties */
+};
+
+GX_CONST GX_STUDIO_WIDGET EditSoundScreen_SoundNumberLabel_define =
+{
+    "SoundNumberLabel",
+    GX_TYPE_PROMPT,                          /* widget type                    */
+    GX_ID_NONE,                              /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_PROMPT),                       /* control block size             */
+    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_prompt_create,                 /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {99, 226, 244, 249},                     /* widget size                    */
+    &EditSoundScreen_ChangeName_Button_define, /* next widget definition       */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(EDITSOUNDSCREEN_CONTROL_BLOCK, EditSoundScreen_SoundNumberLabel), /* control block */
+    (void *) &EditSoundScreen_SoundNumberLabel_properties /* extended properties */
+};
+
+GX_CONST GX_STUDIO_WIDGET EditSoundScreen_SoundNumber_Prompt_define =
+{
+    "SoundNumber_Prompt",
+    GX_TYPE_NUMERIC_PROMPT,                  /* widget type                    */
+    SOUND_NUMBER_PROMPT,                     /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_THIN|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_NUMERIC_PROMPT),               /* control block size             */
+    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_numeric_prompt_create,         /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {259, 221, 298, 254},                    /* widget size                    */
+    &EditSoundScreen_SoundNumberLabel_define, /* next widget definition        */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(EDITSOUNDSCREEN_CONTROL_BLOCK, EditSoundScreen_SoundNumber_Prompt), /* control block */
+    (void *) &EditSoundScreen_SoundNumber_Prompt_properties /* extended properties */
+};
+
+GX_CONST GX_STUDIO_WIDGET EditSoundScreen_OK_Button_define =
+{
+    "OK_Button",
+    GX_TYPE_TEXT_BUTTON,                     /* widget type                    */
+    OK_BTN_ID,                               /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_THIN|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    0,                                       /* status flags                   */
+    sizeof(GX_TEXT_BUTTON),                  /* control block size             */
+    GX_COLOR_ID_TEXT_INPUT_FILL,             /* normal color id                */
+    GX_COLOR_ID_TEXT_INPUT_TEXT,             /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_text_button_create,            /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {380, 188, 459, 251},                    /* widget size                    */
+    &EditSoundScreen_SoundNumber_Prompt_define, /* next widget definition      */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(EDITSOUNDSCREEN_CONTROL_BLOCK, EditSoundScreen_OK_Button), /* control block */
+    (void *) &EditSoundScreen_OK_Button_properties /* extended properties      */
+};
+
+GX_CONST GX_STUDIO_WIDGET EditSoundScreen_EditSoundScreenBackdrop_define =
+{
+    "EditSoundScreenBackdrop",
+    GX_TYPE_WINDOW,                          /* widget type                    */
+    GX_ID_NONE,                              /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE,                    /* style flags                    */
+    0,                                       /* status flags                   */
+    sizeof(GX_WINDOW),                       /* control block size             */
+    GX_COLOR_ID_SCROLL_BUTTON,               /* normal color id                */
+    GX_COLOR_ID_WINDOW_FILL,                 /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_window_create,                 /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {0, 0, 479, 271},                        /* widget size                    */
+    GX_NULL,                                 /* no next widget                 */
+    &EditSoundScreen_OK_Button_define,       /* child widget definition        */
+    offsetof(EDITSOUNDSCREEN_CONTROL_BLOCK, EditSoundScreen_EditSoundScreenBackdrop), /* control block */
+    (void *) &EditSoundScreen_EditSoundScreenBackdrop_properties /* extended properties */
+};
+
+GX_CONST GX_STUDIO_WIDGET EditSoundScreen_define =
+{
+    "EditSoundScreen",
+    GX_TYPE_TEMPLATE,                        /* widget type                    */
+    EDIT_SOUND_SCREEN_ID,                    /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_THIN,                    /* style flags                    */
+    0,                                       /* status flags                   */
+    sizeof(EDITSOUNDSCREEN_CONTROL_BLOCK),   /* control block size             */
+    GX_COLOR_ID_WINDOW_FILL,                 /* normal color id                */
+    GX_COLOR_ID_WINDOW_FILL,                 /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_template_create,               /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    (UINT (*)(GX_WIDGET *, GX_EVENT *)) EditSoundScreen_event_process, /* event function override */
+    {0, 0, 479, 499},                        /* widget size                    */
+    GX_NULL,                                 /* next widget                    */
+    &EditSoundScreen_EditSoundScreenBackdrop_define, /* child widget           */
+    0,                                       /* control block                  */
+    (void *) &EditSoundScreen_properties     /* extended properties            */
 };
 GX_TEMPLATE_PROPERTIES UserScanScreen_properties =
 {
@@ -2307,7 +4184,7 @@ GX_TEXT_BUTTON_PROPERTIES ManageSoundScreen_OK_Button_properties =
 GX_VERTICAL_LIST_PROPERTIES ManageSoundScreen_SoundVerticalList_properties =
 {
     0,                                       /* wallpaper id                   */
-    MenuItem_Callback,                       /* callback function              */
+    ManageSoundItemList_callback,            /* callback function              */
     10                                       /* total rows                     */
 };
 GX_SCROLLBAR_APPEARANCE  ManageSoundScreen_FeatureList_vertical_scroll_properties =
@@ -2489,7 +4366,7 @@ GX_WINDOW_PROPERTIES SoundOptionScreen_PadSettingsScreenBackdrop_properties =
 };
 GX_TEXT_BUTTON_PROPERTIES SoundOptionScreen_Sound_Button_properties =
 {
-    GX_STRING_ID_STRING_116,                 /* string id                      */
+    GX_STRING_ID_STRING_55,                  /* string id                      */
     GX_FONT_ID_BUTTON,                       /* font id                        */
     GX_COLOR_ID_BTN_TEXT,                    /* normal text color              */
     GX_COLOR_ID_BTN_TEXT,                    /* selected text color            */
@@ -2581,7 +4458,7 @@ GX_CONST GX_STUDIO_WIDGET SoundOptionScreen_SetupSounds_Button_define =
     gx_studio_text_button_create,            /* create function                */
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
-    {16, 89, 205, 152},                      /* widget size                    */
+    {16, 14, 279, 77},                       /* widget size                    */
     &SoundOptionScreen_OK_Button_define,     /* next widget definition         */
     GX_NULL,                                 /* no child widgets               */ 
     offsetof(SOUNDOPTIONSCREEN_CONTROL_BLOCK, SoundOptionScreen_SetupSounds_Button), /* control block */
@@ -2605,7 +4482,7 @@ GX_CONST GX_STUDIO_WIDGET SoundOptionScreen_Sound_Button_define =
     gx_studio_text_button_create,            /* create function                */
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
-    {16, 14, 205, 77},                       /* widget size                    */
+    {16, 89, 279, 152},                      /* widget size                    */
     &SoundOptionScreen_SetupSounds_Button_define, /* next widget definition    */
     GX_NULL,                                 /* no child widgets               */ 
     offsetof(SOUNDOPTIONSCREEN_CONTROL_BLOCK, SoundOptionScreen_Sound_Button), /* control block */
@@ -9103,6 +10980,8 @@ GX_CONST GX_STUDIO_WIDGET DiagnosticScreen_define =
 };
 GX_CONST GX_STUDIO_WIDGET_ENTRY ASL4321_Display_Demo_widget_table[] =
 {
+    { &KeyboardScreen_define, (GX_WIDGET *) &KeyboardScreen },
+    { &EditSoundScreen_define, (GX_WIDGET *) &EditSoundScreen },
     { &UserScanScreen_define, (GX_WIDGET *) &UserScanScreen },
     { &PadAdvancedScreen_define, (GX_WIDGET *) &PadAdvancedScreen },
     { &Tecla_E_Screen_define, (GX_WIDGET *) &Tecla_E_Screen },

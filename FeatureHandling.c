@@ -87,8 +87,8 @@ VOID InitializeFeature_GUI_Info (VOID)
 	g_Feature_GUI[NEXT_GROUP_ID].m_FeatureID = NEXT_GROUP_ID;
     g_Feature_GUI[NEXT_GROUP_ID].m_LargeDescriptionID = GX_STRING_ID_NEXT_GROUP;
     g_Feature_GUI[NEXT_GROUP_ID].m_SmallDescriptionID = GX_STRING_ID_NEXT_GROUP;
-    g_Feature_GUI[NEXT_GROUP_ID].m_SmallIcon = GX_PIXELMAP_ID_NEXTGROUP_30X30_E2;
-    g_Feature_GUI[NEXT_GROUP_ID].m_LargeIcon = GX_PIXELMAP_ID_NEXTGROUP_70X70_E2;
+    g_Feature_GUI[NEXT_GROUP_ID].m_SmallIcon = GX_PIXELMAP_ID_NEXTGROUP_30X30;
+    g_Feature_GUI[NEXT_GROUP_ID].m_LargeIcon = GX_PIXELMAP_ID_NEXTGROUP_70X70;
 	g_Feature_GUI[NEXT_GROUP_ID].m_FeatureIconID = GX_PIXELMAP_ID_DRIVING_60X50;
 
 	// "AUDIBLE OUT" information and description

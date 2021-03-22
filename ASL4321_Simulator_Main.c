@@ -72,6 +72,7 @@ extern VOID Initialize_MainScreenInfo();
 char g_StatusMessage[64];
 
 VOID ProcessDrivingFeature (GX_RESOURCE_ID gx_widget_id);
+extern VOID Populate_Sound_MenuItems(VOID);
 
 //*************************************************************************************
 // Provided by GUIX to support Windows environment.
@@ -144,10 +145,14 @@ VOID  start_guix(VOID)
 
 	InitializePadInformation();
 
+	Populate_Sound_MenuItems();
+
     //myError = gx_studio_named_widget_create("PrimaryTemplate", (GX_WIDGET *)GX_NULL, GX_NULL);
 	myError = gx_studio_named_widget_create("DiagnosticScreen", GX_NULL, GX_NULL);
+	myError = gx_studio_named_widget_create("EditSoundScreen", GX_NULL, GX_NULL);
 	myError = gx_studio_named_widget_create("FeatureSettingsScreen", GX_NULL, GX_NULL);
 	myError = gx_studio_named_widget_create("HHP_Start_Screen", GX_NULL, GX_NULL);
+    myError = gx_studio_named_widget_create("KeyboardScreen", GX_NULL, GX_NULL);
 	myError = gx_studio_named_widget_create("JoystickThrowScreen", GX_NULL, GX_NULL);
 	//myError = gx_studio_named_widget_create("MainUserScreen", , GX_NULL, GX_NULL);
 	myError = gx_studio_named_widget_create("MainUserScreen", (GX_WIDGET *)root, GX_NULL);

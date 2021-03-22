@@ -6,7 +6,7 @@
 /*  www.expresslogic.com.                                                      */
 /*                                                                             */
 /*  GUIX Studio Revision 5.4.2.9                                               */
-/*  Date (dd.mm.yyyy): 12. 3.2021   Time (hh:mm): 14:51                        */
+/*  Date (dd.mm.yyyy): 22. 3.2021   Time (hh:mm): 11:00                        */
 /*******************************************************************************/
 
 
@@ -22,154 +22,200 @@ extern   "C" {
 
 /* Define widget ids                                                           */
 
-#define USER_SCAN_SCREEN_ID 1
-#define USER_SCAN_SCREEN_NAME_ID 2
-#define MODE_PORT_FEATURE_ID 3
-#define LEFT_PAD_BUTTON 4
-#define FORWARD_PAD_BUTTON 5
-#define RIGHT_PAD_BUTTON 6
-#define REVERSE_PAD_BUTTON 7
-#define FUNCTION1_ICON 8
-#define FUNCTION2_ICON 9
-#define FUNCTION3_ICON 10
-#define FUNCTION4_ICON 11
-#define FUNCTON0_ICON_ID 12
-#define FEATURE_ICON_ID 13
-#define GROUP_ICON_BUTTON 14
-#define FUSION_BUTTON_ID 15
-#define TECLA_MAIN_PROMPT_ID 16
-#define VEER_FORWARD_LEFT_BUTTON_ID 17
-#define PAD_ADVANCE_SCREEN_ID 18
-#define OK_BTN_ID 19
-#define FEATURE_LIST_BOX_ID 20
-#define TECLA_E_WINDIOW_ID 21
-#define DEVICE_TYPE_ICON 22
-#define NEUTRAL_WINDOW_WINDOW 23
-#define NEUTRAL_WINDOW_BTN_ID 24
-#define SOUND_SETUP_SCREEN_ID 25
-#define MANAGE_SOUND_SCREEN_ID 26
-#define SOUND_VERTICAL_LIST_ID 27
-#define SOUND_OPTIONS_SCREEN_ID 28
-#define SOUND_BTN_ID 29
-#define USER_SOUND_SETUP_BTN_ID 30
-#define MAIN_USER_SCREEN_ID 31
-#define MAIN_USER_SCREEN_1_ID 32
-#define USER_PORT_ICON 33
-#define FORWARD_ICON_ID 34
-#define LEFT_ICON_ID 35
-#define RIGHT_ICON_ID 36
-#define REVERSE_ICON_ID 37
-#define FEATURE_SETTINGS_SCREEN_ID 38
-#define HH_START_SCREEN_ID 39
-#define FEATURE_VERTICAL_LIST 40
-#define MAIN_USER_SCREEN_3 41
-#define FIRST_ICON 42
-#define FIRST_PROMPT 43
-#define FOURTH_ICON 44
-#define FOURTH_PROMPT 45
-#define SECOND_ICON 46
-#define SECOND_PROMPT 47
-#define THIRD_ICON 48
-#define THIRD_PROMPT 49
-#define BOTH_ARROW_BTN_ID 50
-#define Fifth_ICON 51
-#define FIFTH_PROMPT 52
-#define RESET_SCREEN_FINISH_ID 53
-#define CONTINUE_BTN_ID 54
-#define PROMPT1_ID 55
-#define PROMPT2_ID 56
-#define PROMPT3_ID 57
-#define PROMPT4_ID 58
-#define MINIMUM_DRIVE_SCREEN_ID 59
-#define PROMPT_SET_MINIMUM_SPEED 60
-#define PROMPT_FOR_EACH_PAD 61
-#define FORWARD_PAD_PERCENTAGE_BTN_ID 62
-#define LEFT_PAD_PERCENTAGE_BTN_ID 63
-#define RIGHT_PAD_PERCENTAGE_BTN_ID 64
-#define REVERSE_PAD_PERCENTAGE_BTN_ID 65
-#define PERFORMANCE_SELECTION_SCREEN_ID 66
-#define VEER_ADJUST_BTN_ID 67
-#define RESET_SCREEN_ID 68
-#define PROMPT_ID 69
-#define MORE_SELECTION_SCREEN_ID 70
-#define GOTO_DIAGNOSTICS_BTN_ID 71
-#define GOTO_RESET_SCREEN_BTN_ID 72
-#define HEAD_ARRAY_VERSION_PROMPT_ID 73
-#define DISPLAY_VERSION_PROMPT_ID 74
-#define USER_SELECTION_SCREEN_ID 75
-#define USER_SETTINGS_BTN_ID 76
-#define FEATURE_BTN_ID 77
-#define PERFORMANCE_BTN_ID 78
-#define VEER_ADJUST_SCREEN_ID 79
-#define VEER_SLIDER_ID 80
-#define SLIDE_VALUE_BUTTON 81
-#define OON_SCREEN_ID 82
-#define RELEASE_PAD_BUTTON_ID 83
-#define READY_SCREEN_ID 84
-#define READY_SCREEN_WINDOW_ID 85
-#define POWER_LARGE_PROMPT_ID 86
-#define STARTUP_SPLASH_SCREEN 87
-#define CALIBRATION_SCREEN_ID 88
-#define CENTER_PAD_ON_BTN_ID 89
-#define MINIMUM_INSTRUCT_PROMPT_ID 90
-#define LEFT_PAD_ON_BTN_ID 91
-#define RIGHT_PAD_ON_BTN_ID 92
-#define MAXIMUM_INSTRUCT_PROMPT_ID 93
-#define VALUE_PROMPT_ID 94
-#define PAD_VALUE_PROMPT_ID 95
-#define SET_PAD_DIRECTION_SCREEN_ID 96
-#define SETTING_PROMPT01_ID 97
-#define LEFT_PAD_OFF_BTN_ID 98
-#define RIGHT_PAD_OFF_BTN_ID 99
-#define SETTING_PROMPT02_ID 100
-#define REVERSE_PAD_OFF_BTN_ID 101
-#define FORWARD_PAD_OFF_BTN_ID 102
-#define PAD_SETTINGS_SCREEN_ID 103
-#define PAD_TYPE_BTN_ID 104
-#define PAD_DIRECTIONS_BTN_ID 105
-#define MINIMUM_DRIVE_BTN_ID 106
-#define DEVICE_TYPE_BTN_ID 107
-#define PAD_OPTIONS_VERTICAL_LIST 108
-#define USER_SETTINGS_SCREEN_ID 109
-#define CLICKS_PROMPT_ID 110
-#define TIMEOUT_PROMPT_ID 111
-#define POWERUP_IDLE_PROMPT_ID 112
-#define TIMEOUT_BTN_ID 113
-#define RNET_ACTIVE_PROMPT_ID 114
-#define CLICKS_TOGGLE_BTN 115
-#define POWER_UP_TOGGLE_BTN 116
-#define RNET_TOGGLE_BTN 117
-#define MODE_PORT_SCHEMA_PROMPT_ID 118
-#define MODE_SWITCH_SCHEMA_TOGGLE_BTN 119
-#define SET_PAD_TYPE_SCREEN_ID 120
-#define FORWARD_PAD_TYPE_BTN_ID 121
-#define LEFT_PAD_TYPE_BTN_ID 122
-#define RIGHT_PAD_TYPE_BTN_ID 123
-#define DIAGNOSTIC_SCREEN_ID 124
-#define CENTER_PAD_DIGITAL_BTN_ID 125
-#define INSTRUCT_PROMPT_ID 126
-#define LEFT_PAD_DIGITAL_BTN_ID 127
-#define RIGHT_PAD_DIGITAL_BTN_ID 128
-#define CENTER_PAD_PROP_BTN_ID 129
-#define LEFT_PAD_PROP_BTN_ID 130
-#define RIGHT_PAD_PROP_BTN_ID 131
-#define CENTER_PAD_OFF_BTN_ID 132
-#define LEFT_PAD_ADJUSTED_PROMPT 133
-#define RIGHT_PAD_ADJUSTED_PROMPT 134
-#define CENTER_PAD_ADJUSTED_PROMPT 135
-#define USER_PORT_BUTTON 136
-#define USER_PORT_PROMPT_DIAG_ID 137
-#define MODE_PORT_BUTTON 138
-#define Mode_PORT_PROMPT_DIAG_ID 139
-#define DOWN_ARROW_BTN_ID 140
-#define UP_ARROW_BTN_ID 141
-#define MODE_PORT_BTN_ID 142
-#define USER_PORT_BUTTON_ID 143
-#define JS_LEFT_BUTTON 144
-#define JS_RIGHT_BUTTON 145
-#define JS_UP_BUTTON 146
-#define JS_DOWN_BUTTON 147
-#define CHANGE_SCREEN_BTN_ID 148
+#define KEYBOARD_SCREEN_ID 1
+#define OK_BTN_ID 2
+#define KEYBOARD_INPUT_FIELD_ID 3
+#define BACKSPACE_BTN_ID 4
+#define KEY_Q_BTN_ID 5
+#define KEY_E_BTN_ID 6
+#define KEY_R_BTN_ID 7
+#define KEY_W_BTN_ID 8
+#define KEY_T_BTN_ID 9
+#define KEY_6_BTN_ID 10
+#define KEY_7_BTN_ID 11
+#define KEY_Y_BTN_ID 12
+#define KEY_U_BTN_ID 13
+#define KEY_1_BTN_ID 14
+#define KEY_2_BTN_ID 15
+#define KEY_3_BTN_ID 16
+#define KEY_4_BTN_ID 17
+#define KEY_5_BTN_ID 18
+#define KEY_8_BTN_ID 19
+#define KEY_9_BTN_ID 20
+#define KEY_0_BTN_ID 21
+#define KEY_I_BTN_ID 22
+#define KEY_O_BTN_ID 23
+#define KEY_P_BTN_ID 24
+#define KEY_A_BTN_ID 25
+#define KEY_S_BTN_ID 26
+#define KEY_D_BTN_ID 27
+#define KEY_F_BTN_ID 28
+#define KEY_G_BTN_ID 29
+#define KEY_H_BTN_ID 30
+#define KEY_J_BTN_ID 31
+#define KEY_K_BTN_ID 32
+#define KEY_L_BTN_ID 33
+#define KEY_SPACE_BTN_ID 34
+#define KEY_Z_BTN_ID 35
+#define KEY_X_BTN_ID 36
+#define KEY_C_BTN_ID 37
+#define KEY_V_BTN_ID 38
+#define KEY_B_BTN_ID 39
+#define KEY_N_BTN_ID 40
+#define KEY_M_BTN_ID 41
+#define EDIT_SOUND_SCREEN_ID 42
+#define SOUND_NUMBER_PROMPT 43
+#define CHANGE_NAME_BTN_ID 44
+#define SOUND_NAME_PROMPT_ID 45
+#define CHANGE_SOUND_BITE_BTN_ID 46
+#define SOUND_BITE_PROMPT_ID 47
+#define USER_SCAN_SCREEN_ID 48
+#define USER_SCAN_SCREEN_NAME_ID 49
+#define MODE_PORT_FEATURE_ID 50
+#define LEFT_PAD_BUTTON 51
+#define FORWARD_PAD_BUTTON 52
+#define RIGHT_PAD_BUTTON 53
+#define REVERSE_PAD_BUTTON 54
+#define FUNCTION1_ICON 55
+#define FUNCTION2_ICON 56
+#define FUNCTION3_ICON 57
+#define FUNCTION4_ICON 58
+#define FUNCTON0_ICON_ID 59
+#define FEATURE_ICON_ID 60
+#define GROUP_ICON_BUTTON 61
+#define FUSION_BUTTON_ID 62
+#define TECLA_MAIN_PROMPT_ID 63
+#define VEER_FORWARD_LEFT_BUTTON_ID 64
+#define PAD_ADVANCE_SCREEN_ID 65
+#define FEATURE_LIST_BOX_ID 66
+#define TECLA_E_WINDIOW_ID 67
+#define DEVICE_TYPE_ICON 68
+#define NEUTRAL_WINDOW_WINDOW 69
+#define NEUTRAL_WINDOW_BTN_ID 70
+#define SOUND_SETUP_SCREEN_ID 71
+#define MANAGE_SOUND_SCREEN_ID 72
+#define SOUND_VERTICAL_LIST_ID 73
+#define SOUND_OPTIONS_SCREEN_ID 74
+#define SOUND_BTN_ID 75
+#define USER_SOUND_SETUP_BTN_ID 76
+#define MAIN_USER_SCREEN_ID 77
+#define MAIN_USER_SCREEN_1_ID 78
+#define USER_PORT_ICON 79
+#define FORWARD_ICON_ID 80
+#define LEFT_ICON_ID 81
+#define RIGHT_ICON_ID 82
+#define REVERSE_ICON_ID 83
+#define FEATURE_SETTINGS_SCREEN_ID 84
+#define HH_START_SCREEN_ID 85
+#define FEATURE_VERTICAL_LIST 86
+#define MAIN_USER_SCREEN_3 87
+#define FIRST_ICON 88
+#define FIRST_PROMPT 89
+#define FOURTH_ICON 90
+#define FOURTH_PROMPT 91
+#define SECOND_ICON 92
+#define SECOND_PROMPT 93
+#define THIRD_ICON 94
+#define THIRD_PROMPT 95
+#define BOTH_ARROW_BTN_ID 96
+#define Fifth_ICON 97
+#define FIFTH_PROMPT 98
+#define RESET_SCREEN_FINISH_ID 99
+#define CONTINUE_BTN_ID 100
+#define PROMPT1_ID 101
+#define PROMPT2_ID 102
+#define PROMPT3_ID 103
+#define PROMPT4_ID 104
+#define MINIMUM_DRIVE_SCREEN_ID 105
+#define PROMPT_SET_MINIMUM_SPEED 106
+#define PROMPT_FOR_EACH_PAD 107
+#define FORWARD_PAD_PERCENTAGE_BTN_ID 108
+#define LEFT_PAD_PERCENTAGE_BTN_ID 109
+#define RIGHT_PAD_PERCENTAGE_BTN_ID 110
+#define REVERSE_PAD_PERCENTAGE_BTN_ID 111
+#define PERFORMANCE_SELECTION_SCREEN_ID 112
+#define VEER_ADJUST_BTN_ID 113
+#define RESET_SCREEN_ID 114
+#define PROMPT_ID 115
+#define MORE_SELECTION_SCREEN_ID 116
+#define GOTO_DIAGNOSTICS_BTN_ID 117
+#define GOTO_RESET_SCREEN_BTN_ID 118
+#define HEAD_ARRAY_VERSION_PROMPT_ID 119
+#define DISPLAY_VERSION_PROMPT_ID 120
+#define USER_SELECTION_SCREEN_ID 121
+#define USER_SETTINGS_BTN_ID 122
+#define FEATURE_BTN_ID 123
+#define PERFORMANCE_BTN_ID 124
+#define VEER_ADJUST_SCREEN_ID 125
+#define VEER_SLIDER_ID 126
+#define SLIDE_VALUE_BUTTON 127
+#define OON_SCREEN_ID 128
+#define RELEASE_PAD_BUTTON_ID 129
+#define READY_SCREEN_ID 130
+#define READY_SCREEN_WINDOW_ID 131
+#define POWER_LARGE_PROMPT_ID 132
+#define STARTUP_SPLASH_SCREEN 133
+#define CALIBRATION_SCREEN_ID 134
+#define CENTER_PAD_ON_BTN_ID 135
+#define MINIMUM_INSTRUCT_PROMPT_ID 136
+#define LEFT_PAD_ON_BTN_ID 137
+#define RIGHT_PAD_ON_BTN_ID 138
+#define MAXIMUM_INSTRUCT_PROMPT_ID 139
+#define VALUE_PROMPT_ID 140
+#define PAD_VALUE_PROMPT_ID 141
+#define SET_PAD_DIRECTION_SCREEN_ID 142
+#define SETTING_PROMPT01_ID 143
+#define LEFT_PAD_OFF_BTN_ID 144
+#define RIGHT_PAD_OFF_BTN_ID 145
+#define SETTING_PROMPT02_ID 146
+#define REVERSE_PAD_OFF_BTN_ID 147
+#define FORWARD_PAD_OFF_BTN_ID 148
+#define PAD_SETTINGS_SCREEN_ID 149
+#define PAD_TYPE_BTN_ID 150
+#define PAD_DIRECTIONS_BTN_ID 151
+#define MINIMUM_DRIVE_BTN_ID 152
+#define DEVICE_TYPE_BTN_ID 153
+#define PAD_OPTIONS_VERTICAL_LIST 154
+#define USER_SETTINGS_SCREEN_ID 155
+#define CLICKS_PROMPT_ID 156
+#define TIMEOUT_PROMPT_ID 157
+#define POWERUP_IDLE_PROMPT_ID 158
+#define TIMEOUT_BTN_ID 159
+#define RNET_ACTIVE_PROMPT_ID 160
+#define CLICKS_TOGGLE_BTN 161
+#define POWER_UP_TOGGLE_BTN 162
+#define RNET_TOGGLE_BTN 163
+#define MODE_PORT_SCHEMA_PROMPT_ID 164
+#define MODE_SWITCH_SCHEMA_TOGGLE_BTN 165
+#define SET_PAD_TYPE_SCREEN_ID 166
+#define FORWARD_PAD_TYPE_BTN_ID 167
+#define LEFT_PAD_TYPE_BTN_ID 168
+#define RIGHT_PAD_TYPE_BTN_ID 169
+#define DIAGNOSTIC_SCREEN_ID 170
+#define CENTER_PAD_DIGITAL_BTN_ID 171
+#define INSTRUCT_PROMPT_ID 172
+#define LEFT_PAD_DIGITAL_BTN_ID 173
+#define RIGHT_PAD_DIGITAL_BTN_ID 174
+#define CENTER_PAD_PROP_BTN_ID 175
+#define LEFT_PAD_PROP_BTN_ID 176
+#define RIGHT_PAD_PROP_BTN_ID 177
+#define CENTER_PAD_OFF_BTN_ID 178
+#define LEFT_PAD_ADJUSTED_PROMPT 179
+#define RIGHT_PAD_ADJUSTED_PROMPT 180
+#define CENTER_PAD_ADJUSTED_PROMPT 181
+#define USER_PORT_BUTTON 182
+#define USER_PORT_PROMPT_DIAG_ID 183
+#define MODE_PORT_BUTTON 184
+#define Mode_PORT_PROMPT_DIAG_ID 185
+#define DOWN_ARROW_BTN_ID 186
+#define UP_ARROW_BTN_ID 187
+#define MODE_PORT_BTN_ID 188
+#define USER_PORT_BUTTON_ID 189
+#define JS_LEFT_BUTTON 190
+#define JS_RIGHT_BUTTON 191
+#define JS_UP_BUTTON 192
+#define JS_DOWN_BUTTON 193
+#define CHANGE_SCREEN_BTN_ID 194
 
 
 /* Define animation ids                                                        */
@@ -320,6 +366,19 @@ typedef struct
 
 typedef struct
 {
+    GX_RESOURCE_ID string_id;
+    GX_RESOURCE_ID font_id;
+    GX_RESOURCE_ID normal_text_color_id;
+    GX_RESOURCE_ID selected_text_color_id;
+    GX_RESOURCE_ID disabled_text_color_id;
+    GX_RESOURCE_ID readonly_fill_color_id;
+    GX_RESOURCE_ID readonly_text_color_id;
+    GX_CHAR *buffer;
+    UINT buffer_size;
+} GX_SINGLE_LINE_TEXT_INPUT_PROPERTIES;
+
+typedef struct
+{
    GX_CONST GX_STUDIO_WIDGET *base_info;
    UINT (*base_create_function) (GX_CONST struct GX_STUDIO_WIDGET_STRUCT *, GX_WIDGET *, GX_WIDGET *);
    GX_RECTANGLE size;
@@ -344,6 +403,65 @@ typedef struct PRIMARYTEMPLATE_CONTROL_BLOCK_STRUCT
     GX_TEXT_BUTTON PrimaryTemplate_ChangeScreenButton;
     GX_PROMPT PrimaryTemplate_StatusMessage;
 } PRIMARYTEMPLATE_CONTROL_BLOCK;
+
+typedef struct KEYBOARDSCREEN_CONTROL_BLOCK_STRUCT
+{
+    PRIMARYTEMPLATE_CONTROL_BLOCK base;
+    GX_WINDOW KeyboardScreen_KeyboardScreenBackdrop;
+    GX_TEXT_BUTTON KeyboardScreen_OK_Button;
+    GX_SINGLE_LINE_TEXT_INPUT KeyboardScreen_Keyboard_InputField;
+    GX_PIXELMAP_BUTTON KeyboardScreen_backspace_button;
+    GX_PIXELMAP_PROMPT KeyboardScreen_Key_Q;
+    GX_PIXELMAP_PROMPT KeyboardScreen_Key_E;
+    GX_PIXELMAP_PROMPT KeyboardScreen_Key_R;
+    GX_PIXELMAP_PROMPT KeyboardScreen_Key_W;
+    GX_PIXELMAP_PROMPT KeyboardScreen_Key_T;
+    GX_PIXELMAP_PROMPT KeyboardScreen_Key_6;
+    GX_PIXELMAP_PROMPT KeyboardScreen_Key_7;
+    GX_PIXELMAP_PROMPT KeyboardScreen_Key_Y_1;
+    GX_PIXELMAP_PROMPT KeyboardScreen_Key_U;
+    GX_PIXELMAP_PROMPT KeyboardScreen_Key_1;
+    GX_PIXELMAP_PROMPT KeyboardScreen_Key_2;
+    GX_PIXELMAP_PROMPT KeyboardScreen_Key_3;
+    GX_PIXELMAP_PROMPT KeyboardScreen_Key_4;
+    GX_PIXELMAP_PROMPT KeyboardScreen_Key_5;
+    GX_PIXELMAP_PROMPT KeyboardScreen_Key_8;
+    GX_PIXELMAP_PROMPT KeyboardScreen_Key_9;
+    GX_PIXELMAP_PROMPT KeyboardScreen_Key_0;
+    GX_PIXELMAP_PROMPT KeyboardScreen_Key_I;
+    GX_PIXELMAP_PROMPT KeyboardScreen_Key_O;
+    GX_PIXELMAP_PROMPT KeyboardScreen_Key_P;
+    GX_PIXELMAP_PROMPT KeyboardScreen_Key_A;
+    GX_PIXELMAP_PROMPT KeyboardScreen_Key_S;
+    GX_PIXELMAP_PROMPT KeyboardScreen_Key_D;
+    GX_PIXELMAP_PROMPT KeyboardScreen_Key_F;
+    GX_PIXELMAP_PROMPT KeyboardScreen_Key_G;
+    GX_PIXELMAP_PROMPT KeyboardScreen_Key_H;
+    GX_PIXELMAP_PROMPT KeyboardScreen_Key_J;
+    GX_PIXELMAP_PROMPT KeyboardScreen_Key_K;
+    GX_PIXELMAP_PROMPT KeyboardScreen_Key_L;
+    GX_PIXELMAP_PROMPT KeyboardScreen_Key_Space;
+    GX_PIXELMAP_PROMPT KeyboardScreen_Key_Z;
+    GX_PIXELMAP_PROMPT KeyboardScreen_Key_X;
+    GX_PIXELMAP_PROMPT KeyboardScreen_Key_C;
+    GX_PIXELMAP_PROMPT KeyboardScreen_Key_V;
+    GX_PIXELMAP_PROMPT KeyboardScreen_Key_B;
+    GX_PIXELMAP_PROMPT KeyboardScreen_Key_N;
+    GX_PIXELMAP_PROMPT KeyboardScreen_Key_M;
+} KEYBOARDSCREEN_CONTROL_BLOCK;
+
+typedef struct EDITSOUNDSCREEN_CONTROL_BLOCK_STRUCT
+{
+    PRIMARYTEMPLATE_CONTROL_BLOCK base;
+    GX_WINDOW EditSoundScreen_EditSoundScreenBackdrop;
+    GX_TEXT_BUTTON EditSoundScreen_OK_Button;
+    GX_NUMERIC_PROMPT EditSoundScreen_SoundNumber_Prompt;
+    GX_PROMPT EditSoundScreen_SoundNumberLabel;
+    GX_TEXT_BUTTON EditSoundScreen_ChangeName_Button;
+    GX_PROMPT EditSoundScreen_SoundName;
+    GX_TEXT_BUTTON EditSoundScreen_ChangeSoundBite_Button;
+    GX_PROMPT EditSoundScreen_SoundBite_Prompt;
+} EDITSOUNDSCREEN_CONTROL_BLOCK;
 
 typedef struct USERSCANSCREEN_CONTROL_BLOCK_STRUCT
 {
@@ -740,6 +858,8 @@ typedef struct DIAGNOSTICSCREEN_CONTROL_BLOCK_STRUCT
 /* extern statically defined control blocks                                    */
 
 #ifndef GUIX_STUDIO_GENERATED_FILE
+extern KEYBOARDSCREEN_CONTROL_BLOCK KeyboardScreen;
+extern EDITSOUNDSCREEN_CONTROL_BLOCK EditSoundScreen;
 extern USERSCANSCREEN_CONTROL_BLOCK UserScanScreen;
 extern PADADVANCEDSCREEN_CONTROL_BLOCK PadAdvancedScreen;
 extern TECLA_E_SCREEN_CONTROL_BLOCK Tecla_E_Screen;
@@ -774,6 +894,8 @@ extern PRIMARYTEMPLATE_CONTROL_BLOCK PrimaryTemplate;
 
 /* Declare event process functions, draw functions, and callback functions     */
 
+UINT KeyboardScreen_event_function(GX_WINDOW *widget, GX_EVENT *event_ptr);
+UINT EditSoundScreen_event_process(GX_WINDOW *widget, GX_EVENT *event_ptr);
 UINT UserScanScreen_EventFunction(GX_WINDOW *widget, GX_EVENT *event_ptr);
 UINT PadAdvanceScreen_event_process(GX_WINDOW *widget, GX_EVENT *event_ptr);
 VOID AdvancedPadFeatureList_callback(GX_VERTICAL_LIST *, GX_WIDGET *, INT);
@@ -782,7 +904,7 @@ UINT JoystickThrow_event_function(GX_WINDOW *widget, GX_EVENT *event_ptr);
 UINT NeutralWindow_event_function(GX_WINDOW *widget, GX_EVENT *event_ptr);
 UINT SoundSetupScreen_event_process(GX_WINDOW *widget, GX_EVENT *event_ptr);
 UINT ManageSoundScreen_event_process(GX_WINDOW *widget, GX_EVENT *event_ptr);
-VOID MenuItem_Callback(GX_VERTICAL_LIST *, GX_WIDGET *, INT);
+VOID ManageSoundItemList_callback(GX_VERTICAL_LIST *, GX_WIDGET *, INT);
 UINT SoundOptionScreen_event_process(GX_WINDOW *widget, GX_EVENT *event_ptr);
 UINT MainUserScreen_EventFunction(GX_WINDOW *widget, GX_EVENT *event_ptr);
 UINT FeatureSettingsScreen_event_process(GX_WINDOW *widget, GX_EVENT *event_ptr);
@@ -851,6 +973,7 @@ UINT gx_studio_numeric_prompt_create(GX_CONST GX_STUDIO_WIDGET *info, GX_WIDGET 
 UINT gx_studio_pixelmap_prompt_create(GX_CONST GX_STUDIO_WIDGET *info, GX_WIDGET *control_block, GX_WIDGET *parent);
 UINT gx_studio_window_create(GX_CONST GX_STUDIO_WIDGET *info, GX_WIDGET *control_block, GX_WIDGET *parent);
 UINT gx_studio_vertical_list_create(GX_CONST GX_STUDIO_WIDGET *info, GX_WIDGET *control_block, GX_WIDGET *parent);
+UINT gx_studio_text_input_create(GX_CONST GX_STUDIO_WIDGET *info, GX_WIDGET *control_block, GX_WIDGET *parent);
 UINT gx_studio_vertical_scrollbar_create(GX_CONST GX_STUDIO_WIDGET *info, GX_WIDGET *control_block, GX_WIDGET *parent);
 UINT gx_studio_template_create(GX_CONST GX_STUDIO_WIDGET *info, GX_WIDGET *control_block, GX_WIDGET *parent);
 GX_WIDGET *gx_studio_widget_create(GX_BYTE *storage, GX_CONST GX_STUDIO_WIDGET *definition, GX_WIDGET *parent);

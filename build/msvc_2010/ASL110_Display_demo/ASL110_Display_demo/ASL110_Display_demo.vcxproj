@@ -93,6 +93,7 @@
     <ClCompile Include="..\..\..\..\HHP_StartScreen.c" />
     <ClCompile Include="..\..\..\..\HUB.c" />
     <ClCompile Include="..\..\..\..\JoystickThrowScreen.c" />
+    <ClCompile Include="..\..\..\..\KeyboardScreen.c" />
     <ClCompile Include="..\..\..\..\MainUserScreen.c" />
     <ClCompile Include="..\..\..\..\MainUserScreen_3.c" />
     <ClCompile Include="..\..\..\..\MinimumDriveScreen.c" />
@@ -126,6 +127,7 @@
     <ClInclude Include="..\..\..\..\DataDictionary.h" />
     <ClInclude Include="..\..\..\..\FeatureHandling.h" />
     <ClInclude Include="..\..\..\..\HUB.h" />
+    <ClInclude Include="..\..\..\..\KeyboardScreen.h" />
     <ClInclude Include="..\..\..\..\PadInfo.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

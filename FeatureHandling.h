@@ -1,4 +1,4 @@
-//*****************************************************************************
+//****************************************************************************
 // Filename: FeatureHandling.h
 // Description: This file declares function, typedefs and macros to the 
 //		for Feature Specific Information.
