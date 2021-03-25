@@ -9,22 +9,25 @@
 
 #include "ASL4321_System.h"
 #include "asl4321_display_demo_resources.h"
+#include "DataDictionary.h"
 #include "custom_checkbox.h"
 #include "KeyboardScreen.h"
 
+//*************************************************************************************
+// Local typedefs
 typedef struct SOUND_STRUCTURE {
 	CUSTOM_MENU_BUTTON m_Menu;
-	char m_SoundLabel[12];
-} SOUND_STRUCT;
+	char m_SoundLabel[SOUND_BITE_NAME_LENGTH];
+	char m_FileName[SOUND_BITE_FILENAME_LENGTH];
+} SOUND_GUI_STRUCT;
+static SOUND_GUI_STRUCT g_Sound_MenuItems[MAX_SOUND_BITES];
 
 //*************************************************************************************
 // Local Variables
 
 static USHORT g_SelectedSoundIndex = 0;
-
-static SOUND_STRUCT g_Sound_MenuItems[MAX_SOUND_BITES];
-
-static char g_FileName[12];
+static USHORT g_SoundBank = 0;
+static USHORT g_Group;
 
 //*************************************************************************************
 // Function Name: SoundOptionScreen_event_process
@@ -62,37 +65,13 @@ UINT SoundOptionScreen_event_process (GX_WINDOW *window, GX_EVENT *event_ptr)
 }
 
 //*************************************************************************************
-VOID Populate_Sound_MenuItems(VOID)
-{
-	int i;
-
-	for (i=0; i < MAX_SOUND_BITES; ++i)
-	{
-		g_Sound_MenuItems[i].m_Menu.m_ButtonID = SOUND1_BUTTON_ID + i;
-		g_Sound_MenuItems[i].m_Menu.m_TextID = GX_STRING_ID_BLANK;
-		g_Sound_MenuItems[i].m_Menu.m_Enabled = TRUE;
-		sprintf_s (g_Sound_MenuItems[i].m_SoundLabel, sizeof (g_Sound_MenuItems[0].m_SoundLabel), "Spare %d", i+1);
-	}
-	g_Sound_MenuItems[0].m_Menu.m_ButtonID = SOUND1_BUTTON_ID;
-	g_Sound_MenuItems[0].m_Menu.m_TextID = GX_STRING_ID_BLANK;
-	g_Sound_MenuItems[0].m_Menu.m_Enabled = TRUE;
-	strcpy_s (g_Sound_MenuItems[0].m_SoundLabel, sizeof (g_Sound_MenuItems[0].m_SoundLabel), "YES");
-
-	g_Sound_MenuItems[1].m_Menu.m_ButtonID = SOUND2_BUTTON_ID;
-	g_Sound_MenuItems[1].m_Menu.m_TextID = GX_STRING_ID_BLANK;
-	g_Sound_MenuItems[1].m_Menu.m_Enabled = TRUE;
-	strcpy_s (g_Sound_MenuItems[1].m_SoundLabel, sizeof (g_Sound_MenuItems[1].m_SoundLabel), "NO");
-}
-
-//*************************************************************************************
 VOID ManageSoundItemList_callback (GX_VERTICAL_LIST *pList, GX_WIDGET *pWidget, INT pIndex)
-//VOID ManageScreen_DrawButton (GX_VERTICAL_LIST *pList, SOUND_STRUCT *thisItem, INT pIndex)
 {
 	GX_BOOL result;
-	SOUND_STRUCT *thisItem;
+	SOUND_GUI_STRUCT *thisItem;
 	GX_RECTANGLE childsize;
 
-	thisItem = (SOUND_STRUCT*) pWidget;
+	thisItem = (SOUND_GUI_STRUCT*) pWidget;
 
 	gx_widget_created_test(&thisItem->m_Menu.m_MenuWidget, &result);	// Test to see if the GUIX item has been created, I guess it's like a null test.
 
@@ -103,7 +82,7 @@ VOID ManageSoundItemList_callback (GX_VERTICAL_LIST *pList, GX_WIDGET *pWidget, 
 
 		// This draws an actual GUIX button
 		gx_utility_rectangle_define(&childsize, 8, 4, thisItem->m_Menu.m_MenuWidget.gx_widget_size.gx_rectangle_right-44, 68);
-		gx_text_button_create (&thisItem->m_Menu.m_ButtonWidget, NULL, &thisItem->m_Menu.m_MenuWidget, thisItem->m_Menu.m_TextID, GX_STYLE_ENABLED | GX_STYLE_BORDER_THIN, 0, &childsize);
+		gx_text_button_create (&thisItem->m_Menu.m_ButtonWidget, NULL, &thisItem->m_Menu.m_MenuWidget, 0, GX_STYLE_ENABLED | GX_STYLE_BORDER_THIN, 0, &childsize);
 		gx_text_button_text_color_set (&thisItem->m_Menu.m_ButtonWidget, GX_COLOR_ID_BTN_TEXT, GX_COLOR_ID_BTN_TEXT, GX_COLOR_ID_DISABLED_TEXT);
 		gx_widget_fill_color_set ((GX_WIDGET*) &thisItem->m_Menu.m_ButtonWidget, GX_COLOR_ID_TEXT_INPUT_FILL, GX_COLOR_ID_TEXT_INPUT_TEXT, GX_COLOR_ID_DISABLED_FILL);
 	}
@@ -143,6 +122,7 @@ UINT ManageSoundScreen_event_process (GX_WINDOW *window, GX_EVENT *event_ptr)
 	UINT myErr;
 	int numberOfActiveMenuItems, index;
 	int selectedIndex;
+	char myStr[16];
 
 	MANAGESOUNDSCREEN_CONTROL_BLOCK *WindowPtr = (MANAGESOUNDSCREEN_CONTROL_BLOCK*) window;
 
@@ -152,11 +132,12 @@ UINT ManageSoundScreen_event_process (GX_WINDOW *window, GX_EVENT *event_ptr)
 		numberOfActiveMenuItems = 0;
 		for (index = 0; index < MAX_SOUND_BITES; ++index)
 		{
-			if (g_Sound_MenuItems[index].m_Menu.m_Enabled)
-			{
-				ManageSoundItemList_callback (&WindowPtr->ManageSoundScreen_SoundVerticalList, (GX_WIDGET*) &g_Sound_MenuItems[index], index);
-				++numberOfActiveMenuItems;
-			}
+			dd_GetString (0, DD_SOUNDBITE_NAME, index, myStr);
+			strcpy_s (g_Sound_MenuItems[index].m_SoundLabel, sizeof (g_Sound_MenuItems[index].m_SoundLabel), myStr);
+			dd_GetString (0, DD_SOUNDBITE_FILENAME, index, myStr);
+			strcpy_s (g_Sound_MenuItems[index].m_FileName, sizeof (g_Sound_MenuItems[index].m_FileName), myStr);
+			ManageSoundItemList_callback (&WindowPtr->ManageSoundScreen_SoundVerticalList, (GX_WIDGET*) &g_Sound_MenuItems[index], index);
+			++numberOfActiveMenuItems;
 		}
 		WindowPtr->ManageSoundScreen_SoundVerticalList.gx_vertical_list_total_rows = numberOfActiveMenuItems;
         gx_vertical_list_selected_set(&WindowPtr->ManageSoundScreen_SoundVerticalList, -1);
@@ -169,17 +150,7 @@ UINT ManageSoundScreen_event_process (GX_WINDOW *window, GX_EVENT *event_ptr)
 		gx_vertical_list_selected_index_get (&WindowPtr->ManageSoundScreen_SoundVerticalList, &selectedIndex);
 		// "index" refers to the item in the list... and not the item itself.
 		// We will identify which pad option has been selected.
-		g_SelectedSoundIndex = 0;	// This will increment with each enabled items.
-		for (index = 0; index < MAX_SOUND_BITES; ++index)
-		{
-			if (g_Sound_MenuItems[index].m_Menu.m_Enabled)
-			{
-				if (g_SelectedSoundIndex == selectedIndex)
-					break;				// we found the correct Pad Option button.
-				else
-					++g_SelectedSoundIndex;		// We need to continue looking.
-			}
-		}
+		g_SelectedSoundIndex = selectedIndex;
         screen_toggle((GX_WINDOW *)&EditSoundScreen, window);
 		break;
 
@@ -194,13 +165,185 @@ UINT ManageSoundScreen_event_process (GX_WINDOW *window, GX_EVENT *event_ptr)
 }
 
 //*************************************************************************************
+static VOID SetLevel (VOID)
+{
+	gx_numeric_prompt_value_set (&SoundSetupScreen.SoundSetupScreen_LevelNumber, g_SoundBank + 1);	// "+1" makes it one-based
+}
+
+static VOID GetNextSoundBite (USHORT *soundID)
+{
+	USHORT index;
+
+	for (index = 0; index < MAX_SOUND_BITES; ++index)
+	{
+		++*soundID;
+		if (*soundID > MAX_SOUND_BITES)
+			*soundID = 0;
+		if (g_Sound_MenuItems[*soundID].m_SoundLabel[0] != '<')
+			break;	
+	}
+}
+
+static VOID PositionPads (VOID)
+{
+	GX_RECTANGLE rectangle;
+
+	if (dd_Get_USHORT (MAX_GROUPS, DD_DEVICE_TYPE) == DEVICE_TYPE_HEAD_ARRAY)
+	{
+		// Left Button
+		gx_utility_rectangle_define (&rectangle, 68, 120, 68+80, 120+36);	// Left, top, right, bottom
+		gx_widget_resize (&SoundSetupScreen.SoundSetupScreen_LeftPad_SoundName, &rectangle);
+		gx_utility_rectangle_define (&rectangle, 64, 90, 64+88, 90+70);	// Left, top, right, bottom
+		gx_widget_resize (&SoundSetupScreen.SoundSetupScreen_Left_Icon, &rectangle);
+		// Right Button
+		gx_utility_rectangle_define (&rectangle, 246, 120, 246+80, 120+36);	// Left, top, right, bottom
+		gx_widget_resize (&SoundSetupScreen.SoundSetupScreen_RightPad_SoundName, &rectangle);
+		gx_utility_rectangle_define (&rectangle, 242, 90, 242+88, 90+70);	// Left, top, right, bottom
+		gx_widget_resize (&SoundSetupScreen.SoundSetupScreen_Right_Icon, &rectangle);
+		// Center/Forward Pad
+		gx_utility_rectangle_define (&rectangle, 158, 190, 158+80, 190+36);	// Left, top, right, bottom
+		gx_widget_resize (&SoundSetupScreen.SoundSetupScreen_ForwardPad_SoundName, &rectangle);
+		gx_utility_rectangle_define (&rectangle, 154, 160, 154+88, 160+70);	// Left, top, right, bottom
+		gx_widget_resize (&SoundSetupScreen.SoundSetupScreen_Forward_Icon, &rectangle);
+		// Hide the revese button
+		gx_widget_hide ((GX_WIDGET*) &SoundSetupScreen.SoundSetupScreen_ReversePad_SoundName);
+		gx_widget_hide ((GX_WIDGET*) &SoundSetupScreen.SoundSetupScreen_Reverse_Icon);
+	}
+	else	// Must be a joystick, show all 4 pads.
+	{
+		// Left Button
+		gx_utility_rectangle_define (&rectangle, 70, 150, 70+80, 150+36);	// Left, top, right, bottom
+		gx_widget_resize (&SoundSetupScreen.SoundSetupScreen_LeftPad_SoundName, &rectangle);
+		gx_utility_rectangle_define (&rectangle, 66, 120, 66+88, 120+70);	// Left, top, right, bottom
+		gx_widget_resize (&SoundSetupScreen.SoundSetupScreen_Left_Icon, &rectangle);
+		// Right Button
+		gx_utility_rectangle_define (&rectangle, 246, 150, 246+80, 150+36);	// Left, top, right, bottom
+		gx_widget_resize (&SoundSetupScreen.SoundSetupScreen_RightPad_SoundName, &rectangle);
+		gx_utility_rectangle_define (&rectangle, 242, 120, 242+88, 120+70);	// Left, top, right, bottom
+		gx_widget_resize (&SoundSetupScreen.SoundSetupScreen_Right_Icon, &rectangle);
+		// Center/Forward Pad
+		gx_utility_rectangle_define (&rectangle, 158, 88, 158+80, 88+36);	// Left, top, right, bottom
+		gx_widget_resize (&SoundSetupScreen.SoundSetupScreen_ForwardPad_SoundName, &rectangle);
+		gx_utility_rectangle_define (&rectangle, 154, 58, 154+88, 58+70);	// Left, top, right, bottom
+		gx_widget_resize (&SoundSetupScreen.SoundSetupScreen_Forward_Icon, &rectangle);
+		// Reverse Button
+		gx_utility_rectangle_define (&rectangle, 158, 220, 158+80, 220+36);	// Left, top, right, bottom
+		gx_widget_resize (&SoundSetupScreen.SoundSetupScreen_ReversePad_SoundName, &rectangle);
+		gx_utility_rectangle_define (&rectangle, 154, 190, 154+88, 190+70);	// Left, top, right, bottom
+		gx_widget_resize (&SoundSetupScreen.SoundSetupScreen_Reverse_Icon, &rectangle);
+		gx_widget_show ((GX_WIDGET*) &SoundSetupScreen.SoundSetupScreen_ReversePad_SoundName);
+		gx_widget_show ((GX_WIDGET*) &SoundSetupScreen.SoundSetupScreen_Reverse_Icon);
+	}
+}
+
+//*************************************************************************************
+// This function populates the 4 pads with the speaker bites names.
+
+VOID PopulateSoundPad(VOID)
+{
+	USHORT group;
+	USHORT soundID;
+
+	group = dd_Get_USHORT (0, DD_GROUP);	// Get currently selected group.
+
+	// Populate the forward pad with the Sound Bite Label
+	soundID = dd_GetSubItem_USHORT (group, DD_ACTIVE_SPEAKER_SUBITEM_FORWARD, g_SoundBank);
+	if (soundID < MAX_SOUND_BITES)
+		gx_prompt_text_set ((GX_PROMPT*)&SoundSetupScreen.SoundSetupScreen_ForwardPad_SoundName, g_Sound_MenuItems[soundID].m_SoundLabel);
+	else
+		gx_prompt_text_set ((GX_PROMPT*)&SoundSetupScreen.SoundSetupScreen_ForwardPad_SoundName, "----");
+
+	// Populate the reverse pad with the Sound Bite Label
+	soundID = dd_GetSubItem_USHORT (group, DD_ACTIVE_SPEAKER_SUBITEM_REVERSE, g_SoundBank);
+	if (soundID < MAX_SOUND_BITES)
+		gx_prompt_text_set ((GX_PROMPT*)&SoundSetupScreen.SoundSetupScreen_ReversePad_SoundName, g_Sound_MenuItems[soundID].m_SoundLabel);
+	else
+		gx_prompt_text_set ((GX_PROMPT*)&SoundSetupScreen.SoundSetupScreen_ReversePad_SoundName, "----");
+
+	// Populate the left pad with the Sound Bite Label
+	soundID = dd_GetSubItem_USHORT (group, DD_ACTIVE_SPEAKER_SUBITEM_LEFT, g_SoundBank);
+	if (soundID < MAX_SOUND_BITES)
+		gx_prompt_text_set ((GX_PROMPT*)&SoundSetupScreen.SoundSetupScreen_LeftPad_SoundName, g_Sound_MenuItems[soundID].m_SoundLabel);
+	else
+		gx_prompt_text_set ((GX_PROMPT*)&SoundSetupScreen.SoundSetupScreen_LeftPad_SoundName, "----");
+
+	// Populate the right pad with the Sound Bite Label
+	soundID = dd_GetSubItem_USHORT (group, DD_ACTIVE_SPEAKER_SUBITEM_RIGHT, g_SoundBank);
+	if (soundID < MAX_SOUND_BITES)
+		gx_prompt_text_set ((GX_PROMPT*)&SoundSetupScreen.SoundSetupScreen_RightPad_SoundName, g_Sound_MenuItems[soundID].m_SoundLabel);
+	else
+		gx_prompt_text_set ((GX_PROMPT*)&SoundSetupScreen.SoundSetupScreen_RightPad_SoundName, "----");
+}
+
+//*************************************************************************************
+// This is the screen that shows the Pads and each level for setting the sound
+// bites associated with each.
 
 UINT SoundSetupScreen_event_process (GX_WINDOW *window, GX_EVENT *event_ptr)
 {
 	UINT myErr;
+	USHORT index;
+	USHORT soundID;
 
 	switch (event_ptr->gx_event_type)
 	{
+	case GX_EVENT_SHOW:
+		g_Group = dd_Get_USHORT (0, DD_GROUP);
+
+		for (index = 0; index < MAX_SOUND_BITES; ++index)
+		{
+			dd_GetString (0, DD_SOUNDBITE_NAME, index, g_Sound_MenuItems[index].m_SoundLabel);
+			dd_GetString (0, DD_SOUNDBITE_FILENAME, index, g_Sound_MenuItems[index].m_FileName);
+		}
+		g_SoundBank = 0;		// This is the level or bank of which there are 8.
+		SetLevel();
+		SetGroupIcon (&SoundSetupScreen.SoundSetupScreen_GroupIconButton);
+		PositionPads();
+		PopulateSoundPad();
+		break;
+
+	case GX_SIGNAL(LEFT_LEVEL_BTN_ID, GX_EVENT_CLICKED):
+		if (g_SoundBank > 0)
+			--g_SoundBank;
+		SetLevel();
+		PopulateSoundPad();
+		break;
+
+	case GX_SIGNAL(RIGHT_LEVEL_BTN_ID, GX_EVENT_CLICKED):
+		if (g_SoundBank < (MAX_AUDIBLE_SUBITEMS-1) )
+			++g_SoundBank;
+		SetLevel();
+		PopulateSoundPad();
+		break;
+
+	case GX_SIGNAL(FORWARD_ICON_ID, GX_EVENT_CLICKED):
+		soundID = dd_GetSubItem_USHORT (g_Group, DD_ACTIVE_SPEAKER_SUBITEM_FORWARD, g_SoundBank);
+		GetNextSoundBite (&soundID);		// Search for next defined Sound Bite
+		dd_SetSubItem_USHORT (g_Group, DD_ACTIVE_SPEAKER_SUBITEM_FORWARD, g_SoundBank, soundID);
+		PopulateSoundPad();
+		break;
+
+	case GX_SIGNAL(REVERSE_ICON_ID, GX_EVENT_CLICKED):
+		soundID = dd_GetSubItem_USHORT (g_Group, DD_ACTIVE_SPEAKER_SUBITEM_REVERSE, g_SoundBank);
+		GetNextSoundBite (&soundID);		// Search for next defined Sound Bite
+		dd_SetSubItem_USHORT (g_Group, DD_ACTIVE_SPEAKER_SUBITEM_REVERSE, g_SoundBank, soundID);
+		PopulateSoundPad();
+		break;
+
+	case GX_SIGNAL(LEFT_ICON_ID, GX_EVENT_CLICKED):
+		soundID = dd_GetSubItem_USHORT (g_Group, DD_ACTIVE_SPEAKER_SUBITEM_LEFT, g_SoundBank);
+		GetNextSoundBite (&soundID);		// Search for next defined Sound Bite
+		dd_SetSubItem_USHORT (g_Group, DD_ACTIVE_SPEAKER_SUBITEM_LEFT, g_SoundBank, soundID);
+		PopulateSoundPad();
+		break;
+
+	case GX_SIGNAL(RIGHT_ICON_ID, GX_EVENT_CLICKED):
+		soundID = dd_GetSubItem_USHORT (g_Group, DD_ACTIVE_SPEAKER_SUBITEM_RIGHT, g_SoundBank);
+		GetNextSoundBite (&soundID);		// Search for next defined Sound Bite
+		dd_SetSubItem_USHORT (g_Group, DD_ACTIVE_SPEAKER_SUBITEM_RIGHT, g_SoundBank, soundID);
+		PopulateSoundPad();
+		break;
+
 	case GX_SIGNAL(OK_BTN_ID, GX_EVENT_CLICKED):
         screen_toggle((GX_WINDOW *)&SoundOptionScreen, window);
 		break;
@@ -212,18 +355,19 @@ UINT SoundSetupScreen_event_process (GX_WINDOW *window, GX_EVENT *event_ptr)
 }
 
 //*************************************************************************************
+// This is the screen that displays the Sound Bite "Name" and "file name"
 
 UINT EditSoundScreen_event_process (GX_WINDOW *window, GX_EVENT *event_ptr)
 {
 	UINT myErr;
+	USHORT index;
 
 	switch (event_ptr->gx_event_type)
 	{
 	case GX_EVENT_SHOW:
 		gx_numeric_prompt_value_set (&EditSoundScreen.EditSoundScreen_SoundNumber_Prompt, g_SelectedSoundIndex + 1);	// Make it "1" based.
-		strcpy_s (g_FileName, sizeof(g_FileName), "NO.wav");
 		gx_prompt_text_set (&EditSoundScreen.EditSoundScreen_SoundName, g_Sound_MenuItems[g_SelectedSoundIndex].m_SoundLabel);
-		gx_prompt_text_set (&EditSoundScreen.EditSoundScreen_SoundBite_Prompt, g_FileName);
+		gx_prompt_text_set (&EditSoundScreen.EditSoundScreen_SoundBite_Prompt, g_Sound_MenuItems[g_SelectedSoundIndex].m_FileName);
 		break;
 
 	case GX_SIGNAL(CHANGE_NAME_BTN_ID, GX_EVENT_CLICKED):
@@ -236,6 +380,12 @@ UINT EditSoundScreen_event_process (GX_WINDOW *window, GX_EVENT *event_ptr)
         break;
 
 	case GX_SIGNAL(OK_BTN_ID, GX_EVENT_CLICKED):
+		// Store any changed Sound Labels and/or file names
+		for (index = 0; index < MAX_SOUND_BITES; ++index)
+		{
+			dd_SetString (0, DD_SOUNDBITE_NAME, index, g_Sound_MenuItems[index].m_SoundLabel);
+			dd_SetString (0, DD_SOUNDBITE_FILENAME, index, g_Sound_MenuItems[index].m_FileName);
+		}
         screen_toggle((GX_WINDOW *)&ManageSoundScreen, window);
 		break;
 	}

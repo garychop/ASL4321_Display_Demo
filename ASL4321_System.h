@@ -21,6 +21,8 @@
 #define MAXIMUM_DRIVE_SPEED (40)
 #define MAX_AUDIBLE_SUBITEMS (8)
 #define MAX_SOUND_BITES (32)
+#define SOUND_BITE_NAME_LENGTH (8)
+#define SOUND_BITE_FILENAME_LENGTH (12)
 
 #define FEATURE_TOGGLE_BUTTON_ID 1000	// this is used as the dynamically created buttons in the feature list.
 typedef enum BUTTON_IDS {

@@ -73,10 +73,10 @@ static VOID InitializeAudibleSubItems (FEATURE_GROUP_STRUCT *audible)
 
 	for (idx = 0; idx < MAX_AUDIBLE_SUBITEMS; ++idx)
 	{
-		audible->m_Subitem.m_Audible_Subitem[idx].m_ForwardPad_SoundID = 0;
-		audible->m_Subitem.m_Audible_Subitem[idx].m_ReversePad_SoundID = 0;
-		audible->m_Subitem.m_Audible_Subitem[idx].m_LeftPad_SoundID = 0;
-		audible->m_Subitem.m_Audible_Subitem[idx].m_RightPad_SoundID = 0;
+		audible->m_Subitem.m_Audible_Subitem[idx].m_ForwardPad_SoundID = MAX_SOUND_BITES;
+		audible->m_Subitem.m_Audible_Subitem[idx].m_ReversePad_SoundID = MAX_SOUND_BITES;
+		audible->m_Subitem.m_Audible_Subitem[idx].m_LeftPad_SoundID = MAX_SOUND_BITES;
+		audible->m_Subitem.m_Audible_Subitem[idx].m_RightPad_SoundID = MAX_SOUND_BITES;
 	}
 }
 
@@ -130,17 +130,17 @@ static VOID InitializeIndividualGroup (USHORT group)
 	g_GroupInfo[group].m_GroupFeature[AUDIBLE_OUT_FEATURE_ID].m_SelectedSubItem = 0;
 	InitializeAudibleSubItems(&g_GroupInfo[group].m_GroupFeature[AUDIBLE_OUT_FEATURE_ID]);
 	g_GroupInfo[group].m_GroupFeature[AUDIBLE_OUT_FEATURE_ID].m_Subitem.m_Audible_Subitem[0].m_ForwardPad_SoundID = 1;
-	g_GroupInfo[group].m_GroupFeature[AUDIBLE_OUT_FEATURE_ID].m_Subitem.m_Audible_Subitem[0].m_ReversePad_SoundID = 0;
+	g_GroupInfo[group].m_GroupFeature[AUDIBLE_OUT_FEATURE_ID].m_Subitem.m_Audible_Subitem[0].m_ReversePad_SoundID = MAX_SOUND_BITES;
 	g_GroupInfo[group].m_GroupFeature[AUDIBLE_OUT_FEATURE_ID].m_Subitem.m_Audible_Subitem[0].m_LeftPad_SoundID = 3;
 	g_GroupInfo[group].m_GroupFeature[AUDIBLE_OUT_FEATURE_ID].m_Subitem.m_Audible_Subitem[0].m_RightPad_SoundID = 4;
-	g_GroupInfo[group].m_GroupFeature[AUDIBLE_OUT_FEATURE_ID].m_Subitem.m_Audible_Subitem[1].m_ForwardPad_SoundID = 0;
-	g_GroupInfo[group].m_GroupFeature[AUDIBLE_OUT_FEATURE_ID].m_Subitem.m_Audible_Subitem[1].m_ReversePad_SoundID = 0;
+	g_GroupInfo[group].m_GroupFeature[AUDIBLE_OUT_FEATURE_ID].m_Subitem.m_Audible_Subitem[1].m_ForwardPad_SoundID = MAX_SOUND_BITES;
+	g_GroupInfo[group].m_GroupFeature[AUDIBLE_OUT_FEATURE_ID].m_Subitem.m_Audible_Subitem[1].m_ReversePad_SoundID = MAX_SOUND_BITES;
 	g_GroupInfo[group].m_GroupFeature[AUDIBLE_OUT_FEATURE_ID].m_Subitem.m_Audible_Subitem[1].m_LeftPad_SoundID = 5;
 	g_GroupInfo[group].m_GroupFeature[AUDIBLE_OUT_FEATURE_ID].m_Subitem.m_Audible_Subitem[1].m_RightPad_SoundID = 6;
-	g_GroupInfo[group].m_GroupFeature[AUDIBLE_OUT_FEATURE_ID].m_Subitem.m_Audible_Subitem[7].m_ForwardPad_SoundID = 0;
-	g_GroupInfo[group].m_GroupFeature[AUDIBLE_OUT_FEATURE_ID].m_Subitem.m_Audible_Subitem[7].m_ReversePad_SoundID = 0;
+	g_GroupInfo[group].m_GroupFeature[AUDIBLE_OUT_FEATURE_ID].m_Subitem.m_Audible_Subitem[7].m_ForwardPad_SoundID = 2;
+	g_GroupInfo[group].m_GroupFeature[AUDIBLE_OUT_FEATURE_ID].m_Subitem.m_Audible_Subitem[7].m_ReversePad_SoundID = MAX_SOUND_BITES;
 	g_GroupInfo[group].m_GroupFeature[AUDIBLE_OUT_FEATURE_ID].m_Subitem.m_Audible_Subitem[7].m_LeftPad_SoundID = 3;
-	g_GroupInfo[group].m_GroupFeature[AUDIBLE_OUT_FEATURE_ID].m_Subitem.m_Audible_Subitem[7].m_RightPad_SoundID = 6;
+	g_GroupInfo[group].m_GroupFeature[AUDIBLE_OUT_FEATURE_ID].m_Subitem.m_Audible_Subitem[7].m_RightPad_SoundID = MAX_SOUND_BITES;
 
 	g_GroupInfo[group].m_GroupFeature[SEATING_FEATURE_ID].m_FeatureID = SEATING_FEATURE_ID;
 	g_GroupInfo[group].m_GroupFeature[SEATING_FEATURE_ID].m_Attribute = FEATURE_AVAILABLE | FEATURE_ENABLED | (SEATING_FEATURE_ID << 4);

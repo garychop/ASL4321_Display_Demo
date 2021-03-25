@@ -18,6 +18,8 @@ typedef enum DATA_DICTIONARY_IDS_ENUM {
 	DD_ACTIVE_SPEAKER_SUBITEM_REVERSE,
 	DD_ACTIVE_SPEAKER_SUBITEM_LEFT,
 	DD_ACTIVE_SPEAKER_SUBITEM_RIGHT,
+	DD_SOUNDBITE_NAME,
+	DD_SOUNDBITE_FILENAME,
 	DD_SCAN_MODE,
 	DD_GROUP_FEATURE_ID,		// Requires subscript parameter
 	DD_GROUP_FEATURE_ATTRIBUTE,	// Requires subscript parameter
@@ -33,5 +35,7 @@ USHORT dd_Get_USHORT (USHORT, DD_ITEM_ID);
 VOID dd_Set_USHORT (USHORT, DD_ITEM_ID, USHORT value);
 USHORT dd_GetSubItem_USHORT (USHORT group, DD_ITEM_ID item_ID, USHORT subItem);
 VOID dd_SetSubItem_USHORT (USHORT group, DD_ITEM_ID item_ID, USHORT subItem, USHORT value);
+USHORT dd_GetString (USHORT group, DD_ITEM_ID item_ID, USHORT subItem, char *returnStr);
+USHORT dd_SetString (USHORT group, DD_ITEM_ID item_ID, USHORT subItem, char *returnStr);
 
 

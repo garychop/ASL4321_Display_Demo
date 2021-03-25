@@ -6,7 +6,7 @@
 /*  site at www.expresslogic.com.                                              */
 /*                                                                             */
 /*  GUIX Studio Revision 5.4.2.9                                               */
-/*  Date (dd.mm.yyyy): 22. 3.2021   Time (hh:mm): 11:00                        */
+/*  Date (dd.mm.yyyy): 25. 3.2021   Time (hh:mm): 17:22                        */
 /*******************************************************************************/
 
 
@@ -79,7 +79,8 @@
 #define GX_FONT_ID_ASC24PT 4
 #define GX_FONT_ID_SMALLER 5
 #define GX_FONT_ID_LARGESIZE 6
-#define PRIMARYDISPLAY_FONT_TABLE_SIZE 7
+#define GX_FONT_ID_ASC20PT 7
+#define PRIMARYDISPLAY_FONT_TABLE_SIZE 8
 
 /* Pixelmap ID definitions                                                     */
 
@@ -460,6 +461,8 @@
 #define GX_STRING_ID_STRING_170 192
 #define GX_STRING_ID_STRING_171 193
 #define GX_STRING_ID_STRING_172 194
-#define PRIMARYDISPLAY_STRING_TABLE_SIZE 195
+#define GX_STRING_ID_STRING_173 195
+#define GX_STRING_ID_STRING_174 196
+#define PRIMARYDISPLAY_STRING_TABLE_SIZE 197
 
 #endif                                       /* sentry                         */
