@@ -30,6 +30,11 @@ static USHORT g_SoundBank = 0;
 static USHORT g_Group;
 
 //*************************************************************************************
+// External function prototypes
+
+extern VOID LocatePadPosition (PHYSICAL_PAD_ENUM pad, DEVICE_TYPE_ENUM device, GX_BOOL showPrompt, GX_ICON *icon, GX_PROMPT *prompt);
+
+//*************************************************************************************
 // Function Name: SoundOptionScreen_event_process
 //
 // Description: This dispatches the Sound Option
@@ -186,54 +191,15 @@ static VOID GetNextSoundBite (USHORT *soundID)
 
 static VOID PositionPads (VOID)
 {
-	GX_RECTANGLE rectangle;
+	DEVICE_TYPE_ENUM thisDevice;
 
-	if (dd_Get_USHORT (MAX_GROUPS, DD_DEVICE_TYPE) == DEVICE_TYPE_HEAD_ARRAY)
-	{
-		// Left Button
-		gx_utility_rectangle_define (&rectangle, 64, 90, 64+88, 90+70);	// Left, top, right, bottom
-		gx_widget_resize (&SoundSetupScreen.SoundSetupScreen_Left_Icon, &rectangle);
-		gx_utility_rectangle_define (&rectangle, 68, 120, 68+80, 120+36);	// Left, top, right, bottom
-		gx_widget_resize (&SoundSetupScreen.SoundSetupScreen_LeftPad_SoundName, &rectangle);
-		// Right Button
-		gx_utility_rectangle_define (&rectangle, 242, 90, 242+88, 90+70);	// Left, top, right, bottom
-		gx_widget_resize (&SoundSetupScreen.SoundSetupScreen_Right_Icon, &rectangle);
-		gx_utility_rectangle_define (&rectangle, 246, 120, 246+80, 120+36);	// Left, top, right, bottom
-		gx_widget_resize (&SoundSetupScreen.SoundSetupScreen_RightPad_SoundName, &rectangle);
-		// Center/Forward Pad
-		gx_utility_rectangle_define (&rectangle, 154, 160, 154+88, 160+70);	// Left, top, right, bottom
-		gx_widget_resize (&SoundSetupScreen.SoundSetupScreen_Forward_Icon, &rectangle);
-		gx_utility_rectangle_define (&rectangle, 158, 190, 158+80, 190+36);	// Left, top, right, bottom
-		gx_widget_resize (&SoundSetupScreen.SoundSetupScreen_ForwardPad_SoundName, &rectangle);
-		// Hide the revese button
-		gx_widget_hide ((GX_WIDGET*) &SoundSetupScreen.SoundSetupScreen_ReversePad_SoundName);
-		gx_widget_hide ((GX_WIDGET*) &SoundSetupScreen.SoundSetupScreen_Reverse_Icon);
-	}
-	else	// Must be a joystick, show all 4 pads.
-	{
-		// Left Button
-		gx_utility_rectangle_define (&rectangle, 66, 122, 66+88, 122+70);	// Left, top, right, bottom
-		gx_widget_resize (&SoundSetupScreen.SoundSetupScreen_Left_Icon, &rectangle);
-		gx_utility_rectangle_define (&rectangle, 70, 152, 70+80, 152+36);	// Left, top, right, bottom
-		gx_widget_resize (&SoundSetupScreen.SoundSetupScreen_LeftPad_SoundName, &rectangle);
-		// Right Button
-		gx_utility_rectangle_define (&rectangle, 242, 122, 242+88, 122+70);	// Left, top, right, bottom
-		gx_widget_resize (&SoundSetupScreen.SoundSetupScreen_Right_Icon, &rectangle);
-		gx_utility_rectangle_define (&rectangle, 246, 152, 246+80, 152+36);	// Left, top, right, bottom
-		gx_widget_resize (&SoundSetupScreen.SoundSetupScreen_RightPad_SoundName, &rectangle);
-		// Center/Forward Pad
-		gx_utility_rectangle_define (&rectangle, 154, 54, 154+88, 54+70);	// Left, top, right, bottom
-		gx_widget_resize (&SoundSetupScreen.SoundSetupScreen_Forward_Icon, &rectangle);
-		gx_utility_rectangle_define (&rectangle, 158, 84, 158+80, 84+36);	// Left, top, right, bottom
-		gx_widget_resize (&SoundSetupScreen.SoundSetupScreen_ForwardPad_SoundName, &rectangle);
-		// Reverse Button
-		gx_utility_rectangle_define (&rectangle, 154, 190, 154+88, 190+70);	// Left, top, right, bottom
-		gx_widget_resize (&SoundSetupScreen.SoundSetupScreen_Reverse_Icon, &rectangle);
-		gx_utility_rectangle_define (&rectangle, 158, 220, 158+80, 220+36);	// Left, top, right, bottom
-		gx_widget_resize (&SoundSetupScreen.SoundSetupScreen_ReversePad_SoundName, &rectangle);
-		gx_widget_show ((GX_WIDGET*) &SoundSetupScreen.SoundSetupScreen_ReversePad_SoundName);
-		gx_widget_show ((GX_WIDGET*) &SoundSetupScreen.SoundSetupScreen_Reverse_Icon);
-	}
+	thisDevice = (DEVICE_TYPE_ENUM) dd_Get_USHORT (g_Group, DD_DEVICE_TYPE);
+
+	LocatePadPosition (LEFT_PAD, thisDevice, TRUE, &SoundSetupScreen.SoundSetupScreen_Left_Icon, &SoundSetupScreen.SoundSetupScreen_LeftPad_SoundName);
+	LocatePadPosition (RIGHT_PAD, thisDevice, TRUE, &SoundSetupScreen.SoundSetupScreen_Right_Icon, &SoundSetupScreen.SoundSetupScreen_RightPad_SoundName);
+	LocatePadPosition (FORWARD_PAD, thisDevice, TRUE, &SoundSetupScreen.SoundSetupScreen_Forward_Icon, &SoundSetupScreen.SoundSetupScreen_ForwardPad_SoundName);
+	LocatePadPosition (REVERSE_PAD, thisDevice, TRUE, &SoundSetupScreen.SoundSetupScreen_Reverse_Icon, &SoundSetupScreen.SoundSetupScreen_ReversePad_SoundName);
+
 }
 
 //*************************************************************************************

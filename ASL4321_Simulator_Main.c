@@ -344,6 +344,111 @@ USHORT SelectNextAudioLevel (VOID)
 }
 
 //******************************************************************************************
+// LocateDevicePosition. This function puts the device icon in the correct location
+// based upon 3 vs 4 quadrant driver control
+
+VOID LocateDevicePosition (DEVICE_TYPE_ENUM device, GX_ICON *icon)
+{
+	GX_RECTANGLE rectangle;
+
+	if (device == DEVICE_TYPE_HEAD_ARRAY)
+	{
+		// Feature Icon
+		gx_utility_rectangle_define (&rectangle, 164, 98, 164+88, 98+70);	// Left, top, right, bottom
+		gx_widget_resize (icon, &rectangle);
+	}
+	else	// Must be a joystick, show all 4 pads.
+	{
+		// Feature Icon
+		gx_utility_rectangle_define (&rectangle, 164, 128, 164+88, 128+70);	// Left, top, right, bottom
+		gx_widget_resize (icon, &rectangle);
+	}
+}
+
+//******************************************************************************************
+
+VOID LocatePadPosition (PHYSICAL_PAD_ENUM pad, DEVICE_TYPE_ENUM device, GX_BOOL showPrompt, GX_ICON_BUTTON *icon, GX_PROMPT *prompt)
+{
+	GX_RECTANGLE rectangle;
+
+	// Position 3 quadrant pad
+	if (device == DEVICE_TYPE_HEAD_ARRAY)
+	{
+		switch (pad)
+		{
+		case LEFT_PAD:
+			gx_utility_rectangle_define (&rectangle, 64, 90, 64+88, 90+70);		// Left, top, right, bottom
+			gx_widget_resize (icon, &rectangle);
+			gx_utility_rectangle_define (&rectangle, 68, 120, 68+80, 120+36);
+			if (!showPrompt)
+				rectangle.gx_rectangle_left += 500;	// Move out of the viewing area
+			gx_widget_resize (prompt, &rectangle);
+			break;
+		case RIGHT_PAD:
+			gx_utility_rectangle_define (&rectangle, 242, 90, 242+88, 90+70);
+			gx_widget_resize (icon, &rectangle);
+			gx_utility_rectangle_define (&rectangle, 246, 120, 246+80, 120+36);
+			if (!showPrompt)
+				rectangle.gx_rectangle_left += 500;	// Move out of the viewing area
+			gx_widget_resize (prompt, &rectangle);
+			break;
+		case FORWARD_PAD:
+			gx_utility_rectangle_define (&rectangle, 154, 160, 154+88, 160+70);
+			gx_widget_resize (icon, &rectangle);
+			gx_utility_rectangle_define (&rectangle, 158, 190, 158+80, 190+36);
+			if (!showPrompt)
+				rectangle.gx_rectangle_left += 500;	// Move out of the viewing area
+			gx_widget_resize (prompt, &rectangle);
+			break;
+		case REVERSE_PAD:
+			gx_widget_hide (icon);
+			gx_widget_hide (prompt);
+			break;
+		} // end switch pad.
+	}
+	else // Must be 4 quadrant
+	{
+		switch (pad)
+		{
+		case LEFT_PAD:
+			gx_utility_rectangle_define (&rectangle, 66, 122, 66+88, 122+70);
+			gx_widget_resize (icon, &rectangle);
+			gx_utility_rectangle_define (&rectangle, 70, 152, 70+80, 152+36);
+			if (!showPrompt)
+				rectangle.gx_rectangle_left += 500;	// Move out of the viewing area
+			gx_widget_resize (prompt, &rectangle);
+			break;
+		case RIGHT_PAD:
+			gx_utility_rectangle_define (&rectangle, 242, 122, 242+88, 122+70);
+			gx_widget_resize (icon, &rectangle);
+			gx_utility_rectangle_define (&rectangle, 246, 152, 246+80, 152+36);
+			if (!showPrompt)
+				rectangle.gx_rectangle_left += 500;	// Move out of the viewing area
+			gx_widget_resize (prompt, &rectangle);
+			break;
+		case FORWARD_PAD:
+			gx_utility_rectangle_define (&rectangle, 154, 54, 154+88, 54+70);
+			gx_widget_resize (icon, &rectangle);
+			gx_utility_rectangle_define (&rectangle, 158, 84, 158+80, 84+36);
+			if (!showPrompt)
+				rectangle.gx_rectangle_left += 500;	// Move out of the viewing area
+			gx_widget_resize (prompt, &rectangle);
+			break;
+		case REVERSE_PAD:
+			gx_utility_rectangle_define (&rectangle, 154, 190, 154+88, 190+70);
+			gx_widget_resize (icon, &rectangle);
+			gx_utility_rectangle_define (&rectangle, 158, 220, 158+80, 220+36);
+			if (!showPrompt)
+				rectangle.gx_rectangle_left += 500;	// Move out of the viewing area
+			gx_widget_resize (prompt, &rectangle);
+			gx_widget_show (icon);
+			gx_widget_show (prompt);
+			break;
+		} // end switch pad.
+	}
+}
+
+//******************************************************************************************
 //VOID screen_switch(GX_WIDGET *parent, GX_WIDGET *new_screen)
 //{
 //    gx_widget_detach(current_screen);

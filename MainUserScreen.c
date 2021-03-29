@@ -45,6 +45,11 @@ SCAN_DIRECTION_ENUM g_ScanPosition;
 USHORT g_Group;
 
 //*****************************************************************************
+// External function prototypes
+extern VOID LocatePadPosition (PHYSICAL_PAD_ENUM pad, DEVICE_TYPE_ENUM device, GX_BOOL showPrompt, GX_ICON_BUTTON *icon, GX_PROMPT *prompt);
+extern VOID LocateDevicePosition (DEVICE_TYPE_ENUM device, GX_ICON *icon);
+
+//*****************************************************************************
 // Forawrd Declaration, Prototypes
 
 VOID StartScanning (BOOL atStart);
@@ -238,91 +243,43 @@ VOID SetToNextGroupFeature (VOID)
 
 //*************************************************************************************
 
-static VOID PositionPads (VOID)
+static VOID PositionPads (GX_BOOL showPrompt)
 {
-	GX_RECTANGLE rectangle;
+	//GX_RECTANGLE rectangle;
+	DEVICE_TYPE_ENUM thisDevice;
 
-	if (dd_Get_USHORT (g_Group, DD_DEVICE_TYPE) == DEVICE_TYPE_HEAD_ARRAY)
-	{
-		// Feature Icon
-		gx_utility_rectangle_define (&rectangle, 164, 98, 164+88, 98+70);	// Left, top, right, bottom
-		gx_widget_resize (&MainUserScreen.MainUserScreen_FeatureIcon, &rectangle);
-		// Left Button
-		gx_utility_rectangle_define (&rectangle, 64, 90, 64+88, 90+70);	// Left, top, right, bottom
-		gx_widget_resize (&MainUserScreen.MainUserScreen_Left_Icon, &rectangle);
-		gx_utility_rectangle_define (&rectangle, 68, 120, 68+80, 120+36);	// Left, top, right, bottom
-		gx_widget_resize (&MainUserScreen.MainUserScreen_LeftPad_SoundName, &rectangle);
-		// Right Button
-		gx_utility_rectangle_define (&rectangle, 242, 90, 242+88, 90+70);	// Left, top, right, bottom
-		gx_widget_resize (&MainUserScreen.MainUserScreen_Right_Icon, &rectangle);
-		gx_utility_rectangle_define (&rectangle, 246, 120, 246+80, 120+36);	// Left, top, right, bottom
-		gx_widget_resize (&MainUserScreen.MainUserScreen_RightPad_SoundName, &rectangle);
-		// Center/Forward Pad
-		gx_utility_rectangle_define (&rectangle, 154, 160, 152+88, 160+70);	// Left, top, right, bottom
-		gx_widget_resize (&MainUserScreen.MainUserScreen_Forward_Icon, &rectangle);
-		gx_utility_rectangle_define (&rectangle, 158, 190, 158+80, 190+36);	// Left, top, right, bottom
-		gx_widget_resize (&MainUserScreen.MainUserScreen_ForwardPad_SoundName, &rectangle);
-		// Hide the revese button
-		gx_widget_hide ((GX_WIDGET*) &MainUserScreen.MainUserScreen_ReversePad_SoundName);
-		gx_widget_hide (&MainUserScreen.MainUserScreen_Reverse_Icon);
-	}
-	else	// Must be a joystick, show all 4 pads.
-	{
-		// Feature Icon
-		gx_utility_rectangle_define (&rectangle, 164, 128, 164+88, 128+70);	// Left, top, right, bottom
-		gx_widget_resize (&MainUserScreen.MainUserScreen_FeatureIcon, &rectangle);
-		// Left Button
-		gx_utility_rectangle_define (&rectangle, 66, 122, 66+88, 122+70);	// Left, top, right, bottom
-		gx_widget_resize (&MainUserScreen.MainUserScreen_Left_Icon, &rectangle);
-		gx_utility_rectangle_define (&rectangle, 70, 152, 70+80, 152+36);	// Left, top, right, bottom
-		gx_widget_resize (&MainUserScreen.MainUserScreen_LeftPad_SoundName, &rectangle);
-		// Right Button
-		gx_utility_rectangle_define (&rectangle, 242, 122, 242+88, 122+70);	// Left, top, right, bottom
-		gx_widget_resize (&MainUserScreen.MainUserScreen_Right_Icon, &rectangle);
-		gx_utility_rectangle_define (&rectangle, 246, 152, 246+80, 152+36);	// Left, top, right, bottom
-		gx_widget_resize (&MainUserScreen.MainUserScreen_RightPad_SoundName, &rectangle);
-		// Center/Forward Pad
-		gx_utility_rectangle_define (&rectangle, 154, 54, 154+88, 54+70);	// Left, top, right, bottom
-		gx_widget_resize (&MainUserScreen.MainUserScreen_Forward_Icon, &rectangle);
-		gx_utility_rectangle_define (&rectangle, 158, 84, 158+80, 84+36);	// Left, top, right, bottom
-		gx_widget_resize (&MainUserScreen.MainUserScreen_ForwardPad_SoundName, &rectangle);
-		// Reverse Button
-		gx_utility_rectangle_define (&rectangle, 154, 190, 154+88, 190+70);	// Left, top, right, bottom
-		gx_widget_resize (&MainUserScreen.MainUserScreen_Reverse_Icon, &rectangle);
-		gx_utility_rectangle_define (&rectangle, 158, 220, 158+80, 220+36);	// Left, top, right, bottom
-		gx_widget_resize (&MainUserScreen.MainUserScreen_ReversePad_SoundName, &rectangle);
-		gx_widget_show (&MainUserScreen.MainUserScreen_Reverse_Icon);
-		gx_widget_show ((GX_WIDGET*) &MainUserScreen.MainUserScreen_ReversePad_SoundName);
-	}
+	thisDevice = (DEVICE_TYPE_ENUM) dd_Get_USHORT (g_Group, DD_DEVICE_TYPE);
 
+	LocatePadPosition (LEFT_PAD, thisDevice, showPrompt, &MainUserScreen.MainUserScreen_Left_IconButton, &MainUserScreen.MainUserScreen_LeftPad_SoundName);
+	LocatePadPosition (RIGHT_PAD, thisDevice, showPrompt, &MainUserScreen.MainUserScreen_Right_IconButton, &MainUserScreen.MainUserScreen_RightPad_SoundName);
+	LocatePadPosition (FORWARD_PAD, thisDevice, showPrompt, &MainUserScreen.MainUserScreen_Forward_IconButton, &MainUserScreen.MainUserScreen_ForwardPad_SoundName);
+	LocatePadPosition (REVERSE_PAD, thisDevice, showPrompt, &MainUserScreen.MainUserScreen_Reverse_IconButton, &MainUserScreen.MainUserScreen_ReversePad_SoundName);
+
+	LocateDevicePosition (thisDevice, &MainUserScreen.MainUserScreen_FeatureIcon);
 }
 
 //*****************************************************************************
 
-VOID SetPadFeaturesIDs (GX_RESOURCE_ID forwardID, GX_RESOURCE_ID reverseID, GX_RESOURCE_ID leftID, GX_RESOURCE_ID rightID)
+VOID SetPadFeaturesIDs (GX_BOOL showPrompt, GX_RESOURCE_ID forwardID, GX_RESOURCE_ID reverseID, GX_RESOURCE_ID leftID, GX_RESOURCE_ID rightID)
 {
 	if (forwardID == 0)
-	{
 		forwardID = GX_PIXELMAP_ID_BLANKBOXA_88X70;
-	}
-	if (reverseID == 0)
-	{
-		reverseID = GX_PIXELMAP_ID_BLANKBOXA_88X70;
-	}
-	if (leftID == 0)
-	{
-		leftID = GX_PIXELMAP_ID_BLANKBOXA_88X70;
-	}
-	if (rightID == 0)
-	{
-		rightID = GX_PIXELMAP_ID_BLANKBOXA_88X70;
-	}
-	gx_icon_pixelmap_set (&MainUserScreen.MainUserScreen_Forward_Icon, forwardID, forwardID);
-	gx_icon_pixelmap_set (&MainUserScreen.MainUserScreen_Reverse_Icon, reverseID, reverseID);
-	gx_icon_pixelmap_set (&MainUserScreen.MainUserScreen_Left_Icon, leftID, leftID);
-	gx_icon_pixelmap_set (&MainUserScreen.MainUserScreen_Right_Icon, rightID, rightID);
 
-	PositionPads();	// This positions the pads based upon 3 or 4 quadrant operation.
+	if (reverseID == 0)
+		reverseID = GX_PIXELMAP_ID_BLANKBOXA_88X70;
+
+	if (leftID == 0)
+		leftID = GX_PIXELMAP_ID_BLANKBOXA_88X70;
+
+	if (rightID == 0)
+		rightID = GX_PIXELMAP_ID_BLANKBOXA_88X70;
+
+	gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_Forward_IconButton, forwardID);
+	gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_Reverse_IconButton, reverseID);
+	gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_Left_IconButton, leftID);
+	gx_icon_button_pixelmap_set (&MainUserScreen.MainUserScreen_Right_IconButton, rightID);
+
+	PositionPads(showPrompt);	// This positions the pads based upon 3 or 4 quadrant operation.
 }
 
 //*****************************************************************************
@@ -334,10 +291,10 @@ VOID DisplayDrivingPads (VOID)
 	PAD_DIRECTION_ENUM padDirection;
 	USHORT forwardID, reverseID, leftID, rightID;
 
-	gx_widget_show (&MainUserScreen.MainUserScreen_Forward_Icon);
-	gx_widget_show (&MainUserScreen.MainUserScreen_Reverse_Icon);
-	gx_widget_show (&MainUserScreen.MainUserScreen_Left_Icon);
-	gx_widget_show (&MainUserScreen.MainUserScreen_Right_Icon);
+	gx_widget_show (&MainUserScreen.MainUserScreen_Forward_IconButton);
+	gx_widget_show (&MainUserScreen.MainUserScreen_Reverse_IconButton);
+	gx_widget_show (&MainUserScreen.MainUserScreen_Left_IconButton);
+	gx_widget_show (&MainUserScreen.MainUserScreen_Right_IconButton);
 
 	padDirection = (PAD_DIRECTION_ENUM) dd_GetSubItem_USHORT (g_Group, DD_PAD_DIRECTION, FORWARD_PAD);
 	forwardID = GetPadIcon (padDirection);
@@ -348,7 +305,7 @@ VOID DisplayDrivingPads (VOID)
 	padDirection = (PAD_DIRECTION_ENUM) dd_GetSubItem_USHORT (g_Group, DD_PAD_DIRECTION, RIGHT_PAD);
 	rightID = GetPadIcon (padDirection);
 
-	SetPadFeaturesIDs (forwardID, reverseID, leftID, rightID);
+	SetPadFeaturesIDs (FALSE, forwardID, reverseID, leftID, rightID);
 }
 
 //*****************************************************************************
@@ -411,7 +368,7 @@ VOID DisplayAudibleOutPads (VOID)
 		strcpy_s (g_SoundNames[RIGHT_PAD], 8, "---");
 	gx_prompt_text_set ((GX_PROMPT*)&MainUserScreen.MainUserScreen_RightPad_SoundName, g_SoundNames[RIGHT_PAD]);
 
-	SetPadFeaturesIDs (GX_PIXELMAP_ID_SPEAKER_88X70, GX_PIXELMAP_ID_SPEAKER_88X70, GX_PIXELMAP_ID_SPEAKER_88X70, GX_PIXELMAP_ID_SPEAKER_88X70);
+	SetPadFeaturesIDs (TRUE, GX_PIXELMAP_ID_SPEAKER_88X70, GX_PIXELMAP_ID_SPEAKER_88X70, GX_PIXELMAP_ID_SPEAKER_88X70, GX_PIXELMAP_ID_SPEAKER_88X70);
 }
 
 //*****************************************************************************
@@ -419,16 +376,8 @@ VOID DisplayAudibleOutPads (VOID)
 void DisplayPadFeatures()
 {
 	UINT err;
-	//SHORT featureCount;
 	FEATURE_ID_ENUM featureID;
 
-	//featureID = MAX_FEATURES;
-	//for (featureCount = 0; featureCount < MAX_FEATURES; ++featureCount)
-	//{
-	//	if (g_MainScreenFeatureInfo[featureCount].m_FeatureID != MAX_FEATURES)
-	//		if (g_MainScreenFeatureInfo[featureCount].m_Location == 0)
-	//			featureID = g_MainScreenFeatureInfo[featureCount].m_FeatureID;	// use "featureID" as an abreviated variable
-	//}
 	featureID = (FEATURE_ID_ENUM) dd_Get_USHORT (g_Group, DD_ACTIVE_FEATURE);	// Get currently active feature
 
 	switch (featureID)
@@ -438,45 +387,45 @@ void DisplayPadFeatures()
 		break;
 	case SEATING_FEATURE_ID:
 		HideAudioNames();		// Hide the Audio Prompt fields which are inside the Pad icons.
-		gx_widget_show (&MainUserScreen.MainUserScreen_Forward_Icon);
-		gx_widget_show (&MainUserScreen.MainUserScreen_Reverse_Icon);
-		gx_widget_show (&MainUserScreen.MainUserScreen_Left_Icon);
-		gx_widget_show (&MainUserScreen.MainUserScreen_Right_Icon);
+		gx_widget_show (&MainUserScreen.MainUserScreen_Forward_IconButton);
+		gx_widget_show (&MainUserScreen.MainUserScreen_Reverse_IconButton);
+		gx_widget_show (&MainUserScreen.MainUserScreen_Left_IconButton);
+		gx_widget_show (&MainUserScreen.MainUserScreen_Right_IconButton);
 		switch (g_ActiveSeatingGroup)
 		{
 		case 0:
-			SetPadFeaturesIDs (GX_PIXELMAP_ID_PADUPARROW_DISABLED, GX_PIXELMAP_ID_PADDOWNARROW_DISABLED, GX_PIXELMAP_ID_TILTDOWN_88X70, GX_PIXELMAP_ID_TILTUP_88X70);
+			SetPadFeaturesIDs (FALSE, GX_PIXELMAP_ID_PADUPARROW_DISABLED, GX_PIXELMAP_ID_PADDOWNARROW_DISABLED, GX_PIXELMAP_ID_TILTDOWN_88X70, GX_PIXELMAP_ID_TILTUP_88X70);
 			break;
 		case 1:
-			SetPadFeaturesIDs (GX_PIXELMAP_ID_PADUPARROW_DISABLED, GX_PIXELMAP_ID_PADDOWNARROW_DISABLED, GX_PIXELMAP_ID_RECLINEDOWN_88X70, GX_PIXELMAP_ID_RECLINEUP_88X70);
+			SetPadFeaturesIDs (FALSE, GX_PIXELMAP_ID_PADUPARROW_DISABLED, GX_PIXELMAP_ID_PADDOWNARROW_DISABLED, GX_PIXELMAP_ID_RECLINEDOWN_88X70, GX_PIXELMAP_ID_RECLINEUP_88X70);
 			break;
 		case 2:
-			SetPadFeaturesIDs (GX_PIXELMAP_ID_PADUPARROW_DISABLED, GX_PIXELMAP_ID_PADDOWNARROW_DISABLED, GX_PIXELMAP_ID_SEATING_ELEVATE_DOWN_88X70, GX_PIXELMAP_ID_SEATING_ELEVATE_UP_88X70);
+			SetPadFeaturesIDs (FALSE, GX_PIXELMAP_ID_PADUPARROW_DISABLED, GX_PIXELMAP_ID_PADDOWNARROW_DISABLED, GX_PIXELMAP_ID_SEATING_ELEVATE_DOWN_88X70, GX_PIXELMAP_ID_SEATING_ELEVATE_UP_88X70);
 			break;
 		} // end switch 
 		break;
 	case BLUETOOTH_ID:
 		HideAudioNames();		// Hide the Audio Prompt fields which are inside the Pad icons.
-		gx_widget_show (&MainUserScreen.MainUserScreen_Forward_Icon);
-		gx_widget_show (&MainUserScreen.MainUserScreen_Reverse_Icon);
-		gx_widget_show (&MainUserScreen.MainUserScreen_Left_Icon);
-		gx_widget_show (&MainUserScreen.MainUserScreen_Right_Icon);
+		gx_widget_show (&MainUserScreen.MainUserScreen_Forward_IconButton);
+		gx_widget_show (&MainUserScreen.MainUserScreen_Reverse_IconButton);
+		gx_widget_show (&MainUserScreen.MainUserScreen_Left_IconButton);
+		gx_widget_show (&MainUserScreen.MainUserScreen_Right_IconButton);
 		switch (g_BluetoothGroup)
 		{
 		case 0:
-			SetPadFeaturesIDs (GX_PIXELMAP_ID_MOUSEUPDOWN_88X70, GX_PIXELMAP_ID_PADDOWNARROW_DISABLED, GX_PIXELMAP_ID_MOUSELEFTCLICK_88X70, GX_PIXELMAP_ID_MOUSELEFT_88X70);
+			SetPadFeaturesIDs (FALSE, GX_PIXELMAP_ID_MOUSEUPDOWN_88X70, GX_PIXELMAP_ID_PADDOWNARROW_DISABLED, GX_PIXELMAP_ID_MOUSELEFTCLICK_88X70, GX_PIXELMAP_ID_MOUSELEFT_88X70);
 			break;
 		case 1:
-			SetPadFeaturesIDs (GX_PIXELMAP_ID_PADUPARROW_DISABLED, GX_PIXELMAP_ID_PADDOWNARROW_DISABLED, GX_PIXELMAP_ID_LEFTWHITEARROW, GX_PIXELMAP_ID_RIGHTWHITEARROW);
+			SetPadFeaturesIDs (FALSE, GX_PIXELMAP_ID_PADUPARROW_DISABLED, GX_PIXELMAP_ID_PADDOWNARROW_DISABLED, GX_PIXELMAP_ID_LEFTWHITEARROW, GX_PIXELMAP_ID_RIGHTWHITEARROW);
 			break;
 		} // end switch on Bluetooth group.
 		break;
 	case TECLA_E_FEATURE_ID:
 		HideAudioNames();		// Hide the Audio Prompt fields which are inside the Pad icons.
-		gx_widget_hide (&MainUserScreen.MainUserScreen_Forward_Icon);
-		gx_widget_hide (&MainUserScreen.MainUserScreen_Reverse_Icon);
-		gx_widget_hide (&MainUserScreen.MainUserScreen_Left_Icon);
-		gx_widget_hide (&MainUserScreen.MainUserScreen_Right_Icon);
+		gx_widget_hide (&MainUserScreen.MainUserScreen_Forward_IconButton);
+		gx_widget_hide (&MainUserScreen.MainUserScreen_Reverse_IconButton);
+		gx_widget_hide (&MainUserScreen.MainUserScreen_Left_IconButton);
+		gx_widget_hide (&MainUserScreen.MainUserScreen_Right_IconButton);
 		switch (GetTeclaGroup())
 		{
 		case 0:
@@ -813,7 +762,7 @@ VOID DisplayScanningIcon (SCAN_DIRECTION_ENUM scanPosition)
 	{
 	case SCAN_FORWARD:		// Left, Top, Right, Bottom
 		//gx_widget_client_get ((GX_WIDGET*) &MainUserScreen.MainUserScreen_Forward_Icon, 0, &myRect);
-		gx_widget_client_get ((GX_WIDGET*) &MainUserScreen.MainUserScreen_Forward_Icon, 0, &myRect);
+		gx_widget_client_get ((GX_WIDGET*) &MainUserScreen.MainUserScreen_Forward_IconButton, 0, &myRect);
 		myRect.gx_rectangle_left -= 6;
 		myRect.gx_rectangle_top -= 12;
 		myRect.gx_rectangle_right = myRect.gx_rectangle_left + 100;
@@ -821,7 +770,7 @@ VOID DisplayScanningIcon (SCAN_DIRECTION_ENUM scanPosition)
         //gx_utility_rectangle_define(&myRect, 128, 10, 228, 110);
 		break;
 	case SCAN_LEFT:		// Left, Top, Right, Bottom
-		gx_widget_client_get ((GX_WIDGET*) &MainUserScreen.MainUserScreen_Left_Icon, 0, &myRect);
+		gx_widget_client_get ((GX_WIDGET*) &MainUserScreen.MainUserScreen_Left_IconButton, 0, &myRect);
 		myRect.gx_rectangle_left -= 9;
 		myRect.gx_rectangle_top -= 14;
 		myRect.gx_rectangle_right = myRect.gx_rectangle_left + 100;
@@ -829,7 +778,7 @@ VOID DisplayScanningIcon (SCAN_DIRECTION_ENUM scanPosition)
         //gx_utility_rectangle_define(&myRect, 28, 88, 128, 188);
 		break;
 	case SCAN_RIGHT:		// Left, Top, Right, Bottom
-		gx_widget_client_get ((GX_WIDGET*) &MainUserScreen.MainUserScreen_Right_Icon, 0, &myRect);
+		gx_widget_client_get ((GX_WIDGET*) &MainUserScreen.MainUserScreen_Right_IconButton, 0, &myRect);
 		myRect.gx_rectangle_left -= 9;
 		myRect.gx_rectangle_top -= 14;
 		myRect.gx_rectangle_right = myRect.gx_rectangle_left + 100;
@@ -837,7 +786,7 @@ VOID DisplayScanningIcon (SCAN_DIRECTION_ENUM scanPosition)
         //gx_utility_rectangle_define(&myRect, 228, 88, 328, 188);
 		break;
 	case SCAN_REVERSE:
-		gx_widget_client_get ((GX_WIDGET*) &MainUserScreen.MainUserScreen_Reverse_Icon, 0, &myRect);
+		gx_widget_client_get ((GX_WIDGET*) &MainUserScreen.MainUserScreen_Reverse_IconButton, 0, &myRect);
 		myRect.gx_rectangle_left -= 6;
 		myRect.gx_rectangle_top -= 12;
 		myRect.gx_rectangle_right = myRect.gx_rectangle_left + 100;

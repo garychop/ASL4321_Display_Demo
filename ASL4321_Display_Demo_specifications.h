@@ -6,7 +6,7 @@
 /*  www.expresslogic.com.                                                      */
 /*                                                                             */
 /*  GUIX Studio Revision 5.4.2.9                                               */
-/*  Date (dd.mm.yyyy): 29. 3.2021   Time (hh:mm): 09:49                        */
+/*  Date (dd.mm.yyyy): 29. 3.2021   Time (hh:mm): 19:19                        */
 /*******************************************************************************/
 
 
@@ -112,71 +112,71 @@ extern   "C" {
 #define MAIN_USER_SCREEN_ID 88
 #define MAIN_USER_SCREEN_1_ID 89
 #define USER_PORT_ICON 90
-#define FEATURE_SETTINGS_SCREEN_ID 91
-#define HH_START_SCREEN_ID 92
-#define FEATURE_VERTICAL_LIST 93
-#define MAIN_USER_SCREEN_3 94
-#define FIRST_ICON 95
-#define FIRST_PROMPT 96
-#define FOURTH_ICON 97
-#define FOURTH_PROMPT 98
-#define SECOND_ICON 99
-#define SECOND_PROMPT 100
-#define THIRD_ICON 101
-#define THIRD_PROMPT 102
-#define BOTH_ARROW_BTN_ID 103
-#define Fifth_ICON 104
-#define FIFTH_PROMPT 105
-#define RESET_SCREEN_FINISH_ID 106
-#define CONTINUE_BTN_ID 107
-#define PROMPT1_ID 108
-#define PROMPT2_ID 109
-#define PROMPT3_ID 110
-#define PROMPT4_ID 111
-#define MINIMUM_DRIVE_SCREEN_ID 112
-#define PROMPT_SET_MINIMUM_SPEED 113
-#define PROMPT_FOR_EACH_PAD 114
-#define FORWARD_PAD_PERCENTAGE_BTN_ID 115
-#define LEFT_PAD_PERCENTAGE_BTN_ID 116
-#define RIGHT_PAD_PERCENTAGE_BTN_ID 117
-#define REVERSE_PAD_PERCENTAGE_BTN_ID 118
-#define PERFORMANCE_SELECTION_SCREEN_ID 119
-#define VEER_ADJUST_BTN_ID 120
-#define RESET_SCREEN_ID 121
-#define PROMPT_ID 122
-#define MORE_SELECTION_SCREEN_ID 123
-#define GOTO_DIAGNOSTICS_BTN_ID 124
-#define GOTO_RESET_SCREEN_BTN_ID 125
-#define HEAD_ARRAY_VERSION_PROMPT_ID 126
-#define DISPLAY_VERSION_PROMPT_ID 127
-#define USER_SELECTION_SCREEN_ID 128
-#define USER_SETTINGS_BTN_ID 129
-#define FEATURE_BTN_ID 130
-#define PERFORMANCE_BTN_ID 131
-#define VEER_ADJUST_SCREEN_ID 132
-#define VEER_SLIDER_ID 133
-#define SLIDE_VALUE_BUTTON 134
-#define OON_SCREEN_ID 135
-#define RELEASE_PAD_BUTTON_ID 136
-#define READY_SCREEN_ID 137
-#define READY_SCREEN_WINDOW_ID 138
-#define POWER_LARGE_PROMPT_ID 139
-#define STARTUP_SPLASH_SCREEN 140
-#define CALIBRATION_SCREEN_ID 141
-#define CENTER_PAD_ON_BTN_ID 142
-#define MINIMUM_INSTRUCT_PROMPT_ID 143
-#define LEFT_PAD_ON_BTN_ID 144
-#define RIGHT_PAD_ON_BTN_ID 145
-#define MAXIMUM_INSTRUCT_PROMPT_ID 146
-#define VALUE_PROMPT_ID 147
-#define PAD_VALUE_PROMPT_ID 148
-#define SET_PAD_DIRECTION_SCREEN_ID 149
-#define SETTING_PROMPT01_ID 150
-#define LEFT_PAD_OFF_BTN_ID 151
-#define RIGHT_PAD_OFF_BTN_ID 152
-#define SETTING_PROMPT02_ID 153
-#define REVERSE_PAD_OFF_BTN_ID 154
-#define FORWARD_PAD_OFF_BTN_ID 155
+#define FORWARD_ICON_BTN_ID 91
+#define LEFT_ICON_BTN_ID 92
+#define RIGHT_ICON_BTN_ID 93
+#define REVERSE_ICON_BTN_ID 94
+#define FEATURE_SETTINGS_SCREEN_ID 95
+#define HH_START_SCREEN_ID 96
+#define FEATURE_VERTICAL_LIST 97
+#define MAIN_USER_SCREEN_3 98
+#define FIRST_ICON 99
+#define FIRST_PROMPT 100
+#define FOURTH_ICON 101
+#define FOURTH_PROMPT 102
+#define SECOND_ICON 103
+#define SECOND_PROMPT 104
+#define THIRD_ICON 105
+#define THIRD_PROMPT 106
+#define BOTH_ARROW_BTN_ID 107
+#define Fifth_ICON 108
+#define FIFTH_PROMPT 109
+#define RESET_SCREEN_FINISH_ID 110
+#define CONTINUE_BTN_ID 111
+#define PROMPT1_ID 112
+#define PROMPT2_ID 113
+#define PROMPT3_ID 114
+#define PROMPT4_ID 115
+#define MINIMUM_DRIVE_SCREEN_ID 116
+#define PROMPT_SET_MINIMUM_SPEED 117
+#define PROMPT_FOR_EACH_PAD 118
+#define FORWARD_PAD_PERCENTAGE_BTN_ID 119
+#define LEFT_PAD_PERCENTAGE_BTN_ID 120
+#define RIGHT_PAD_PERCENTAGE_BTN_ID 121
+#define REVERSE_PAD_PERCENTAGE_BTN_ID 122
+#define PERFORMANCE_SELECTION_SCREEN_ID 123
+#define VEER_ADJUST_BTN_ID 124
+#define RESET_SCREEN_ID 125
+#define PROMPT_ID 126
+#define MORE_SELECTION_SCREEN_ID 127
+#define GOTO_DIAGNOSTICS_BTN_ID 128
+#define GOTO_RESET_SCREEN_BTN_ID 129
+#define HEAD_ARRAY_VERSION_PROMPT_ID 130
+#define DISPLAY_VERSION_PROMPT_ID 131
+#define USER_SELECTION_SCREEN_ID 132
+#define USER_SETTINGS_BTN_ID 133
+#define FEATURE_BTN_ID 134
+#define PERFORMANCE_BTN_ID 135
+#define VEER_ADJUST_SCREEN_ID 136
+#define VEER_SLIDER_ID 137
+#define SLIDE_VALUE_BUTTON 138
+#define OON_SCREEN_ID 139
+#define RELEASE_PAD_BUTTON_ID 140
+#define READY_SCREEN_ID 141
+#define READY_SCREEN_WINDOW_ID 142
+#define POWER_LARGE_PROMPT_ID 143
+#define STARTUP_SPLASH_SCREEN 144
+#define CALIBRATION_SCREEN_ID 145
+#define CENTER_PAD_ON_BTN_ID 146
+#define MINIMUM_INSTRUCT_PROMPT_ID 147
+#define LEFT_PAD_ON_BTN_ID 148
+#define RIGHT_PAD_ON_BTN_ID 149
+#define MAXIMUM_INSTRUCT_PROMPT_ID 150
+#define VALUE_PROMPT_ID 151
+#define PAD_VALUE_PROMPT_ID 152
+#define SET_PAD_DIRECTION_SCREEN_ID 153
+#define SETTING_PROMPT01_ID 154
+#define SETTING_PROMPT02_ID 155
 #define PAD_SETTINGS_SCREEN_ID 156
 #define PAD_TYPE_BTN_ID 157
 #define PAD_DIRECTIONS_BTN_ID 158
@@ -207,22 +207,24 @@ extern   "C" {
 #define LEFT_PAD_PROP_BTN_ID 183
 #define RIGHT_PAD_PROP_BTN_ID 184
 #define CENTER_PAD_OFF_BTN_ID 185
-#define LEFT_PAD_ADJUSTED_PROMPT 186
-#define RIGHT_PAD_ADJUSTED_PROMPT 187
-#define CENTER_PAD_ADJUSTED_PROMPT 188
-#define USER_PORT_BUTTON 189
-#define USER_PORT_PROMPT_DIAG_ID 190
-#define MODE_PORT_BUTTON 191
-#define Mode_PORT_PROMPT_DIAG_ID 192
-#define DOWN_ARROW_BTN_ID 193
-#define UP_ARROW_BTN_ID 194
-#define MODE_PORT_BTN_ID 195
-#define USER_PORT_BUTTON_ID 196
-#define JS_LEFT_BUTTON 197
-#define JS_RIGHT_BUTTON 198
-#define JS_UP_BUTTON 199
-#define JS_DOWN_BUTTON 200
-#define CHANGE_SCREEN_BTN_ID 201
+#define LEFT_PAD_OFF_BTN_ID 186
+#define RIGHT_PAD_OFF_BTN_ID 187
+#define LEFT_PAD_ADJUSTED_PROMPT 188
+#define RIGHT_PAD_ADJUSTED_PROMPT 189
+#define CENTER_PAD_ADJUSTED_PROMPT 190
+#define USER_PORT_BUTTON 191
+#define USER_PORT_PROMPT_DIAG_ID 192
+#define MODE_PORT_BUTTON 193
+#define Mode_PORT_PROMPT_DIAG_ID 194
+#define DOWN_ARROW_BTN_ID 195
+#define UP_ARROW_BTN_ID 196
+#define MODE_PORT_BTN_ID 197
+#define USER_PORT_BUTTON_ID 198
+#define JS_LEFT_BUTTON 199
+#define JS_RIGHT_BUTTON 200
+#define JS_UP_BUTTON 201
+#define JS_DOWN_BUTTON 202
+#define CHANGE_SCREEN_BTN_ID 203
 
 
 /* Define animation ids                                                        */
@@ -600,14 +602,14 @@ typedef struct MAINUSERSCREEN_CONTROL_BLOCK_STRUCT
     GX_PIXELMAP_PROMPT MainUserScreen_TeclaMain_Prompt;
     GX_ICON MainUserScreen_TargetOrangeIcon;
     GX_ICON MainUserScreen_UserPortIcon;
-    GX_ICON MainUserScreen_Forward_Icon;
+    GX_ICON_BUTTON MainUserScreen_Forward_IconButton;
     GX_PROMPT MainUserScreen_ForwardPad_SoundName;
-    GX_ICON MainUserScreen_Right_Icon;
-    GX_PROMPT MainUserScreen_RightPad_SoundName;
-    GX_ICON MainUserScreen_Reverse_Icon;
-    GX_PROMPT MainUserScreen_ReversePad_SoundName;
-    GX_ICON MainUserScreen_Left_Icon;
+    GX_ICON_BUTTON MainUserScreen_Left_IconButton;
     GX_PROMPT MainUserScreen_LeftPad_SoundName;
+    GX_ICON_BUTTON MainUserScreen_Right_IconButton;
+    GX_PROMPT MainUserScreen_RightPad_SoundName;
+    GX_ICON_BUTTON MainUserScreen_Reverse_IconButton;
+    GX_PROMPT MainUserScreen_ReversePad_SoundName;
 } MAINUSERSCREEN_CONTROL_BLOCK;
 
 typedef struct FEATURESETTINGSSCREEN_CONTROL_BLOCK_STRUCT
@@ -792,15 +794,15 @@ typedef struct SETPADDIRECTIONSCREEN_CONTROL_BLOCK_STRUCT
     PRIMARYTEMPLATE_CONTROL_BLOCK base;
     GX_WINDOW SetPadDirectionScreen_SetPadScreenBackdrop;
     GX_TEXT_BUTTON SetPadDirectionScreen_OK_Button;
-    GX_PROMPT SetPadDirectionScreen_SettingPadPrompt_1;
-    GX_PIXELMAP_BUTTON SetPadDirectionScreen_LeftPad_Off_Button;
-    GX_PIXELMAP_BUTTON SetPadDirectionScreen_RightPad_Off_Button;
+    GX_PROMPT SetPadDirectionScreen_SettingPadPrompt_3;
     GX_PROMPT SetPadDirectionScreen_SettingPadPrompt_2;
     GX_ICON_BUTTON SetPadDirectionScreen_GroupIconButton;
     GX_ICON SetPadDirectionScreen_DeviceType_icon;
-    GX_PIXELMAP_BUTTON SetPadDirectionScreen_ReversePad_Off_Button;
-    GX_PIXELMAP_BUTTON SetPadDirectionScreen_ForwardPad_Off_Button;
-    GX_ICON SetPadDirectionScreen_icon_3;
+    GX_ICON SetPadDirectionScreen_CycleIcon;
+    GX_ICON_BUTTON SetPadDirectionScreen_Forward_IconButton;
+    GX_ICON_BUTTON SetPadDirectionScreen_Right_IconButton;
+    GX_ICON_BUTTON SetPadDirectionScreen_Left_IconButton;
+    GX_ICON_BUTTON SetPadDirectionScreen_Reverse_IconButton;
 } SETPADDIRECTIONSCREEN_CONTROL_BLOCK;
 
 typedef struct PADOPTIONSSETTINGSSCREEN_CONTROL_BLOCK_STRUCT
