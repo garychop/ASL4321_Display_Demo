@@ -222,9 +222,9 @@ static VOID PositionPads (VOID)
 		gx_utility_rectangle_define (&rectangle, 246, 152, 246+80, 152+36);	// Left, top, right, bottom
 		gx_widget_resize (&SoundSetupScreen.SoundSetupScreen_RightPad_SoundName, &rectangle);
 		// Center/Forward Pad
-		gx_utility_rectangle_define (&rectangle, 154, 58, 154+88, 58+70);	// Left, top, right, bottom
+		gx_utility_rectangle_define (&rectangle, 154, 54, 154+88, 54+70);	// Left, top, right, bottom
 		gx_widget_resize (&SoundSetupScreen.SoundSetupScreen_Forward_Icon, &rectangle);
-		gx_utility_rectangle_define (&rectangle, 158, 88, 158+80, 88+36);	// Left, top, right, bottom
+		gx_utility_rectangle_define (&rectangle, 158, 84, 158+80, 84+36);	// Left, top, right, bottom
 		gx_widget_resize (&SoundSetupScreen.SoundSetupScreen_ForwardPad_SoundName, &rectangle);
 		// Reverse Button
 		gx_utility_rectangle_define (&rectangle, 154, 190, 154+88, 190+70);	// Left, top, right, bottom

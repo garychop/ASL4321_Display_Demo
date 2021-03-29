@@ -250,13 +250,20 @@ static VOID PositionPads (VOID)
 		// Left Button
 		gx_utility_rectangle_define (&rectangle, 64, 90, 64+88, 90+70);	// Left, top, right, bottom
 		gx_widget_resize (&MainUserScreen.MainUserScreen_Left_Icon, &rectangle);
+		gx_utility_rectangle_define (&rectangle, 68, 120, 68+80, 120+36);	// Left, top, right, bottom
+		gx_widget_resize (&MainUserScreen.MainUserScreen_LeftPad_SoundName, &rectangle);
 		// Right Button
 		gx_utility_rectangle_define (&rectangle, 242, 90, 242+88, 90+70);	// Left, top, right, bottom
 		gx_widget_resize (&MainUserScreen.MainUserScreen_Right_Icon, &rectangle);
+		gx_utility_rectangle_define (&rectangle, 246, 120, 246+80, 120+36);	// Left, top, right, bottom
+		gx_widget_resize (&MainUserScreen.MainUserScreen_RightPad_SoundName, &rectangle);
 		// Center/Forward Pad
 		gx_utility_rectangle_define (&rectangle, 154, 160, 152+88, 160+70);	// Left, top, right, bottom
 		gx_widget_resize (&MainUserScreen.MainUserScreen_Forward_Icon, &rectangle);
+		gx_utility_rectangle_define (&rectangle, 158, 190, 158+80, 190+36);	// Left, top, right, bottom
+		gx_widget_resize (&MainUserScreen.MainUserScreen_ForwardPad_SoundName, &rectangle);
 		// Hide the revese button
+		gx_widget_hide ((GX_WIDGET*) &MainUserScreen.MainUserScreen_ReversePad_SoundName);
 		gx_widget_hide (&MainUserScreen.MainUserScreen_Reverse_Icon);
 	}
 	else	// Must be a joystick, show all 4 pads.
@@ -265,18 +272,27 @@ static VOID PositionPads (VOID)
 		gx_utility_rectangle_define (&rectangle, 164, 128, 164+88, 128+70);	// Left, top, right, bottom
 		gx_widget_resize (&MainUserScreen.MainUserScreen_FeatureIcon, &rectangle);
 		// Left Button
-		gx_utility_rectangle_define (&rectangle, 64, 120, 64+88, 120+70);	// Left, top, right, bottom
+		gx_utility_rectangle_define (&rectangle, 66, 122, 66+88, 122+70);	// Left, top, right, bottom
 		gx_widget_resize (&MainUserScreen.MainUserScreen_Left_Icon, &rectangle);
+		gx_utility_rectangle_define (&rectangle, 70, 152, 70+80, 152+36);	// Left, top, right, bottom
+		gx_widget_resize (&MainUserScreen.MainUserScreen_LeftPad_SoundName, &rectangle);
 		// Right Button
-		gx_utility_rectangle_define (&rectangle, 242, 120, 242+88, 120+70);	// Left, top, right, bottom
+		gx_utility_rectangle_define (&rectangle, 242, 122, 242+88, 122+70);	// Left, top, right, bottom
 		gx_widget_resize (&MainUserScreen.MainUserScreen_Right_Icon, &rectangle);
+		gx_utility_rectangle_define (&rectangle, 246, 152, 246+80, 152+36);	// Left, top, right, bottom
+		gx_widget_resize (&MainUserScreen.MainUserScreen_RightPad_SoundName, &rectangle);
 		// Center/Forward Pad
-		gx_utility_rectangle_define (&rectangle, 154, 50, 154+88, 50+70);	// Left, top, right, bottom
+		gx_utility_rectangle_define (&rectangle, 154, 54, 154+88, 54+70);	// Left, top, right, bottom
 		gx_widget_resize (&MainUserScreen.MainUserScreen_Forward_Icon, &rectangle);
+		gx_utility_rectangle_define (&rectangle, 158, 84, 158+80, 84+36);	// Left, top, right, bottom
+		gx_widget_resize (&MainUserScreen.MainUserScreen_ForwardPad_SoundName, &rectangle);
 		// Reverse Button
 		gx_utility_rectangle_define (&rectangle, 154, 190, 154+88, 190+70);	// Left, top, right, bottom
 		gx_widget_resize (&MainUserScreen.MainUserScreen_Reverse_Icon, &rectangle);
+		gx_utility_rectangle_define (&rectangle, 158, 220, 158+80, 220+36);	// Left, top, right, bottom
+		gx_widget_resize (&MainUserScreen.MainUserScreen_ReversePad_SoundName, &rectangle);
 		gx_widget_show (&MainUserScreen.MainUserScreen_Reverse_Icon);
+		gx_widget_show ((GX_WIDGET*) &MainUserScreen.MainUserScreen_ReversePad_SoundName);
 	}
 
 }
@@ -336,77 +352,66 @@ VOID DisplayDrivingPads (VOID)
 }
 
 //*****************************************************************************
-// DisplayDrivingPads displays the pads when driving.
+// Display Audio information in pads
 //*****************************************************************************
-USHORT g_SoundResourceArray[MAX_SOUND_BITES][2] = {
-	{0, 0},
-	{1, GX_PIXELMAP_ID_SPEAKER_A_88X70},
-	{2, GX_PIXELMAP_ID_SPEAKER_B_88X70},
-	{3, GX_PIXELMAP_ID_SPEAKER_D_88X70},
-	{4, GX_PIXELMAP_ID_SPEAKER_E_88X70},
-	{5, GX_PIXELMAP_ID_SPEAKER_YES_88X70},
-	{6, GX_PIXELMAP_ID_SPEAKER_NO_88X70},
-	{7, GX_PIXELMAP_ID_SPEAKER_F_88X70},
-	{8, GX_PIXELMAP_ID_SPEAKER_G_88X70},
-	{9, GX_PIXELMAP_ID_SPEAKER_88X70},
-	{10, GX_PIXELMAP_ID_SPEAKER_88X70},
-	{11, GX_PIXELMAP_ID_SPEAKER_88X70},
-	{0, 0},
-	{0, 0},
-	{0, 0},
-	{0, 0},
-	{0, 0},
-	{0, 0},
-	{0, 0},
-	{0, 0},
-	{0, 0},
-	{0, 0},
-	{0, 0},
-	{0, 0},
-	{0, 0},
-	{0, 0},
-	{0, 0},
-	{0, 0},
-	{0, 0},
-	{0, 0},
-	{0, 0},
-	{0, 0}
-};
-
-USHORT GetSoundResourceID (USHORT soundNumber)
+VOID HideAudioNames (VOID)
 {
-	return (g_SoundResourceArray[soundNumber][1]);
+	gx_widget_hide ((GX_WIDGET*) &MainUserScreen.MainUserScreen_ForwardPad_SoundName);
+	gx_widget_hide ((GX_WIDGET*) &MainUserScreen.MainUserScreen_ReversePad_SoundName);
+	gx_widget_hide ((GX_WIDGET*) &MainUserScreen.MainUserScreen_LeftPad_SoundName);
+	gx_widget_hide ((GX_WIDGET*) &MainUserScreen.MainUserScreen_RightPad_SoundName);
 }
+
+// Need permanent storage for these strings as dictated by the GUIX prompt constraints.
+char g_SoundNames[MAX_PHYSICAL_PADS][SOUND_BITE_NAME_LENGTH];
 
 VOID DisplayAudibleOutPads (VOID)
 {
 	USHORT activeSpeakerSubitem;
-	USHORT soundNumber, forwardSoundID, reverseSoundID, leftSoundID, rightSoundID;
+	USHORT soundID;
 
-	gx_widget_show (&MainUserScreen.MainUserScreen_Forward_Icon);
-	gx_widget_show (&MainUserScreen.MainUserScreen_Reverse_Icon);
-	gx_widget_show (&MainUserScreen.MainUserScreen_Left_Icon);
-	gx_widget_show (&MainUserScreen.MainUserScreen_Right_Icon);
+	gx_widget_show (&MainUserScreen.MainUserScreen_ForwardPad_SoundName);
+	gx_widget_show (&MainUserScreen.MainUserScreen_ReversePad_SoundName);
+	gx_widget_show (&MainUserScreen.MainUserScreen_LeftPad_SoundName);
+	gx_widget_show (&MainUserScreen.MainUserScreen_RightPad_SoundName);
 
+	// Get the Active Audio Level 1-8.
 	activeSpeakerSubitem = dd_GetSubItem_USHORT (g_Group, DD_ACTIVE_FEATURE_SUBITEM, AUDIBLE_OUT_FEATURE_ID);
-	
-	// Set Forward Pad Icon
-	soundNumber = dd_GetSubItem_USHORT (g_Group, DD_ACTIVE_SPEAKER_SUBITEM_FORWARD, activeSpeakerSubitem);
-	forwardSoundID = GetSoundResourceID (soundNumber); 
-	
-	// Set Reverse Pad Icon
-	soundNumber = dd_GetSubItem_USHORT (g_Group, DD_ACTIVE_SPEAKER_SUBITEM_REVERSE, activeSpeakerSubitem);
-	reverseSoundID = GetSoundResourceID (soundNumber); 
-	
-	// Set Left Pad Icon
-	soundNumber = dd_GetSubItem_USHORT (g_Group, DD_ACTIVE_SPEAKER_SUBITEM_LEFT, activeSpeakerSubitem);
-	leftSoundID = GetSoundResourceID (soundNumber); 
-	
-	// Set Right Pad Icon
-	soundNumber = dd_GetSubItem_USHORT (g_Group, DD_ACTIVE_SPEAKER_SUBITEM_RIGHT, activeSpeakerSubitem);
-	rightSoundID = GetSoundResourceID (soundNumber); 
 
-	SetPadFeaturesIDs (forwardSoundID, reverseSoundID, leftSoundID, rightSoundID);
+	// Get the pads assigned audio ID's (number);
+	// Populate the forward pad with the Sound Bite Label
+	soundID = dd_GetSubItem_USHORT (MAX_GROUPS, DD_ACTIVE_SPEAKER_SUBITEM_FORWARD, activeSpeakerSubitem);
+	if (soundID < MAX_SOUND_BITES)
+		dd_GetString (0, DD_SOUNDBITE_NAME, soundID, g_SoundNames[FORWARD_PAD]);
+	else
+		strcpy_s (g_SoundNames[FORWARD_PAD], 8, "---");
+	gx_prompt_text_set ((GX_PROMPT*)&MainUserScreen.MainUserScreen_ForwardPad_SoundName, g_SoundNames[FORWARD_PAD]);
+
+	// Populate the Reverse Pad
+	soundID = dd_GetSubItem_USHORT (MAX_GROUPS, DD_ACTIVE_SPEAKER_SUBITEM_REVERSE, activeSpeakerSubitem);
+	if (soundID < MAX_SOUND_BITES)
+		dd_GetString (0, DD_SOUNDBITE_NAME, soundID, g_SoundNames[REVERSE_PAD]);
+	else
+		strcpy_s (g_SoundNames[REVERSE_PAD], 8, "---");
+	gx_prompt_text_set ((GX_PROMPT*)&MainUserScreen.MainUserScreen_ReversePad_SoundName, g_SoundNames[REVERSE_PAD]);
+	
+	// Populate the Left Pad
+	soundID = dd_GetSubItem_USHORT (MAX_GROUPS, DD_ACTIVE_SPEAKER_SUBITEM_LEFT, activeSpeakerSubitem);
+	if (soundID < MAX_SOUND_BITES)
+		dd_GetString (0, DD_SOUNDBITE_NAME, soundID, g_SoundNames[LEFT_PAD]);
+	else
+		strcpy_s (g_SoundNames[LEFT_PAD], 8, "---");
+	gx_prompt_text_set ((GX_PROMPT*)&MainUserScreen.MainUserScreen_LeftPad_SoundName, g_SoundNames[LEFT_PAD]);
+
+	// Populate the Rigt Pad
+	soundID = dd_GetSubItem_USHORT (MAX_GROUPS, DD_ACTIVE_SPEAKER_SUBITEM_RIGHT, activeSpeakerSubitem);
+	if (soundID < MAX_SOUND_BITES)
+		dd_GetString (0, DD_SOUNDBITE_NAME, soundID, g_SoundNames[RIGHT_PAD]);
+	else
+		strcpy_s (g_SoundNames[RIGHT_PAD], 8, "---");
+	gx_prompt_text_set ((GX_PROMPT*)&MainUserScreen.MainUserScreen_RightPad_SoundName, g_SoundNames[RIGHT_PAD]);
+
+	SetPadFeaturesIDs (GX_PIXELMAP_ID_SPEAKER_88X70, GX_PIXELMAP_ID_SPEAKER_88X70, GX_PIXELMAP_ID_SPEAKER_88X70, GX_PIXELMAP_ID_SPEAKER_88X70);
 }
 
 //*****************************************************************************
@@ -432,6 +437,7 @@ void DisplayPadFeatures()
 		DisplayAudibleOutPads();
 		break;
 	case SEATING_FEATURE_ID:
+		HideAudioNames();		// Hide the Audio Prompt fields which are inside the Pad icons.
 		gx_widget_show (&MainUserScreen.MainUserScreen_Forward_Icon);
 		gx_widget_show (&MainUserScreen.MainUserScreen_Reverse_Icon);
 		gx_widget_show (&MainUserScreen.MainUserScreen_Left_Icon);
@@ -450,6 +456,7 @@ void DisplayPadFeatures()
 		} // end switch 
 		break;
 	case BLUETOOTH_ID:
+		HideAudioNames();		// Hide the Audio Prompt fields which are inside the Pad icons.
 		gx_widget_show (&MainUserScreen.MainUserScreen_Forward_Icon);
 		gx_widget_show (&MainUserScreen.MainUserScreen_Reverse_Icon);
 		gx_widget_show (&MainUserScreen.MainUserScreen_Left_Icon);
@@ -465,6 +472,7 @@ void DisplayPadFeatures()
 		} // end switch on Bluetooth group.
 		break;
 	case TECLA_E_FEATURE_ID:
+		HideAudioNames();		// Hide the Audio Prompt fields which are inside the Pad icons.
 		gx_widget_hide (&MainUserScreen.MainUserScreen_Forward_Icon);
 		gx_widget_hide (&MainUserScreen.MainUserScreen_Reverse_Icon);
 		gx_widget_hide (&MainUserScreen.MainUserScreen_Left_Icon);
@@ -483,6 +491,7 @@ void DisplayPadFeatures()
 		} // end swtich
 		break;
 	default:
+		HideAudioNames();		// Hide the Audio Prompt fields which are inside the Pad icons.
 		DisplayDrivingPads();
 		break;
 	}

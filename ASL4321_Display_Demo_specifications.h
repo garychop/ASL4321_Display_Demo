@@ -6,7 +6,7 @@
 /*  www.expresslogic.com.                                                      */
 /*                                                                             */
 /*  GUIX Studio Revision 5.4.2.9                                               */
-/*  Date (dd.mm.yyyy): 29. 3.2021   Time (hh:mm): 09:16                        */
+/*  Date (dd.mm.yyyy): 29. 3.2021   Time (hh:mm): 09:49                        */
 /*******************************************************************************/
 
 
@@ -601,9 +601,13 @@ typedef struct MAINUSERSCREEN_CONTROL_BLOCK_STRUCT
     GX_ICON MainUserScreen_TargetOrangeIcon;
     GX_ICON MainUserScreen_UserPortIcon;
     GX_ICON MainUserScreen_Forward_Icon;
-    GX_ICON MainUserScreen_Left_Icon;
+    GX_PROMPT MainUserScreen_ForwardPad_SoundName;
     GX_ICON MainUserScreen_Right_Icon;
+    GX_PROMPT MainUserScreen_RightPad_SoundName;
     GX_ICON MainUserScreen_Reverse_Icon;
+    GX_PROMPT MainUserScreen_ReversePad_SoundName;
+    GX_ICON MainUserScreen_Left_Icon;
+    GX_PROMPT MainUserScreen_LeftPad_SoundName;
 } MAINUSERSCREEN_CONTROL_BLOCK;
 
 typedef struct FEATURESETTINGSSCREEN_CONTROL_BLOCK_STRUCT

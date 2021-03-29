@@ -325,7 +325,7 @@ USHORT SelectNextAudioLevel (VOID)
 	USHORT counter;
 	USHORT sounds;
 
-	activeSubitem = dd_GetSubItem_USHORT (0, DD_ACTIVE_FEATURE_SUBITEM, (USHORT) AUDIBLE_OUT_FEATURE_ID);		// Get the active feature
+	activeSubitem = dd_GetSubItem_USHORT (MAX_GROUPS, DD_ACTIVE_FEATURE_SUBITEM, (USHORT) AUDIBLE_OUT_FEATURE_ID);		// Get the active feature
 	for (counter = 0; counter < MAX_AUDIBLE_SUBITEMS; ++counter)		// We need to find the next level (subitem) that has any sounds programmed for use.
 	{
 		++activeSubitem;		// Next level
@@ -335,10 +335,10 @@ USHORT SelectNextAudioLevel (VOID)
 		sounds += dd_GetSubItem_USHORT (MAX_GROUPS, DD_ACTIVE_SPEAKER_SUBITEM_REVERSE, activeSubitem);
 		sounds += dd_GetSubItem_USHORT (MAX_GROUPS, DD_ACTIVE_SPEAKER_SUBITEM_LEFT, activeSubitem);
 		sounds += dd_GetSubItem_USHORT (MAX_GROUPS, DD_ACTIVE_SPEAKER_SUBITEM_RIGHT, activeSubitem);
-		if (sounds)	// Is any pad programmed for something?
+		if (sounds != (4 * MAX_SOUND_BITES))	// Is any pad programmed for something?
 			break;	// Yes? Then we are done looking.
 	}
-	dd_SetSubItem_USHORT (0, DD_ACTIVE_FEATURE_SUBITEM, (USHORT) AUDIBLE_OUT_FEATURE_ID, activeSubitem);		// save the active feature.
+	dd_SetSubItem_USHORT (MAX_GROUPS, DD_ACTIVE_FEATURE_SUBITEM, (USHORT) AUDIBLE_OUT_FEATURE_ID, activeSubitem);		// save the active feature.
 
 	return activeSubitem;
 }
