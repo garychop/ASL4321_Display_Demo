@@ -88,10 +88,10 @@ USHORT dd_GetSubItem_USHORT (USHORT group, DD_ITEM_ID item_ID, USHORT subItem)
 	case DD_ACTIVE_FEATURE_SUBITEM:		return (g_GroupInfo[myGroup].m_GroupFeature[subItem].m_SelectedSubItem); break;
 	case DD_PAD_MINIMUM_DRIVE_SPEED:	return (g_GroupInfo[myGroup].m_GroupPadInfo[subItem].m_MinimumDriveValue); break;
 	case DD_PAD_DIRECTION:				return (g_GroupInfo[myGroup].m_GroupPadInfo[subItem].m_PadDirection); break;
-	case DD_ACTIVE_SPEAKER_SUBITEM_FORWARD:		return (g_GroupInfo[myGroup].m_GroupFeature[AUDIBLE_OUT_FEATURE_ID].m_Subitem.m_Audible_Subitem[subItem].m_ForwardPad_SoundID); break;
-	case DD_ACTIVE_SPEAKER_SUBITEM_REVERSE:		return (g_GroupInfo[myGroup].m_GroupFeature[AUDIBLE_OUT_FEATURE_ID].m_Subitem.m_Audible_Subitem[subItem].m_ReversePad_SoundID); break;
-	case DD_ACTIVE_SPEAKER_SUBITEM_LEFT:		return (g_GroupInfo[myGroup].m_GroupFeature[AUDIBLE_OUT_FEATURE_ID].m_Subitem.m_Audible_Subitem[subItem].m_LeftPad_SoundID); break;
-	case DD_ACTIVE_SPEAKER_SUBITEM_RIGHT:		return (g_GroupInfo[myGroup].m_GroupFeature[AUDIBLE_OUT_FEATURE_ID].m_Subitem.m_Audible_Subitem[subItem].m_RightPad_SoundID); break;
+	case DD_ACTIVE_SPEAKER_SUBITEM_FORWARD:		return (g_GroupInfo[myGroup].m_GroupFeature[AUDIBLE_OUT_FEATURE_ID].m_Audible_Subitem[subItem].m_ForwardPad_SoundID); break;
+	case DD_ACTIVE_SPEAKER_SUBITEM_REVERSE:		return (g_GroupInfo[myGroup].m_GroupFeature[AUDIBLE_OUT_FEATURE_ID].m_Audible_Subitem[subItem].m_ReversePad_SoundID); break;
+	case DD_ACTIVE_SPEAKER_SUBITEM_LEFT:		return (g_GroupInfo[myGroup].m_GroupFeature[AUDIBLE_OUT_FEATURE_ID].m_Audible_Subitem[subItem].m_LeftPad_SoundID); break;
+	case DD_ACTIVE_SPEAKER_SUBITEM_RIGHT:		return (g_GroupInfo[myGroup].m_GroupFeature[AUDIBLE_OUT_FEATURE_ID].m_Audible_Subitem[subItem].m_RightPad_SoundID); break;
 	} // end switch item_ID
 
 	return 0;
@@ -111,10 +111,10 @@ VOID dd_SetSubItem_USHORT (USHORT group, DD_ITEM_ID item_ID, USHORT subItem, USH
 	case DD_ACTIVE_FEATURE_SUBITEM:		g_GroupInfo[myGroup].m_GroupFeature[subItem].m_SelectedSubItem = value; break;
 	case DD_PAD_MINIMUM_DRIVE_SPEED:	g_GroupInfo[myGroup].m_GroupPadInfo[subItem].m_MinimumDriveValue = value; break;
 	case DD_PAD_DIRECTION:				g_GroupInfo[myGroup].m_GroupPadInfo[subItem].m_PadDirection = (PAD_DIRECTION_ENUM) value; break;
-	case DD_ACTIVE_SPEAKER_SUBITEM_FORWARD:		g_GroupInfo[myGroup].m_GroupFeature[AUDIBLE_OUT_FEATURE_ID].m_Subitem.m_Audible_Subitem[subItem].m_ForwardPad_SoundID = value; break;
-	case DD_ACTIVE_SPEAKER_SUBITEM_REVERSE:		g_GroupInfo[myGroup].m_GroupFeature[AUDIBLE_OUT_FEATURE_ID].m_Subitem.m_Audible_Subitem[subItem].m_ReversePad_SoundID = value; break;
-	case DD_ACTIVE_SPEAKER_SUBITEM_LEFT:		g_GroupInfo[myGroup].m_GroupFeature[AUDIBLE_OUT_FEATURE_ID].m_Subitem.m_Audible_Subitem[subItem].m_LeftPad_SoundID = value; break;
-	case DD_ACTIVE_SPEAKER_SUBITEM_RIGHT:		g_GroupInfo[myGroup].m_GroupFeature[AUDIBLE_OUT_FEATURE_ID].m_Subitem.m_Audible_Subitem[subItem].m_RightPad_SoundID = value; break;
+	case DD_ACTIVE_SPEAKER_SUBITEM_FORWARD:		g_GroupInfo[myGroup].m_GroupFeature[AUDIBLE_OUT_FEATURE_ID].m_Audible_Subitem[subItem].m_ForwardPad_SoundID = value; break;
+	case DD_ACTIVE_SPEAKER_SUBITEM_REVERSE:		g_GroupInfo[myGroup].m_GroupFeature[AUDIBLE_OUT_FEATURE_ID].m_Audible_Subitem[subItem].m_ReversePad_SoundID = value; break;
+	case DD_ACTIVE_SPEAKER_SUBITEM_LEFT:		g_GroupInfo[myGroup].m_GroupFeature[AUDIBLE_OUT_FEATURE_ID].m_Audible_Subitem[subItem].m_LeftPad_SoundID = value; break;
+	case DD_ACTIVE_SPEAKER_SUBITEM_RIGHT:		g_GroupInfo[myGroup].m_GroupFeature[AUDIBLE_OUT_FEATURE_ID].m_Audible_Subitem[subItem].m_RightPad_SoundID = value; break;
 	} // end switch item_ID
 }
 

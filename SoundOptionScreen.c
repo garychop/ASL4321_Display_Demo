@@ -191,20 +191,20 @@ static VOID PositionPads (VOID)
 	if (dd_Get_USHORT (MAX_GROUPS, DD_DEVICE_TYPE) == DEVICE_TYPE_HEAD_ARRAY)
 	{
 		// Left Button
-		gx_utility_rectangle_define (&rectangle, 68, 120, 68+80, 120+36);	// Left, top, right, bottom
-		gx_widget_resize (&SoundSetupScreen.SoundSetupScreen_LeftPad_SoundName, &rectangle);
 		gx_utility_rectangle_define (&rectangle, 64, 90, 64+88, 90+70);	// Left, top, right, bottom
 		gx_widget_resize (&SoundSetupScreen.SoundSetupScreen_Left_Icon, &rectangle);
+		gx_utility_rectangle_define (&rectangle, 68, 120, 68+80, 120+36);	// Left, top, right, bottom
+		gx_widget_resize (&SoundSetupScreen.SoundSetupScreen_LeftPad_SoundName, &rectangle);
 		// Right Button
-		gx_utility_rectangle_define (&rectangle, 246, 120, 246+80, 120+36);	// Left, top, right, bottom
-		gx_widget_resize (&SoundSetupScreen.SoundSetupScreen_RightPad_SoundName, &rectangle);
 		gx_utility_rectangle_define (&rectangle, 242, 90, 242+88, 90+70);	// Left, top, right, bottom
 		gx_widget_resize (&SoundSetupScreen.SoundSetupScreen_Right_Icon, &rectangle);
+		gx_utility_rectangle_define (&rectangle, 246, 120, 246+80, 120+36);	// Left, top, right, bottom
+		gx_widget_resize (&SoundSetupScreen.SoundSetupScreen_RightPad_SoundName, &rectangle);
 		// Center/Forward Pad
-		gx_utility_rectangle_define (&rectangle, 158, 190, 158+80, 190+36);	// Left, top, right, bottom
-		gx_widget_resize (&SoundSetupScreen.SoundSetupScreen_ForwardPad_SoundName, &rectangle);
 		gx_utility_rectangle_define (&rectangle, 154, 160, 154+88, 160+70);	// Left, top, right, bottom
 		gx_widget_resize (&SoundSetupScreen.SoundSetupScreen_Forward_Icon, &rectangle);
+		gx_utility_rectangle_define (&rectangle, 158, 190, 158+80, 190+36);	// Left, top, right, bottom
+		gx_widget_resize (&SoundSetupScreen.SoundSetupScreen_ForwardPad_SoundName, &rectangle);
 		// Hide the revese button
 		gx_widget_hide ((GX_WIDGET*) &SoundSetupScreen.SoundSetupScreen_ReversePad_SoundName);
 		gx_widget_hide ((GX_WIDGET*) &SoundSetupScreen.SoundSetupScreen_Reverse_Icon);
@@ -212,25 +212,25 @@ static VOID PositionPads (VOID)
 	else	// Must be a joystick, show all 4 pads.
 	{
 		// Left Button
-		gx_utility_rectangle_define (&rectangle, 70, 150, 70+80, 150+36);	// Left, top, right, bottom
-		gx_widget_resize (&SoundSetupScreen.SoundSetupScreen_LeftPad_SoundName, &rectangle);
-		gx_utility_rectangle_define (&rectangle, 66, 120, 66+88, 120+70);	// Left, top, right, bottom
+		gx_utility_rectangle_define (&rectangle, 66, 122, 66+88, 122+70);	// Left, top, right, bottom
 		gx_widget_resize (&SoundSetupScreen.SoundSetupScreen_Left_Icon, &rectangle);
+		gx_utility_rectangle_define (&rectangle, 70, 152, 70+80, 152+36);	// Left, top, right, bottom
+		gx_widget_resize (&SoundSetupScreen.SoundSetupScreen_LeftPad_SoundName, &rectangle);
 		// Right Button
-		gx_utility_rectangle_define (&rectangle, 246, 150, 246+80, 150+36);	// Left, top, right, bottom
-		gx_widget_resize (&SoundSetupScreen.SoundSetupScreen_RightPad_SoundName, &rectangle);
-		gx_utility_rectangle_define (&rectangle, 242, 120, 242+88, 120+70);	// Left, top, right, bottom
+		gx_utility_rectangle_define (&rectangle, 242, 122, 242+88, 122+70);	// Left, top, right, bottom
 		gx_widget_resize (&SoundSetupScreen.SoundSetupScreen_Right_Icon, &rectangle);
+		gx_utility_rectangle_define (&rectangle, 246, 152, 246+80, 152+36);	// Left, top, right, bottom
+		gx_widget_resize (&SoundSetupScreen.SoundSetupScreen_RightPad_SoundName, &rectangle);
 		// Center/Forward Pad
-		gx_utility_rectangle_define (&rectangle, 158, 88, 158+80, 88+36);	// Left, top, right, bottom
-		gx_widget_resize (&SoundSetupScreen.SoundSetupScreen_ForwardPad_SoundName, &rectangle);
 		gx_utility_rectangle_define (&rectangle, 154, 58, 154+88, 58+70);	// Left, top, right, bottom
 		gx_widget_resize (&SoundSetupScreen.SoundSetupScreen_Forward_Icon, &rectangle);
+		gx_utility_rectangle_define (&rectangle, 158, 88, 158+80, 88+36);	// Left, top, right, bottom
+		gx_widget_resize (&SoundSetupScreen.SoundSetupScreen_ForwardPad_SoundName, &rectangle);
 		// Reverse Button
-		gx_utility_rectangle_define (&rectangle, 158, 220, 158+80, 220+36);	// Left, top, right, bottom
-		gx_widget_resize (&SoundSetupScreen.SoundSetupScreen_ReversePad_SoundName, &rectangle);
 		gx_utility_rectangle_define (&rectangle, 154, 190, 154+88, 190+70);	// Left, top, right, bottom
 		gx_widget_resize (&SoundSetupScreen.SoundSetupScreen_Reverse_Icon, &rectangle);
+		gx_utility_rectangle_define (&rectangle, 158, 220, 158+80, 220+36);	// Left, top, right, bottom
+		gx_widget_resize (&SoundSetupScreen.SoundSetupScreen_ReversePad_SoundName, &rectangle);
 		gx_widget_show ((GX_WIDGET*) &SoundSetupScreen.SoundSetupScreen_ReversePad_SoundName);
 		gx_widget_show ((GX_WIDGET*) &SoundSetupScreen.SoundSetupScreen_Reverse_Icon);
 	}

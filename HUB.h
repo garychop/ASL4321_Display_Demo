@@ -27,7 +27,7 @@ typedef struct FEATURE_GROUP_STRUCTURE {
 	USHORT m_SelectedSubItem;
 	union {
 		AUDIBLE_SUBITEM_STRUCT m_Audible_Subitem[MAX_AUDIBLE_SUBITEMS];
-	} m_Subitem;
+	};
 } FEATURE_GROUP_STRUCT;
 
 typedef struct //GROUP_STRUCT_DEFINE

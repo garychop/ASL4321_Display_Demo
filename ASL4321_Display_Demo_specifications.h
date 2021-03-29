@@ -6,7 +6,7 @@
 /*  www.expresslogic.com.                                                      */
 /*                                                                             */
 /*  GUIX Studio Revision 5.4.2.9                                               */
-/*  Date (dd.mm.yyyy): 25. 3.2021   Time (hh:mm): 17:22                        */
+/*  Date (dd.mm.yyyy): 29. 3.2021   Time (hh:mm): 09:16                        */
 /*******************************************************************************/
 
 
@@ -94,12 +94,12 @@ extern   "C" {
 #define NEUTRAL_WINDOW_BTN_ID 70
 #define SOUND_SETUP_SCREEN_ID 71
 #define FORWARD_ICON_ID 72
-#define LEFT_ICON_ID 73
-#define REVERSE_ICON_ID 74
-#define RIGHT_ICON_ID 75
-#define FORWARD_PAD_SOUND_NAME_ID 76
+#define FORWARD_PAD_SOUND_NAME_ID 73
+#define LEFT_ICON_ID 74
+#define LEFT_PAD_SOUND_NAME_ID 75
+#define REVERSE_ICON_ID 76
 #define REVERSE_PAD_SOUND_NAME_ID 77
-#define LEFT_PAD_SOUND_NAME_ID 78
+#define RIGHT_ICON_ID 78
 #define RIGHT_PAD_SOUND_NAME_ID 79
 #define LEVEL_PROMPT_ID 80
 #define RIGHT_LEVEL_BTN_ID 81
@@ -544,14 +544,14 @@ typedef struct SOUNDSETUPSCREEN_CONTROL_BLOCK_STRUCT
     GX_WINDOW SoundSetupScreen_SoundSetupScreenBackdrop;
     GX_TEXT_BUTTON SoundSetupScreen_OK_Button;
     GX_ICON SoundSetupScreen_Forward_Icon;
-    GX_ICON SoundSetupScreen_Left_Icon;
-    GX_ICON SoundSetupScreen_Reverse_Icon;
-    GX_ICON SoundSetupScreen_Right_Icon;
-    GX_ICON_BUTTON SoundSetupScreen_GroupIconButton;
     GX_PROMPT SoundSetupScreen_ForwardPad_SoundName;
-    GX_PROMPT SoundSetupScreen_ReversePad_SoundName;
+    GX_ICON SoundSetupScreen_Left_Icon;
     GX_PROMPT SoundSetupScreen_LeftPad_SoundName;
+    GX_ICON SoundSetupScreen_Reverse_Icon;
+    GX_PROMPT SoundSetupScreen_ReversePad_SoundName;
+    GX_ICON SoundSetupScreen_Right_Icon;
     GX_PROMPT SoundSetupScreen_RightPad_SoundName;
+    GX_ICON_BUTTON SoundSetupScreen_GroupIconButton;
     GX_PROMPT SoundSetupScreen_LevelPrompt;
     GX_NUMERIC_PROMPT SoundSetupScreen_LevelNumber;
     GX_ICON_BUTTON SoundSetupScreen_RightArrow_Level;

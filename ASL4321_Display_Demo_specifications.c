@@ -6,7 +6,7 @@
 /*  www.expresslogic.com.                                                      */
 /*                                                                             */
 /*  GUIX Studio Revision 5.4.2.9                                               */
-/*  Date (dd.mm.yyyy): 25. 3.2021   Time (hh:mm): 17:22                        */
+/*  Date (dd.mm.yyyy): 29. 3.2021   Time (hh:mm): 09:16                        */
 /*******************************************************************************/
 
 
@@ -4064,25 +4064,6 @@ GX_ICON_PROPERTIES SoundSetupScreen_Forward_Icon_properties =
     GX_PIXELMAP_ID_SPEAKER_88X70,            /* normal pixelmap id             */
     0                                        /* selected pixelmap id           */
 };
-GX_ICON_PROPERTIES SoundSetupScreen_Left_Icon_properties =
-{
-    GX_PIXELMAP_ID_SPEAKER_88X70,            /* normal pixelmap id             */
-    0                                        /* selected pixelmap id           */
-};
-GX_ICON_PROPERTIES SoundSetupScreen_Reverse_Icon_properties =
-{
-    GX_PIXELMAP_ID_SPEAKER_88X70,            /* normal pixelmap id             */
-    0                                        /* selected pixelmap id           */
-};
-GX_ICON_PROPERTIES SoundSetupScreen_Right_Icon_properties =
-{
-    GX_PIXELMAP_ID_SPEAKER_88X70,            /* normal pixelmap id             */
-    0                                        /* selected pixelmap id           */
-};
-GX_ICON_BUTTON_PROPERTIES SoundSetupScreen_GroupIconButton_properties =
-{
-    GX_PIXELMAP_ID_GROUPA_64X64              /* pixelmap id                    */
-};
 GX_PROMPT_PROPERTIES SoundSetupScreen_ForwardPad_SoundName_properties =
 {
     GX_STRING_ID_STRING_173,                 /* string id                      */
@@ -4091,13 +4072,10 @@ GX_PROMPT_PROPERTIES SoundSetupScreen_ForwardPad_SoundName_properties =
     GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
     GX_COLOR_ID_DISABLED_TEXT                /* disabled text color            */
 };
-GX_PROMPT_PROPERTIES SoundSetupScreen_ReversePad_SoundName_properties =
+GX_ICON_PROPERTIES SoundSetupScreen_Left_Icon_properties =
 {
-    GX_STRING_ID_STRING_173,                 /* string id                      */
-    GX_FONT_ID_ASC20PT,                      /* font id                        */
-    GX_COLOR_ID_WHITE,                       /* normal text color              */
-    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
-    GX_COLOR_ID_DISABLED_TEXT                /* disabled text color            */
+    GX_PIXELMAP_ID_SPEAKER_88X70,            /* normal pixelmap id             */
+    0                                        /* selected pixelmap id           */
 };
 GX_PROMPT_PROPERTIES SoundSetupScreen_LeftPad_SoundName_properties =
 {
@@ -4107,6 +4085,24 @@ GX_PROMPT_PROPERTIES SoundSetupScreen_LeftPad_SoundName_properties =
     GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
     GX_COLOR_ID_DISABLED_TEXT                /* disabled text color            */
 };
+GX_ICON_PROPERTIES SoundSetupScreen_Reverse_Icon_properties =
+{
+    GX_PIXELMAP_ID_SPEAKER_88X70,            /* normal pixelmap id             */
+    0                                        /* selected pixelmap id           */
+};
+GX_PROMPT_PROPERTIES SoundSetupScreen_ReversePad_SoundName_properties =
+{
+    GX_STRING_ID_STRING_173,                 /* string id                      */
+    GX_FONT_ID_ASC20PT,                      /* font id                        */
+    GX_COLOR_ID_WHITE,                       /* normal text color              */
+    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
+    GX_COLOR_ID_DISABLED_TEXT                /* disabled text color            */
+};
+GX_ICON_PROPERTIES SoundSetupScreen_Right_Icon_properties =
+{
+    GX_PIXELMAP_ID_SPEAKER_88X70,            /* normal pixelmap id             */
+    0                                        /* selected pixelmap id           */
+};
 GX_PROMPT_PROPERTIES SoundSetupScreen_RightPad_SoundName_properties =
 {
     GX_STRING_ID_STRING_173,                 /* string id                      */
@@ -4114,6 +4110,10 @@ GX_PROMPT_PROPERTIES SoundSetupScreen_RightPad_SoundName_properties =
     GX_COLOR_ID_WHITE,                       /* normal text color              */
     GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
     GX_COLOR_ID_DISABLED_TEXT                /* disabled text color            */
+};
+GX_ICON_BUTTON_PROPERTIES SoundSetupScreen_GroupIconButton_properties =
+{
+    GX_PIXELMAP_ID_GROUPA_64X64              /* pixelmap id                    */
 };
 GX_PROMPT_PROPERTIES SoundSetupScreen_LevelPrompt_properties =
 {
@@ -4140,6 +4140,102 @@ GX_ICON_BUTTON_PROPERTIES SoundSetupScreen_RightArrow_Level_properties =
 GX_ICON_BUTTON_PROPERTIES SoundSetupScreen_LeftArrow_Level_properties =
 {
     GX_PIXELMAP_ID_PADLEFTARROW_DISABLED     /* pixelmap id                    */
+};
+
+GX_CONST GX_STUDIO_WIDGET SoundSetupScreen_ForwardPad_SoundName_define =
+{
+    "ForwardPad_SoundName",
+    GX_TYPE_PROMPT,                          /* widget type                    */
+    FORWARD_PAD_SOUND_NAME_ID,               /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    0,                                       /* status flags                   */
+    sizeof(GX_PROMPT),                       /* control block size             */
+    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_prompt_create,                 /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {159, 88, 238, 117},                     /* widget size                    */
+    GX_NULL,                                 /* no next widget                 */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(SOUNDSETUPSCREEN_CONTROL_BLOCK, SoundSetupScreen_ForwardPad_SoundName), /* control block */
+    (void *) &SoundSetupScreen_ForwardPad_SoundName_properties /* extended properties */
+};
+
+GX_CONST GX_STUDIO_WIDGET SoundSetupScreen_LeftPad_SoundName_define =
+{
+    "LeftPad_SoundName",
+    GX_TYPE_PROMPT,                          /* widget type                    */
+    LEFT_PAD_SOUND_NAME_ID,                  /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    0,                                       /* status flags                   */
+    sizeof(GX_PROMPT),                       /* control block size             */
+    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_prompt_create,                 /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {71, 148, 150, 183},                     /* widget size                    */
+    GX_NULL,                                 /* no next widget                 */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(SOUNDSETUPSCREEN_CONTROL_BLOCK, SoundSetupScreen_LeftPad_SoundName), /* control block */
+    (void *) &SoundSetupScreen_LeftPad_SoundName_properties /* extended properties */
+};
+
+GX_CONST GX_STUDIO_WIDGET SoundSetupScreen_ReversePad_SoundName_define =
+{
+    "ReversePad_SoundName",
+    GX_TYPE_PROMPT,                          /* widget type                    */
+    REVERSE_PAD_SOUND_NAME_ID,               /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    0,                                       /* status flags                   */
+    sizeof(GX_PROMPT),                       /* control block size             */
+    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_prompt_create,                 /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {160, 215, 239, 250},                    /* widget size                    */
+    GX_NULL,                                 /* no next widget                 */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(SOUNDSETUPSCREEN_CONTROL_BLOCK, SoundSetupScreen_ReversePad_SoundName), /* control block */
+    (void *) &SoundSetupScreen_ReversePad_SoundName_properties /* extended properties */
+};
+
+GX_CONST GX_STUDIO_WIDGET SoundSetupScreen_RightPad_SoundName_define =
+{
+    "RightPad_SoundName",
+    GX_TYPE_PROMPT,                          /* widget type                    */
+    RIGHT_PAD_SOUND_NAME_ID,                 /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    0,                                       /* status flags                   */
+    sizeof(GX_PROMPT),                       /* control block size             */
+    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_prompt_create,                 /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {247, 147, 326, 182},                    /* widget size                    */
+    GX_NULL,                                 /* no next widget                 */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(SOUNDSETUPSCREEN_CONTROL_BLOCK, SoundSetupScreen_RightPad_SoundName), /* control block */
+    (void *) &SoundSetupScreen_RightPad_SoundName_properties /* extended properties */
 };
 
 GX_CONST GX_STUDIO_WIDGET SoundSetupScreen_LevelNumber_define =
@@ -4238,102 +4334,6 @@ GX_CONST GX_STUDIO_WIDGET SoundSetupScreen_LevelPrompt_define =
     (void *) &SoundSetupScreen_LevelPrompt_properties /* extended properties   */
 };
 
-GX_CONST GX_STUDIO_WIDGET SoundSetupScreen_RightPad_SoundName_define =
-{
-    "RightPad_SoundName",
-    GX_TYPE_PROMPT,                          /* widget type                    */
-    RIGHT_PAD_SOUND_NAME_ID,                 /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
-    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
-    sizeof(GX_PROMPT),                       /* control block size             */
-    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
-    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_prompt_create,                 /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {246, 150, 325, 185},                    /* widget size                    */
-    &SoundSetupScreen_LevelPrompt_define,    /* next widget definition         */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(SOUNDSETUPSCREEN_CONTROL_BLOCK, SoundSetupScreen_RightPad_SoundName), /* control block */
-    (void *) &SoundSetupScreen_RightPad_SoundName_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET SoundSetupScreen_LeftPad_SoundName_define =
-{
-    "LeftPad_SoundName",
-    GX_TYPE_PROMPT,                          /* widget type                    */
-    LEFT_PAD_SOUND_NAME_ID,                  /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
-    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
-    sizeof(GX_PROMPT),                       /* control block size             */
-    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
-    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_prompt_create,                 /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {69, 150, 148, 185},                     /* widget size                    */
-    &SoundSetupScreen_RightPad_SoundName_define, /* next widget definition     */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(SOUNDSETUPSCREEN_CONTROL_BLOCK, SoundSetupScreen_LeftPad_SoundName), /* control block */
-    (void *) &SoundSetupScreen_LeftPad_SoundName_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET SoundSetupScreen_ReversePad_SoundName_define =
-{
-    "ReversePad_SoundName",
-    GX_TYPE_PROMPT,                          /* widget type                    */
-    REVERSE_PAD_SOUND_NAME_ID,               /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
-    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
-    sizeof(GX_PROMPT),                       /* control block size             */
-    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
-    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_prompt_create,                 /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {158, 220, 237, 255},                    /* widget size                    */
-    &SoundSetupScreen_LeftPad_SoundName_define, /* next widget definition      */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(SOUNDSETUPSCREEN_CONTROL_BLOCK, SoundSetupScreen_ReversePad_SoundName), /* control block */
-    (void *) &SoundSetupScreen_ReversePad_SoundName_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET SoundSetupScreen_ForwardPad_SoundName_define =
-{
-    "ForwardPad_SoundName",
-    GX_TYPE_PROMPT,                          /* widget type                    */
-    FORWARD_PAD_SOUND_NAME_ID,               /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
-    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
-    sizeof(GX_PROMPT),                       /* control block size             */
-    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
-    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
-    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
-    gx_studio_prompt_create,                 /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {158, 88, 237, 117},                     /* widget size                    */
-    &SoundSetupScreen_ReversePad_SoundName_define, /* next widget definition   */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(SOUNDSETUPSCREEN_CONTROL_BLOCK, SoundSetupScreen_ForwardPad_SoundName), /* control block */
-    (void *) &SoundSetupScreen_ForwardPad_SoundName_properties /* extended properties */
-};
-
 GX_CONST GX_STUDIO_WIDGET SoundSetupScreen_GroupIconButton_define =
 {
     "GroupIconButton",
@@ -4352,7 +4352,7 @@ GX_CONST GX_STUDIO_WIDGET SoundSetupScreen_GroupIconButton_define =
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
     {388, 16, 451, 79},                      /* widget size                    */
-    &SoundSetupScreen_ForwardPad_SoundName_define, /* next widget definition   */
+    &SoundSetupScreen_LevelPrompt_define,    /* next widget definition         */
     GX_NULL,                                 /* no child widgets               */ 
     offsetof(SOUNDSETUPSCREEN_CONTROL_BLOCK, SoundSetupScreen_GroupIconButton), /* control block */
     (void *) &SoundSetupScreen_GroupIconButton_properties /* extended properties */
@@ -4377,7 +4377,7 @@ GX_CONST GX_STUDIO_WIDGET SoundSetupScreen_Right_Icon_define =
     GX_NULL,                                 /* event function override        */
     {242, 120, 329, 189},                    /* widget size                    */
     &SoundSetupScreen_GroupIconButton_define, /* next widget definition        */
-    GX_NULL,                                 /* no child widgets               */ 
+    &SoundSetupScreen_RightPad_SoundName_define, /* child widget definition    */
     offsetof(SOUNDSETUPSCREEN_CONTROL_BLOCK, SoundSetupScreen_Right_Icon), /* control block */
     (void *) &SoundSetupScreen_Right_Icon_properties /* extended properties    */
 };
@@ -4401,7 +4401,7 @@ GX_CONST GX_STUDIO_WIDGET SoundSetupScreen_Reverse_Icon_define =
     GX_NULL,                                 /* event function override        */
     {154, 189, 241, 258},                    /* widget size                    */
     &SoundSetupScreen_Right_Icon_define,     /* next widget definition         */
-    GX_NULL,                                 /* no child widgets               */ 
+    &SoundSetupScreen_ReversePad_SoundName_define, /* child widget definition  */
     offsetof(SOUNDSETUPSCREEN_CONTROL_BLOCK, SoundSetupScreen_Reverse_Icon), /* control block */
     (void *) &SoundSetupScreen_Reverse_Icon_properties /* extended properties  */
 };
@@ -4425,7 +4425,7 @@ GX_CONST GX_STUDIO_WIDGET SoundSetupScreen_Left_Icon_define =
     GX_NULL,                                 /* event function override        */
     {66, 120, 153, 189},                     /* widget size                    */
     &SoundSetupScreen_Reverse_Icon_define,   /* next widget definition         */
-    GX_NULL,                                 /* no child widgets               */ 
+    &SoundSetupScreen_LeftPad_SoundName_define, /* child widget definition     */
     offsetof(SOUNDSETUPSCREEN_CONTROL_BLOCK, SoundSetupScreen_Left_Icon), /* control block */
     (void *) &SoundSetupScreen_Left_Icon_properties /* extended properties     */
 };
@@ -4449,7 +4449,7 @@ GX_CONST GX_STUDIO_WIDGET SoundSetupScreen_Forward_Icon_define =
     GX_NULL,                                 /* event function override        */
     {154, 57, 241, 126},                     /* widget size                    */
     &SoundSetupScreen_Left_Icon_define,      /* next widget definition         */
-    GX_NULL,                                 /* no child widgets               */ 
+    &SoundSetupScreen_ForwardPad_SoundName_define, /* child widget definition  */
     offsetof(SOUNDSETUPSCREEN_CONTROL_BLOCK, SoundSetupScreen_Forward_Icon), /* control block */
     (void *) &SoundSetupScreen_Forward_Icon_properties /* extended properties  */
 };
