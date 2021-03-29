@@ -138,7 +138,7 @@ static VOID InitializeIndividualGroup (USHORT group)
 	g_GroupInfo[group].m_GroupFeature[AUDIBLE_OUT_FEATURE_ID].m_Audible_Subitem[1].m_LeftPad_SoundID = 5;
 	g_GroupInfo[group].m_GroupFeature[AUDIBLE_OUT_FEATURE_ID].m_Audible_Subitem[1].m_RightPad_SoundID = 6;
 	g_GroupInfo[group].m_GroupFeature[AUDIBLE_OUT_FEATURE_ID].m_Audible_Subitem[7].m_ForwardPad_SoundID = 2;
-	g_GroupInfo[group].m_GroupFeature[AUDIBLE_OUT_FEATURE_ID].m_Audible_Subitem[7].m_ReversePad_SoundID = MAX_SOUND_BITES;
+	g_GroupInfo[group].m_GroupFeature[AUDIBLE_OUT_FEATURE_ID].m_Audible_Subitem[7].m_ReversePad_SoundID = 0;
 	g_GroupInfo[group].m_GroupFeature[AUDIBLE_OUT_FEATURE_ID].m_Audible_Subitem[7].m_LeftPad_SoundID = 3;
 	g_GroupInfo[group].m_GroupFeature[AUDIBLE_OUT_FEATURE_ID].m_Audible_Subitem[7].m_RightPad_SoundID = MAX_SOUND_BITES;
 
