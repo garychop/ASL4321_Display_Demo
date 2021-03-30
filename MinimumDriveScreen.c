@@ -17,6 +17,10 @@ char g_MinimuDriveString[MAX_PHYSICAL_PADS][MIN_SPEED_STRING_LEN];
 char g_NeutralWindowString[MAX_PHYSICAL_PADS][MIN_SPEED_STRING_LEN];
 
 //*************************************************************************************
+// External declaractions
+extern VOID LocatePadPosition (PHYSICAL_PAD_ENUM pad, DEVICE_TYPE_ENUM device, GX_BOOL showPrompt, GX_ICON_BUTTON *icon, GX_PROMPT *prompt);
+
+//*************************************************************************************
 // Forward Declarations and Prototypes
 VOID CreateMinSpeedString (USHORT minSpeed, char *str);
 
@@ -26,10 +30,10 @@ VOID CreateMinSpeedString (USHORT minSpeed, char *str);
 
 static VOID ShowPads (VOID)
 {
-	GX_RECTANGLE rectangle;
 	USHORT minSpeed;
 	USHORT padIndex;
 	USHORT group;
+	DEVICE_TYPE_ENUM thisDevice;
 
 	group = dd_Get_USHORT (0, DD_GROUP);	// Get currently selected group.
 
@@ -40,47 +44,18 @@ static VOID ShowPads (VOID)
 		CreateMinSpeedString (minSpeed, g_MinimuDriveString[padIndex]);
 	}
 	// Put values in buttons.
-	gx_text_button_text_set (&MinimumDriveScreen.MinimumDriveScreen_ForwardPadPercentage_Button, g_MinimuDriveString[FORWARD_PAD]);
-	gx_text_button_text_set (&MinimumDriveScreen.MinimumDriveScreen_LeftPadPercentage_Button, g_MinimuDriveString[LEFT_PAD]);
-	gx_text_button_text_set (&MinimumDriveScreen.MinimumDriveScreen_RightPadPercentage_Button, g_MinimuDriveString[RIGHT_PAD]);
-	gx_text_button_text_set (&MinimumDriveScreen.MinimumDriveScreen_ReversePadPercentage_Button, g_MinimuDriveString[REVERSE_PAD]);
+	gx_prompt_text_set (&MinimumDriveScreen.MinimumDriveScreen_ForwardPad_Prompt, g_MinimuDriveString[FORWARD_PAD]);
+	gx_prompt_text_set (&MinimumDriveScreen.MinimumDriveScreen_LeftPad_Prompt, g_MinimuDriveString[LEFT_PAD]);
+	gx_prompt_text_set (&MinimumDriveScreen.MinimumDriveScreen_RightPad_Prompt, g_MinimuDriveString[RIGHT_PAD]);
+	gx_prompt_text_set (&MinimumDriveScreen.MinimumDriveScreen_ReversePad_Prompt, g_MinimuDriveString[REVERSE_PAD]);
 
-	if (dd_Get_USHORT (group, DD_DEVICE_TYPE) == DEVICE_TYPE_HEAD_ARRAY)
-	{
-		// Move device icon
-		gx_utility_rectangle_define (&rectangle, 154, 90, 154+88, 90+70);	// Left, top, right, bottom
-		gx_widget_resize (&MinimumDriveScreen.MinimumDriveScreen_DeviceType_icon, &rectangle);
-		// Left Button
-		gx_utility_rectangle_define (&rectangle, 64, 90, 64+88, 90+70);	// Left, top, right, bottom
-		gx_widget_resize (&MinimumDriveScreen.MinimumDriveScreen_LeftPadPercentage_Button, &rectangle);
-		// Right Button
-		gx_utility_rectangle_define (&rectangle, 242, 90, 242+88, 90+70);	// Left, top, right, bottom
-		gx_widget_resize (&MinimumDriveScreen.MinimumDriveScreen_RightPadPercentage_Button, &rectangle);
-		// Center/Forward Pad
-		gx_utility_rectangle_define (&rectangle, 154, 160, 152+88, 160+70);	// Left, top, right, bottom
-		gx_widget_resize (&MinimumDriveScreen.MinimumDriveScreen_ForwardPadPercentage_Button, &rectangle);
-		// Hide the revese button
-		gx_widget_hide (&MinimumDriveScreen.MinimumDriveScreen_ReversePadPercentage_Button);
-	}
-	else	// Must be a joystick, show all 4 pads.
-	{
-		// Move device icon
-		gx_utility_rectangle_define (&rectangle, 154, 120, 154+88, 120+70);	// Left, top, right, bottom
-		gx_widget_resize (&MinimumDriveScreen.MinimumDriveScreen_DeviceType_icon, &rectangle);
-		// Left Button
-		gx_utility_rectangle_define (&rectangle, 64, 120, 64+88, 120+70);	// Left, top, right, bottom
-		gx_widget_resize (&MinimumDriveScreen.MinimumDriveScreen_LeftPadPercentage_Button, &rectangle);
-		// Right Button
-		gx_utility_rectangle_define (&rectangle, 242, 120, 242+88, 120+70);	// Left, top, right, bottom
-		gx_widget_resize (&MinimumDriveScreen.MinimumDriveScreen_RightPadPercentage_Button, &rectangle);
-		// Center/Forward Pad
-		gx_utility_rectangle_define (&rectangle, 154, 50, 154+88, 50+70);	// Left, top, right, bottom
-		gx_widget_resize (&MinimumDriveScreen.MinimumDriveScreen_ForwardPadPercentage_Button, &rectangle);
-		// Reverse Button
-		gx_utility_rectangle_define (&rectangle, 154, 190, 154+88, 190+70);	// Left, top, right, bottom
-		gx_widget_resize (&MinimumDriveScreen.MinimumDriveScreen_ReversePadPercentage_Button, &rectangle);
-		gx_widget_show (&MinimumDriveScreen.MinimumDriveScreen_ReversePadPercentage_Button);
-	}
+	thisDevice = (DEVICE_TYPE_ENUM) dd_Get_USHORT (group, DD_DEVICE_TYPE);
+
+	LocatePadPosition (LEFT_PAD, thisDevice, TRUE, &MinimumDriveScreen.MinimumDriveScreen_Left_IconButton, &MinimumDriveScreen.MinimumDriveScreen_LeftPad_Prompt);
+	LocatePadPosition (RIGHT_PAD, thisDevice, TRUE, &MinimumDriveScreen.MinimumDriveScreen_Right_IconButton, &MinimumDriveScreen.MinimumDriveScreen_RightPad_Prompt);
+	LocatePadPosition (FORWARD_PAD, thisDevice, TRUE, &MinimumDriveScreen.MinimumDriveScreen_Forward_IconButton, &MinimumDriveScreen.MinimumDriveScreen_ForwardPad_Prompt);
+	LocatePadPosition (REVERSE_PAD, thisDevice, TRUE, &MinimumDriveScreen.MinimumDriveScreen_Reverse_IconButton, &MinimumDriveScreen.MinimumDriveScreen_ReversePad_Prompt);
+
 }
 
 //*************************************************************************************
@@ -129,7 +104,7 @@ UINT MinimumDriveScreen_event_process (GX_WINDOW *window, GX_EVENT *event_ptr)
 	{
 	case GX_EVENT_SHOW:
 		SetGroupIcon (&MinimumDriveScreen.MinimumDriveScreen_GroupIconButton);
-		// Show the Device icon in the middle of the screen.
+		// Show the Device icon
 		SetDeviceIcon(&MinimumDriveScreen.MinimumDriveScreen_DeviceType_icon);
 		break;
 
@@ -137,19 +112,19 @@ UINT MinimumDriveScreen_event_process (GX_WINDOW *window, GX_EVENT *event_ptr)
         screen_toggle((GX_WINDOW *)&PadOptionsSettingsScreen, window);
 		break;
 
-	case GX_SIGNAL (FORWARD_PAD_PERCENTAGE_BTN_ID, GX_EVENT_CLICKED):
+	case GX_SIGNAL (FORWARD_ICON_BTN_ID, GX_EVENT_CLICKED):
 		AdjustMinimumSpeedValue (FORWARD_PAD);
 		break;
 
-	case GX_SIGNAL (LEFT_PAD_PERCENTAGE_BTN_ID, GX_EVENT_CLICKED):
+	case GX_SIGNAL (LEFT_ICON_BTN_ID, GX_EVENT_CLICKED):
 		AdjustMinimumSpeedValue (LEFT_PAD);
 		break;
 
-	case GX_SIGNAL (RIGHT_PAD_PERCENTAGE_BTN_ID, GX_EVENT_CLICKED):
+	case GX_SIGNAL (RIGHT_ICON_BTN_ID, GX_EVENT_CLICKED):
 		AdjustMinimumSpeedValue (RIGHT_PAD);
 		break;
 
-	case GX_SIGNAL (REVERSE_PAD_PERCENTAGE_BTN_ID, GX_EVENT_CLICKED):
+	case GX_SIGNAL (REVERSE_ICON_BTN_ID, GX_EVENT_CLICKED):
 		AdjustMinimumSpeedValue (REVERSE_PAD);
 		break;
 

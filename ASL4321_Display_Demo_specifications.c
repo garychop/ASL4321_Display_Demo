@@ -6,7 +6,7 @@
 /*  www.expresslogic.com.                                                      */
 /*                                                                             */
 /*  GUIX Studio Revision 5.4.2.9                                               */
-/*  Date (dd.mm.yyyy): 29. 3.2021   Time (hh:mm): 19:19                        */
+/*  Date (dd.mm.yyyy): 30. 3.2021   Time (hh:mm): 10:19                        */
 /*******************************************************************************/
 
 
@@ -5025,7 +5025,7 @@ GX_ICON_BUTTON_PROPERTIES MainUserScreen_Forward_IconButton_properties =
 {
     GX_PIXELMAP_ID_UPWHITEARROW              /* pixelmap id                    */
 };
-GX_PROMPT_PROPERTIES MainUserScreen_ForwardPad_SoundName_properties =
+GX_PROMPT_PROPERTIES MainUserScreen_ForwardPad_Prompt_properties =
 {
     GX_STRING_ID_STRING_173,                 /* string id                      */
     GX_FONT_ID_ASC20PT,                      /* font id                        */
@@ -5037,7 +5037,7 @@ GX_ICON_BUTTON_PROPERTIES MainUserScreen_Left_IconButton_properties =
 {
     GX_PIXELMAP_ID_LEFTWHITEARROW            /* pixelmap id                    */
 };
-GX_PROMPT_PROPERTIES MainUserScreen_LeftPad_SoundName_properties =
+GX_PROMPT_PROPERTIES MainUserScreen_LeftPad_Prompt_properties =
 {
     GX_STRING_ID_STRING_173,                 /* string id                      */
     GX_FONT_ID_ASC20PT,                      /* font id                        */
@@ -5049,7 +5049,7 @@ GX_ICON_BUTTON_PROPERTIES MainUserScreen_Right_IconButton_properties =
 {
     GX_PIXELMAP_ID_RIGHTWHITEARROW           /* pixelmap id                    */
 };
-GX_PROMPT_PROPERTIES MainUserScreen_RightPad_SoundName_properties =
+GX_PROMPT_PROPERTIES MainUserScreen_RightPad_Prompt_properties =
 {
     GX_STRING_ID_STRING_173,                 /* string id                      */
     GX_FONT_ID_ASC20PT,                      /* font id                        */
@@ -5061,7 +5061,7 @@ GX_ICON_BUTTON_PROPERTIES MainUserScreen_Reverse_IconButton_properties =
 {
     GX_PIXELMAP_ID_DOWNWHITEARROW            /* pixelmap id                    */
 };
-GX_PROMPT_PROPERTIES MainUserScreen_ReversePad_SoundName_properties =
+GX_PROMPT_PROPERTIES MainUserScreen_ReversePad_Prompt_properties =
 {
     GX_STRING_ID_STRING_173,                 /* string id                      */
     GX_FONT_ID_ASC20PT,                      /* font id                        */
@@ -5286,11 +5286,11 @@ GX_CONST GX_STUDIO_WIDGET MainUserScreen_Function1_IconButton_define =
     (void *) &MainUserScreen_Function1_IconButton_properties /* extended properties */
 };
 
-GX_CONST GX_STUDIO_WIDGET MainUserScreen_ForwardPad_SoundName_define =
+GX_CONST GX_STUDIO_WIDGET MainUserScreen_ForwardPad_Prompt_define =
 {
-    "ForwardPad_SoundName",
+    "ForwardPad_Prompt",
     GX_TYPE_PROMPT,                          /* widget type                    */
-    FORWARD_PAD_SOUND_NAME_ID,               /* widget id                      */
+    FORWARD_PAD_PROMPT_ID,                   /* widget id                      */
     #if defined(GX_WIDGET_USER_DATA)
     0,                                       /* user data                      */
     #endif
@@ -5306,15 +5306,15 @@ GX_CONST GX_STUDIO_WIDGET MainUserScreen_ForwardPad_SoundName_define =
     {154, 44, 233, 73},                      /* widget size                    */
     GX_NULL,                                 /* no next widget                 */
     GX_NULL,                                 /* no child widgets               */ 
-    offsetof(MAINUSERSCREEN_CONTROL_BLOCK, MainUserScreen_ForwardPad_SoundName), /* control block */
-    (void *) &MainUserScreen_ForwardPad_SoundName_properties /* extended properties */
+    offsetof(MAINUSERSCREEN_CONTROL_BLOCK, MainUserScreen_ForwardPad_Prompt), /* control block */
+    (void *) &MainUserScreen_ForwardPad_Prompt_properties /* extended properties */
 };
 
-GX_CONST GX_STUDIO_WIDGET MainUserScreen_LeftPad_SoundName_define =
+GX_CONST GX_STUDIO_WIDGET MainUserScreen_LeftPad_Prompt_define =
 {
-    "LeftPad_SoundName",
+    "LeftPad_Prompt",
     GX_TYPE_PROMPT,                          /* widget type                    */
-    LEFT_PAD_SOUND_NAME_ID,                  /* widget id                      */
+    LEFT_PAD_PROMPT_ID,                      /* widget id                      */
     #if defined(GX_WIDGET_USER_DATA)
     0,                                       /* user data                      */
     #endif
@@ -5330,15 +5330,15 @@ GX_CONST GX_STUDIO_WIDGET MainUserScreen_LeftPad_SoundName_define =
     {58, 117, 137, 152},                     /* widget size                    */
     GX_NULL,                                 /* no next widget                 */
     GX_NULL,                                 /* no child widgets               */ 
-    offsetof(MAINUSERSCREEN_CONTROL_BLOCK, MainUserScreen_LeftPad_SoundName), /* control block */
-    (void *) &MainUserScreen_LeftPad_SoundName_properties /* extended properties */
+    offsetof(MAINUSERSCREEN_CONTROL_BLOCK, MainUserScreen_LeftPad_Prompt), /* control block */
+    (void *) &MainUserScreen_LeftPad_Prompt_properties /* extended properties  */
 };
 
-GX_CONST GX_STUDIO_WIDGET MainUserScreen_RightPad_SoundName_define =
+GX_CONST GX_STUDIO_WIDGET MainUserScreen_RightPad_Prompt_define =
 {
-    "RightPad_SoundName",
+    "RightPad_Prompt",
     GX_TYPE_PROMPT,                          /* widget type                    */
-    RIGHT_PAD_SOUND_NAME_ID,                 /* widget id                      */
+    RIGHT_PAD_PROMPT_ID,                     /* widget id                      */
     #if defined(GX_WIDGET_USER_DATA)
     0,                                       /* user data                      */
     #endif
@@ -5354,15 +5354,15 @@ GX_CONST GX_STUDIO_WIDGET MainUserScreen_RightPad_SoundName_define =
     {248, 117, 327, 152},                    /* widget size                    */
     GX_NULL,                                 /* no next widget                 */
     GX_NULL,                                 /* no child widgets               */ 
-    offsetof(MAINUSERSCREEN_CONTROL_BLOCK, MainUserScreen_RightPad_SoundName), /* control block */
-    (void *) &MainUserScreen_RightPad_SoundName_properties /* extended properties */
+    offsetof(MAINUSERSCREEN_CONTROL_BLOCK, MainUserScreen_RightPad_Prompt), /* control block */
+    (void *) &MainUserScreen_RightPad_Prompt_properties /* extended properties */
 };
 
-GX_CONST GX_STUDIO_WIDGET MainUserScreen_ReversePad_SoundName_define =
+GX_CONST GX_STUDIO_WIDGET MainUserScreen_ReversePad_Prompt_define =
 {
-    "ReversePad_SoundName",
+    "ReversePad_Prompt",
     GX_TYPE_PROMPT,                          /* widget type                    */
-    REVERSE_PAD_SOUND_NAME_ID,               /* widget id                      */
+    REVERSE_PAD_PROMPT_ID,                   /* widget id                      */
     #if defined(GX_WIDGET_USER_DATA)
     0,                                       /* user data                      */
     #endif
@@ -5378,8 +5378,8 @@ GX_CONST GX_STUDIO_WIDGET MainUserScreen_ReversePad_SoundName_define =
     {154, 193, 233, 228},                    /* widget size                    */
     GX_NULL,                                 /* no next widget                 */
     GX_NULL,                                 /* no child widgets               */ 
-    offsetof(MAINUSERSCREEN_CONTROL_BLOCK, MainUserScreen_ReversePad_SoundName), /* control block */
-    (void *) &MainUserScreen_ReversePad_SoundName_properties /* extended properties */
+    offsetof(MAINUSERSCREEN_CONTROL_BLOCK, MainUserScreen_ReversePad_Prompt), /* control block */
+    (void *) &MainUserScreen_ReversePad_Prompt_properties /* extended properties */
 };
 
 GX_CONST GX_STUDIO_WIDGET MainUserScreen_Reverse_IconButton_define =
@@ -5401,7 +5401,7 @@ GX_CONST GX_STUDIO_WIDGET MainUserScreen_Reverse_IconButton_define =
     GX_NULL,                                 /* event function override        */
     {150, 176, 237, 245},                    /* widget size                    */
     GX_NULL,                                 /* no next widget                 */
-    &MainUserScreen_ReversePad_SoundName_define, /* child widget definition    */
+    &MainUserScreen_ReversePad_Prompt_define, /* child widget definition       */
     offsetof(MAINUSERSCREEN_CONTROL_BLOCK, MainUserScreen_Reverse_IconButton), /* control block */
     (void *) &MainUserScreen_Reverse_IconButton_properties /* extended properties */
 };
@@ -5425,7 +5425,7 @@ GX_CONST GX_STUDIO_WIDGET MainUserScreen_Right_IconButton_define =
     GX_NULL,                                 /* event function override        */
     {244, 100, 331, 169},                    /* widget size                    */
     &MainUserScreen_Reverse_IconButton_define, /* next widget definition       */
-    &MainUserScreen_RightPad_SoundName_define, /* child widget definition      */
+    &MainUserScreen_RightPad_Prompt_define,  /* child widget definition        */
     offsetof(MAINUSERSCREEN_CONTROL_BLOCK, MainUserScreen_Right_IconButton), /* control block */
     (void *) &MainUserScreen_Right_IconButton_properties /* extended properties */
 };
@@ -5449,7 +5449,7 @@ GX_CONST GX_STUDIO_WIDGET MainUserScreen_Left_IconButton_define =
     GX_NULL,                                 /* event function override        */
     {54, 100, 141, 169},                     /* widget size                    */
     &MainUserScreen_Right_IconButton_define, /* next widget definition         */
-    &MainUserScreen_LeftPad_SoundName_define, /* child widget definition       */
+    &MainUserScreen_LeftPad_Prompt_define,   /* child widget definition        */
     offsetof(MAINUSERSCREEN_CONTROL_BLOCK, MainUserScreen_Left_IconButton), /* control block */
     (void *) &MainUserScreen_Left_IconButton_properties /* extended properties */
 };
@@ -5473,7 +5473,7 @@ GX_CONST GX_STUDIO_WIDGET MainUserScreen_Forward_IconButton_define =
     GX_NULL,                                 /* event function override        */
     {150, 24, 237, 93},                      /* widget size                    */
     &MainUserScreen_Left_IconButton_define,  /* next widget definition         */
-    &MainUserScreen_ForwardPad_SoundName_define, /* child widget definition    */
+    &MainUserScreen_ForwardPad_Prompt_define, /* child widget definition       */
     offsetof(MAINUSERSCREEN_CONTROL_BLOCK, MainUserScreen_Forward_IconButton), /* control block */
     (void *) &MainUserScreen_Forward_IconButton_properties /* extended properties */
 };
@@ -7392,30 +7392,6 @@ GX_PROMPT_PROPERTIES MinimumDriveScreen_Prompt_ForEachPad_properties =
     GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
     GX_COLOR_ID_SELECTED_TEXT                /* disabled text color            */
 };
-GX_TEXT_BUTTON_PROPERTIES MinimumDriveScreen_ForwardPadPercentage_Button_properties =
-{
-    GX_STRING_ID_STRING_52,                  /* string id                      */
-    GX_FONT_ID_LARGESIZE,                    /* font id                        */
-    GX_COLOR_ID_SELECTED_TEXT,               /* normal text color              */
-    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
-    GX_COLOR_ID_DISABLED_TEXT                /* disabled text color            */
-};
-GX_TEXT_BUTTON_PROPERTIES MinimumDriveScreen_LeftPadPercentage_Button_properties =
-{
-    GX_STRING_ID_STRING_52,                  /* string id                      */
-    GX_FONT_ID_LARGESIZE,                    /* font id                        */
-    GX_COLOR_ID_SELECTED_TEXT,               /* normal text color              */
-    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
-    GX_COLOR_ID_DISABLED_TEXT                /* disabled text color            */
-};
-GX_TEXT_BUTTON_PROPERTIES MinimumDriveScreen_RightPadPercentage_Button_properties =
-{
-    GX_STRING_ID_STRING_52,                  /* string id                      */
-    GX_FONT_ID_LARGESIZE,                    /* font id                        */
-    GX_COLOR_ID_SELECTED_TEXT,               /* normal text color              */
-    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
-    GX_COLOR_ID_DISABLED_TEXT                /* disabled text color            */
-};
 GX_ICON_BUTTON_PROPERTIES MinimumDriveScreen_GroupIconButton_properties =
 {
     GX_PIXELMAP_ID_GROUPA_64X64              /* pixelmap id                    */
@@ -7425,37 +7401,245 @@ GX_ICON_PROPERTIES MinimumDriveScreen_DeviceType_icon_properties =
     GX_PIXELMAP_ID_DEVICETYPE_HEADARRAY_88X70, /* normal pixelmap id           */
     0                                        /* selected pixelmap id           */
 };
-GX_TEXT_BUTTON_PROPERTIES MinimumDriveScreen_ReversePadPercentage_Button_properties =
+GX_ICON_BUTTON_PROPERTIES MinimumDriveScreen_Forward_IconButton_properties =
 {
-    GX_STRING_ID_STRING_52,                  /* string id                      */
-    GX_FONT_ID_LARGESIZE,                    /* font id                        */
-    GX_COLOR_ID_SELECTED_TEXT,               /* normal text color              */
+    GX_PIXELMAP_ID_SPEEDOMETER_88X70         /* pixelmap id                    */
+};
+GX_PROMPT_PROPERTIES MinimumDriveScreen_ForwardPad_Prompt_properties =
+{
+    GX_STRING_ID_STRING_173,                 /* string id                      */
+    GX_FONT_ID_ASC24PT,                      /* font id                        */
+    GX_COLOR_ID_WHITE,                       /* normal text color              */
+    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
+    GX_COLOR_ID_DISABLED_TEXT                /* disabled text color            */
+};
+GX_ICON_BUTTON_PROPERTIES MinimumDriveScreen_Left_IconButton_properties =
+{
+    GX_PIXELMAP_ID_SPEEDOMETER_88X70         /* pixelmap id                    */
+};
+GX_PROMPT_PROPERTIES MinimumDriveScreen_LeftPad_Prompt_properties =
+{
+    GX_STRING_ID_STRING_173,                 /* string id                      */
+    GX_FONT_ID_ASC24PT,                      /* font id                        */
+    GX_COLOR_ID_WHITE,                       /* normal text color              */
+    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
+    GX_COLOR_ID_DISABLED_TEXT                /* disabled text color            */
+};
+GX_ICON_BUTTON_PROPERTIES MinimumDriveScreen_Reverse_IconButton_properties =
+{
+    GX_PIXELMAP_ID_SPEEDOMETER_88X70         /* pixelmap id                    */
+};
+GX_PROMPT_PROPERTIES MinimumDriveScreen_ReversePad_Prompt_properties =
+{
+    GX_STRING_ID_STRING_173,                 /* string id                      */
+    GX_FONT_ID_ASC24PT,                      /* font id                        */
+    GX_COLOR_ID_WHITE,                       /* normal text color              */
+    GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
+    GX_COLOR_ID_DISABLED_TEXT                /* disabled text color            */
+};
+GX_ICON_BUTTON_PROPERTIES MinimumDriveScreen_Right_IconButton_properties =
+{
+    GX_PIXELMAP_ID_SPEEDOMETER_88X70         /* pixelmap id                    */
+};
+GX_PROMPT_PROPERTIES MinimumDriveScreen_RightPad_Prompt_properties =
+{
+    GX_STRING_ID_STRING_173,                 /* string id                      */
+    GX_FONT_ID_ASC24PT,                      /* font id                        */
+    GX_COLOR_ID_WHITE,                       /* normal text color              */
     GX_COLOR_ID_SELECTED_TEXT,               /* selected text color            */
     GX_COLOR_ID_DISABLED_TEXT                /* disabled text color            */
 };
 
-GX_CONST GX_STUDIO_WIDGET MinimumDriveScreen_ReversePadPercentage_Button_define =
+GX_CONST GX_STUDIO_WIDGET MinimumDriveScreen_ForwardPad_Prompt_define =
 {
-    "ReversePadPercentage_Button",
-    GX_TYPE_TEXT_BUTTON,                     /* widget type                    */
-    REVERSE_PAD_PERCENTAGE_BTN_ID,           /* widget id                      */
+    "ForwardPad_Prompt",
+    GX_TYPE_PROMPT,                          /* widget type                    */
+    FORWARD_PAD_PROMPT_ID,                   /* widget id                      */
     #if defined(GX_WIDGET_USER_DATA)
     0,                                       /* user data                      */
     #endif
-    GX_STYLE_BORDER_RAISED|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
     0,                                       /* status flags                   */
-    sizeof(GX_TEXT_BUTTON),                  /* control block size             */
-    GX_COLOR_ID_TEXT,                        /* normal color id                */
-    GX_COLOR_ID_TEXT,                        /* selected color id              */
-    GX_COLOR_ID_TEXT,                        /* disabled color id              */
-    gx_studio_text_button_create,            /* create function                */
+    sizeof(GX_PROMPT),                       /* control block size             */
+    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_prompt_create,                 /* create function                */
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
-    {153, 49, 232, 112},                     /* widget size                    */
+    {154, 44, 233, 73},                      /* widget size                    */
     GX_NULL,                                 /* no next widget                 */
     GX_NULL,                                 /* no child widgets               */ 
-    offsetof(MINIMUMDRIVESCREEN_CONTROL_BLOCK, MinimumDriveScreen_ReversePadPercentage_Button), /* control block */
-    (void *) &MinimumDriveScreen_ReversePadPercentage_Button_properties /* extended properties */
+    offsetof(MINIMUMDRIVESCREEN_CONTROL_BLOCK, MinimumDriveScreen_ForwardPad_Prompt), /* control block */
+    (void *) &MinimumDriveScreen_ForwardPad_Prompt_properties /* extended properties */
+};
+
+GX_CONST GX_STUDIO_WIDGET MinimumDriveScreen_LeftPad_Prompt_define =
+{
+    "LeftPad_Prompt",
+    GX_TYPE_PROMPT,                          /* widget type                    */
+    LEFT_PAD_PROMPT_ID,                      /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    0,                                       /* status flags                   */
+    sizeof(GX_PROMPT),                       /* control block size             */
+    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_prompt_create,                 /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {65, 130, 144, 165},                     /* widget size                    */
+    GX_NULL,                                 /* no next widget                 */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(MINIMUMDRIVESCREEN_CONTROL_BLOCK, MinimumDriveScreen_LeftPad_Prompt), /* control block */
+    (void *) &MinimumDriveScreen_LeftPad_Prompt_properties /* extended properties */
+};
+
+GX_CONST GX_STUDIO_WIDGET MinimumDriveScreen_ReversePad_Prompt_define =
+{
+    "ReversePad_Prompt",
+    GX_TYPE_PROMPT,                          /* widget type                    */
+    REVERSE_PAD_PROMPT_ID,                   /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    0,                                       /* status flags                   */
+    sizeof(GX_PROMPT),                       /* control block size             */
+    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_prompt_create,                 /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {154, 193, 233, 228},                    /* widget size                    */
+    GX_NULL,                                 /* no next widget                 */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(MINIMUMDRIVESCREEN_CONTROL_BLOCK, MinimumDriveScreen_ReversePad_Prompt), /* control block */
+    (void *) &MinimumDriveScreen_ReversePad_Prompt_properties /* extended properties */
+};
+
+GX_CONST GX_STUDIO_WIDGET MinimumDriveScreen_RightPad_Prompt_define =
+{
+    "RightPad_Prompt",
+    GX_TYPE_PROMPT,                          /* widget type                    */
+    RIGHT_PAD_PROMPT_ID,                     /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
+    0,                                       /* status flags                   */
+    sizeof(GX_PROMPT),                       /* control block size             */
+    GX_COLOR_ID_WIDGET_FILL,                 /* normal color id                */
+    GX_COLOR_ID_SELECTED_FILL,               /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_prompt_create,                 /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {248, 117, 327, 152},                    /* widget size                    */
+    GX_NULL,                                 /* no next widget                 */
+    GX_NULL,                                 /* no child widgets               */ 
+    offsetof(MINIMUMDRIVESCREEN_CONTROL_BLOCK, MinimumDriveScreen_RightPad_Prompt), /* control block */
+    (void *) &MinimumDriveScreen_RightPad_Prompt_properties /* extended properties */
+};
+
+GX_CONST GX_STUDIO_WIDGET MinimumDriveScreen_Right_IconButton_define =
+{
+    "Right_IconButton",
+    GX_TYPE_ICON_BUTTON,                     /* widget type                    */
+    RIGHT_ICON_BTN_ID,                       /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_HALIGN_CENTER|GX_STYLE_VALIGN_CENTER,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_ICON_BUTTON),                  /* control block size             */
+    GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
+    GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_icon_button_create,            /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {244, 100, 331, 169},                    /* widget size                    */
+    GX_NULL,                                 /* no next widget                 */
+    &MinimumDriveScreen_RightPad_Prompt_define, /* child widget definition     */
+    offsetof(MINIMUMDRIVESCREEN_CONTROL_BLOCK, MinimumDriveScreen_Right_IconButton), /* control block */
+    (void *) &MinimumDriveScreen_Right_IconButton_properties /* extended properties */
+};
+
+GX_CONST GX_STUDIO_WIDGET MinimumDriveScreen_Reverse_IconButton_define =
+{
+    "Reverse_IconButton",
+    GX_TYPE_ICON_BUTTON,                     /* widget type                    */
+    REVERSE_ICON_BTN_ID,                     /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_HALIGN_CENTER|GX_STYLE_VALIGN_CENTER,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_ICON_BUTTON),                  /* control block size             */
+    GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
+    GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_icon_button_create,            /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {150, 176, 237, 245},                    /* widget size                    */
+    &MinimumDriveScreen_Right_IconButton_define, /* next widget definition     */
+    &MinimumDriveScreen_ReversePad_Prompt_define, /* child widget definition   */
+    offsetof(MINIMUMDRIVESCREEN_CONTROL_BLOCK, MinimumDriveScreen_Reverse_IconButton), /* control block */
+    (void *) &MinimumDriveScreen_Reverse_IconButton_properties /* extended properties */
+};
+
+GX_CONST GX_STUDIO_WIDGET MinimumDriveScreen_Left_IconButton_define =
+{
+    "Left_IconButton",
+    GX_TYPE_ICON_BUTTON,                     /* widget type                    */
+    LEFT_ICON_BTN_ID,                        /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_HALIGN_CENTER|GX_STYLE_VALIGN_CENTER,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_ICON_BUTTON),                  /* control block size             */
+    GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
+    GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_icon_button_create,            /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {54, 100, 141, 169},                     /* widget size                    */
+    &MinimumDriveScreen_Reverse_IconButton_define, /* next widget definition   */
+    &MinimumDriveScreen_LeftPad_Prompt_define, /* child widget definition      */
+    offsetof(MINIMUMDRIVESCREEN_CONTROL_BLOCK, MinimumDriveScreen_Left_IconButton), /* control block */
+    (void *) &MinimumDriveScreen_Left_IconButton_properties /* extended properties */
+};
+
+GX_CONST GX_STUDIO_WIDGET MinimumDriveScreen_Forward_IconButton_define =
+{
+    "Forward_IconButton",
+    GX_TYPE_ICON_BUTTON,                     /* widget type                    */
+    FORWARD_ICON_BTN_ID,                     /* widget id                      */
+    #if defined(GX_WIDGET_USER_DATA)
+    0,                                       /* user data                      */
+    #endif
+    GX_STYLE_BORDER_NONE|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_HALIGN_CENTER|GX_STYLE_VALIGN_CENTER,   /* style flags */
+    GX_STATUS_ACCEPTS_FOCUS,                 /* status flags                   */
+    sizeof(GX_ICON_BUTTON),                  /* control block size             */
+    GX_COLOR_ID_BTN_LOWER,                   /* normal color id                */
+    GX_COLOR_ID_BTN_UPPER,                   /* selected color id              */
+    GX_COLOR_ID_DISABLED_FILL,               /* disabled color id              */
+    gx_studio_icon_button_create,            /* create function                */
+    GX_NULL,                                 /* drawing function override      */
+    GX_NULL,                                 /* event function override        */
+    {150, 24, 237, 93},                      /* widget size                    */
+    &MinimumDriveScreen_Left_IconButton_define, /* next widget definition      */
+    &MinimumDriveScreen_ForwardPad_Prompt_define, /* child widget definition   */
+    offsetof(MINIMUMDRIVESCREEN_CONTROL_BLOCK, MinimumDriveScreen_Forward_IconButton), /* control block */
+    (void *) &MinimumDriveScreen_Forward_IconButton_properties /* extended properties */
 };
 
 GX_CONST GX_STUDIO_WIDGET MinimumDriveScreen_DeviceType_icon_define =
@@ -7475,8 +7659,8 @@ GX_CONST GX_STUDIO_WIDGET MinimumDriveScreen_DeviceType_icon_define =
     gx_studio_icon_create,                   /* create function                */
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
-    {154, 120, 241, 189},                    /* widget size                    */
-    &MinimumDriveScreen_ReversePadPercentage_Button_define, /* next widget definition */
+    {375, 100, 462, 169},                    /* widget size                    */
+    &MinimumDriveScreen_Forward_IconButton_define, /* next widget definition   */
     GX_NULL,                                 /* no child widgets               */ 
     offsetof(MINIMUMDRIVESCREEN_CONTROL_BLOCK, MinimumDriveScreen_DeviceType_icon), /* control block */
     (void *) &MinimumDriveScreen_DeviceType_icon_properties /* extended properties */
@@ -7506,78 +7690,6 @@ GX_CONST GX_STUDIO_WIDGET MinimumDriveScreen_GroupIconButton_define =
     (void *) &MinimumDriveScreen_GroupIconButton_properties /* extended properties */
 };
 
-GX_CONST GX_STUDIO_WIDGET MinimumDriveScreen_RightPadPercentage_Button_define =
-{
-    "RightPadPercentage_Button",
-    GX_TYPE_TEXT_BUTTON,                     /* widget type                    */
-    RIGHT_PAD_PERCENTAGE_BTN_ID,             /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_RAISED|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_TEXT_BUTTON),                  /* control block size             */
-    GX_COLOR_ID_TEXT,                        /* normal color id                */
-    GX_COLOR_ID_TEXT,                        /* selected color id              */
-    GX_COLOR_ID_TEXT,                        /* disabled color id              */
-    gx_studio_text_button_create,            /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {244, 90, 323, 153},                     /* widget size                    */
-    &MinimumDriveScreen_GroupIconButton_define, /* next widget definition      */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(MINIMUMDRIVESCREEN_CONTROL_BLOCK, MinimumDriveScreen_RightPadPercentage_Button), /* control block */
-    (void *) &MinimumDriveScreen_RightPadPercentage_Button_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET MinimumDriveScreen_LeftPadPercentage_Button_define =
-{
-    "LeftPadPercentage_Button",
-    GX_TYPE_TEXT_BUTTON,                     /* widget type                    */
-    LEFT_PAD_PERCENTAGE_BTN_ID,              /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_RAISED|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_TEXT_BUTTON),                  /* control block size             */
-    GX_COLOR_ID_TEXT,                        /* normal color id                */
-    GX_COLOR_ID_TEXT,                        /* selected color id              */
-    GX_COLOR_ID_TEXT,                        /* disabled color id              */
-    gx_studio_text_button_create,            /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {64, 90, 143, 153},                      /* widget size                    */
-    &MinimumDriveScreen_RightPadPercentage_Button_define, /* next widget definition */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(MINIMUMDRIVESCREEN_CONTROL_BLOCK, MinimumDriveScreen_LeftPadPercentage_Button), /* control block */
-    (void *) &MinimumDriveScreen_LeftPadPercentage_Button_properties /* extended properties */
-};
-
-GX_CONST GX_STUDIO_WIDGET MinimumDriveScreen_ForwardPadPercentage_Button_define =
-{
-    "ForwardPadPercentage_Button",
-    GX_TYPE_TEXT_BUTTON,                     /* widget type                    */
-    FORWARD_PAD_PERCENTAGE_BTN_ID,           /* widget id                      */
-    #if defined(GX_WIDGET_USER_DATA)
-    0,                                       /* user data                      */
-    #endif
-    GX_STYLE_BORDER_RAISED|GX_STYLE_TRANSPARENT|GX_STYLE_ENABLED|GX_STYLE_TEXT_CENTER,   /* style flags */
-    0,                                       /* status flags                   */
-    sizeof(GX_TEXT_BUTTON),                  /* control block size             */
-    GX_COLOR_ID_TEXT,                        /* normal color id                */
-    GX_COLOR_ID_TEXT,                        /* selected color id              */
-    GX_COLOR_ID_TEXT,                        /* disabled color id              */
-    gx_studio_text_button_create,            /* create function                */
-    GX_NULL,                                 /* drawing function override      */
-    GX_NULL,                                 /* event function override        */
-    {154, 160, 233, 223},                    /* widget size                    */
-    &MinimumDriveScreen_LeftPadPercentage_Button_define, /* next widget definition */
-    GX_NULL,                                 /* no child widgets               */ 
-    offsetof(MINIMUMDRIVESCREEN_CONTROL_BLOCK, MinimumDriveScreen_ForwardPadPercentage_Button), /* control block */
-    (void *) &MinimumDriveScreen_ForwardPadPercentage_Button_properties /* extended properties */
-};
-
 GX_CONST GX_STUDIO_WIDGET MinimumDriveScreen_Prompt_ForEachPad_define =
 {
     "Prompt_ForEachPad",
@@ -7596,7 +7708,7 @@ GX_CONST GX_STUDIO_WIDGET MinimumDriveScreen_Prompt_ForEachPad_define =
     GX_NULL,                                 /* drawing function override      */
     GX_NULL,                                 /* event function override        */
     {72, 26, 325, 53},                       /* widget size                    */
-    &MinimumDriveScreen_ForwardPadPercentage_Button_define, /* next widget definition */
+    &MinimumDriveScreen_GroupIconButton_define, /* next widget definition      */
     GX_NULL,                                 /* no child widgets               */ 
     offsetof(MINIMUMDRIVESCREEN_CONTROL_BLOCK, MinimumDriveScreen_Prompt_ForEachPad), /* control block */
     (void *) &MinimumDriveScreen_Prompt_ForEachPad_properties /* extended properties */

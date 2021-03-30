@@ -6,7 +6,7 @@
 /*  www.expresslogic.com.                                                      */
 /*                                                                             */
 /*  GUIX Studio Revision 5.4.2.9                                               */
-/*  Date (dd.mm.yyyy): 29. 3.2021   Time (hh:mm): 19:19                        */
+/*  Date (dd.mm.yyyy): 30. 3.2021   Time (hh:mm): 10:19                        */
 /*******************************************************************************/
 
 
@@ -113,37 +113,37 @@ extern   "C" {
 #define MAIN_USER_SCREEN_1_ID 89
 #define USER_PORT_ICON 90
 #define FORWARD_ICON_BTN_ID 91
-#define LEFT_ICON_BTN_ID 92
-#define RIGHT_ICON_BTN_ID 93
-#define REVERSE_ICON_BTN_ID 94
-#define FEATURE_SETTINGS_SCREEN_ID 95
-#define HH_START_SCREEN_ID 96
-#define FEATURE_VERTICAL_LIST 97
-#define MAIN_USER_SCREEN_3 98
-#define FIRST_ICON 99
-#define FIRST_PROMPT 100
-#define FOURTH_ICON 101
-#define FOURTH_PROMPT 102
-#define SECOND_ICON 103
-#define SECOND_PROMPT 104
-#define THIRD_ICON 105
-#define THIRD_PROMPT 106
-#define BOTH_ARROW_BTN_ID 107
-#define Fifth_ICON 108
-#define FIFTH_PROMPT 109
-#define RESET_SCREEN_FINISH_ID 110
-#define CONTINUE_BTN_ID 111
-#define PROMPT1_ID 112
-#define PROMPT2_ID 113
-#define PROMPT3_ID 114
-#define PROMPT4_ID 115
-#define MINIMUM_DRIVE_SCREEN_ID 116
-#define PROMPT_SET_MINIMUM_SPEED 117
-#define PROMPT_FOR_EACH_PAD 118
-#define FORWARD_PAD_PERCENTAGE_BTN_ID 119
-#define LEFT_PAD_PERCENTAGE_BTN_ID 120
-#define RIGHT_PAD_PERCENTAGE_BTN_ID 121
-#define REVERSE_PAD_PERCENTAGE_BTN_ID 122
+#define FORWARD_PAD_PROMPT_ID 92
+#define LEFT_ICON_BTN_ID 93
+#define LEFT_PAD_PROMPT_ID 94
+#define RIGHT_ICON_BTN_ID 95
+#define RIGHT_PAD_PROMPT_ID 96
+#define REVERSE_ICON_BTN_ID 97
+#define REVERSE_PAD_PROMPT_ID 98
+#define FEATURE_SETTINGS_SCREEN_ID 99
+#define HH_START_SCREEN_ID 100
+#define FEATURE_VERTICAL_LIST 101
+#define MAIN_USER_SCREEN_3 102
+#define FIRST_ICON 103
+#define FIRST_PROMPT 104
+#define FOURTH_ICON 105
+#define FOURTH_PROMPT 106
+#define SECOND_ICON 107
+#define SECOND_PROMPT 108
+#define THIRD_ICON 109
+#define THIRD_PROMPT 110
+#define BOTH_ARROW_BTN_ID 111
+#define Fifth_ICON 112
+#define FIFTH_PROMPT 113
+#define RESET_SCREEN_FINISH_ID 114
+#define CONTINUE_BTN_ID 115
+#define PROMPT1_ID 116
+#define PROMPT2_ID 117
+#define PROMPT3_ID 118
+#define PROMPT4_ID 119
+#define MINIMUM_DRIVE_SCREEN_ID 120
+#define PROMPT_SET_MINIMUM_SPEED 121
+#define PROMPT_FOR_EACH_PAD 122
 #define PERFORMANCE_SELECTION_SCREEN_ID 123
 #define VEER_ADJUST_BTN_ID 124
 #define RESET_SCREEN_ID 125
@@ -603,13 +603,13 @@ typedef struct MAINUSERSCREEN_CONTROL_BLOCK_STRUCT
     GX_ICON MainUserScreen_TargetOrangeIcon;
     GX_ICON MainUserScreen_UserPortIcon;
     GX_ICON_BUTTON MainUserScreen_Forward_IconButton;
-    GX_PROMPT MainUserScreen_ForwardPad_SoundName;
+    GX_PROMPT MainUserScreen_ForwardPad_Prompt;
     GX_ICON_BUTTON MainUserScreen_Left_IconButton;
-    GX_PROMPT MainUserScreen_LeftPad_SoundName;
+    GX_PROMPT MainUserScreen_LeftPad_Prompt;
     GX_ICON_BUTTON MainUserScreen_Right_IconButton;
-    GX_PROMPT MainUserScreen_RightPad_SoundName;
+    GX_PROMPT MainUserScreen_RightPad_Prompt;
     GX_ICON_BUTTON MainUserScreen_Reverse_IconButton;
-    GX_PROMPT MainUserScreen_ReversePad_SoundName;
+    GX_PROMPT MainUserScreen_ReversePad_Prompt;
 } MAINUSERSCREEN_CONTROL_BLOCK;
 
 typedef struct FEATURESETTINGSSCREEN_CONTROL_BLOCK_STRUCT
@@ -693,12 +693,16 @@ typedef struct MINIMUMDRIVESCREEN_CONTROL_BLOCK_STRUCT
     GX_TEXT_BUTTON MinimumDriveScreen_OK_Button;
     GX_PROMPT MinimumDriveScreen_Prompt_SetMinimumSpeed;
     GX_PROMPT MinimumDriveScreen_Prompt_ForEachPad;
-    GX_TEXT_BUTTON MinimumDriveScreen_ForwardPadPercentage_Button;
-    GX_TEXT_BUTTON MinimumDriveScreen_LeftPadPercentage_Button;
-    GX_TEXT_BUTTON MinimumDriveScreen_RightPadPercentage_Button;
     GX_ICON_BUTTON MinimumDriveScreen_GroupIconButton;
     GX_ICON MinimumDriveScreen_DeviceType_icon;
-    GX_TEXT_BUTTON MinimumDriveScreen_ReversePadPercentage_Button;
+    GX_ICON_BUTTON MinimumDriveScreen_Forward_IconButton;
+    GX_PROMPT MinimumDriveScreen_ForwardPad_Prompt;
+    GX_ICON_BUTTON MinimumDriveScreen_Left_IconButton;
+    GX_PROMPT MinimumDriveScreen_LeftPad_Prompt;
+    GX_ICON_BUTTON MinimumDriveScreen_Reverse_IconButton;
+    GX_PROMPT MinimumDriveScreen_ReversePad_Prompt;
+    GX_ICON_BUTTON MinimumDriveScreen_Right_IconButton;
+    GX_PROMPT MinimumDriveScreen_RightPad_Prompt;
 } MINIMUMDRIVESCREEN_CONTROL_BLOCK;
 
 typedef struct PERFORMANCESELECTIONSCREEN_CONTROL_BLOCK_STRUCT

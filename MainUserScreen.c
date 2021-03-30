@@ -245,15 +245,14 @@ VOID SetToNextGroupFeature (VOID)
 
 static VOID PositionPads (GX_BOOL showPrompt)
 {
-	//GX_RECTANGLE rectangle;
 	DEVICE_TYPE_ENUM thisDevice;
 
 	thisDevice = (DEVICE_TYPE_ENUM) dd_Get_USHORT (g_Group, DD_DEVICE_TYPE);
 
-	LocatePadPosition (LEFT_PAD, thisDevice, showPrompt, &MainUserScreen.MainUserScreen_Left_IconButton, &MainUserScreen.MainUserScreen_LeftPad_SoundName);
-	LocatePadPosition (RIGHT_PAD, thisDevice, showPrompt, &MainUserScreen.MainUserScreen_Right_IconButton, &MainUserScreen.MainUserScreen_RightPad_SoundName);
-	LocatePadPosition (FORWARD_PAD, thisDevice, showPrompt, &MainUserScreen.MainUserScreen_Forward_IconButton, &MainUserScreen.MainUserScreen_ForwardPad_SoundName);
-	LocatePadPosition (REVERSE_PAD, thisDevice, showPrompt, &MainUserScreen.MainUserScreen_Reverse_IconButton, &MainUserScreen.MainUserScreen_ReversePad_SoundName);
+	LocatePadPosition (LEFT_PAD, thisDevice, showPrompt, &MainUserScreen.MainUserScreen_Left_IconButton, &MainUserScreen.MainUserScreen_LeftPad_Prompt);
+	LocatePadPosition (RIGHT_PAD, thisDevice, showPrompt, &MainUserScreen.MainUserScreen_Right_IconButton, &MainUserScreen.MainUserScreen_RightPad_Prompt);
+	LocatePadPosition (FORWARD_PAD, thisDevice, showPrompt, &MainUserScreen.MainUserScreen_Forward_IconButton, &MainUserScreen.MainUserScreen_ForwardPad_Prompt);
+	LocatePadPosition (REVERSE_PAD, thisDevice, showPrompt, &MainUserScreen.MainUserScreen_Reverse_IconButton, &MainUserScreen.MainUserScreen_ReversePad_Prompt);
 
 	LocateDevicePosition (thisDevice, &MainUserScreen.MainUserScreen_FeatureIcon);
 }
@@ -313,24 +312,24 @@ VOID DisplayDrivingPads (VOID)
 //*****************************************************************************
 VOID HideAudioNames (VOID)
 {
-	gx_widget_hide ((GX_WIDGET*) &MainUserScreen.MainUserScreen_ForwardPad_SoundName);
-	gx_widget_hide ((GX_WIDGET*) &MainUserScreen.MainUserScreen_ReversePad_SoundName);
-	gx_widget_hide ((GX_WIDGET*) &MainUserScreen.MainUserScreen_LeftPad_SoundName);
-	gx_widget_hide ((GX_WIDGET*) &MainUserScreen.MainUserScreen_RightPad_SoundName);
+	gx_widget_hide ((GX_WIDGET*) &MainUserScreen.MainUserScreen_ForwardPad_Prompt);
+	gx_widget_hide ((GX_WIDGET*) &MainUserScreen.MainUserScreen_ReversePad_Prompt);
+	gx_widget_hide ((GX_WIDGET*) &MainUserScreen.MainUserScreen_LeftPad_Prompt);
+	gx_widget_hide ((GX_WIDGET*) &MainUserScreen.MainUserScreen_RightPad_Prompt);
 }
 
 // Need permanent storage for these strings as dictated by the GUIX prompt constraints.
-char g_SoundNames[MAX_PHYSICAL_PADS][SOUND_BITE_NAME_LENGTH];
+char g_Prompts[MAX_PHYSICAL_PADS][SOUND_BITE_NAME_LENGTH];
 
 VOID DisplayAudibleOutPads (VOID)
 {
 	USHORT activeSpeakerSubitem;
 	USHORT soundID;
 
-	gx_widget_show (&MainUserScreen.MainUserScreen_ForwardPad_SoundName);
-	gx_widget_show (&MainUserScreen.MainUserScreen_ReversePad_SoundName);
-	gx_widget_show (&MainUserScreen.MainUserScreen_LeftPad_SoundName);
-	gx_widget_show (&MainUserScreen.MainUserScreen_RightPad_SoundName);
+	gx_widget_show (&MainUserScreen.MainUserScreen_ForwardPad_Prompt);
+	gx_widget_show (&MainUserScreen.MainUserScreen_ReversePad_Prompt);
+	gx_widget_show (&MainUserScreen.MainUserScreen_LeftPad_Prompt);
+	gx_widget_show (&MainUserScreen.MainUserScreen_RightPad_Prompt);
 
 	// Get the Active Audio Level 1-8.
 	activeSpeakerSubitem = dd_GetSubItem_USHORT (g_Group, DD_ACTIVE_FEATURE_SUBITEM, AUDIBLE_OUT_FEATURE_ID);
@@ -339,34 +338,34 @@ VOID DisplayAudibleOutPads (VOID)
 	// Populate the forward pad with the Sound Bite Label
 	soundID = dd_GetSubItem_USHORT (MAX_GROUPS, DD_ACTIVE_SPEAKER_SUBITEM_FORWARD, activeSpeakerSubitem);
 	if (soundID < MAX_SOUND_BITES)
-		dd_GetString (0, DD_SOUNDBITE_NAME, soundID, g_SoundNames[FORWARD_PAD]);
+		dd_GetString (0, DD_SOUNDBITE_NAME, soundID, g_Prompts[FORWARD_PAD]);
 	else
-		strcpy_s (g_SoundNames[FORWARD_PAD], 8, "---");
-	gx_prompt_text_set ((GX_PROMPT*)&MainUserScreen.MainUserScreen_ForwardPad_SoundName, g_SoundNames[FORWARD_PAD]);
+		strcpy_s (g_Prompts[FORWARD_PAD], 8, "---");
+	gx_prompt_text_set ((GX_PROMPT*)&MainUserScreen.MainUserScreen_ForwardPad_Prompt, g_Prompts[FORWARD_PAD]);
 
 	// Populate the Reverse Pad
 	soundID = dd_GetSubItem_USHORT (MAX_GROUPS, DD_ACTIVE_SPEAKER_SUBITEM_REVERSE, activeSpeakerSubitem);
 	if (soundID < MAX_SOUND_BITES)
-		dd_GetString (0, DD_SOUNDBITE_NAME, soundID, g_SoundNames[REVERSE_PAD]);
+		dd_GetString (0, DD_SOUNDBITE_NAME, soundID, g_Prompts[REVERSE_PAD]);
 	else
-		strcpy_s (g_SoundNames[REVERSE_PAD], 8, "---");
-	gx_prompt_text_set ((GX_PROMPT*)&MainUserScreen.MainUserScreen_ReversePad_SoundName, g_SoundNames[REVERSE_PAD]);
+		strcpy_s (g_Prompts[REVERSE_PAD], 8, "---");
+	gx_prompt_text_set ((GX_PROMPT*)&MainUserScreen.MainUserScreen_ReversePad_Prompt, g_Prompts[REVERSE_PAD]);
 	
 	// Populate the Left Pad
 	soundID = dd_GetSubItem_USHORT (MAX_GROUPS, DD_ACTIVE_SPEAKER_SUBITEM_LEFT, activeSpeakerSubitem);
 	if (soundID < MAX_SOUND_BITES)
-		dd_GetString (0, DD_SOUNDBITE_NAME, soundID, g_SoundNames[LEFT_PAD]);
+		dd_GetString (0, DD_SOUNDBITE_NAME, soundID, g_Prompts[LEFT_PAD]);
 	else
-		strcpy_s (g_SoundNames[LEFT_PAD], 8, "---");
-	gx_prompt_text_set ((GX_PROMPT*)&MainUserScreen.MainUserScreen_LeftPad_SoundName, g_SoundNames[LEFT_PAD]);
+		strcpy_s (g_Prompts[LEFT_PAD], 8, "---");
+	gx_prompt_text_set ((GX_PROMPT*)&MainUserScreen.MainUserScreen_LeftPad_Prompt, g_Prompts[LEFT_PAD]);
 
 	// Populate the Rigt Pad
 	soundID = dd_GetSubItem_USHORT (MAX_GROUPS, DD_ACTIVE_SPEAKER_SUBITEM_RIGHT, activeSpeakerSubitem);
 	if (soundID < MAX_SOUND_BITES)
-		dd_GetString (0, DD_SOUNDBITE_NAME, soundID, g_SoundNames[RIGHT_PAD]);
+		dd_GetString (0, DD_SOUNDBITE_NAME, soundID, g_Prompts[RIGHT_PAD]);
 	else
-		strcpy_s (g_SoundNames[RIGHT_PAD], 8, "---");
-	gx_prompt_text_set ((GX_PROMPT*)&MainUserScreen.MainUserScreen_RightPad_SoundName, g_SoundNames[RIGHT_PAD]);
+		strcpy_s (g_Prompts[RIGHT_PAD], 8, "---");
+	gx_prompt_text_set ((GX_PROMPT*)&MainUserScreen.MainUserScreen_RightPad_Prompt, g_Prompts[RIGHT_PAD]);
 
 	SetPadFeaturesIDs (TRUE, GX_PIXELMAP_ID_SPEAKER_88X70, GX_PIXELMAP_ID_SPEAKER_88X70, GX_PIXELMAP_ID_SPEAKER_88X70, GX_PIXELMAP_ID_SPEAKER_88X70);
 }
